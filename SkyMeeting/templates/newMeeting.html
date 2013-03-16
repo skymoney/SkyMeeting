@@ -1,0 +1,471 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>SkyMeeting</title>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <!-- <link href="assets/css/bootstrap-responsive.css" rel="stylesheet"> -->
+    <!-- Bootstrap -->
+    <link href="../public/css/bootstrap.min.css" rel="stylesheet" media="screen">
+
+    <!-- others -->
+    <link href="../public/css/uniform.default.css" rel="stylesheet">
+    <link href="../public/css/jquery-ui-1.10.1.css" rel="stylesheet">
+
+    <style type="text/css">
+    .ui-datepicker{
+    	font-size: 12px;
+    	line-height: 13px;
+    }
+    .date-input[readonly]{
+    	cursor: pointer;
+		background-color: white;
+    }
+    .ke-container{
+    	/*没用 要延迟加载*/
+    	margin: 10px 0px; 
+    }
+    .fulltext-input{
+    	width: 700px;
+    	height: 300px;
+    	visibility: hidden;
+    }
+
+    /*common*/
+	.form-block{
+		margin-bottom: 10px;
+	}
+	.form-block-header{
+		border-bottom: 1px dashed #ccc;
+	}
+	.form-block-content{
+		padding-top: 20px;
+		padding-bottom: 10px;
+	}
+	.inline-error{
+		display: inline-block;
+	}
+	/*patch*/
+	.alert{
+		margin-bottom: 0;
+	}
+	.help-block, help-inline{
+		color: #999;
+	}
+	.checkbox{
+		padding-left: 0;
+	}
+	.checkbox.inline{
+		margin-right: 15px;
+	}
+
+	.box{
+		border: 1px solid #DEDEDE;
+		border-radius:3px;
+		-webkit-border-radius:3px;
+		-moz-border-radius:3px;
+		margin-top: 10px; 
+		margin-bottom: 10px ;
+		box-shadow: 0 0 10px rgba(189, 189, 189, 0.4);
+		-webkit-box-shadow: 0 0 10px rgba(189, 189, 189, 0.4);
+		-moz-box-shadow: 0 0 10px rgba(189, 189, 189, 0.4);
+	}
+	.box-header{
+		border:none;
+		padding-top:5px;
+		border-bottom: 1px solid #DEDEDE;
+		border-radius:3px 3px 0 0;
+		-webkit-border-radius:3px 3px 0 0;
+		-moz-border-radius:3px 3px 0 0;
+		height:12px;
+		min-height:12px;
+		margin-bottom: 0;
+		/*cursor:move;*/
+		font-weight:bold;
+		font-size:16px;
+		background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(0,0,0,0.1) 100%);
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(100%,rgba(0,0,0,0.1)));
+		background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(0,0,0,0.1) 100%);
+		background: -o-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(0,0,0,0.1) 100%);
+		background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(0,0,0,0.1) 100%);
+		background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(0,0,0,0.1) 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#1a000000',GradientType=0 );
+	}
+	.box-header h2{
+		font-size:15px;
+		width:auto;
+		clear:none;
+		float:left;
+		line-height:25px;
+	}
+	.box-header h3{
+		font-size:13px;
+		width:auto;
+		clear:none;
+		float:left;
+		line-height:25px;
+	}
+	.box-header h2 > i{
+		margin-top:1px;
+	}
+	.box-icon{
+		float:right;
+	}
+	.box-icon a{
+		clear:none;
+		float:left;
+		margin:0 2px;
+		height: 18px;
+		width:5px;
+		margin-top: -1px;
+	}
+	.box-icon a i{
+		margin-left:-4.5px;
+	}
+	.box-content{
+		padding:10px;
+	}
+    </style>
+  </head>
+  <body>
+	<iframe src="navigation.html" style="width:100%; height:65px; border:0;"></iframe>
+	<div class="container">
+		<h3>New Meeting</h3>
+		<!-- <div class="row-fluid">
+			<div class="box span12">
+				<div class="box-header well">
+					<h4>Basic info</h4>
+				</div>
+				<div class="box-content">
+					dfadsff<br/><br/>dfadsff<br/><br/>dfdfd
+				</div>
+			</div>			
+		</div> -->
+		<form class="form-horizontal" action="" method="post">
+
+			<!-- Basic info block -->
+			<div class="row-fluid form-block">
+				<div class="form-block-header">
+					<h4>Basic Info</h4>
+				</div>
+				<div class="form-block-content">
+					<div class="control-group">
+						<label class="control-label" for="inputTitle">Title</label>
+						<div class="controls">
+							<input type="text" id="inputTitle" placeholder="Title" />
+							<!-- error prompt -->
+							<div class="alert alert-error inline-error hide" id="inputTitleError">
+								Please input meeting title.
+							</div>
+							<!-- help hint -->
+							<span class="help-block">Should be less than 100 characters.</span>
+							<!-- <span class="help-inline hide" id="inputTitleError">Please input meeting title.</span> -->
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="inputType">Meeting type</label>
+						<div class="controls">
+							<select id="inputType">
+								<option value="-1">---- Please select ----</option>
+								<option value="1">Board meeting</option>
+								<option value="2">Formal meeting</option>
+								<option value="3">Informal meeting</option>
+							</select>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="inputDate">Time</label>
+						<div class="controls">
+							<input type="text" class="date-input" id="inputDate" readonly="readonly" />
+						</div>
+						<!-- time picker??? -->
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="inputPlace">Place</label>
+						<div class="controls">
+							<input type="text" id="inputPlace" placeholder="Place" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="inputContactTel">Contact tel</label>
+						<div class="controls">
+							<input type="text" id="inputContactTel" placeholder="Contact tel" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="inputContactMail">Contact mail</label>
+						<div class="controls">
+							<input type="text" id="inputContactMail" placeholder="Contact mail" />
+						</div>
+					</div>
+
+
+
+					<!-- any more??? -->
+					<!-- test checkbox -->
+					<div class="control-group">
+						<label class="control-label">Additional check</label>
+						<div class="controls">
+							<label class="checkbox inline">
+								<div class="checker" id="uniform-exCheck1">
+									<span>
+										<input type="checkbox" id="checkbox1" value="1" />
+									</span>
+								</div>
+								Option 1
+							</label>
+							<label class="checkbox inline">
+								<div class="checker" id="uniform-exCheck2">
+									<span>
+										<input type="checkbox" id="checkbox2" value="2" />
+									</span>
+								</div>
+								Option 2
+							</label>
+							<label class="checkbox inline">
+								<div class="checker" id="uniform-exCheck3">
+									<span>
+										<input type="checkbox" id="checkbox3" value="3" />
+									</span>
+								</div>
+								Option 3
+							</label>
+						</div>
+					</div>
+					<!-- test radio -->
+					<div class="control-group">
+						<label class="control-label">Additional radio</label>
+						<div class="controls">
+							<label class="radio">
+								<div class="radio" id="uniform-exRadio1">
+									<span class="checked">
+										<input type="radio" id="radio1" value="1" checked="checked" />
+									</span>
+								</div>
+								Option one is this and that-be sure to include why it's great
+							</label>
+							<!-- add clearfix if not want to be inline-block -->
+							<div class="clearfix"></div>
+							<label class="radio">
+								<div class="radio" id="uniform-exRadio2">
+									<span>
+										<input type="radio" id="radio2" value="2" />
+									</span>
+								</div>
+								Option two can be something else and selecting it will deselect option one
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+			<!-- Detail info block -->
+			<div class="row-fluid form-block">
+				<div class="form-block-header">
+					<h4>Detail Info</h4>
+				</div>
+				<div class="form-block-content">
+					<textarea class="fulltext-input" id="inputDetail"></textarea>
+
+					<p>富文本编辑器 or 格式化树形结构编辑框???</p>
+					<!-- 格式化树形结构编辑框??? -->
+				</div>
+			</div>
+
+
+
+
+
+			<!-- Participant block -->
+			<div class="row-fluid form-block">
+				<div class="form-block-header">
+					<h4>Participants</h4>
+				</div>
+				<div class="form-block-content">
+					<div class="row-fluid">
+						<!-- 已选列表 -->
+						<p>none</p>
+					</div>
+					<div clas="row-fluid">
+						<a href="#participantModal" data-toggle="modal">&plus;&nbsp;Add participant</a>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+			<!-- Attachment block -->
+			<div class="row-fluid form-block">
+				<div class="form-block-header">
+					<h4>Attachments</h4>
+				</div>
+				<div class="form-block-content">
+					<div class="row-fluid">
+						<!-- 已添加列表 -->
+						<p>none</p>
+					</div>
+					<div clas="row-fluid">
+						<a href="#attachmentModal" data-toggle="modal">&plus;&nbsp;Add attachment</a>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+			<!-- Voting block -->
+			<div class="row-fluid form-block">
+				<div class="form-block-header">
+					<h4>Voting</h4>
+				</div>
+				<div class="form-block-content">
+					<div clas="row-fluid">
+						<a href="#" data-toggle="modal">Customization</a>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+			<!-- Actions block -->
+			<div class="form-actions">
+		        <input type="button" class="btn btn-primary" id="formOkBtn" value="Save changes" />
+		        <input type="button" class="btn" id="formCancelBtn" value="Cancel" />
+  			</div>
+		</form>
+	</div>
+
+
+
+
+
+	<!-- Popup Modal -->
+	<div class="modal hide fade" id="participantModal" role="dialog" aria-labelledby="participantModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<!-- <input type="button" class="close" data-dismiss="modal" aria-hidden="true" value="x" /> -->
+			<a href="#" class="close" role="button" data-dismiss="modal" aria-hidden="true">x</a>
+			<h3 id="participantModalLabel">Participants</h3>
+		</div>
+		<div class="modal-body">
+			<p>按部门 按标签 分组</p>
+		</div>
+		<div class="modal-footer">
+			<input type="button" class="btn btn-primary" id="participantModalOkBtn" value="Save changes" />
+			<input type="button" class="btn" data-dismiss="modal" aria-hidden="true" value="Cancel" />
+		</div>
+	</div>
+
+
+
+	<div class="modal hide fade" id="attachmentModal" role="dialog" aria-labelledby="attachmentModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<!-- <input type="button" class="close" data-dismiss="modal" aria-hidden="true" value="x" /> -->
+			<a href="#" class="close" role="button" data-dismiss="modal" aria-hidden="true">x</a>
+			<h3 id="attachmentModalLabel">Attachments</h3>
+		</div>
+		<div class="modal-body">
+			<p>文件选择器 可见性</p>
+		</div>
+		<div class="modal-footer">
+			<input type="button" class="btn btn-primary" id="attachmentModalOkBtn" value="Save changes" />
+			<input type="button" class="btn" data-dismiss="modal" aria-hidden="true" value="Cancel" />
+		</div>
+	</div>
+	
+	
+
+
+
+	<!-- <script src="http://code.jquery.com/jquery.min.js"></script> -->
+	<script src="../public/js/jquery-1.9.1.min.js"></script>
+	<script src="../public/js/bootstrap.min.js"></script>
+
+	<!-- lib for datepicker -->
+	<script src="../public/js/jquery-ui-1.10.1.min.js"></script>
+	<script src="../public/js/jquery.ui.datepicker-zh-CN.js"></script>
+
+	<!-- lib for kindeditor -->
+	<script src="../public/js/kindeditor-4.0.5/kindeditor-min.js"></script>
+	<script src="../public/js/kindeditor-4.0.5/lang/zh_CN.js"></script>
+	
+	<!-- <script src="../public/js/jquery.uniform.min.js"></script> -->
+	<script src="../public/js/uniform.default.js"></script>
+
+	<!-- 初始化js -->
+	<script type="text/javascript">
+	$(function() {
+		// init datepicker
+	    $("#inputDate").datepicker({
+	    	showMonthAfterYear: true,
+	        // changeMonth: true, 
+	        // changeYear: true, 
+			minDate: '-2y', maxDate: '+2y', 
+			dateFormat: 'yy-mm-dd'
+	    });
+
+	    // init KindEditor
+	    var editor;
+		KindEditor.ready(function(K) {
+			editor = K.create('textarea[id="inputDetail"]', {
+				resizeType : 1,
+				allowPreviewEmoticons : false,
+				allowImageUpload : false,
+				items : [
+					'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+					'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+					'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+			});
+		});
+
+	    // 有问题???阻止点击背景关闭
+	    $("#participantModal").on("show", function(){
+	    	// alert("a");
+	    	$(".modal-backdrop fade in").unbind("click");
+	    });
+	   
+	});
+	</script>
+	
+
+
+	<!-- 事件绑定js -->
+	<script type="text/javascript">
+	$(function() {
+
+
+	});
+	</script>
+
+
+
+	<!-- 表单验证js -->
+	<script type="text/javascript">
+		// var targetContent = $("iframe").contents().find("body").html();
+		// document.getElementById('inputDetail').value = targetContent;
+		// alert("长度:" + document.getElementById('inputDetail').value.length);
+
+	$(function() {
+
+		$("#formOkBtn").click(function(){
+			
+			$("#inputTitle").parents(".control-group").addClass("error");
+			$("#inputTitle").focus();
+			$("#inputTitleError").removeClass("hide");
+
+
+		});
+		
+	});
+	</script>
+	
+  </body>
+</html>
