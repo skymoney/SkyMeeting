@@ -18,4 +18,7 @@ urlpatterns = patterns('',
     url(r'^$','Login.views.welcome'),
     url(r'^login/$','Login.views.login'),
     url(r'^meetlist/$','Login.views.memlist'),
+    url(r'^members/$','MemManage.views.member'),
+    url(r'^meeting/$','Meeting.views.meeting'),
+    url(r'^newmeeting/$','Meeting.views.newMeeting'),
 )
