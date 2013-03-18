@@ -1,13 +1,9 @@
-﻿<!DOCTYPE html>
-<html>
-  <head>
-    <title>SkyMeeting</title>
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-    <!-- <link href="assets/css/bootstrap-responsive.css" rel="stylesheet"> -->
-    <!-- Bootstrap -->
-    <link href="../public/css/bootstrap.min.css" rel="stylesheet" media="screen">
+﻿{% extends 'base.html'%}
 
-    <style type="text/css">
+{%block title%}SkyMeeting{%endblock%}
+
+{%block cssfile%}
+<style type="text/css">
     /*override bootstrap css*/
     /*.dl-horizontal dt, .dl-horizontal dd{
     	margin-top: 12px;
@@ -173,470 +169,470 @@
 	#inputComment{
 		width: 562px;
 	}
-
 	/* comment END */
-    </style>
-  </head>
-  <body>
-	<iframe src="navigation.html" style="width:100%; height:65px; border:0;"></iframe>
-	<div class="container">
+</style>
+{%endblock%}
 
-		<!-- Meeting title -->
-		<div class="row-fluid align-center">
-			<div id="meetingTitle">
-				<h3>XXX Board Meeting 2013</h3>
-			</div>
-			<div id="meetingSubTitle">
-				<span class="time">2013-03-30 15:00</span>
-				<span class="place">Online</span>
-			</div>
+{%block content%}
+<div class="container">
+
+	<!-- Meeting title -->
+	<div class="row-fluid align-center">
+		<div id="meetingTitle">
+			<h3>XXX Board Meeting 2013</h3>
 		</div>
-
-
-
-
-
-		<!-- Basic info block -->
-		<div class="row-fluid meeting-block">
-			<div class="meeting-block-header">
-				<h4>Basic info</h4>
-			</div>
-			<div class="meeting-block-content">
-				<dl class="dl-horizontal">
-					<dt id="imageDt">organizer</dt>
-				  	<dd id="imageDd">
-						<span><img class="" src="../public/img/head_64x64.png" /></span>
-						<span>Jia Liu</span>
-					</dd>
-				  	<dt>Meeting type</dt>
-				  	<dd>Board meeting</dd>
-				  	<dt>Contact tel</dt>
-				  	<dd>15298387338</dd>
-				  	<dt>Contact mail</dt>
-				  	<dd>danislyn@gmail.com</dd>
-				  	<dt>Additional info</dt>
-				  	<dd>important important important important important important important important important important important important important important important important important important important important important important important important important important important important important important important important </dd>
-				</dl>
-			</div>
+		<div id="meetingSubTitle">
+			<span class="time">2013-03-30 15:00</span>
+			<span class="place">Online</span>
 		</div>
-
-
-
-
-
-		<!-- Detail info block -->
-		<div class="row-fluid meeting-block">
-			<div class="meeting-block-header">
-				<h4>Detail info</h4>
-			</div>
-			<div class="meeting-block-content">
-				<p style="padding:0px 16px;">Abstract Tag recommendation encourages users to add more tags in bridging the semantic gap between human concept  the features of media object, which provides a feasible solution for content-based multimedia information retrieval. In this paper, we study personalized tag recommendation in a popular online photo sharing site | Flickr. Social relationship information of users is collected to generate an online social network. From the perspective of network topology, we propose node topological potential to characterize user's social in°uence. With this metric, we distinguish di®erent social relations between users and ¯nd out those who really have in°uence on the target users. Tag recommendations are based on tagging history and the latent personalized preference learned from those who have most in°uence in user's social network. We evaluate our method on large scale real-world data. The experimental results demonstrate that our method can outperform the non-personalized global co-occurrence method and other two state-of-the-art personalized approaches using social networks. We also analyze the further usage of our approach for the cold-start problem of tag recommendation.<br/>
-				Keywords recommendation system, social tagging, personalization, social network, Flickr</p>
-				<!-- 富文本html or 格式化树状文本??? -->
-			</div>
-		</div>
-
-
-
-
-
-		<!-- Participant block -->
-		<div class="row-fluid">
-			<div class="meeting-block-header">
-				<h4>Participants</h4>
-			</div>
-			<div class="meeting-block-content">
-				<ul class="thumbnails" id="personList">
-					<li class="">
-						<div class="thumbnail">
-							<img class="person-head" src="../public/img/man1_64x64.png" />
-							<div class="caption">
-								<div class="person-name">Jia Liu</div>
-								<div class="person-position">Boss</div>
-							</div>
-						</div>
-					</li>
-					<li class="">
-						<div class="thumbnail">
-							<img class="person-head" src="../public/img/man3_64x64.png" />
-							<div class="caption">
-								<div class="person-name">Jia Liu</div>
-								<div class="person-position">Manager Assistant</div>
-							</div>
-						</div>
-					</li>
-					<li class="">
-						<div class="thumbnail">
-							<img class="person-head" src="../public/img/man4_64x64.png" />
-							<div class="caption">
-								<div class="person-name">Jia Liu</div>
-								<div class="person-position">Engineer</div>
-							</div>
-						</div>
-					</li>
-					<!-- the same -->
-					<li class="">
-						<div class="thumbnail">
-							<img class="person-head" src="../public/img/man3_64x64.png" />
-							<div class="caption">
-								<div class="person-name">Jia Liu</div>
-								<div class="person-position">Manager Assistant</div>
-							</div>
-						</div>
-					</li>
-					<li class="">
-						<div class="thumbnail">
-							<img class="person-head" src="../public/img/man4_64x64.png" />
-							<div class="caption">
-								<div class="person-name">Jia Liu</div>
-								<div class="person-position">Engineer</div>
-							</div>
-						</div>
-					</li>
-					<li class="">
-						<div class="thumbnail">
-							<img class="person-head" src="../public/img/man3_64x64.png" />
-							<div class="caption">
-								<div class="person-name">Jia Liu</div>
-								<div class="person-position">Manager Assistant</div>
-							</div>
-						</div>
-					</li>
-					<li class="">
-						<div class="thumbnail">
-							<img class="person-head" src="../public/img/man4_64x64.png" />
-							<div class="caption">
-								<div class="person-name">Jia Liu</div>
-								<div class="person-position">Engineer</div>
-							</div>
-						</div>
-					</li>
-					<li class="">
-						<div class="thumbnail">
-							<img class="person-head" src="../public/img/man3_64x64.png" />
-							<div class="caption">
-								<div class="person-name">Jia Liu</div>
-								<div class="person-position">Manager Assistant</div>
-							</div>
-						</div>
-					</li>
-					<li class="">
-						<div class="thumbnail">
-							<img class="person-head" src="../public/img/man4_64x64.png" />
-							<div class="caption">
-								<div class="person-name">Jia Liu</div>
-								<div class="person-position">Engineer</div>
-							</div>
-						</div>
-					</li>
-					<li class="">
-						<div class="thumbnail">
-							<img class="person-head" src="../public/img/man3_64x64.png" />
-							<div class="caption">
-								<div class="person-name">Jia Liu</div>
-								<div class="person-position">Manager Assistant</div>
-							</div>
-						</div>
-					</li>
-					<li class="">
-						<div class="thumbnail">
-							<img class="person-head" src="../public/img/man4_64x64.png" />
-							<div class="caption">
-								<div class="person-name">Jia Liu</div>
-								<div class="person-position">Engineer</div>
-							</div>
-						</div>
-					</li>
-					<li class="">
-						<div class="thumbnail">
-							<img class="person-head" src="../public/img/man3_64x64.png" />
-							<div class="caption">
-								<div class="person-name">Jia Liu</div>
-								<div class="person-position">Manager Assistant</div>
-							</div>
-						</div>
-					</li>
-					<li class="">
-						<div class="thumbnail">
-							<img class="person-head" src="../public/img/man4_64x64.png" />
-							<div class="caption">
-								<div class="person-name">Jia Liu</div>
-								<div class="person-position">Engineer</div>
-							</div>
-						</div>
-					</li>
-					<!-- the same ends -->
-				</ul>
-			</div>
-		</div>
-
-
-
-
-
-		<!-- Attachment block -->
-		<div class="row-fluid">
-			<div class="meeting-block-header">
-				<h4>Attachments</h4>
-			</div>
-			<div class="meeting-block-content">
-				<ul class="thumbnails" id="fileList">
-					<li class="">
-						<div class="thumbnail">
-							<a href="#" class="image-link">
-								<img class="file-image" src="../public/img/file_pdf_48x48.png" />
-							</a>
-							<a href="#" class="default-link">
-								<div class="file-name">important file1.pdf</div>
-							</a>
-						</div>
-					</li>
-					<li class="">
-						<div class="thumbnail">
-							<a href="#" class="image-link">
-								<img class="file-image" src="../public/img/file_doc_48x48.png" />
-							</a>
-							<a href="#" class="default-link">
-								<div class="file-name">important important important important important file2.doc</div>
-							</a>
-						</div>
-					</li>
-					<li class="">
-						<div class="thumbnail">
-							<a href="#" class="image-link">
-								<img class="file-image" src="../public/img/file_pic_48x48.png" />
-							</a>
-							<a href="#" class="default-link">
-								<div class="file-name">important important file3.jpg</div>
-							</a>
-						</div>
-					</li>
-					<!-- the same -->
-					<li class="">
-						<div class="thumbnail">
-							<a href="#" class="image-link">
-								<img class="file-image" src="../public/img/file_doc_48x48.png" />
-							</a>
-							<a href="#" class="default-link">
-								<div class="file-name">important important important important important file2.doc</div>
-							</a>
-						</div>
-					</li>
-					<li class="">
-						<div class="thumbnail">
-							<a href="#" class="image-link">
-								<img class="file-image" src="../public/img/file_pic_48x48.png" />
-							</a>
-							<a href="#" class="default-link">
-								<div class="file-name">important important file3.jpg</div>
-							</a>
-						</div>
-					</li>
-					<li class="">
-						<div class="thumbnail">
-							<a href="#" class="image-link">
-								<img class="file-image" src="../public/img/file_doc_48x48.png" />
-							</a>
-							<a href="#" class="default-link">
-								<div class="file-name">important important important important important file2.doc</div>
-							</a>
-						</div>
-					</li>
-					<li class="">
-						<div class="thumbnail">
-							<a href="#" class="image-link">
-								<img class="file-image" src="../public/img/file_pic_48x48.png" />
-							</a>
-							<a href="#" class="default-link">
-								<div class="file-name">important important file3.jpg</div>
-							</a>
-						</div>
-					</li>
-					<!-- the same ends -->
-				</ul>
-			</div>
-		</div>
-
-
-
-
-
-		<!-- Comment block -->
-		<div class="row-fluid">
-			<div class="meeting-block-header">
-				<h4>Comments</h4>
-			</div>
-			<div class="meeting-block-content">
-				<div id="commentListDiv">
-					<!-- comments START -->
-					<ol id="commentList">
-						<li class="comment regularcomment" id="comment-308296">
-							<div class="author">
-								<div class="pic">
-									<img src='../public/img/head2_48x48.png' class='img-polaroid' />
-								</div>
-								<div class="name">
-									<a href="#" id="commentauthor-308296" class="url">
-										Danis Lu
-									</a>
-								</div>
-							</div>
-							<div class="info">
-								<div class="date">
-									2013年3月11日09:06
-									&nbsp;|&nbsp;
-									<a href="#">#1</a>
-								</div>
-								<div class="act">
-									<a href="#">回复</a>
-									&nbsp;|&nbsp;
-									<a href="#">引用</a>
-								</div>
-								<div class="clearfix"></div>
-								<div class="content">
-									<div id="commentbody-308296">
-										<p>@左耳朵耗子，你好，读了你的这篇文章，说出了很多我心里的话，有很多感触。可否授权我在我的博客上转载一下？</p>
-									</div>
-								</div>
-							</div>
-							<div class="clearfix"></div>
-						</li>
-						<li class="comment regularcomment" id="comment-308296">
-							<div class="author">
-								<div class="pic">
-									<img src='../public/img/head2_48x48.png' class='img-polaroid' />
-								</div>
-								<div class="name">
-									<a href="#" id="commentauthor-308296" class="url">
-										Danis LuLuLuLu Yining
-									</a>
-								</div>
-							</div>
-							<div class="info">
-								<div class="date">
-									2013年3月11日09:06
-									&nbsp;|&nbsp;
-									<a href="#">#2</a>
-								</div>
-								<div class="act">
-									<a href="#">回复</a>
-									&nbsp;|&nbsp;
-									<a href="#">引用</a>
-								</div>
-								<div class="clearfix"></div>
-								<div class="content">
-									<div id="commentbody-308296">
-										<p>你好，读了你的这篇文章，说出了很多我心里的话，有很多感触。可否授权我在我的博客上转载一下？@左耳朵耗子，你好，读了你的这篇文章，说出了很多我心里的话，有很多感触。可否授权我在我的博客上转载一下？</p>
-									</div>
-								</div>
-							</div>
-							<div class="clearfix"></div>
-						</li>
-						<!-- the same -->
-						<li class="comment regularcomment" id="comment-308296">
-							<div class="author">
-								<div class="pic">
-									<img src='../public/img/head2_48x48.png' class='img-polaroid' />
-								</div>
-								<div class="name">
-									<a href="#" id="commentauthor-308296" class="url">
-										Danis Lu
-									</a>
-								</div>
-							</div>
-							<div class="info">
-								<div class="date">
-									2013年3月11日09:06
-									&nbsp;|&nbsp;
-									<a href="#">#3</a>
-								</div>
-								<div class="act">
-									<a href="#">回复</a>
-									&nbsp;|&nbsp;
-									<a href="#">引用</a>
-								</div>
-								<div class="clearfix"></div>
-								<div class="content">
-									<div id="commentbody-308296">
-										<p>@左耳朵耗子，你好，读了你的这篇文章，说出了很多我心里的话，有很多感触。可否授权我在我的博客上转载一下？</p>
-									</div>
-								</div>
-							</div>
-							<div class="clearfix"></div>
-						</li>
-						<li class="comment regularcomment" id="comment-308296">
-							<div class="author">
-								<div class="pic">
-									<img src='../public/img/head2_48x48.png' class='img-polaroid' />
-								</div>
-								<div class="name">
-									<a href="#" id="commentauthor-308296" class="url">
-										Danis LuLuLuLu Yining
-									</a>
-								</div>
-							</div>
-							<div class="info">
-								<div class="date">
-									2013年3月11日09:06
-									&nbsp;|&nbsp;
-									<a href="#">#4</a>
-								</div>
-								<div class="act">
-									<a href="#">回复</a>
-									&nbsp;|&nbsp;
-									<a href="#">引用</a>
-								</div>
-								<div class="clearfix"></div>
-								<div class="content">
-									<div id="commentbody-308296">
-										<p>你好，读了你的这篇文章，说出了很多我心里的话，有很多感触。可否授权我在我的博客上转载一下？@左耳朵耗子，你好，读了你的这篇文章，说出了很多我心里的话，有很多感触。可否授权我在我的博客上转载一下？</p>
-									</div>
-								</div>
-							</div>
-							<div class="clearfix"></div>
-						</li>
-						<!-- the same ends -->
-					</ol>
-					<!-- comments END -->
-				</div>
-
-
-
-				<!-- comment post -->
-				<div id="commentPostDiv">
-
-					<form id="commentPostForm">
-						<div class="row-fluid">
-							<textarea id="inputComment" rows="3" placeholder="Add comment"></textarea>
-						</div>
-						<div class="row-fluid align-right">
-							<input type="button" class="btn btn-primary" value="提交" />
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-
-
-
-
-
 	</div>
-	
-	
-	<!-- <script src="http://code.jquery.com/jquery.min.js"></script> -->
-	<script src="../public/js/jquery-1.9.1.min.js"></script>
-	<script src="../public/js/bootstrap.min.js"></script>
-	
-	<!-- 事件绑定js -->
-	<script type="text/javascript">
-			
-	</script>
 
-	<!-- 表单验证js -->
-	<script type="text/javascript">
+
+
+
+
+	<!-- Basic info block -->
+	<div class="row-fluid meeting-block">
+		<div class="meeting-block-header">
+			<h4>Basic info</h4>
+		</div>
+		<div class="meeting-block-content">
+			<dl class="dl-horizontal">
+				<dt id="imageDt">organizer</dt>
+			  	<dd id="imageDd">
+					<span><img class="" src="../public/img/head_64x64.png" /></span>
+					<span>Jia Liu</span>
+				</dd>
+			  	<dt>Meeting type</dt>
+			  	<dd>Board meeting</dd>
+			  	<dt>Contact tel</dt>
+			  	<dd>15298387338</dd>
+			  	<dt>Contact mail</dt>
+			  	<dd>danislyn@gmail.com</dd>
+			  	<dt>Additional info</dt>
+			  	<dd>important important important important important important important important important important important important important important important important important important important important important important important important important important important important important important important important </dd>
+			</dl>
+		</div>
+	</div>
+
+
+
+
+
+	<!-- Detail info block -->
+	<div class="row-fluid meeting-block">
+		<div class="meeting-block-header">
+			<h4>Detail info</h4>
+		</div>
+		<div class="meeting-block-content">
+			<p style="padding:0px 16px;">Abstract Tag recommendation encourages users to add more tags in bridging the semantic gap between human concept  the features of media object, which provides a feasible solution for content-based multimedia information retrieval. In this paper, we study personalized tag recommendation in a popular online photo sharing site | Flickr. Social relationship information of users is collected to generate an online social network. From the perspective of network topology, we propose node topological potential to characterize user's social in°uence. With this metric, we distinguish di®erent social relations between users and ¯nd out those who really have in°uence on the target users. Tag recommendations are based on tagging history and the latent personalized preference learned from those who have most in°uence in user's social network. We evaluate our method on large scale real-world data. The experimental results demonstrate that our method can outperform the non-personalized global co-occurrence method and other two state-of-the-art personalized approaches using social networks. We also analyze the further usage of our approach for the cold-start problem of tag recommendation.<br/>
+			Keywords recommendation system, social tagging, personalization, social network, Flickr</p>
+			<!-- 富文本html or 格式化树状文本??? -->
+		</div>
+	</div>
+
+
+
+
+
+	<!-- Participant block -->
+	<div class="row-fluid">
+		<div class="meeting-block-header">
+			<h4>Participants</h4>
+		</div>
+		<div class="meeting-block-content">
+			<ul class="thumbnails" id="personList">
+				<li class="">
+					<div class="thumbnail">
+						<img class="person-head" src="../public/img/man1_64x64.png" />
+						<div class="caption">
+							<div class="person-name">Jia Liu</div>
+							<div class="person-position">Boss</div>
+						</div>
+					</div>
+				</li>
+				<li class="">
+					<div class="thumbnail">
+						<img class="person-head" src="../public/img/man3_64x64.png" />
+						<div class="caption">
+							<div class="person-name">Jia Liu</div>
+							<div class="person-position">Manager Assistant</div>
+						</div>
+					</div>
+				</li>
+				<li class="">
+					<div class="thumbnail">
+						<img class="person-head" src="../public/img/man4_64x64.png" />
+						<div class="caption">
+							<div class="person-name">Jia Liu</div>
+							<div class="person-position">Engineer</div>
+						</div>
+					</div>
+				</li>
+				<!-- the same -->
+				<li class="">
+					<div class="thumbnail">
+						<img class="person-head" src="../public/img/man3_64x64.png" />
+						<div class="caption">
+							<div class="person-name">Jia Liu</div>
+							<div class="person-position">Manager Assistant</div>
+						</div>
+					</div>
+				</li>
+				<li class="">
+					<div class="thumbnail">
+						<img class="person-head" src="../public/img/man4_64x64.png" />
+						<div class="caption">
+							<div class="person-name">Jia Liu</div>
+							<div class="person-position">Engineer</div>
+						</div>
+					</div>
+				</li>
+				<li class="">
+					<div class="thumbnail">
+						<img class="person-head" src="../public/img/man3_64x64.png" />
+						<div class="caption">
+							<div class="person-name">Jia Liu</div>
+							<div class="person-position">Manager Assistant</div>
+						</div>
+					</div>
+				</li>
+				<li class="">
+					<div class="thumbnail">
+						<img class="person-head" src="../public/img/man4_64x64.png" />
+						<div class="caption">
+							<div class="person-name">Jia Liu</div>
+							<div class="person-position">Engineer</div>
+						</div>
+					</div>
+				</li>
+				<li class="">
+					<div class="thumbnail">
+						<img class="person-head" src="../public/img/man3_64x64.png" />
+						<div class="caption">
+							<div class="person-name">Jia Liu</div>
+							<div class="person-position">Manager Assistant</div>
+						</div>
+					</div>
+				</li>
+				<li class="">
+					<div class="thumbnail">
+						<img class="person-head" src="../public/img/man4_64x64.png" />
+						<div class="caption">
+							<div class="person-name">Jia Liu</div>
+							<div class="person-position">Engineer</div>
+						</div>
+					</div>
+				</li>
+				<li class="">
+					<div class="thumbnail">
+						<img class="person-head" src="../public/img/man3_64x64.png" />
+						<div class="caption">
+							<div class="person-name">Jia Liu</div>
+							<div class="person-position">Manager Assistant</div>
+						</div>
+					</div>
+				</li>
+				<li class="">
+					<div class="thumbnail">
+						<img class="person-head" src="../public/img/man4_64x64.png" />
+						<div class="caption">
+							<div class="person-name">Jia Liu</div>
+							<div class="person-position">Engineer</div>
+						</div>
+					</div>
+				</li>
+				<li class="">
+					<div class="thumbnail">
+						<img class="person-head" src="../public/img/man3_64x64.png" />
+						<div class="caption">
+							<div class="person-name">Jia Liu</div>
+							<div class="person-position">Manager Assistant</div>
+						</div>
+					</div>
+				</li>
+				<li class="">
+					<div class="thumbnail">
+						<img class="person-head" src="../public/img/man4_64x64.png" />
+						<div class="caption">
+							<div class="person-name">Jia Liu</div>
+							<div class="person-position">Engineer</div>
+						</div>
+					</div>
+				</li>
+				<!-- the same ends -->
+			</ul>
+		</div>
+	</div>
+
+
+
+
+
+	<!-- Attachment block -->
+	<div class="row-fluid">
+		<div class="meeting-block-header">
+			<h4>Attachments</h4>
+		</div>
+		<div class="meeting-block-content">
+			<ul class="thumbnails" id="fileList">
+				<li class="">
+					<div class="thumbnail">
+						<a href="#" class="image-link">
+							<img class="file-image" src="../public/img/file_pdf_48x48.png" />
+						</a>
+						<a href="#" class="default-link">
+							<div class="file-name">important file1.pdf</div>
+						</a>
+					</div>
+				</li>
+				<li class="">
+					<div class="thumbnail">
+						<a href="#" class="image-link">
+							<img class="file-image" src="../public/img/file_doc_48x48.png" />
+						</a>
+						<a href="#" class="default-link">
+							<div class="file-name">important important important important important file2.doc</div>
+						</a>
+					</div>
+				</li>
+				<li class="">
+					<div class="thumbnail">
+						<a href="#" class="image-link">
+							<img class="file-image" src="../public/img/file_pic_48x48.png" />
+						</a>
+						<a href="#" class="default-link">
+							<div class="file-name">important important file3.jpg</div>
+						</a>
+					</div>
+				</li>
+				<!-- the same -->
+				<li class="">
+					<div class="thumbnail">
+						<a href="#" class="image-link">
+							<img class="file-image" src="../public/img/file_doc_48x48.png" />
+						</a>
+						<a href="#" class="default-link">
+							<div class="file-name">important important important important important file2.doc</div>
+						</a>
+					</div>
+				</li>
+				<li class="">
+					<div class="thumbnail">
+						<a href="#" class="image-link">
+							<img class="file-image" src="../public/img/file_pic_48x48.png" />
+						</a>
+						<a href="#" class="default-link">
+							<div class="file-name">important important file3.jpg</div>
+						</a>
+					</div>
+				</li>
+				<li class="">
+					<div class="thumbnail">
+						<a href="#" class="image-link">
+							<img class="file-image" src="../public/img/file_doc_48x48.png" />
+						</a>
+						<a href="#" class="default-link">
+							<div class="file-name">important important important important important file2.doc</div>
+						</a>
+					</div>
+				</li>
+				<li class="">
+					<div class="thumbnail">
+						<a href="#" class="image-link">
+							<img class="file-image" src="../public/img/file_pic_48x48.png" />
+						</a>
+						<a href="#" class="default-link">
+							<div class="file-name">important important file3.jpg</div>
+						</a>
+					</div>
+				</li>
+				<!-- the same ends -->
+			</ul>
+		</div>
+	</div>
+
+
+
+
+
+	<!-- Comment block -->
+	<div class="row-fluid">
+		<div class="meeting-block-header">
+			<h4>Comments</h4>
+		</div>
+		<div class="meeting-block-content">
+			<div id="commentListDiv">
+				<!-- comments START -->
+				<ol id="commentList">
+					<li class="comment regularcomment" id="comment-308296">
+						<div class="author">
+							<div class="pic">
+								<img src='../public/img/head2_48x48.png' class='img-polaroid' />
+							</div>
+							<div class="name">
+								<a href="#" id="commentauthor-308296" class="url">
+									Danis Lu
+								</a>
+							</div>
+						</div>
+						<div class="info">
+							<div class="date">
+								2013年3月11日09:06
+								&nbsp;|&nbsp;
+								<a href="#">#1</a>
+							</div>
+							<div class="act">
+								<a href="#">回复</a>
+								&nbsp;|&nbsp;
+								<a href="#">引用</a>
+							</div>
+							<div class="clearfix"></div>
+							<div class="content">
+								<div id="commentbody-308296">
+									<p>@左耳朵耗子，你好，读了你的这篇文章，说出了很多我心里的话，有很多感触。可否授权我在我的博客上转载一下？</p>
+								</div>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+					</li>
+					<li class="comment regularcomment" id="comment-308296">
+						<div class="author">
+							<div class="pic">
+								<img src='../public/img/head2_48x48.png' class='img-polaroid' />
+							</div>
+							<div class="name">
+								<a href="#" id="commentauthor-308296" class="url">
+									Danis LuLuLuLu Yining
+								</a>
+							</div>
+						</div>
+						<div class="info">
+							<div class="date">
+								2013年3月11日09:06
+								&nbsp;|&nbsp;
+								<a href="#">#2</a>
+							</div>
+							<div class="act">
+								<a href="#">回复</a>
+								&nbsp;|&nbsp;
+								<a href="#">引用</a>
+							</div>
+							<div class="clearfix"></div>
+							<div class="content">
+								<div id="commentbody-308296">
+									<p>你好，读了你的这篇文章，说出了很多我心里的话，有很多感触。可否授权我在我的博客上转载一下？@左耳朵耗子，你好，读了你的这篇文章，说出了很多我心里的话，有很多感触。可否授权我在我的博客上转载一下？</p>
+								</div>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+					</li>
+					<!-- the same -->
+					<li class="comment regularcomment" id="comment-308296">
+						<div class="author">
+							<div class="pic">
+								<img src='../public/img/head2_48x48.png' class='img-polaroid' />
+							</div>
+							<div class="name">
+								<a href="#" id="commentauthor-308296" class="url">
+									Danis Lu
+								</a>
+							</div>
+						</div>
+						<div class="info">
+							<div class="date">
+								2013年3月11日09:06
+								&nbsp;|&nbsp;
+								<a href="#">#3</a>
+							</div>
+							<div class="act">
+								<a href="#">回复</a>
+								&nbsp;|&nbsp;
+								<a href="#">引用</a>
+							</div>
+							<div class="clearfix"></div>
+							<div class="content">
+								<div id="commentbody-308296">
+									<p>@左耳朵耗子，你好，读了你的这篇文章，说出了很多我心里的话，有很多感触。可否授权我在我的博客上转载一下？</p>
+								</div>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+					</li>
+					<li class="comment regularcomment" id="comment-308296">
+						<div class="author">
+							<div class="pic">
+								<img src='../public/img/head2_48x48.png' class='img-polaroid' />
+							</div>
+							<div class="name">
+								<a href="#" id="commentauthor-308296" class="url">
+									Danis LuLuLuLu Yining
+								</a>
+							</div>
+						</div>
+						<div class="info">
+							<div class="date">
+								2013年3月11日09:06
+								&nbsp;|&nbsp;
+								<a href="#">#4</a>
+							</div>
+							<div class="act">
+								<a href="#">回复</a>
+								&nbsp;|&nbsp;
+								<a href="#">引用</a>
+							</div>
+							<div class="clearfix"></div>
+							<div class="content">
+								<div id="commentbody-308296">
+									<p>你好，读了你的这篇文章，说出了很多我心里的话，有很多感触。可否授权我在我的博客上转载一下？@左耳朵耗子，你好，读了你的这篇文章，说出了很多我心里的话，有很多感触。可否授权我在我的博客上转载一下？</p>
+								</div>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+					</li>
+					<!-- the same ends -->
+				</ol>
+				<!-- comments END -->
+			</div>
+
+
+
+			<!-- comment post -->
+			<div id="commentPostDiv">
+
+				<form id="commentPostForm">
+					<div class="row-fluid">
+						<textarea id="inputComment" rows="3" placeholder="Add comment"></textarea>
+					</div>
+					<div class="row-fluid align-right">
+						<input type="button" class="btn btn-primary" value="提交" />
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+</div>
+{%endblock%}
+
+
+
+
+
+{%block morestatic%}
+<!-- 事件绑定js -->
+<script type="text/javascript">
 		
-	</script>
+</script>
+
+<!-- 表单验证js -->
+<script type="text/javascript">
 	
-  </body>
-</html>
+</script>
+{%endblock%}
+
+
