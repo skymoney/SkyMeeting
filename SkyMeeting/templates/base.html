@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{%block title%}{%endblock}</title>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <!-- <link href="assets/css/bootstrap-responsive.css" rel="stylesheet"> -->
+    <!-- Bootstrap -->
+    <link href="/public/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	{%block cssfile}{endblock}
+  </head>
+  <body>
+	{%block content%}{%endblock}
+	<div class="container">
+		<form class="form-horizontal form-signin" action="login/" method="post">
+			<div class="control-group">
+				<label class="control-label" for="inputEmail">Email</label>
+				<div class="controls">
+					<input type="text" id="inputEmail" name="username" placeholder="Email" />
+				</div>
+			  </div>
+			  <div class="control-group">
+				<label class="control-label" for="inputPassword">Password</label>
+				<div class="controls">
+					<input type="password" id="inputPassword" name="password" placeholder="Password" />
+				</div>
+			  </div>
+			  <div class="control-group">
+				<div class="controls">
+					<label class="checkbox">
+						<input type="checkbox" />
+						Remember me
+					</label>
+					<input type="submit" class="btn btn-primary" value="Sign in" />
+				</div>
+			</div>
+		</form>
+		
+		<!-- 无用的参考 -->
+		<div style="text-align:center;"><a href="http://usman.it/themes/charisma/index.html">UI Reference</a></div>
+	</div>
+  
+  
+	<!-- <script src="http://code.jquery.com/jquery.min.js"></script> -->
+	<script src="../public/js/jquery-1.9.1.min.js"></script>
+	<script src="../public/js/bootstrap.min.js"></script>
+	
+	<script type="text/javascript">
+	
+	</script>
+	
+  </body>
+</html>
