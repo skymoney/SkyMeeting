@@ -346,6 +346,11 @@
 				<div class="row-fluid new-item-row">
 					<a href="#inviteModal" data-toggle="modal">&plus;&nbsp;Invite new member</a>
 				</div>
+				<!-- temp -->
+				<div class="row-fluid new-item-row">
+					<a href="#editModal" data-toggle="modal">Edit member test</a>
+				</div>
+				<!-- temp ends -->
 				<div class="row-fluid pagination-row">
 					<div class="pagination">
 					  <ul>
@@ -370,7 +375,10 @@
 
 
 
+
+
 <!-- Popup Modal -->
+<!-- Invite new member block -->
 <div class="modal hide fade" id="inviteModal" role="dialog" aria-labelledby="inviteModalLabel" aria-hidden="true">
 	<div class="modal-header">
 		<!-- <input type="button" class="close" data-dismiss="modal" aria-hidden="true" value="x" /> -->
@@ -407,7 +415,7 @@
 				<label class="control-label">Validation method</label>
 				<div class="controls">
 					<label class="checkbox">
-						<div class="checker" id="uniform-exCheck1">
+						<div class="checker">
 							<span>
 								<input type="checkbox" id="checkName" value="1" />
 							</span>
@@ -415,7 +423,7 @@
 						Name
 					</label>
 					<label class="checkbox">
-						<div class="checker" id="uniform-exCheck2">
+						<div class="checker">
 							<span>
 								<input type="checkbox" id="checkIDno" value="2" />
 							</span>
@@ -423,7 +431,7 @@
 						ID Card Number
 					</label>
 					<label class="checkbox">
-						<div class="checker" id="uniform-exCheck3">
+						<div class="checker">
 							<span>
 								<input type="checkbox" id="checkOther" value="3" />
 							</span>
@@ -455,6 +463,130 @@
 		<input type="button" class="btn" data-dismiss="modal" aria-hidden="true" value="Cancel" />
 	</div>
 </div>
+
+
+
+
+
+
+
+<!-- Edit member block -->
+<div class="modal hide fade" id="editModal" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<!-- <input type="button" class="close" data-dismiss="modal" aria-hidden="true" value="x" /> -->
+		<a href="#" class="close" role="button" data-dismiss="modal" aria-hidden="true">x</a>
+		<h3 id="editModalLabel">Edit member</h3>
+	</div>
+	<div class="modal-body">
+		<form class="form-horizontal">
+			<div class="control-group">
+				<label class="control-label" for="eidtName">Name</label>
+				<div class="controls">
+					<input type="text" id="eidtName" placeholder="Name" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">Gender</label>
+				<div class="controls">
+					<label class="radio">
+						<div class="radio">
+							<span class="checked">
+								<input type="radio" id="radioMale" value="1" />
+							</span>
+						</div>
+						Male
+					</label>
+					<!-- add clearfix if not want to be inline-block -->
+					<div class="clearfix"></div>
+					<label class="radio">
+						<div class="radio">
+							<span>
+								<input type="radio" id="radioFemale" value="2" />
+							</span>
+						</div>
+						Female
+					</label>
+					<!-- add clearfix if not want to be inline-block -->
+					<div class="clearfix"></div>
+					<label class="radio">
+						<div class="radio">
+							<span>
+								<input type="radio" id="radioUnknown" value="-1" />
+							</span>
+						</div>
+						Unknown
+					</label>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="eidtIDno">ID Card Number</label>
+				<div class="controls">
+					<input type="text" id="eidtIDno" placeholder="ID Card Number" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="eidtPhone">Phone</label>
+				<div class="controls">
+					<input type="text" id="eidtPhone" placeholder="Phone" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="eidtEmail">Email</label>
+				<div class="controls">
+					<input type="text" id="eidtEmail" placeholder="Email" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">Departments</label>
+				<div class="controls">
+					<!-- read from DB -->
+					<label class="checkbox">
+						<div class="checker">
+							<span>
+								<input type="checkbox" id="" value="departmentId1" />
+							</span>
+						</div>
+						Board
+					</label>
+					<label class="checkbox">
+						<div class="checker">
+							<span>
+								<input type="checkbox" id="" value="departmentId1" />
+							</span>
+						</div>
+						Market Department
+					</label>
+					<label class="checkbox">
+						<div class="checker">
+							<span>
+								<input type="checkbox" id="" value="departmentId1" />
+							</span>
+						</div>
+						Research & Development
+					</label>
+					<!-- departments checkbox ends -->
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">Tags</label>
+				<div class="controls">
+					
+
+
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<input type="button" class="btn btn-primary" id="editModalOkBtn" value="Save changes" />
+		<input type="button" class="btn" data-dismiss="modal" aria-hidden="true" value="Cancel" />
+	</div>
+</div>
+
+
+
+
+
 {%endblock%}
 
 
