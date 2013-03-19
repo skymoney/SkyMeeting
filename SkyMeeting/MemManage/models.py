@@ -12,7 +12,7 @@ class User(models.Model):
 
 class Company(models.Model):
     cname=models.CharField(max_length=40)
-    
+    clocation=models.CharField(max_length=40)
 
 class Group(models.Model):
     gname=models.CharField(max_length=30)
@@ -20,3 +20,16 @@ class Group(models.Model):
 class Tag(models.Model):
     tname=models.CharField(max_length=30)
 
+class UserGroup(models.Model):
+    uid=models.ForeignKey(User)
+    cid=models.ForeignKey(Company)
+    gid=models.ForeignKey(Group)
+
+class UserTag(models.Model):
+    uid=models.ForeignKey(User)
+    cid=models.ForeignKey(Company)
+    tid=models.ForeignKey(Tag)
+
+class UserCompany(models.Model):
+    uid=models.ForeignKey(User)
+    cid=models.ForeignKey(Company)
