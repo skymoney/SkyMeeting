@@ -1,7 +1,22 @@
 from django.db import models
 
 # Create your models here.
+from Login.models import Account
 
+
+class Company(models.Model):
+    cname=models.CharField(max_length=100)
+    clocation=models.CharField(max_length=100)
+
+class Group(models.Model):
+    gname=models.CharField(max_length=50)
+    cid=models.ForeignKey(Company)
+
+class Tag(models.Model):
+    tname=models.CharField(max_length=50)
+    cid=models.ForeignKey(Company)
+
+#in fact this is role for company
 class User(models.Model):
     name=models.CharField(max_length=30)
     sex=models.CharField(max_length=5)
@@ -9,27 +24,7 @@ class User(models.Model):
     idcard=models.CharField(max_length=20)
     phone=models.CharField(max_length=15)
     email=models.EmailField(max_length=30)
-
-class Company(models.Model):
-    cname=models.CharField(max_length=40)
-    clocation=models.CharField(max_length=40)
-
-class Group(models.Model):
-    gname=models.CharField(max_length=30)
-
-class Tag(models.Model):
-    tname=models.CharField(max_length=30)
-
-class UserGroup(models.Model):
-    uid=models.ForeignKey(User)
     cid=models.ForeignKey(Company)
-    gid=models.ForeignKey(Group)
-
-class UserTag(models.Model):
-    uid=models.ForeignKey(User)
-    cid=models.ForeignKey(Company)
-    tid=models.ForeignKey(Tag)
-
-class UserCompany(models.Model):
-    uid=models.ForeignKey(User)
-    cid=models.ForeignKey(Company)
+    aid=models.ForeignKey(Account)
+    groups=models.ManyToManyField(Group)
+    tags=models.ManyToManyField(Tag)
