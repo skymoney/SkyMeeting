@@ -5,6 +5,7 @@
 {%block cssfile%}
 <!-- others -->
 <link href="../public/css/uniform.default.css" rel="stylesheet">
+<link href="../public/css/chosen.css" rel="stylesheet">
 
 <style type="text/css">
 	/*common*/
@@ -208,51 +209,47 @@
 						<tr role="row">
 							<th>Name</th>
 							<th>Gender</th>
-							<th>Position</th>
+							<th>ID Card</th>
 							<th>Phone</th>
 							<th>Email</th>
 							<th>Tags</th>
-							<th>Operation</th>
+							<th>OP</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr class="odd">
 							<td><a href="#">Danis Lu</a></td>
 							<td>Male</td>
-							<td>Engineer</td>
+							<td>320***********1234</td>
 							<td>15298387338</td>
 							<td>danislyn@gmail.com</td>
 							<td>
-								nihao
+								Manager, Engineer
 							</td>
 							<td>
 								<a href="" class="">
 									<i class="icon-edit icon-green"></i>
-									Edit
 								</a>
 								<a href="" class="">
 									<i class="icon-trash icon-red"></i>
-									Delete
 								</a>
 							</td>
 						</tr>
 						<tr class="even">
 							<td><a href="#">Tony Freeman</a></td>
 							<td>Male</td>
-							<td>CEO</td>
+							<td>320***********1234</td>
 							<td>15298387338</td>
 							<td>danislyn@gmail.com</td>
 							<td>
-								haha
+								<a href="#" data-toggle="tooltip" data-placement="right" data-original-title="Chief Officer, Consultant, Detective, Editor">Chief Officer, Con...</a>
 							</td>
 							<td>
 								<a href="" class="">
 									<i class="icon-edit icon-green"></i>
-									Edit
 								</a>
 								<a href="" class="">
 									<i class="icon-trash icon-red"></i>
-									Delete
 								</a>
 							</td>
 						</tr>
@@ -260,27 +257,25 @@
 						<tr class="odd">
 							<td><a href="#">Danis Lu</a></td>
 							<td>Male</td>
-							<td>Engineer</td>
+							<td>320***********1234</td>
 							<td>15298387338</td>
 							<td>danislyn@gmail.com</td>
 							<td>
-								nihao
+								<a href="#" data-toggle="tooltip" data-placement="right" data-original-title="nihao lingdao youfapiao">nihao, lingdao, ...</a>
 							</td>
 							<td>
 								<a href="" class="">
 									<i class="icon-edit icon-green"></i>
-									Edit
 								</a>
 								<a href="" class="">
 									<i class="icon-trash icon-red"></i>
-									Delete
 								</a>
 							</td>
 						</tr>
 						<tr class="even">
 							<td><a href="#">Tony Freeman</a></td>
 							<td>Male</td>
-							<td>CEO</td>
+							<td>320***********1234</td>
 							<td>15298387338</td>
 							<td>danislyn@gmail.com</td>
 							<td>
@@ -289,18 +284,16 @@
 							<td>
 								<a href="" class="">
 									<i class="icon-edit icon-green"></i>
-									Edit
 								</a>
 								<a href="" class="">
 									<i class="icon-trash icon-red"></i>
-									Delete
 								</a>
 							</td>
 						</tr>
 						<tr class="odd">
 							<td><a href="#">Danis Lu</a></td>
 							<td>Male</td>
-							<td>Engineer</td>
+							<td>320***********1234</td>
 							<td>15298387338</td>
 							<td>danislyn@gmail.com</td>
 							<td>
@@ -309,18 +302,16 @@
 							<td>
 								<a href="" class="">
 									<i class="icon-edit icon-green"></i>
-									Edit
 								</a>
 								<a href="" class="">
 									<i class="icon-trash icon-red"></i>
-									Delete
 								</a>
 							</td>
 						</tr>
 						<tr class="even">
 							<td><a href="#">Tony Freeman</a></td>
 							<td>Male</td>
-							<td>CEO</td>
+							<td>320***********1234</td>
 							<td>15298387338</td>
 							<td>danislyn@gmail.com</td>
 							<td>
@@ -329,11 +320,9 @@
 							<td>
 								<a href="" class="">
 									<i class="icon-edit icon-green"></i>
-									Edit
 								</a>
 								<a href="" class="">
 									<i class="icon-trash icon-red"></i>
-									Delete
 								</a>
 							</td>
 						</tr>
@@ -346,6 +335,11 @@
 				<div class="row-fluid new-item-row">
 					<a href="#inviteModal" data-toggle="modal">&plus;&nbsp;Invite new member</a>
 				</div>
+				<!-- temp -->
+				<div class="row-fluid new-item-row">
+					<a href="#editModal" data-toggle="modal">Edit member test</a>
+				</div>
+				<!-- temp ends -->
 				<div class="row-fluid pagination-row">
 					<div class="pagination">
 					  <ul>
@@ -370,7 +364,10 @@
 
 
 
+
+
 <!-- Popup Modal -->
+<!-- Invite new member block -->
 <div class="modal hide fade" id="inviteModal" role="dialog" aria-labelledby="inviteModalLabel" aria-hidden="true">
 	<div class="modal-header">
 		<!-- <input type="button" class="close" data-dismiss="modal" aria-hidden="true" value="x" /> -->
@@ -407,7 +404,7 @@
 				<label class="control-label">Validation method</label>
 				<div class="controls">
 					<label class="checkbox">
-						<div class="checker" id="uniform-exCheck1">
+						<div class="checker">
 							<span>
 								<input type="checkbox" id="checkName" value="1" />
 							</span>
@@ -415,7 +412,7 @@
 						Name
 					</label>
 					<label class="checkbox">
-						<div class="checker" id="uniform-exCheck2">
+						<div class="checker">
 							<span>
 								<input type="checkbox" id="checkIDno" value="2" />
 							</span>
@@ -423,7 +420,7 @@
 						ID Card Number
 					</label>
 					<label class="checkbox">
-						<div class="checker" id="uniform-exCheck3">
+						<div class="checker">
 							<span>
 								<input type="checkbox" id="checkOther" value="3" />
 							</span>
@@ -455,6 +452,141 @@
 		<input type="button" class="btn" data-dismiss="modal" aria-hidden="true" value="Cancel" />
 	</div>
 </div>
+
+
+
+
+
+
+
+<!-- Edit member block -->
+<div class="modal hide fade" id="editModal" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<!-- <input type="button" class="close" data-dismiss="modal" aria-hidden="true" value="x" /> -->
+		<a href="#" class="close" role="button" data-dismiss="modal" aria-hidden="true">x</a>
+		<h3 id="editModalLabel">Edit member</h3>
+	</div>
+	<div class="modal-body">
+		<form class="form-horizontal">
+			<div class="control-group">
+				<label class="control-label" for="eidtName">Name</label>
+				<div class="controls">
+					<input type="text" id="eidtName" placeholder="Name" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">Gender</label>
+				<div class="controls">
+					<label class="radio inline">
+						<div class="radio">
+							<span class="checked">
+								<input type="radio" id="radioMale" value="1" />
+							</span>
+						</div>
+						Male
+					</label>
+					<label class="radio inline">
+						<div class="radio">
+							<span>
+								<input type="radio" id="radioFemale" value="2" />
+							</span>
+						</div>
+						Female
+					</label>
+					<label class="radio inline">
+						<div class="radio">
+							<span>
+								<input type="radio" id="radioUnknown" value="-1" />
+							</span>
+						</div>
+						Unknown
+					</label>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="eidtIDno">ID Card Number</label>
+				<div class="controls">
+					<input type="text" id="eidtIDno" placeholder="ID Card Number" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="eidtPhone">Phone</label>
+				<div class="controls">
+					<input type="text" id="eidtPhone" placeholder="Phone" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="eidtEmail">Email</label>
+				<div class="controls">
+					<input type="text" id="eidtEmail" placeholder="Email" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">Groups Belonged To</label>
+				<div class="controls">
+					<!-- read from DB -->
+					<label class="checkbox">
+						<div class="checker">
+							<span>
+								<input type="checkbox" id="" value="groupId1" />
+							</span>
+						</div>
+						Board
+					</label>
+					<label class="checkbox">
+						<div class="checker">
+							<span>
+								<input type="checkbox" id="" value="groupId1" />
+							</span>
+						</div>
+						Market Department
+					</label>
+					<label class="checkbox">
+						<div class="checker">
+							<span>
+								<input type="checkbox" id="" value="groupId1" />
+							</span>
+						</div>
+						Research &amp; Development
+					</label>
+					<!-- groups checkbox ends -->
+
+
+
+					<!-- dynamically add groups -->
+					<div class="row-fluid">
+						<a href="#" id="dynamic">&plus;&nbsp;Add new group</a>
+					</div>
+					<!-- ??? -->
+
+
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">Tags</label>
+				<div class="controls">
+					<!-- <div>Chief Officer, Consultant, Detective, Editor</div> -->
+					<select id="tagSect" multiple data-rel="chosen" >
+						<option>Chief Officer</option>
+						<option>Consultant</option>
+						<option>Detective</option>
+						<option>Editor</option>
+					</select>
+
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<input type="button" class="btn btn-primary" id="editModalOkBtn" value="Save changes" />
+		<input type="button" class="btn" data-dismiss="modal" aria-hidden="true" value="Cancel" />
+	</div>
+</div>
+
+
+
+
+
 {%endblock%}
 
 
@@ -464,10 +596,16 @@
 {%block morestatic%}
 <!-- <script src="../public/js/jquery.uniform.min.js"></script> -->
 <script src="../public/js/uniform.default.js"></script>
+<!-- <script src="../public/js/jquery.chosen.min.js"></script> -->
+<script src="../public/js/jquery.chosen.js"></script>
 
 <!-- 初始化js -->
 <script type="text/javascript">
+$(function() {
+	//chosen - improves select
+	$('[data-rel="chosen"],[rel="chosen"]').chosen();
 
+});
 </script>
 
 
@@ -476,6 +614,29 @@
 <script type="text/javascript">
 $(function() {
 
+	// ====================================
+	// tooltips
+	// ====================================
+	// tooltip for tags omited
+    $(document).tooltip({
+        selector: "a[data-toggle=tooltip]"
+    });
+    $(document).tooltip();
+
+    // tooltip patch
+    $("a[data-toggle=tooltip]").click(function(){
+    	$(this).tooltip("toggle");
+    });
+    $("a[data-toggle=tooltip]").mouseleave(function(){
+    	$(this).tooltip("hide");
+    });
+    // ====================================
+
+
+
+	// ====================================
+	// tags
+	// ====================================
 	// tag toggle class
 	$("a.tag").click(function(){
 		if($(this).hasClass("tag-selected"))
@@ -487,11 +648,21 @@ $(function() {
 			$(this).addClass("tag-selected");
 		}
 	});
+	// ====================================
 
+
+
+	// ====================================
+	// invite member modal
+	// ====================================
 	// toggle
 	$("#checkOther").change(function(){
 		$("#otherQuestionDiv").toggle("fast");
 	});
+	// ====================================
+
+
+
 
 
 	
