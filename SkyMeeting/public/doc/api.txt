@@ -24,3 +24,4 @@ API基本定义：
      1），访问的url （相对路径）： /member/getuser/tag/
      2），传入的参数：permission，cid，tid
      3），返回数据：user_list,同上
+4,
