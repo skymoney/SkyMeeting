@@ -2,6 +2,9 @@ API基本定义：
  url的意义：对于相对路径，根url代表对应的模块，member，meeting等。
        次一级url代表模块下对应的功能，如getuser，
        再次一级：代表对功能的过滤，例如 getuser/tag
+       
+ permission 和 cid等存放位置：session里还是其他地方？
+ 
 1，获取用户：
      1），访问的url（相对路径）：/member/getuser (如果是ajax一样)
      2），传入参数：cid，permission（1 or 0），
