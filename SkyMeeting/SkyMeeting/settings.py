@@ -117,6 +117,8 @@ TEMPLATE_DIRS = (
     os.path.join(os.path.dirname(__file__),"../templates").replace("\\","/"),
 )
 
+SESSION_EXPIRE_AT_BROWSER_CLOSE=True
+
 INSTALLED_APPS = (
     #'django.contrib.auth',
     #'django.contrib.contenttypes',
