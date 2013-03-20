@@ -5,6 +5,7 @@
 {%block cssfile%}
 <!-- others -->
 <link href="../public/css/uniform.default.css" rel="stylesheet">
+<link href="../public/css/chosen.css" rel="stylesheet">
 
 <style type="text/css">
 	/*common*/
@@ -208,51 +209,47 @@
 						<tr role="row">
 							<th>Name</th>
 							<th>Gender</th>
-							<th>Position</th>
+							<th>ID Card</th>
 							<th>Phone</th>
 							<th>Email</th>
 							<th>Tags</th>
-							<th>Operation</th>
+							<th>OP</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr class="odd">
 							<td><a href="#">Danis Lu</a></td>
 							<td>Male</td>
-							<td>Engineer</td>
+							<td>320***********1234</td>
 							<td>15298387338</td>
 							<td>danislyn@gmail.com</td>
 							<td>
-								nihao
+								Manager, Engineer
 							</td>
 							<td>
 								<a href="" class="">
 									<i class="icon-edit icon-green"></i>
-									Edit
 								</a>
 								<a href="" class="">
 									<i class="icon-trash icon-red"></i>
-									Delete
 								</a>
 							</td>
 						</tr>
 						<tr class="even">
 							<td><a href="#">Tony Freeman</a></td>
 							<td>Male</td>
-							<td>CEO</td>
+							<td>320***********1234</td>
 							<td>15298387338</td>
 							<td>danislyn@gmail.com</td>
 							<td>
-								haha
+								<a href="#" data-toggle="tooltip" data-placement="right" data-original-title="Chief Officer, Consultant, Detective, Editor">Chief Officer, Con...</a>
 							</td>
 							<td>
 								<a href="" class="">
 									<i class="icon-edit icon-green"></i>
-									Edit
 								</a>
 								<a href="" class="">
 									<i class="icon-trash icon-red"></i>
-									Delete
 								</a>
 							</td>
 						</tr>
@@ -260,27 +257,25 @@
 						<tr class="odd">
 							<td><a href="#">Danis Lu</a></td>
 							<td>Male</td>
-							<td>Engineer</td>
+							<td>320***********1234</td>
 							<td>15298387338</td>
 							<td>danislyn@gmail.com</td>
 							<td>
-								nihao
+								<a href="#" data-toggle="tooltip" data-placement="right" data-original-title="nihao lingdao youfapiao">nihao, lingdao, ...</a>
 							</td>
 							<td>
 								<a href="" class="">
 									<i class="icon-edit icon-green"></i>
-									Edit
 								</a>
 								<a href="" class="">
 									<i class="icon-trash icon-red"></i>
-									Delete
 								</a>
 							</td>
 						</tr>
 						<tr class="even">
 							<td><a href="#">Tony Freeman</a></td>
 							<td>Male</td>
-							<td>CEO</td>
+							<td>320***********1234</td>
 							<td>15298387338</td>
 							<td>danislyn@gmail.com</td>
 							<td>
@@ -289,18 +284,16 @@
 							<td>
 								<a href="" class="">
 									<i class="icon-edit icon-green"></i>
-									Edit
 								</a>
 								<a href="" class="">
 									<i class="icon-trash icon-red"></i>
-									Delete
 								</a>
 							</td>
 						</tr>
 						<tr class="odd">
 							<td><a href="#">Danis Lu</a></td>
 							<td>Male</td>
-							<td>Engineer</td>
+							<td>320***********1234</td>
 							<td>15298387338</td>
 							<td>danislyn@gmail.com</td>
 							<td>
@@ -309,18 +302,16 @@
 							<td>
 								<a href="" class="">
 									<i class="icon-edit icon-green"></i>
-									Edit
 								</a>
 								<a href="" class="">
 									<i class="icon-trash icon-red"></i>
-									Delete
 								</a>
 							</td>
 						</tr>
 						<tr class="even">
 							<td><a href="#">Tony Freeman</a></td>
 							<td>Male</td>
-							<td>CEO</td>
+							<td>320***********1234</td>
 							<td>15298387338</td>
 							<td>danislyn@gmail.com</td>
 							<td>
@@ -329,11 +320,9 @@
 							<td>
 								<a href="" class="">
 									<i class="icon-edit icon-green"></i>
-									Edit
 								</a>
 								<a href="" class="">
 									<i class="icon-trash icon-red"></i>
-									Delete
 								</a>
 							</td>
 						</tr>
@@ -488,7 +477,7 @@
 			<div class="control-group">
 				<label class="control-label">Gender</label>
 				<div class="controls">
-					<label class="radio">
+					<label class="radio inline">
 						<div class="radio">
 							<span class="checked">
 								<input type="radio" id="radioMale" value="1" />
@@ -496,9 +485,7 @@
 						</div>
 						Male
 					</label>
-					<!-- add clearfix if not want to be inline-block -->
-					<div class="clearfix"></div>
-					<label class="radio">
+					<label class="radio inline">
 						<div class="radio">
 							<span>
 								<input type="radio" id="radioFemale" value="2" />
@@ -506,9 +493,7 @@
 						</div>
 						Female
 					</label>
-					<!-- add clearfix if not want to be inline-block -->
-					<div class="clearfix"></div>
-					<label class="radio">
+					<label class="radio inline">
 						<div class="radio">
 							<span>
 								<input type="radio" id="radioUnknown" value="-1" />
@@ -537,13 +522,13 @@
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label">Departments</label>
+				<label class="control-label">Groups Belonged To</label>
 				<div class="controls">
 					<!-- read from DB -->
 					<label class="checkbox">
 						<div class="checker">
 							<span>
-								<input type="checkbox" id="" value="departmentId1" />
+								<input type="checkbox" id="" value="groupId1" />
 							</span>
 						</div>
 						Board
@@ -551,7 +536,7 @@
 					<label class="checkbox">
 						<div class="checker">
 							<span>
-								<input type="checkbox" id="" value="departmentId1" />
+								<input type="checkbox" id="" value="groupId1" />
 							</span>
 						</div>
 						Market Department
@@ -559,19 +544,34 @@
 					<label class="checkbox">
 						<div class="checker">
 							<span>
-								<input type="checkbox" id="" value="departmentId1" />
+								<input type="checkbox" id="" value="groupId1" />
 							</span>
 						</div>
-						Research & Development
+						Research &amp; Development
 					</label>
-					<!-- departments checkbox ends -->
+					<!-- groups checkbox ends -->
+
+
+
+					<!-- dynamically add groups -->
+					<div class="row-fluid">
+						<a href="#" id="dynamic">&plus;&nbsp;Add new group</a>
+					</div>
+					<!-- ??? -->
+
+
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label">Tags</label>
 				<div class="controls">
-					
-
+					<!-- <div>Chief Officer, Consultant, Detective, Editor</div> -->
+					<select id="tagSect" multiple data-rel="chosen" >
+						<option>Chief Officer</option>
+						<option>Consultant</option>
+						<option>Detective</option>
+						<option>Editor</option>
+					</select>
 
 				</div>
 			</div>
@@ -596,10 +596,16 @@
 {%block morestatic%}
 <!-- <script src="../public/js/jquery.uniform.min.js"></script> -->
 <script src="../public/js/uniform.default.js"></script>
+<!-- <script src="../public/js/jquery.chosen.min.js"></script> -->
+<script src="../public/js/jquery.chosen.js"></script>
 
 <!-- 初始化js -->
 <script type="text/javascript">
+$(function() {
+	//chosen - improves select
+	$('[data-rel="chosen"],[rel="chosen"]').chosen();
 
+});
 </script>
 
 
@@ -608,6 +614,29 @@
 <script type="text/javascript">
 $(function() {
 
+	// ====================================
+	// tooltips
+	// ====================================
+	// tooltip for tags omited
+    $(document).tooltip({
+        selector: "a[data-toggle=tooltip]"
+    });
+    $(document).tooltip();
+
+    // tooltip patch
+    $("a[data-toggle=tooltip]").click(function(){
+    	$(this).tooltip("toggle");
+    });
+    $("a[data-toggle=tooltip]").mouseleave(function(){
+    	$(this).tooltip("hide");
+    });
+    // ====================================
+
+
+
+	// ====================================
+	// tags
+	// ====================================
 	// tag toggle class
 	$("a.tag").click(function(){
 		if($(this).hasClass("tag-selected"))
@@ -619,11 +648,21 @@ $(function() {
 			$(this).addClass("tag-selected");
 		}
 	});
+	// ====================================
 
+
+
+	// ====================================
+	// invite member modal
+	// ====================================
 	// toggle
 	$("#checkOther").change(function(){
 		$("#otherQuestionDiv").toggle("fast");
 	});
+	// ====================================
+
+
+
 
 
 	
