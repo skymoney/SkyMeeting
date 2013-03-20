@@ -1,0 +1,23 @@
+API基本定义：
+ url的意义：对于相对路径，根url代表对应的模块，member，meeting等。
+       次一级url代表模块下对应的功能，如getuser，
+       再次一级：代表对功能的过滤，例如 getuser/tag
+1，获取用户：
+     1），访问的url（相对路径）：/member/getuser (如果是ajax一样)
+     2），传入参数：cid，permission（1 or 0），
+     3），返回数据：data_list: [{group_list},{tag_list},{user},{user}...],
+             group_list用于初始化某公司的所有组信息，
+             tag_list用于初始化对应的tag信息
+             User数据格式：
+                {"id":"uid","name":"yourname","gender":"male","idcard":"idcardnumber",
+                   "phone":"phonenumber","email":"emailaddress",
+                   "group":[{"gid":1,"gname":"group"},{}...],      //这里是否需要，在下面获取具体分组的时候是否需要
+                   "tag":[{"tid":0,"tname":"tag"},{},...] }
+2，获取某分组用户：
+     1），访问的url（相对路径）：/member/getuser/group/
+     2），传入的参数：permission，cid，gid
+     3），返回数据：user_list，同上
+3，获取某标签下用户
+     1），访问的url （相对路径）： /member/getuser/tag/
+     2），传入的参数：permission，cid，tid
+     3），返回数据：user_list,同上
