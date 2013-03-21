@@ -56,7 +56,7 @@ class Tag(models.Model):
 #in fact this is role for company
 class Role(models.Model):
     name=models.CharField(max_length=30)
-    sex=models.CharField(max_length=5)
+    sex=models.IntegerField(default=-1)
     location=models.CharField(max_length=50)
     idcard=models.CharField(max_length=20)
     phone=models.CharField(max_length=15)
