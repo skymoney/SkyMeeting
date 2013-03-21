@@ -131,7 +131,9 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'Login',
-    'MemManage'
+    'MemManage',
+    'Meeting',
+    'south'
 )
 
 # A sample logging configuration. The only tangible logging
