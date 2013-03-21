@@ -32,6 +32,13 @@ def member(request):
     g_list=Group.objects.filter(cid=1)
     t_list=Tag.objects.filter(cid=1)
     groupList=[]
+    tagList=[]
+    for tag in t_list:
+        singleTag={}
+        singleTag["id"]=tag.id
+        singleTag["tname"]=tag.tname
+        singleTag["cid"]=tag.cid
+        tagList.append(singleTag)
     #here can optimize by just sql query instead of Model method
     for g in g_list:
         singleGroup={}
@@ -42,7 +49,7 @@ def member(request):
         singleGroup["cid"]=g.cid
         singleGroup["count"]=num
         groupList.append(singleGroup)
-    return render_to_response('members.html',Context({"groupAll":groupList,"tagAll":t_list,"memberAll":u_list,"groupAllCount":len(u_list),"tagString":Tag.objects.getAllString(1)}))
+    return render_to_response('members.html',Context({"groupAll":groupList,"tagAll":t_list,"memberAll":u_list,"groupAllCount":len(u_list),"tagString":tagList}))
 
 
 def editRoleInfo(request):
