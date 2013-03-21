@@ -26,13 +26,18 @@ def member(request):
     u_list=Role.objects.filter(company_id=1)
     g_list=Group.objects.filter(cid=1)
     t_list=Tag.objects.filter(cid=1)
-    
-    groupNum={}
+    groupList=[]
     for g in g_list:
+        singleGroup={}
         gid=g.id
         num=len(Role.objects.filter(company_id=1,groups__id=gid))
-        groupNum[str(gid)]=num
-    return render_to_response('members.html',Context({"groupAll":g_list,"tagAll":t_list,"memberAll":u_list,"groupNum":groupNum}))
+        singleGroup["id"]=g.id
+        singleGroup["gname"]=g.gname
+        singleGroup["cid"]=g.cid
+        singleGroup["count"]=num
+        groupList.append(singleGroup)
+    print groupList
+    return render_to_response('members.html',Context({"groupAll":groupList,"tagAll":t_list,"memberAll":u_list}))
 
 
 #get user by given groupid and cid
