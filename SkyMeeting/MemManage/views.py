@@ -4,15 +4,18 @@ from django.template import Context
 from MemManage.models import Role
 
 def member(request):
+    
     return render_to_response('members.html')
 
 
 #get user,default get all users
 def getUser(request):
+    #print 'Request'
     u_list=Role.objects.all()  #get all user by specifying cid
     
-    return render_to_response("",Context({"memberAll":u_list}))
-
+    #print len(u_list)
+    return render_to_response("members.html",Context({"memberAll":u_list,"test":""}))
+    #return render_to_response('members.html')
 
 #get user by given groupid and cid
 def getUserByGroup(request,gid):
