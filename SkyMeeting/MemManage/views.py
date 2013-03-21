@@ -1,3 +1,4 @@
+#-*-coding:utf-8-*-
 # Create your views here.
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
@@ -5,6 +6,8 @@ from django.template import Context
 from MemManage.models import Role
 from MemManage.models import Group
 from MemManage.models import Tag
+from MemManage.models import Company
+import simplejson as json
 
 def member(request):
     if "name" in request.GET:
@@ -39,11 +42,79 @@ def member(request):
         singleGroup["cid"]=g.cid
         singleGroup["count"]=num
         groupList.append(singleGroup)
-    return render_to_response('members.html',Context({"groupAll":groupList,"tagAll":t_list,"memberAll":u_list,"groupAllCount":len(u_list)}))
+    return render_to_response('members.html',Context({"groupAll":groupList,"tagAll":t_list,"memberAll":u_list,"groupAllCount":len(u_list),"tagString":Tag.objects.getAllString(1)}))
 
 
-def saveRoleInfo(request):
+def editRoleInfo(request):
     #save specified role info
-    pass
+    #here add permission 
+    '''
+     id,            role的id
+                     name,
+                     sex,
+                     idcard,
+                     phone,
+                     email,
+                     //location,    先不用
+                     groupIds,        e.g. 1+2+3
+                     tagIds            e.g. 1+2+3
+                     '''
+    roleid=request.POST["id"]
+    role=Role.objects.get(id=roleid)
+    role.name=request.POST["name"]
+    role.sex=int(request.POST["sex"])
+    role.idcard=request.POST["idcard"]
+    role.phone=request.POST["phone"]
+    role.email=request.POST["email"]
+    
+    groupIds=request.POST["groupIds"].split('+')
+    tagIds=request.POST["tagIds"].split('+')
+    
+    result=dict()
+    try:
+        role.save()
+        result["success"]="true"
+        return HttpResponse(json.dumps(result))
+    except:
+        result["success"]="false"
+        result["errorcode"]=""  #add error status
+        result["error"]=""
+        return HttpResponse(json.dumps(result))
 
+def addGroup(request):
+    #add new group
+    gname=request.POST('groupName')
+    #here add permission deal
+    ng=Group()
+    ng.gname=gname
+    ng.cid=Company.objects.get(cid=request.POST["cid"])
+    result=dict()
+    try:
+        ng.save()
+        ng_id=ng.id()
+        result["success"]="true"
+        result["gid"]=ng_id
+        return HttpResponse(json.dumps(result))
+    except:
+        result["success"]="false"
+        result["error"]=""  #describe error status
+        result["errorcode"]=""
+        return HttpResponse(json.dumps(result))
 
+def addTag(request):
+    tname=request.POST["tagName"]
+    nt=Tag()
+    nt.tname=tname
+    nt.cid=Company.objects.get(cid=request.POST["cid"])
+    result=dict()
+    try:
+        nt.save()
+        nt_id=nt.id()
+        result["success"]="true"
+        result["tid"]=nt_id
+        return HttpResponse(json.dumps(result))
+    except:
+        result["success"]="fasle"
+        result["error"]=""  #descript error status
+        result["errorcode"]=""
+        return HttpResponse(json.dumps(result))

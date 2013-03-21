@@ -32,9 +32,9 @@ class Group(models.Model):
         return self.gname
 
 class TagManager(models.Manager):
-    def getAllString(self):
+    def getAllString(self,kword):
         result=[]
-        for tag in self.all():
+        for tag in self.filter(cid=kword):
             tag_dict=dict()
             tag_dict["tid"]=tag.id
             tag_dict["tname"]=tag.tname
