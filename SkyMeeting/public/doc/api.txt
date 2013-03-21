@@ -24,4 +24,29 @@ API基本定义：
      1），访问的url （相对路径）： /member/getuser/tag/
      2），传入的参数：permission，cid，tid
      3），返回数据：user_list,同上
-4,
+4，修改用户信息
+     1），访问的url （相对路径）： /member/edituser
+     2），传入的参数：permission,
+					 id,			role的id
+					 name,
+					 sex,
+					 idcard,
+					 phone,
+					 email,
+					 //location,	先不用
+					 groupIds,		e.g. 1+2+3
+					 tagIds			e.g. 1+2+3
+     3），返回数据：{"success":"true", "errors":""}
+5，添加group
+     1），访问的url （相对路径）： /member/addgroup
+     2），传入的参数：permission,
+     				 cid,
+     				 groupName
+     3），返回数据：{"success":"true", "gid":"gid for new group", "errors":""}
+6，添加tag
+     1），访问的url （相对路径）： /member/addtag
+     2），传入的参数：permission,
+     				 cid,
+     				 tagName
+     3），返回数据：{"success":"true", "tid":"tid for new tag", "errors":""}
+

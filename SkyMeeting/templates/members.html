@@ -8,6 +8,27 @@
 <link href="../public/css/chosen.css" rel="stylesheet">
 
 <style type="text/css">
+    /*common*/
+    div.align-center, span.align-center{
+    	text-align: center;
+    }
+    div.align-right, span.align-right{
+    	text-align: right;
+    }
+	a.default-link{
+    	color: black;
+    	text-decoration: none;
+    }
+    a.default-link:hover, a.default-link:focus{
+    	color: #0088cc;
+    	text-decoration: underline;
+    }
+    a.image-link{
+    	text-decoration: none;
+    }
+    a.image-link:hover, a.image-link:focus{
+    	text-decoration: none;
+    }
 	/*common*/
 	.pagination-row {		
 		text-align: center;
@@ -141,33 +162,22 @@
   				<!--Sidebar content-->
   				<ul class="nav nav-list side-nav">
   					<li class="active">
-  						<a href="javascript:void(0);">
+  						<a href="?gid=-1">
   							<span class="group-name">All</span>
-  							<span class="group-size">(45)</span>
+  							<span class="group-size">(??)</span>
   							<i class="icon-chevron-right"></i>
   						</a>
   					</li>
-  					<li>
-  						<a href="javascript:void(0);">
-  							<span class="group-name">Board</span>
-  							<span class="group-size">(9)</span>
+
+  					{% for group in groupAll %}
+					<li>
+  						<a href="?gid={{ group.id }}">
+  							<span class="group-name">{{ group.gname }}</span>
+  							<span class="group-size">({{ group.count }})</span>
   							<i class="icon-chevron-right"></i>
   						</a>
   					</li>
-  					<li>
-  						<a href="javascript:void(0);">
-  							<span class="group-name">Market Department</span>
-  							<span class="group-size">(16)</span>
-  							<i class="icon-chevron-right"></i>
-  						</a>
-  					</li>
-  					<li>
-  						<a href="javascript:void(0);">
-  							<span class="group-name">Research &amp; Development</span>
-  							<span class="group-size">(20)</span>
-  							<i class="icon-chevron-right"></i>
-  						</a>
-  					</li>
+  					{% endfor %}
   				</ul>
 
   				<div class="row-fluid new-item-row">
@@ -181,30 +191,21 @@
 
 			<div class="span9">
   				<!--Body content-->
-  				<!-- tags??? -->
+  				<!-- tags -->
   				<div class="row-fluid" id="tagsDiv">
   					<span>Tags:</span>
   					<ul class="inline" id="tagList">
-  						<li><a class="tag">Manager</a></li>
-  						<li><a class="tag tag-selected">Chief Officer</a></li>
-  						<li><a class="tag tag-selected">Engineer</a></li>
-  						<li><a class="tag">Kubility</a></li>
-  						<!-- the same -->
-  						<li><a class="tag">Manager</a></li>
-  						<li><a class="tag">Chief Officer</a></li>
-  						<li><a class="tag">Engineer</a></li>
-  						<li><a class="tag">Kubility</a></li>
-  						<li><a class="tag">Manager</a></li>
-  						<li><a class="tag">Chief Officer</a></li>
-  						<li><a class="tag">Engineer</a></li>
-  						<li><a class="tag">Kubility</a></li>
-  						<!-- the same ends -->
+  						{% for tag in tagAll %}
+  						<li><a class="tag" data-tid="{{ tag.id }}">{{ tag.tname }}</a></li>
+  						{% endfor %}
   					</ul>
   				</div>
 
+  				<!-- tags management??? -->
 
 
-  				<table class="table table-striped table-bordered table-hover" id="meetingTable">
+  				<!-- members table -->
+  				<table class="table table-striped table-bordered table-hover" id="membersTable">
 					<thead>
 						<tr role="row">
 							<th>Name</th>
@@ -218,23 +219,33 @@
 					</thead>
 					<tbody>
 						{% for role in memberAll %}
-						<tr class="odd">
-							<td><a href="javascript:void(0);">{{ role.name }}</a></td>
+						<tr>
+							<td><a href="javascript:void(0);" class="edit-member">{{ role.name }}</a></td>
 							<td>{{ role.sex }}</td>
 							<td>{{ role.idcard }}</td>
 							<td>{{ role.phone }}</td>
 							<td>{{ role.email }}</td>
 							<td>
-								Manager, Engineer
+								<a href="javascript:void(0);" data-toggle="tooltip" data-placement="right" 
+									data-original-title="
+										{% for tag in role.tags.all %}
+											{{ tag.tname }}
+										{% endfor %}
+									">
+									{% for tag in role.tags.all %}
+										{{ tag.tname }}
+									{% endfor %}
+								</a>
 							</td>
 							<td>
-								<a href="" class="">
+								<a href="javascript:void(0);" class="image-link edit-member" title="Edit member">
 									<i class="icon-edit icon-green"></i>
 								</a>
-								<a href="" class="">
+								<a href="javascript:void(0);" class="image-link delete-member" title="Delete member">
 									<i class="icon-trash icon-red"></i>
 								</a>
 							</td>
+							<input type="hidden" data-name="{{ role.name }}" data-sex="{{ role.sex }}" data-idcard="{{ role.idcard }}" data-phone="{{ role.phone }}" data-email="{{ role.email }}" data-location="{{ role.location }}" data-tags="{{ role.tags.getAllString }}" />
 						</tr>
 						{% endfor %}
 					</tbody>
@@ -245,11 +256,6 @@
 				<div class="row-fluid new-item-row">
 					<a href="#inviteModal" data-toggle="modal">&plus;&nbsp;Invite new member</a>
 				</div>
-				<!-- temp -->
-				<div class="row-fluid new-item-row">
-					<a href="#editModal" data-toggle="modal">Edit member test</a>
-				</div>
-				<!-- temp ends -->
 				<div class="row-fluid pagination-row">
 					<div class="pagination">
 					  <ul>
@@ -379,9 +385,9 @@
 	<div class="modal-body">
 		<form class="form-horizontal">
 			<div class="control-group">
-				<label class="control-label" for="eidtName">Name</label>
+				<label class="control-label" for="editName">Name</label>
 				<div class="controls">
-					<input type="text" id="eidtName" placeholder="Name" />
+					<input type="text" id="editName" placeholder="Name" />
 				</div>
 			</div>
 			<div class="control-group">
@@ -390,7 +396,7 @@
 					<label class="radio inline">
 						<div class="radio">
 							<span class="checked">
-								<input type="radio" id="radioMale" value="1" />
+								<input type="radio" id="genderMale" name="editGender" value="1" />
 							</span>
 						</div>
 						Male
@@ -398,7 +404,7 @@
 					<label class="radio inline">
 						<div class="radio">
 							<span>
-								<input type="radio" id="radioFemale" value="2" />
+								<input type="radio" id="genderFemale" name="editGender" value="2" />
 							</span>
 						</div>
 						Female
@@ -406,7 +412,7 @@
 					<label class="radio inline">
 						<div class="radio">
 							<span>
-								<input type="radio" id="radioUnknown" value="-1" />
+								<input type="radio" id="genderUnknown" name="editGender" value="-1" />
 							</span>
 						</div>
 						Unknown
@@ -414,21 +420,21 @@
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="eidtIDno">ID Card Number</label>
+				<label class="control-label" for="editIDno">ID Card Number</label>
 				<div class="controls">
-					<input type="text" id="eidtIDno" placeholder="ID Card Number" />
+					<input type="text" id="editIDno" placeholder="ID Card Number" />
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="eidtPhone">Phone</label>
+				<label class="control-label" for="editPhone">Phone</label>
 				<div class="controls">
-					<input type="text" id="eidtPhone" placeholder="Phone" />
+					<input type="text" id="editPhone" placeholder="Phone" />
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="eidtEmail">Email</label>
+				<label class="control-label" for="editEmail">Email</label>
 				<div class="controls">
-					<input type="text" id="eidtEmail" placeholder="Email" />
+					<input type="text" id="editEmail" placeholder="Email" />
 				</div>
 			</div>
 
@@ -479,7 +485,7 @@
 					<div class="row-fluid hide" id="dynAddGroupErr">
 						<!-- add message dynamically by js -->
 					</div>
-					<!-- ??? -->
+					
 				</div>
 			</div>
 
@@ -490,10 +496,9 @@
 				<div class="controls">
 					<!-- <div>Chief Officer, Consultant, Detective, Editor</div> -->
 					<select id="tagSect" multiple="multiple" data-rel="chosen" >
-						<option>Chief Officer</option>
-						<option selected="selected">Consultant</option>
-						<option>Detective</option>
-						<option selected="selected">Editor</option>
+						{% for tag in tagAll %}
+						<option value="{{ tag.id }}">{{ tag.tname }}</option>
+						{% endfor %}
 					</select>
 
 					<!-- dynamically add tags -->
@@ -505,7 +510,7 @@
 						<a href="javascript:void(0);" id="dynAddTagOk"><i class="icon-ok"></i></a>
 						<a href="javascript:void(0);" id="dynAddTagCancel"><i class="icon-remove-sign"></i></a>
 					</div>
-					<!-- ??? -->
+					
 				</div>
 			</div>
 
@@ -568,6 +573,8 @@ $(function() {
 
 
 
+
+
 	// ====================================
 	// tags
 	// ====================================
@@ -586,6 +593,8 @@ $(function() {
 
 
 
+
+
 	// ====================================
 	// invite member modal
 	// ====================================
@@ -597,9 +606,64 @@ $(function() {
 
 
 
+
+
 	// ====================================
 	// edit member modal
 	// ====================================
+	// init modal function
+	var initEditMemberFunc = function(dataElement){
+		// init text
+		$("#editName").val(dataElement.attr("data-name"));
+		$("#editIDno").val(dataElement.attr("data-idcard"));
+		$("#editPhone").val(dataElement.attr("data-phone"));
+		$("#editEmail").val(dataElement.attr("data-email"));
+
+		// init gender radio
+		var genderVal = dataElement.attr("data-sex");
+		genderVal = -1;  // hardcode
+		$("input[name='editGender'][value='" + genderVal + "']").click();
+
+		// init groups
+
+
+		// init tags
+		var targetElement = $("#tagSect");
+		var tagsString = dataElement.attr("data-tags");
+		var tags = eval(tagsString);
+
+		// var tagAll = eval({{ tagAll }});
+		// alert(tagAll);
+		{% for t in tagAll %}
+			// alert("{{t.tname}}");
+		{% endfor %}
+
+		for (var i = 0; i < tags.length; i++) {
+			// targetElement.append("<option value=\"" + tags[i].tid + "\" selected=\"selected\">" + tags[i].tname + "</option>");
+			// targetElement.find("option[value='" + tags[i].id + "']").click();
+		};
+
+		// targetElement.chosen();  //re-init chosen selector
+		
+
+
+
+		// finished, show modal
+		$("#editModal").modal("show");
+	};
+
+	// bind event for showing modal
+	$(".edit-member").click(function(){
+		var target = $(this).parents("tr").find("input[type='hidden']");
+		initEditMemberFunc(target);
+	});
+	$("#membersTable").find("tbody").find("tr").dblclick(function(){
+		var target = $(this).find("input[type='hidden']");
+		initEditMemberFunc(target);
+	});
+
+
+
 	// add new group
 	$("#dynAddGroup").click(function(){
 		$("#dynAddGroupDiv").toggle("fast");
@@ -650,6 +714,7 @@ $(function() {
 		$("#dynAddGroupDiv").hide("fast");
 		$("#dynAddGroupErr").hide();
 	});
+
 
 
 	// patched function for chosen selector
@@ -725,6 +790,7 @@ $(function() {
 		$("#dynAddTagDiv").hide("fast");
 	});
 	
+
 
 	// edit member submit
 	$("#editModalOk").click(function(){
