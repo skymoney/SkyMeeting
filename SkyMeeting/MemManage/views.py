@@ -2,10 +2,20 @@
 from django.shortcuts import render_to_response
 from django.template import Context
 from MemManage.models import Role
+from MemManage.models import Group
+from MemManage.models import Tag
 
 def member(request):
+    if "name" in request.GET:
+        #get detail person info
+        pass
     
-    return render_to_response('members.html')
+    #get all users
+    # company_id is passed from request
+    u_list=Role.objects.filter(company_id=1)
+    g_list=Group.objects.filter(cid=1)
+    t_list=Tag.objects.filter(cid=1)
+    return render_to_response('members.html',Context({"groupAll":g_list,}))
 
 
 #get user,default get all users

@@ -11,10 +11,22 @@ class Company(models.Model):
 class Group(models.Model):
     gname=models.CharField(max_length=50)
     cid=models.ForeignKey(Company)
+    
+    def toString(self):
+        return "{'gid':"+str(self.id)+",'gname':"+self.gname+",'cid':"+str(self.cid)+"}"
+    
+    def __unicode__(self):
+        return self.gname
 
 class Tag(models.Model):
     tname=models.CharField(max_length=50)
     cid=models.ForeignKey(Company)
+    
+    def toString(self):
+        return "{'tid':"+str(self.id)+",'tname':"+self.tname+",'cid':"+str(self.cid)+"}"
+    
+    def __unicode__(self):
+        return self.tname
 
 #in fact this is role for company
 class Role(models.Model):
