@@ -1,5 +1,6 @@
 # Create your views here.
 from django.shortcuts import render_to_response
+from django.http import HttpResponse
 from django.template import Context
 from MemManage.models import Role
 from MemManage.models import Group
@@ -16,7 +17,8 @@ def member(request):
     if "gid" in request.GET:
         #only has gid
         #urlFormat: /members/?gid=1
-        pass
+        u_list=Role.objects.filter(company_id=1,groups_id=request.GET["gid"])
+        return HttpResponse(u_list)
     if "tid" in request.GET:
         #only has tig
         #urlFormat: /members/?tid=1+2
@@ -27,6 +29,7 @@ def member(request):
     g_list=Group.objects.filter(cid=1)
     t_list=Tag.objects.filter(cid=1)
     groupList=[]
+    #here can optimize by just sql query instead of Model method
     for g in g_list:
         singleGroup={}
         gid=g.id
@@ -36,18 +39,11 @@ def member(request):
         singleGroup["cid"]=g.cid
         singleGroup["count"]=num
         groupList.append(singleGroup)
-    print groupList
-    return render_to_response('members.html',Context({"groupAll":groupList,"tagAll":t_list,"memberAll":u_list}))
+    return render_to_response('members.html',Context({"groupAll":groupList,"tagAll":t_list,"memberAll":u_list,"groupAllCount":len(u_list)}))
 
 
-#get user by given groupid and cid
-def getUserByGroup(request,gid):
-    
+def saveRoleInfo(request):
+    #save specified role info
     pass
-
-#get user by given tag id(s) and cid
-def getUserByTag(request):
-    pass
-
 
 
