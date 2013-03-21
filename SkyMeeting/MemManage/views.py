@@ -24,22 +24,16 @@ def member(request):
     #get all users
     # company_id is passed from request
     u_list=Role.objects.filter(company_id=1)
-    print u_list
     g_list=Group.objects.filter(cid=1)
-    print g_list
     t_list=Tag.objects.filter(cid=1)
     
-    return render_to_response('members.html',Context({"groupAll":g_list,"tagAll":t_list,"memberAll":u_list}))
+    groupNum={}
+    for g in g_list:
+        gid=g.id
+        num=len(Role.objects.filter(company_id=1,groups__id=gid))
+        groupNum[str(gid)]=num
+    return render_to_response('members.html',Context({"groupAll":g_list,"tagAll":t_list,"memberAll":u_list,"groupNum":groupNum}))
 
-
-#get user,default get all users
-def getUser(request):
-    #print 'Request'
-    u_list=Role.objects.all()  #get all user by specifying cid
-    
-    #print len(u_list)
-    return render_to_response("members.html",Context({"memberAll":u_list,"test":""}))
-    #return render_to_response('members.html')
 
 #get user by given groupid and cid
 def getUserByGroup(request,gid):
