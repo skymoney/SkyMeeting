@@ -11,6 +11,7 @@ import simplejson as json
 
 def member(request):
     u_list=Role.objects.filter(company_id=1)
+    conf={}
     if "name" in request.GET:
         #get detail person info
         pass
@@ -19,8 +20,11 @@ def member(request):
         #urlFormat: /members/?gid=1&tid=1+2
         if int(request.GET["gid"])>0:
             u_list=Role.objects.filter(company_id=1,groups__id=request.GET["gid"],tags__id__in=request.GET["tid"].split())
+            conf["current_gid"]=request.GET['gid']
+            conf["current_tid"]=request.GET['tid'].split()
         else:
             u_list=Role.objects.filter(company_id=1,tags__id__in=request.GET["tid"].split())
+            
     elif "gid" in request.GET:
         #only has gid
         #urlFormat: /members/?gid=1
@@ -30,7 +34,6 @@ def member(request):
     elif "tid" in request.GET:
         #only has tig
         #urlFormat: /members/?tid=1+2
-        print request.GET["tid"]
         tagSet=request.GET["tid"].split()
         u_list=Role.objects.filter(company_id=1,tags__id__in=tagSet)
         #return HttpResponse(u_list)
@@ -43,7 +46,7 @@ def member(request):
     tagList=[]
     for tag in t_list:
         singleTag={}
-        singleTag["id"]=tag.id
+        singleTag["tid"]=tag.id
         singleTag["tname"]=tag.tname
         singleTag["cid"]=tag.cid_id
         tagList.append(singleTag)
@@ -51,9 +54,8 @@ def member(request):
     #here can optimize by just sql query instead of Model method
     for g in g_list:
         singleGroup={}
-        gid=g.id
-        num=len(Role.objects.filter(company_id=1,groups__id=gid))
-        singleGroup["id"]=g.id
+        num=len(Role.objects.filter(company_id=1,groups__id=g.id))
+        singleGroup["gid"]=g.id
         singleGroup["gname"]=g.gname
         singleGroup["cid"]=g.cid
         singleGroup["count"]=num
