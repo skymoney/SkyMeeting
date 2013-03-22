@@ -4,7 +4,14 @@ from django.conf import settings
 # from django.contrib import admin
 # admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns=patterns('MemManage.views',
+    url(r'^members/$','member'),
+    url(r'^members/edituser','editRoleInfo'),
+    url(r'^member/addgroup/$','addGroup'),
+    url(r'^member/addtag','addTag'),
+)
+
+urlpatterns += patterns('',
     # Examples:
     # url(r'^$', 'SkyMeeting.views.home', name='home'),
     # url(r'^SkyMeeting/', include('SkyMeeting.foo.urls')),
@@ -19,8 +26,7 @@ urlpatterns = patterns('',
     url(r'^login/$','Login.views.login'),  
     url(r'^logout/$','Login.views.logout'),
     url(r'^home/$','Login.views.home'),
-    url(r'^boards/$','Meeting.views.boards'),
-    url(r'^members/$','MemManage.views.member'),
+    url(r'^boards/$','Meeting.views.boards'),    
     url(r'^meetings/$','Meeting.views.meetings'),
     url(r'^documents/$','Meeting.views.documents'),
     url(r'^newmeeting/$','Meeting.views.newMeeting'),

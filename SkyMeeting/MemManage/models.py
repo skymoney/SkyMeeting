@@ -32,13 +32,13 @@ class Group(models.Model):
         return self.gname
 
 class TagManager(models.Manager):
-    def getAllString(self,kword):
+    def getAllString(self):
         result=[]
-        for tag in self.filter(cid=kword):
+        for tag in self.all():
             tag_dict=dict()
             tag_dict["tid"]=tag.id
             tag_dict["tname"]=tag.tname
-            tag_dict["cid"]=tag.cid.id
+            tag_dict["cid"]=tag.cid_id
             result.append(tag_dict)
         return json.dumps(result)
 

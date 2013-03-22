@@ -10,25 +10,33 @@ from MemManage.models import Company
 import simplejson as json
 
 def member(request):
+    u_list=Role.objects.filter(company_id=1)
     if "name" in request.GET:
         #get detail person info
         pass
-    if "gid" in request.GET and "tid" in request.GET:
+    elif "gid" in request.GET and "tid" in request.GET:
         #has gid and tid
         #urlFormat: /members/?gid=1&tid=1+2
-        pass
-    if "gid" in request.GET:
+        if int(request.GET["gid"])>0:
+            u_list=Role.objects.filter(company_id=1,groups__id=request.GET["gid"],tags__id__in=request.GET["tid"].split())
+        else:
+            u_list=Role.objects.filter(company_id=1,tags__id__in=request.GET["tid"].split())
+    elif "gid" in request.GET:
         #only has gid
         #urlFormat: /members/?gid=1
-        u_list=Role.objects.filter(company_id=1,groups_id=request.GET["gid"])
-        return HttpResponse(u_list)
-    if "tid" in request.GET:
+        if int(request.GET["gid"])>0:
+            u_list=Role.objects.filter(company_id=1,groups__id=request.GET["gid"])
+        #return HttpResponse(u_list)
+    elif "tid" in request.GET:
         #only has tig
         #urlFormat: /members/?tid=1+2
-        pass
+        print request.GET["tid"]
+        tagSet=request.GET["tid"].split()
+        u_list=Role.objects.filter(company_id=1,tags__id__in=tagSet)
+        #return HttpResponse(u_list)
     #get all users
     # company_id is passed from request
-    u_list=Role.objects.filter(company_id=1)
+    
     g_list=Group.objects.filter(cid=1)
     t_list=Tag.objects.filter(cid=1)
     groupList=[]
@@ -37,8 +45,9 @@ def member(request):
         singleTag={}
         singleTag["id"]=tag.id
         singleTag["tname"]=tag.tname
-        singleTag["cid"]=tag.cid
+        singleTag["cid"]=tag.cid_id
         tagList.append(singleTag)
+    print json.dumps(tagList)
     #here can optimize by just sql query instead of Model method
     for g in g_list:
         singleGroup={}
@@ -49,7 +58,7 @@ def member(request):
         singleGroup["cid"]=g.cid
         singleGroup["count"]=num
         groupList.append(singleGroup)
-    return render_to_response('members.html',Context({"groupAll":groupList,"tagAll":t_list,"memberAll":u_list,"groupAllCount":len(u_list),"tagString":tagList}))
+    return render_to_response('members.html',Context({"groupAll":groupList,"tagAll":t_list,"memberAll":u_list,"groupAllCount":len(u_list),"tagString":json.dumps(tagList)}))
 
 
 def editRoleInfo(request):
@@ -76,6 +85,8 @@ def editRoleInfo(request):
     
     groupIds=request.POST["groupIds"].split('+')
     tagIds=request.POST["tagIds"].split('+')
+    
+    #here can be optimized by sql query insteas of model method
     
     result=dict()
     try:
