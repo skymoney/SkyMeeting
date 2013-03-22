@@ -7,8 +7,8 @@ from django.conf import settings
 urlpatterns=patterns('MemManage.views',
     url(r'^members/$','member'),
     url(r'^members/edituser','editRoleInfo'),
-    url(r'^member/addgroup/$','addGroup'),
-    url(r'^member/addtag','addTag'),
+    url(r'^members/addgroup/$','addGroup'),
+    url(r'^members/addtag/$','addTag'),
 )
 
 urlpatterns += patterns('',

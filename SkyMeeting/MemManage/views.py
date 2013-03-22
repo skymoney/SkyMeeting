@@ -140,11 +140,11 @@ def addTag(request):
     tname=request.POST["tagName"]
     nt=Tag()
     nt.tname=tname
-    nt.cid=Company.objects.get(cid=request.POST["cid"])
+    nt.cid=Company.objects.get(id=1)
     result=dict()
     try:
         nt.save()
-        nt_id=nt.id()
+        nt_id=nt.id
         result["success"]="true"
         result["tid"]=nt_id
         return HttpResponse(json.dumps(result))

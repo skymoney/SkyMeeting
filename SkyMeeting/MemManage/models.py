@@ -15,7 +15,7 @@ class GroupManager(models.Manager):
         for group in self.all():
             group_dict=dict()
             group_dict["gid"]=group.id
-            group_dict["gname"]=group.tname
+            group_dict["gname"]=group.gname
             group_dict["cid"]=group.cid.id
             result.append(group_dict)
         return json.dumps(result)
