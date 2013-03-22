@@ -62,10 +62,9 @@ def member(request):
         singleGroup["cid"]=g.cid_id
         singleGroup["count"]=num
         groupList.append(singleGroup)
-        
     #conf can set more values here
     
-    return render_to_response('members.html',Context({"groupAll":groupList,"tagAll":t_list,"memberAll":u_list,"groupAllCount":len(u_list),"tagString":json.dumps(tagList),"conf":conf}))
+    return render_to_response('members.html',Context({"groupAll":json.dumps(groupList),"tagAll":t_list,"memberAll":u_list,"groupAllCount":len(u_list),"tagString":json.dumps(tagList),"conf":conf}))
 
 
 def editRoleInfo(request):
