@@ -20,22 +20,25 @@ def member(request):
         #urlFormat: /members/?gid=1&tid=1+2
         if int(request.GET["gid"])>0:
             u_list=Role.objects.filter(company_id=1,groups__id=request.GET["gid"],tags__id__in=request.GET["tid"].split())
-            conf["current_gid"]=request.GET['gid']
-            conf["current_tid"]=request.GET['tid'].split()
+            conf["current_gid"]=int(request.GET['gid'])
         else:
+            conf["current_gid"]=-1
             u_list=Role.objects.filter(company_id=1,tags__id__in=request.GET["tid"].split())
-            
+        conf["current_tid"]=listToInt(request.GET['tid'].split())
     elif "gid" in request.GET:
         #only has gid
         #urlFormat: /members/?gid=1
         if int(request.GET["gid"])>0:
-            conf["current_gid"]=request.GET['gid']
+            conf["current_gid"]=int(request.GET['gid'])
             u_list=Role.objects.filter(company_id=1,groups__id=request.GET["gid"])
+        else:
+            conf["current_gid"]=-1
+            u_list=Role.objects.filter(company_id=1)
         #return HttpResponse(u_list)
     elif "tid" in request.GET:
         #only has tig
         #urlFormat: /members/?tid=1+2
-        tagSet=request.GET["tid"].split()
+        tagSet=listToInt(request.GET["tid"].split())
         conf["current_tid"]=tagSet
         u_list=Role.objects.filter(company_id=1,tags__id__in=tagSet)
         #return HttpResponse(u_list)
@@ -54,6 +57,7 @@ def member(request):
         tagList.append(singleTag)
     print json.dumps(tagList)
     #here can optimize by just sql query instead of Model method
+    sum=0
     for g in g_list:
         singleGroup={}
         num=len(Role.objects.filter(company_id=1,groups__id=g.id))
@@ -61,11 +65,18 @@ def member(request):
         singleGroup["gname"]=g.gname
         singleGroup["cid"]=g.cid_id
         singleGroup["count"]=num
+        sum+=num
         groupList.append(singleGroup)
     #conf can set more values here
     
-    return render_to_response('members.html',Context({"groupAll":groupList,"groupString":json.dumps(groupList),"tagAll":t_list,"memberAll":u_list,"groupAllCount":len(u_list),"tagString":json.dumps(tagList),"conf":conf}))
+    return render_to_response('members.html',Context({"groupAll":groupList,"groupString":json.dumps(groupList),"tagAll":t_list,"memberAll":u_list,"groupAllCount":sum,"tagString":json.dumps(tagList),"conf":conf}))
 
+def listToInt(list):
+    numList=[]
+    for s in list:
+        num=int(s)
+        numList.append(num)
+    return numList
 
 def editRoleInfo(request):
     #save specified role info
