@@ -29,12 +29,14 @@ def member(request):
         #only has gid
         #urlFormat: /members/?gid=1
         if int(request.GET["gid"])>0:
+            conf["current_gid"]=request.GET['gid']
             u_list=Role.objects.filter(company_id=1,groups__id=request.GET["gid"])
         #return HttpResponse(u_list)
     elif "tid" in request.GET:
         #only has tig
         #urlFormat: /members/?tid=1+2
         tagSet=request.GET["tid"].split()
+        conf["current_tid"]=tagSet
         u_list=Role.objects.filter(company_id=1,tags__id__in=tagSet)
         #return HttpResponse(u_list)
     #get all users
@@ -57,10 +59,13 @@ def member(request):
         num=len(Role.objects.filter(company_id=1,groups__id=g.id))
         singleGroup["gid"]=g.id
         singleGroup["gname"]=g.gname
-        singleGroup["cid"]=g.cid
+        singleGroup["cid"]=g.cid_id
         singleGroup["count"]=num
         groupList.append(singleGroup)
-    return render_to_response('members.html',Context({"groupAll":groupList,"tagAll":t_list,"memberAll":u_list,"groupAllCount":len(u_list),"tagString":json.dumps(tagList)}))
+        
+    #conf can set more values here
+    
+    return render_to_response('members.html',Context({"groupAll":groupList,"tagAll":t_list,"memberAll":u_list,"groupAllCount":len(u_list),"tagString":json.dumps(tagList),"conf":conf}))
 
 
 def editRoleInfo(request):
@@ -87,8 +92,8 @@ def editRoleInfo(request):
     
     groupIds=request.POST["groupIds"].split('+')
     tagIds=request.POST["tagIds"].split('+')
-    
     #here can be optimized by sql query insteas of model method
+    
     
     result=dict()
     try:
