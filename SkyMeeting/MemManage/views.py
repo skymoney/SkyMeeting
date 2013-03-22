@@ -11,6 +11,7 @@ import simplejson as json
 
 def member(request):
     u_list=Role.objects.filter(company_id=1)
+    sum=len(u_list)
     conf={}
     conf["current_gid"]=-1
     conf["current_tid"]=-1
@@ -71,7 +72,6 @@ def member(request):
         tagList.append(singleTag)
     print json.dumps(tagList)
     #here can optimize by just sql query instead of Model method
-    sum=0
     for g in g_list:
         singleGroup={}
         num=len(Role.objects.filter(company_id=1,groups__id=g.id))
@@ -79,7 +79,6 @@ def member(request):
         singleGroup["gname"]=g.gname
         singleGroup["cid"]=g.cid_id
         singleGroup["count"]=num
-        sum+=num
         groupList.append(singleGroup)
     #conf can set more values here
     
