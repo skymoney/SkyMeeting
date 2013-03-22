@@ -12,20 +12,34 @@ import simplejson as json
 def member(request):
     u_list=Role.objects.filter(company_id=1)
     conf={}
+    conf["current_gid"]=-1
+    conf["current_tid"]=-1
     if "name" in request.GET:
         #get detail person info
         pass
     elif "gid" in request.GET and "tid" in request.GET:
         #has gid and tid
-        #urlFormat: /members/?gid=1&tid=1+2
-        if int(request.GET["gid"])>0:
-            u_list=Role.objects.filter(company_id=1,groups__id=request.GET["gid"],tags__id__in=request.GET["tid"].split())
-            conf["current_gid"]=int(request.GET['gid'])
-        else:
-            conf["current_gid"]=-1
-            u_list=Role.objects.filter(company_id=1,tags__id__in=request.GET["tid"].split())
-        conf["current_tid"]=listToInt(request.GET['tid'].split())
-    elif "gid" in request.GET:
+        #urlFormat: /members/?gid=*&tid=*      
+        if len(request.GET["gid"])>0 and len(request.GET['tid'])>0:
+            #?gid=+&tid=+
+            if int(request.GET['gid'])<0:
+                if len(request.GET['tid'])==2 and int(request.GET['tid'])<0:
+                    #gid=-1&tid=-1
+                    pass
+                else:
+                    #gid=-1&tid=1
+                    u_list=Role.objects.filter(company_id=1,tags__id__in=request.GET['tid'].split())
+                    conf["current_tid"]=listToInt(request.GET['tid'].split())
+            elif len(request.GET['tid'])==2 and int(request.GET['tid'])<0:
+                #gid=1&tid=-1
+                u_list=Role.objects.filter(company_id=1,groups__id=request.GET['gid'])
+                conf["current_gid"]=int(request.GET['gid'])
+            else:
+                #gid=1&tid=1+2
+                u_list=Role.objects.filter(company_id=1,groups__id=request.GET['gid'],tags__id__in=request.GET['tid'])
+                conf["current_gid"]=int(request.GET['gid'])
+                conf["current_tid"]=listToInt(request.GET['tid'].split())
+    elif "gid" in request.GET and len(request.GET['gid'])>0:
         #only has gid
         #urlFormat: /members/?gid=1
         if int(request.GET["gid"])>0:
@@ -35,7 +49,7 @@ def member(request):
             conf["current_gid"]=-1
             u_list=Role.objects.filter(company_id=1)
         #return HttpResponse(u_list)
-    elif "tid" in request.GET:
+    elif "tid" in request.GET and len(request.GET['tid'])>0:
         #only has tig
         #urlFormat: /members/?tid=1+2
         tagSet=listToInt(request.GET["tid"].split())
@@ -126,7 +140,7 @@ def addGroup(request):
     result=dict()
     try:
         ng.save()
-        ng_id=ng.id()
+        ng_id=ng.id
         result["success"]="true"
         result["gid"]=ng_id
         return HttpResponse(json.dumps(result))
