@@ -78,17 +78,18 @@ def editRoleInfo(request):
                      phone=request.POST["phone"],
                      email=request.POST["email"])
         #clear all original groups and tags
-        Role.objects.filter(id=roleid).groups.clear()
-        Role.objects.filter(id=roleid).tags.clear()
-        
-        groupIds=request.POST["groupIds"].split()
-        tagIds=request.POST["tagIds"].split()
+        Role.objects.get(id=roleid).groups.clear()
+        Role.objects.get(id=roleid).tags.clear()
         
         #here can be optimized by sql query instead of model method
-        for group in groupIds:
-            Role.objects.filter(id=roleid).groups.add(int(group))
-        for tag in tagIds:
-            Role.objects.filter(id=roleid).tags.add(int(tag))
+        if len(request.POST["groupIds"])>0:
+            groupIds=request.POST["groupIds"].split('+')
+            for group in groupIds:
+                Role.objects.get(id=roleid).groups.add(int(group))
+        if len(request.POST['tagIds'])>0:
+            tagIds=request.POST["tagIds"].split('+')
+            for tag in tagIds:
+                Role.objects.get(id=roleid).tags.add(int(tag))
         result["success"]="true"
         return HttpResponse(json.dumps(result))
     except:
