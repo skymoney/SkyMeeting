@@ -270,7 +270,7 @@
 									<i class="icon-trash icon-red"></i>
 								</a>
 							</td>
-							<input type="hidden" data-name="{{ role.name }}" data-sex="{{ role.sex }}" data-idcard="{{ role.idcard }}" data-phone="{{ role.phone }}" data-email="{{ role.email }}" data-location="{{ role.location }}" data-tags="{{ role.tags.getAllString }}" />
+							<input type="hidden" data-name="{{ role.name }}" data-sex="{{ role.sex }}" data-idcard="{{ role.idcard }}" data-phone="{{ role.phone }}" data-email="{{ role.email }}" data-location="{{ role.location }}" data-groups="{{ role.groups.getAllString }}" data-tags="{{ role.tags.getAllString }}" />
 						</tr>
 						{% endfor %}
 					</tbody>
@@ -468,16 +468,18 @@
 			<div class="control-group">
 				<label class="control-label">Groups Belonged To</label>
 				<div class="controls">
-					{% for group in groupAll %}
-					<label class="checkbox">
-						<div class="checker">
-							<span>
-								<input type="checkbox" id="group{{ group.gid }}" value="{{ group.gid }}" />
-							</span>
-						</div>
-						{{ group.gname }}
-					</label>
-					{% endfor %}
+					<div id="groupCbxDiv">
+						<!-- 
+						<label class="checkbox">
+							<div class="checker">
+								<span>
+									<input type="checkbox" id="group{{ group.gid }}" value="{{ group.gid }}" />
+								</span>
+							</div>
+							{{ group.gname }}
+						</label>
+						 -->
+					</div>
 					<div id="dynGroups">
 						<!-- add dynamically by js -->
 					</div>
@@ -552,9 +554,7 @@
 
 <!-- 初始化js -->
 <script type="text/javascript">
-// storage
-var globalGroups = eval($("#globalGroupString").attr("data-value"));
-var globalTags = eval($("#globalTagString").attr("data-value"));
+
 
 
 $(function() {
@@ -570,6 +570,16 @@ $(function() {
 <script type="text/javascript">
 $(function() {
 
+// storage
+var globalGroups = eval($("#globalGroupString").attr("data-value"));
+var globalTags = eval($("#globalTagString").attr("data-value"));
+
+//flags
+var addGroupFlag = 0;  // 0 - idle; 1 - busy
+var addTagFlag = 0;  // 0 - idle; 1 - busy
+
+
+	// var 
 	// ====================================
 	// tooltips
 	// ====================================
@@ -672,7 +682,47 @@ $(function() {
 
 
 		//============ init groups ============
+		var groupCbxDiv = $("#groupCbxDiv");
+		groupCbxDiv.empty();
 
+		var curGroups = eval(dataElement.attr("data-groups"));
+
+		for(var i=0; i<globalGroups.length; i++)
+		{
+			var cbxCode = "<label class=\"checkbox\">";
+			cbxCode += "<div class=\"checker\">";
+
+			var found = false;
+			for(var j=0; j<curGroups.length; j++)
+			{
+				if(globalGroups[i].gid == curGroups[j].gid)
+				{
+					found = true;
+					break;
+				}
+			}
+
+			if(found)
+			{
+				cbxCode += "<span class=\"checked\">";
+				cbxCode += "<input type=\"checkbox\" id=\"\" value=\"" + globalGroups[i].gid + "\" checked=\"checked\" />";
+			}
+			else
+			{
+				cbxCode += "<span>";
+				cbxCode += "<input type=\"checkbox\" id=\"\" value=\"" + globalGroups[i].gid + "\" />";
+			}
+
+			cbxCode += "</span>";
+			cbxCode += "</div>";
+			cbxCode += globalGroups[i].gname;
+			cbxCode += "</label>";
+
+			groupCbxDiv.append(cbxCode);
+		}
+
+		// bind checkbox event
+		groupCbxDiv.find("div.checker input").bind("click", checkerClickFunc);
 
 		//========== init groups ends ==========
 
@@ -685,13 +735,11 @@ $(function() {
 
 		var selectorCode = "<select id=\"tagSect\" multiple=\"multiple\" data-rel=\"chosen\" >";
 
-		var curTagString = dataElement.attr("data-tags");
-		var curTags = eval(curTagString);
+		var curTags = eval(dataElement.attr("data-tags"));
 
 		for(var i=0; i<globalTags.length; i++)
 		{
 			var found = false;
-			
 			for(var j=0; j<curTags.length; j++)
 			{
 				if(globalTags[i].tid == curTags[j].tid)
@@ -818,6 +866,7 @@ $(function() {
 		$("#tagSect option:eq(" + index + ")").attr("selected","selected");
 	};
 
+
 	// add new tag
 	$("#dynAddTag").click(function(){
 		$("#dynAddTagDiv").toggle("fast");
@@ -846,44 +895,54 @@ $(function() {
 			return false;
 		}
 
-		// append element
-		$("#tagSect").append("<option selected=\"selected\">" + newTagName + "</option>");
-		var tagSectIndex = $("#tagSect option").length - 1;
 
-		// $("#tagSect_chzn").remove();
-		// $("#tagSect").chosen();
-		// $('[data-rel="chosen"],[rel="chosen"]').chosen();
+		// disable
 
-		$("#tagSect_chzn").find("ul.chzn-choices").find(".search-field").
-			before("<li class=\"search-choice\" id=\"tagSect_chzn_c_" + tagSectIndex + "\">" + 
-						"<span>" + newTagName + "</span>" + 
-						"<a href=\"javascript:void(0);\" class=\"search-choice-close\" rel=\"" + tagSectIndex + "\"></a>" + 
-					"</li>");
-
-		$("#tagSect_chzn").find("ul.chzn-results").
-			append("<li id=\"tagSect_chzn_o_" + tagSectIndex + "\" class=\"result-selected\">" + newTagName + "</li>");
-
-		// bind event for new element
-		$("#tagSect_chzn_c_" + tagSectIndex).find(".search-choice-close").click(searchChoiceCloseFunc);
-		$("#tagSect_chzn_o_" + tagSectIndex).click(searchResultClickFunc);
-
-
-		// ajax
+		//=========== ajax begins ===========
 		$.post(
 			"/members/addtag/",
 			{
 				"tagName": newTagName
 			},
-			function(data, status){
-		    	alert("Data: " + data + "\nStatus: " + status);
+			function(data)
+			{
+		    	var result = eval("(" + data + ")");
+		    	if(result.success == "true")
+		    	{
+		    		var newTagId = result.tid;
+
+		    		// append element
+					$("#tagSect").append("<option value=\"" + newTagId + "\" selected=\"selected\">" + newTagName + "</option>");
+					var tagSectIndex = $("#tagSect option").length - 1;
+
+					$("#tagSect_chzn").find("ul.chzn-choices").find(".search-field").
+						before("<li class=\"search-choice\" id=\"tagSect_chzn_c_" + tagSectIndex + "\">" + 
+									"<span>" + newTagName + "</span>" + 
+									"<a href=\"javascript:void(0);\" class=\"search-choice-close\" rel=\"" + tagSectIndex + "\"></a>" + 
+								"</li>");
+
+					$("#tagSect_chzn").find("ul.chzn-results").
+						append("<li id=\"tagSect_chzn_o_" + tagSectIndex + "\" class=\"result-selected\">" + newTagName + "</li>");
+
+					// bind event for new element
+					$("#tagSect_chzn_c_" + tagSectIndex).find(".search-choice-close").click(searchChoiceCloseFunc);
+					$("#tagSect_chzn_o_" + tagSectIndex).click(searchResultClickFunc);
+
+
+					// clear and hide
+					$("#dynAddTagDiv").hide("fast");
+		    	}
+		    	else
+		    	{
+		    		// error message
+					$("#dynAddTagErr").text("Failed because of server problem.");
+					$("#dynAddTagErr").show();
+					return false;
+		    	}
 			}
 		);
-		// ...... 
+		//=========== ajax ends ===========
 
-
-
-		// clear and hide
-		$("#dynAddTagDiv").hide("fast");
 	});
 	$("#dynAddTagCancel").click(function(){
 		$("#dynAddTagDiv").hide("fast");
