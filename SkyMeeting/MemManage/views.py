@@ -77,14 +77,18 @@ def editRoleInfo(request):
                      idcard=request.POST["idcard"],
                      phone=request.POST["phone"],
                      email=request.POST["email"])
+        #clear all original groups and tags
+        Role.objects.filter(id=roleid).groups.clear()
+        Role.objects.filter(id=roleid).tags.clear()
         
         groupIds=request.POST["groupIds"].split()
         tagIds=request.POST["tagIds"].split()
+        
         #here can be optimized by sql query instead of model method
         for group in groupIds:
             Role.objects.filter(id=roleid).groups.add(int(group))
         for tag in tagIds:
-            Role.objects.filter(id=roleid).tag.add(int(tag))
+            Role.objects.filter(id=roleid).tags.add(int(tag))
         result["success"]="true"
         return HttpResponse(json.dumps(result))
     except:
@@ -99,7 +103,7 @@ def addGroup(request):
     #here add permission deal
     ng=Group()
     ng.gname=gname
-    ng.cid=Company.objects.get(cid=request.POST["cid"])
+    ng.cid=Company.objects.get(id=request.POST["cid"])
     result=dict()
     try:
         ng.save()
