@@ -3,63 +3,43 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.template import Context
+import simplejson as json
+
 from MemManage.models import Role
 from MemManage.models import Group
 from MemManage.models import Tag
 from MemManage.models import Company
-import simplejson as json
+
+import BasicUtil as util
 
 def member(request):
     u_list=Role.objects.filter(company_id=1)
-    sum=len(u_list)
+    RoleCount=len(u_list)
+    #def conf variable to store current 
+    #groups and tags info
     conf={}
     conf["current_gid"]=-1
     conf["current_tid"]=-1
-    if "name" in request.GET:
-        #get detail person info
-        pass
-    elif "gid" in request.GET and "tid" in request.GET:
-        #has gid and tid
-        #urlFormat: /members/?gid=*&tid=*      
-        if len(request.GET["gid"])>0 and len(request.GET['tid'])>0:
-            #?gid=+&tid=+
-            if int(request.GET['gid'])<0:
-                if len(request.GET['tid'])==2 and int(request.GET['tid'])<0:
-                    #gid=-1&tid=-1
-                    pass
-                else:
-                    #gid=-1&tid=1
-                    u_list=Role.objects.filter(company_id=1,tags__id__in=request.GET['tid'].split())
-                    conf["current_tid"]=listToInt(request.GET['tid'].split())
-            elif len(request.GET['tid'])==2 and int(request.GET['tid'])<0:
-                #gid=1&tid=-1
-                u_list=Role.objects.filter(company_id=1,groups__id=request.GET['gid'])
-                conf["current_gid"]=int(request.GET['gid'])
-            else:
-                #gid=1&tid=1+2
-                u_list=Role.objects.filter(company_id=1,groups__id=request.GET['gid'],tags__id__in=request.GET['tid'])
-                conf["current_gid"]=int(request.GET['gid'])
-                conf["current_tid"]=listToInt(request.GET['tid'].split())
-    elif "gid" in request.GET and len(request.GET['gid'])>0:
-        #only has gid
-        #urlFormat: /members/?gid=1
-        if int(request.GET["gid"])>0:
-            conf["current_gid"]=int(request.GET['gid'])
-            u_list=Role.objects.filter(company_id=1,groups__id=request.GET["gid"])
-        else:
-            conf["current_gid"]=-1
-            u_list=Role.objects.filter(company_id=1)
-        #return HttpResponse(u_list)
-    elif "tid" in request.GET and len(request.GET['tid'])>0:
-        #only has tig
-        #urlFormat: /members/?tid=1+2
-        tagSet=listToInt(request.GET["tid"].split())
-        conf["current_tid"]=tagSet
-        u_list=Role.objects.filter(company_id=1,tags__id__in=tagSet)
-        #return HttpResponse(u_list)
-    #get all users
-    # company_id is passed from request
     
+    if 'gid' in request.GET and len(request.GET['gid'])>0:
+        if request.GET['gid']=="-1":
+            pass
+        else:
+            try:
+                u_list=u_list.filter(groups__id=int(request.GET['gid']))
+                conf['current_gid']=int(request.GET['gid'])
+            except:
+                pass
+    if 'tid' in request.GET and len(request.GET['tid'])>0:
+        if '-1' in request.GET['tid'].split():
+            pass
+        else:
+            try:
+                u_list=u_list.filter(tags__id__in=(request.GET['tid'].split()))
+                conf['current_tid']=util.listToInt(request.GET['tid'].split())
+            except:
+                pass
+       
     g_list=Group.objects.filter(cid=1)
     t_list=Tag.objects.filter(cid=1)
     groupList=[]
@@ -70,7 +50,6 @@ def member(request):
         singleTag["tname"]=tag.tname
         singleTag["cid"]=tag.cid_id
         tagList.append(singleTag)
-    print json.dumps(tagList)
     #here can optimize by just sql query instead of Model method
     for g in g_list:
         singleGroup={}
@@ -82,45 +61,30 @@ def member(request):
         groupList.append(singleGroup)
     #conf can set more values here
     
-    return render_to_response('members.html',Context({"groupAll":groupList,"groupString":json.dumps(groupList),"tagAll":t_list,"memberAll":u_list,"groupAllCount":sum,"tagString":json.dumps(tagList),"conf":conf}))
+    return render_to_response('members.html',Context({"groupAll":groupList,"groupString":json.dumps(groupList),"tagAll":t_list,"memberAll":u_list,"groupAllCount":RoleCount,"tagString":json.dumps(tagList),"conf":conf}))
 
-def listToInt(list):
-    numList=[]
-    for s in list:
-        num=int(s)
-        numList.append(num)
-    return numList
+
 
 def editRoleInfo(request):
     #save specified role info
     #here add permission 
-    '''
-     id,            role的id
-                     name,
-                     sex,
-                     idcard,
-                     phone,
-                     email,
-                     //location,    先不用
-                     groupIds,        e.g. 1+2+3
-                     tagIds            e.g. 1+2+3
-                     '''
-    roleid=request.POST["id"]
-    role=Role.objects.get(id=roleid)
-    role.name=request.POST["name"]
-    role.sex=int(request.POST["sex"])
-    role.idcard=request.POST["idcard"]
-    role.phone=request.POST["phone"]
-    role.email=request.POST["email"]
-    
-    groupIds=request.POST["groupIds"].split('+')
-    tagIds=request.POST["tagIds"].split('+')
-    #here can be optimized by sql query insteas of model method
-    
-    
     result=dict()
     try:
-        role.save()
+        roleid=int(request.POST["id"])
+        Role.objects.filter(id=roleid).update(
+                     name=request.POST["name"],
+                     sex=int(request.POST["sex"]),
+                     idcard=request.POST["idcard"],
+                     phone=request.POST["phone"],
+                     email=request.POST["email"])
+        
+        groupIds=request.POST["groupIds"].split()
+        tagIds=request.POST["tagIds"].split()
+        #here can be optimized by sql query instead of model method
+        for group in groupIds:
+            Role.objects.filter(id=roleid).groups.add(int(group))
+        for tag in tagIds:
+            Role.objects.filter(id=roleid).tag.add(int(tag))
         result["success"]="true"
         return HttpResponse(json.dumps(result))
     except:
@@ -150,6 +114,7 @@ def addGroup(request):
         return HttpResponse(json.dumps(result))
 
 def addTag(request):
+    #add new tag
     tname=request.POST["tagName"]
     nt=Tag()
     nt.tname=tname
