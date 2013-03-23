@@ -126,7 +126,7 @@
 	}
 	.side-nav .active .icon-chevron-right,
 	.side-nav .active a:hover .icon-chevron-right {
-	  background-image: url(..public/img/glyphicons-halflings-white.png);
+	  background-image: url(../public/img/glyphicons-halflings-white.png);
 	  opacity: 1;
 	}
 	.side-nav.affix {
@@ -215,10 +215,13 @@
   							{% endif %}
   						{% endfor %}
   					</ul>
+
+  					<input type="hidden" id="curTagId" data-value="{{ conf.current_tid }}" />
   					<input type="hidden" id="globalTagString" data-value="{{ tagString }}" />
   				</div>
 
   				<!-- tags management??? -->
+  				<!-- ...... -->
 
 
   				<!-- members table -->
@@ -270,7 +273,7 @@
 									<i class="icon-trash icon-red"></i>
 								</a>
 							</td>
-							<input type="hidden" data-name="{{ role.name }}" data-sex="{{ role.sex }}" data-idcard="{{ role.idcard }}" data-phone="{{ role.phone }}" data-email="{{ role.email }}" data-location="{{ role.location }}" data-groups="{{ role.groups.getAllString }}" data-tags="{{ role.tags.getAllString }}" />
+							<input type="hidden" data-id="{{ role.id }}" data-name="{{ role.name }}" data-sex="{{ role.sex }}" data-idcard="{{ role.idcard }}" data-phone="{{ role.phone }}" data-email="{{ role.email }}" data-location="{{ role.location }}" data-groups="{{ role.groups.getAllString }}" data-tags="{{ role.tags.getAllString }}" />
 						</tr>
 						{% endfor %}
 					</tbody>
@@ -409,6 +412,7 @@
 	</div>
 	<div class="modal-body">
 		<form class="form-horizontal">
+			<!-- basic -->
 			<div class="control-group">
 				<label class="control-label" for="editName">Name</label>
 				<div class="controls">
@@ -464,7 +468,7 @@
 			</div>
 
 
-
+			<!-- groups -->
 			<div class="control-group">
 				<label class="control-label">Groups Belonged To</label>
 				<div class="controls">
@@ -473,10 +477,10 @@
 						<label class="checkbox">
 							<div class="checker">
 								<span>
-									<input type="checkbox" id="group{{ group.gid }}" value="{{ group.gid }}" />
+									<input type="checkbox" name="editGroup" value="group.gid" />
 								</span>
 							</div>
-							{{ group.gname }}
+							group.gname
 						</label>
 						 -->
 					</div>
@@ -502,11 +506,10 @@
 			</div>
 
 
-
+			<!-- tags -->
 			<div class="control-group">
 				<label class="control-label">Tags</label>
 				<div class="controls">
-					<!-- <div>Chief Officer, Consultant, Detective, Editor</div> -->
 					<div id="tagSectDiv">
 						<select id="tagSect" multiple="multiple" data-rel="chosen" >
 							<!-- add by js -->
@@ -529,6 +532,7 @@
 				</div>
 			</div>
 
+			<input type="hidden" id="editId" />
 		</form>
 	</div>
 	<div class="modal-footer">
@@ -554,9 +558,6 @@
 
 <!-- 初始化js -->
 <script type="text/javascript">
-
-
-
 $(function() {
 	//chosen - improved selector
 	// $('[data-rel="chosen"],[rel="chosen"]').chosen();
@@ -570,16 +571,17 @@ $(function() {
 <script type="text/javascript">
 $(function() {
 
-// storage
-var globalGroups = eval($("#globalGroupString").attr("data-value"));
-var globalTags = eval($("#globalTagString").attr("data-value"));
+	// json storage
+	var globalGroups = eval($("#globalGroupString").attr("data-value"));
+	var globalTags = eval($("#globalTagString").attr("data-value"));
 
-//flags
-var addGroupFlag = 0;  // 0 - idle; 1 - busy
-var addTagFlag = 0;  // 0 - idle; 1 - busy
+	// ajax flags
+	var addGroupFlag = 0;  // 0 - idle; 1 - busy
+	var addTagFlag = 0;  // 0 - idle; 1 - busy
+	var editMemberFlag = 0;  // 0 - idle; 1 - busy
+	var inviteMemberFlag = 0;  // 0 - idle; 1 - busy
 
 
-	// var 
 	// ====================================
 	// tooltips
 	// ====================================
@@ -662,6 +664,7 @@ var addTagFlag = 0;  // 0 - idle; 1 - busy
 		$("#dynAddTagErr").empty().hide();
 
 		// init text
+		$("#editId").attr("data-value", dataElement.attr("data-id"));
 		$("#editName").val(dataElement.attr("data-name"));
 		$("#editIDno").val(dataElement.attr("data-idcard"));
 		$("#editPhone").val(dataElement.attr("data-phone"));
@@ -705,12 +708,12 @@ var addTagFlag = 0;  // 0 - idle; 1 - busy
 			if(found)
 			{
 				cbxCode += "<span class=\"checked\">";
-				cbxCode += "<input type=\"checkbox\" id=\"\" value=\"" + globalGroups[i].gid + "\" checked=\"checked\" />";
+				cbxCode += "<input type=\"checkbox\" name=\"editGroup\" value=\"" + globalGroups[i].gid + "\" checked=\"checked\" />";
 			}
 			else
 			{
 				cbxCode += "<span>";
-				cbxCode += "<input type=\"checkbox\" id=\"\" value=\"" + globalGroups[i].gid + "\" />";
+				cbxCode += "<input type=\"checkbox\" name=\"editGroup\" value=\"" + globalGroups[i].gid + "\" />";
 			}
 
 			cbxCode += "</span>";
@@ -811,29 +814,57 @@ var addTagFlag = 0;  // 0 - idle; 1 - busy
 		}
 
 
-		// ajax
-		// ......
+		// ajax flag
+		if(addGroupFlag == 0)  // idle
+		{
+			// set ajax flag
+			addGroupFlag = 1;  // busy
+
+			//=========== ajax begins ===========
+			$.post(
+				"/members/addgroup/",
+				{
+					"groupName": newGroupName
+				},
+				function(data)
+				{
+					var result = eval("(" + data + ")");
+					if(result.success == "true")
+					{
+						var newGroupId = result.gid;
+
+						// append element
+						$("#dynGroups").append(
+							"<label class=\"checkbox\">" + 
+								"<div class=\"checker\">" + 
+									"<span class=\"checked\">" + 
+										"<input type=\"checkbox\" name=\"editGroup\" value=\"" + newGroupId + "\" checked=\"checked\" />" + 
+									"</span>" + 
+								"</div>" + 
+								newGroupName + 
+							"</label>");
+
+						// bind event for new element
+						$("#dynGroups").children("label.checkbox").last().find("div.checker input").bind("click", checkerClickFunc);
 
 
-		// append element
-		$("#dynGroups").append(
-			"<label class=\"checkbox\">" + 
-				"<div class=\"checker\">" + 
-					"<span class=\"checked\">" + 
-						"<input type=\"checkbox\" id=\"\" value=\"newGroupId\" />" + 
-					"</span>" + 
-				"</div>" + 
-				newGroupName + 
-			"</label>");
+						// clear and hide
+						$("#dynAddGroupDiv").hide("fast");
+					}
+					else
+					{
+						// error message
+						$("#dynAddGroupErr").text("Failed because of server problem.");
+						$("#dynAddGroupErr").show();
+					}
 
-		// bind event for new element
-		$("#dynGroups").children("label.checkbox").last().find("div.checker input").bind("click", checkerClickFunc);
+					// reset ajax flag
+					addGroupFlag = 0;  // idle
+				}
+			);
+			//=========== ajax ends ===========
+		}
 
-
-
-
-		// clear and hide
-		$("#dynAddGroupDiv").hide("fast");
 	});
 	$("#dynAddGroupCancel").click(function(){
 		$("#dynAddGroupDiv").hide("fast");
@@ -896,52 +927,59 @@ var addTagFlag = 0;  // 0 - idle; 1 - busy
 		}
 
 
-		// disable
+		// ajax flag
+		if(addTagFlag == 0)  // idle
+		{
+			// set ajax flag
+			addTagFlag = 1;  // busy
 
-		//=========== ajax begins ===========
-		$.post(
-			"/members/addtag/",
-			{
-				"tagName": newTagName
-			},
-			function(data)
-			{
-		    	var result = eval("(" + data + ")");
-		    	if(result.success == "true")
-		    	{
-		    		var newTagId = result.tid;
+			//=========== ajax begins ===========
+			$.post(
+				"/members/addtag/",
+				{
+					"tagName": newTagName
+				},
+				function(data)
+				{
+			    	var result = eval("(" + data + ")");
+			    	if(result.success == "true")
+			    	{
+			    		var newTagId = result.tid;
 
-		    		// append element
-					$("#tagSect").append("<option value=\"" + newTagId + "\" selected=\"selected\">" + newTagName + "</option>");
-					var tagSectIndex = $("#tagSect option").length - 1;
+			    		// append element
+						$("#tagSect").append("<option value=\"" + newTagId + "\" selected=\"selected\">" + newTagName + "</option>");
+						var tagSectIndex = $("#tagSect option").length - 1;
 
-					$("#tagSect_chzn").find("ul.chzn-choices").find(".search-field").
-						before("<li class=\"search-choice\" id=\"tagSect_chzn_c_" + tagSectIndex + "\">" + 
-									"<span>" + newTagName + "</span>" + 
-									"<a href=\"javascript:void(0);\" class=\"search-choice-close\" rel=\"" + tagSectIndex + "\"></a>" + 
-								"</li>");
+						$("#tagSect_chzn").find("ul.chzn-choices").find(".search-field").
+							before("<li class=\"search-choice\" id=\"tagSect_chzn_c_" + tagSectIndex + "\">" + 
+										"<span>" + newTagName + "</span>" + 
+										"<a href=\"javascript:void(0);\" class=\"search-choice-close\" rel=\"" + tagSectIndex + "\"></a>" + 
+									"</li>");
 
-					$("#tagSect_chzn").find("ul.chzn-results").
-						append("<li id=\"tagSect_chzn_o_" + tagSectIndex + "\" class=\"result-selected\">" + newTagName + "</li>");
+						$("#tagSect_chzn").find("ul.chzn-results").
+							append("<li id=\"tagSect_chzn_o_" + tagSectIndex + "\" class=\"result-selected\">" + newTagName + "</li>");
 
-					// bind event for new element
-					$("#tagSect_chzn_c_" + tagSectIndex).find(".search-choice-close").click(searchChoiceCloseFunc);
-					$("#tagSect_chzn_o_" + tagSectIndex).click(searchResultClickFunc);
+						// bind event for new element
+						$("#tagSect_chzn_c_" + tagSectIndex).find(".search-choice-close").click(searchChoiceCloseFunc);
+						$("#tagSect_chzn_o_" + tagSectIndex).click(searchResultClickFunc);
 
 
-					// clear and hide
-					$("#dynAddTagDiv").hide("fast");
-		    	}
-		    	else
-		    	{
-		    		// error message
-					$("#dynAddTagErr").text("Failed because of server problem.");
-					$("#dynAddTagErr").show();
-					return false;
-		    	}
-			}
-		);
-		//=========== ajax ends ===========
+						// clear and hide
+						$("#dynAddTagDiv").hide("fast");
+			    	}
+			    	else
+			    	{
+			    		// error message
+						$("#dynAddTagErr").text("Failed because of server problem.");
+						$("#dynAddTagErr").show();
+			    	}
+
+			    	// reset ajax flag
+			    	addTagFlag = 0;  // idle
+				}
+			);
+			//=========== ajax ends ===========
+		}
 
 	});
 	$("#dynAddTagCancel").click(function(){
@@ -955,7 +993,86 @@ var addTagFlag = 0;  // 0 - idle; 1 - busy
 
 	// edit member submit
 	$("#editModalOk").click(function(){
-		alert($("#tagSect option:selected").length);
+
+		var id = $("#editId").attr("data-value");
+		var name = $("#editName").val();
+		var sex = $("input[name='editGender']:checked").val();
+		var idcard = $("#editIDno").val();
+		var phone = $("#editPhone").val();
+		var email = $("#editEmail").val();
+
+		var groupIds = "";
+		$("input[name='editGroup']:checked").each(function(){
+			if(groupIds.length == 0)
+			{
+				groupIds += $(this).val();
+			}
+			else
+			{
+				groupIds += ("+" + $(this).val());
+			}
+		});
+
+		var tagIds = "";
+		$("#tagSect option:selected").each(function(){
+			if(tagIds.length == 0)
+			{
+				tagIds += $(this).val();
+			}
+			else
+			{
+				tagIds += ("+" + $(this).val());
+			}
+		});
+
+		// alert("id:" + id + "; name:" + name + "; sex:" + sex + "; idcard:" + idcard + "; phone:" + phone + "; email:" + email + "; groupIds:" + groupIds + "; tagIds:" + tagIds);
+
+		// validation
+
+
+
+		// ajax flag
+		if(editMemberFlag == 0)  // idle
+		{
+			// set ajax flag
+			editMemberFlag = 1;  // busy
+
+			// ajax submit
+			$.post(
+				"/members/edituser/",
+				{
+					"id": id,
+					"name": name,
+					"sex": sex,
+					"idcard": idcard,
+					"phone": phone,
+					"email": email,
+					// "location": "",  // unused now
+					"groupIds": groupIds,
+					"tagIds": tagIds
+				},
+				function(data)
+				{
+					var result = eval("(" + data + ")");
+					if(result.success == "true")
+					{
+						// redirect
+						// var curGid = $("#curGroupId").attr("data-value");
+						// var curTid = $("#curTagId").attr("data-value");
+						location.href = "/members/";
+						// should return the page number of the person edited
+					}
+					else
+					{
+						// error message
+						// ......
+					}
+
+					// reset ajax flag
+					editMemberFlag = 0;  // idle
+				}
+			);
+		}
 
 	});
 	// ====================================
