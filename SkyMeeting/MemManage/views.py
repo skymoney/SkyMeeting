@@ -4,6 +4,7 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.template import Context
 from MemManageHelper import DAOHelper
+import simplejson as json
 
 def member(request):
     #member ops including visiting
@@ -11,12 +12,12 @@ def member(request):
 
 def editRoleInfo(request):
     #save specified role info
-    return HttpResponse(DAOHelper.editRoleInfo(request))    
+    return HttpResponse(json.dumps(DAOHelper.editRoleInfo(request)))    
 
 def addGroup(request):
     #add new group    
-    return HttpResponse(DAOHelper.addGroup(request))
+    return HttpResponse(json.dumps(DAOHelper.addGroup(request)))
 
 def addTag(request):
     #add new tag
-    return HttpResponse(DAOHelper.addTag(request))
+    return HttpResponse(json.dumps(DAOHelper.addTag(request)))
