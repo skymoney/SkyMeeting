@@ -149,6 +149,9 @@
 	#otherQuestionDiv{
 		display: none;
 	}
+	#dynAddGroupErr, #dynAddTagErr{
+		color: #b94a48;
+	}
 </style>
 {%endblock%}
 
@@ -257,11 +260,11 @@
 								<a href="javascript:void(0);" data-toggle="tooltip" data-placement="right" 
 									data-original-title="
 										{% for tag in role.tags.all %}
-											{{ tag.tname }}
+											{{ tag.tname }},
 										{% endfor %}
 									">
 									{% for tag in role.tags.all %}
-										{{ tag.tname }}
+										{{ tag.tname }},
 									{% endfor %}
 								</a>
 							</td>
@@ -339,18 +342,18 @@
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="inputMail">Mail</label>
+				<label class="control-label" for="inputEmail">Email</label>
 				<div class="controls">
-					<input type="text" id="inputMail" placeholder="Mail" />
+					<input type="text" id="inputEmail" placeholder="Email" />
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label">Validation method</label>
+				<label class="control-label">Verification mode</label>
 				<div class="controls">
 					<label class="checkbox">
 						<div class="checker">
 							<span>
-								<input type="checkbox" id="checkName" value="1" />
+								<input type="checkbox" id="checkName" name="verifyMode" value="1" />
 							</span>
 						</div>
 						Name
@@ -358,7 +361,7 @@
 					<label class="checkbox">
 						<div class="checker">
 							<span>
-								<input type="checkbox" id="checkIDno" value="2" />
+								<input type="checkbox" id="checkIDno" name="verifyMode" value="2" />
 							</span>
 						</div>
 						ID Card Number
@@ -366,14 +369,14 @@
 					<label class="checkbox">
 						<div class="checker">
 							<span>
-								<input type="checkbox" id="checkOther" value="3" />
+								<input type="checkbox" id="checkOther" name="verifyMode" value="9" />
 							</span>
 						</div>
-						Other questions
+						Other question
 					</label>
 				</div>
 			</div>
-			<!-- Validation method of other question -->
+			<!-- Verification method of other question -->
 			<div id="otherQuestionDiv">
 				<div class="control-group">
 					<label class="control-label" for="inputQuestion">Question</label>
@@ -578,8 +581,8 @@ $(function() {
 	// ajax flags
 	var addGroupFlag = 0;  // 0 - idle; 1 - busy
 	var addTagFlag = 0;  // 0 - idle; 1 - busy
-	var editMemberFlag = 0;  // 0 - idle; 1 - busy
 	var inviteMemberFlag = 0;  // 0 - idle; 1 - busy
+	var editMemberFlag = 0;  // 0 - idle; 1 - busy
 
 
 	// ====================================
@@ -607,8 +610,9 @@ $(function() {
 	// ====================================
 	// tags
 	// ====================================
-	// tag toggle class
-	$("a.tag").click(function(){
+	// tag click function
+	var tagClickFunc = function(){
+		// toggle class
 		if($(this).hasClass("tag-selected"))
 		{
 			$(this).removeClass("tag-selected");
@@ -633,8 +637,9 @@ $(function() {
 
 		var groupId = $("#curGroupId").attr("data-value");
 		location.href = "/members/?gid=" + groupId + "&tid=" + tagIds;
+	};
 
-	});
+	$("a.tag").click(tagClickFunc);
 	// ====================================
 
 
@@ -647,6 +652,85 @@ $(function() {
 	// toggle
 	$("#checkOther").change(function(){
 		$("#otherQuestionDiv").toggle("fast");
+	});
+
+	$("#inviteModalOk").click(function(){
+		// get form input
+		var name = $("#inputName").val();
+		var idcard = $("#inputIDno").val();
+		var phone = $("#inputPhone").val();
+		var email = $("#inputEmail").val();
+		var verifyQuestion = $("#inputQuestion").val();
+		var verifyAnswer = $("#inputAnswer").val();
+
+		var verifyMode = "";
+		$("input[name='verifyMode']:checked").each(function(){
+			if(verifyMode.length == 0)
+			{
+				verifyMode += $(this).val();
+			}
+			else
+			{
+				verifyMode += ("+" + $(this).val());
+			}
+		});
+
+
+		// alert("name:" + name + "; idcard:" + idcard + "; phone:" + phone + "; email:" + email + "; verifyMode:" + verifyMode + "; verifyQuestion:" + verifyQuestion + "; verifyAnswer:" + verifyAnswer);
+
+		// validation
+		// ......
+
+
+		// ajax flag
+		if(inviteMemberFlag == 0)  // idle
+		{
+			// set ajax flag
+			inviteMemberFlag = 1;  // busy
+
+			// ajax submit
+			$.post(
+				"/members/inviteuser/",
+				{
+					"name": name,
+					"idcard": idcard,
+					"phone": phone,
+					"email": email,
+					"verifyMode": verifyMode,
+					"verifyQuestion": verifyQuestion,
+					"verifyAnswer": verifyAnswer
+				},
+				function(data)
+				{
+					var result = eval("(" + data + ")");
+					if(result.success == "true")
+					{
+						// clear and hide
+						$("#inputName").val("");
+						$("#inputIDno").val("");
+						$("#inputPhone").val("");
+						$("#inputEmail").val("");
+						$("#inputQuestion").val("");
+						$("#inputAnswer").val("");
+
+						$("input[name='verifyMode']:checked").each(function(){
+							$(this).click();
+						});
+
+						$("#inviteModal").modal("hide");
+					}
+					else
+					{
+						// error message
+						// ......
+					}
+
+					// reset ajax flag
+					inviteMemberFlag = 0;  // idle
+				}
+			);
+		}
+
 	});
 	// ====================================
 
@@ -976,6 +1060,8 @@ $(function() {
 
 						// update nav, append
 						$("#tagList").append("<li><a class=\"tag\" data-tid=\"" + newTagId + "\">" + newTagName + "</a></li>");
+						// bind tag click event
+						$("#tagList").children("li").last().find("a.tag").click(tagClickFunc);
 
 						// clear and hide
 						$("#dynAddTagDiv").hide("fast");
@@ -1006,7 +1092,7 @@ $(function() {
 
 	// edit member submit
 	$("#editModalOk").click(function(){
-
+		// get form input
 		var id = $("#editId").attr("data-value");
 		var name = $("#editName").val();
 		var sex = $("input[name='editGender']:checked").val();
