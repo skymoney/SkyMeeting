@@ -160,7 +160,7 @@
 		<div class="row-fluid">
 			<div class="span3">
   				<!--Sidebar content-->
-  				<ul class="nav nav-list side-nav">
+  				<ul class="nav nav-list side-nav" id="groupList">
   					{% if conf.current_gid == -1 %}
   					<li class="active">
   					{% else %}
@@ -848,6 +848,16 @@ $(function() {
 						$("#dynGroups").children("label.checkbox").last().find("div.checker input").bind("click", checkerClickFunc);
 
 
+						// update nav, append
+						$("#groupList").append(
+							"<li>" + 
+								"<a href=\"?gid=" + newGroupId + "\">" + 
+									"<span class=\"group-name\">" + newGroupName + "</span>" + 
+									"<span class=\"group-size\">(0)</span>" + 
+									"<i class=\"icon-chevron-right\"></i>" + 
+								"</a>" + 
+							"</li>");
+
 						// clear and hide
 						$("#dynAddGroupDiv").hide("fast");
 					}
@@ -964,6 +974,9 @@ $(function() {
 						$("#tagSect_chzn_o_" + tagSectIndex).click(searchResultClickFunc);
 
 
+						// update nav, append
+						$("#tagList").append("<li><a class=\"tag\" data-tid=\"" + newTagId + "\">" + newTagName + "</a></li>");
+
 						// clear and hide
 						$("#dynAddTagDiv").hide("fast");
 			    	}
@@ -1028,7 +1041,7 @@ $(function() {
 		// alert("id:" + id + "; name:" + name + "; sex:" + sex + "; idcard:" + idcard + "; phone:" + phone + "; email:" + email + "; groupIds:" + groupIds + "; tagIds:" + tagIds);
 
 		// validation
-
+		// ......
 
 
 		// ajax flag

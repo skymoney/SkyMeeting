@@ -100,11 +100,11 @@ def editRoleInfo(request):
 
 def addGroup(request):
     #add new group
-    gname=request.POST('groupName')
+    gname=request.POST['groupName']
     #here add permission deal
     ng=Group()
     ng.gname=gname
-    ng.cid=Company.objects.get(id=request.POST["cid"])
+    ng.cid=Company.objects.get(id=1)
     result=dict()
     try:
         ng.save()
