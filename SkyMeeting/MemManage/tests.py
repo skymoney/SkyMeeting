@@ -6,11 +6,19 @@ Replace this with more appropriate tests for your application.
 """
 
 from django.test import TestCase
+import simplejson as json
 
-
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+class MemberTest(TestCase):
+    def testAllMembers(self):
+        #response=self.client.get("/members/")
+        
+        #print response
+        self.assertFalse(1==2,"Done")
+    
+    def testAddGroup(self):
+        #response=self.client.get('/members/',{'gid':'1','tid':'1+2'})
+        
+        response=self.client.post("/members/addgroup/",{"groupName":"test"})
+        print response.content
+        result=json.loads(response.content)
+        self.assertEqual("true",result["success"],"Add Group Test Done...")
