@@ -39,11 +39,9 @@ def inviteUser(request):
     params["verifyAnswer"] = request.POST["verifyAnswer"]           #string
     
     #hard code!!!
-    result = dict()
-    result["success"] = "true"
 #    exception
 #    result["success"] = "false"
 #    result["errors"] = ""
     
-    return HttpResponse(json.dumps(result))
+    return HttpResponse(json.dumps(DAOHelper.inviteUser(params)))
     

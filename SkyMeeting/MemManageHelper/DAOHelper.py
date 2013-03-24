@@ -177,6 +177,7 @@ def inviteUser(params):
             
             tr.save()
             
+            #call send email func to send email
             result["success"]="true"
             return result
     except :
