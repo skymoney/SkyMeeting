@@ -8,7 +8,7 @@ import simplejson as json
 import BasicUtil as util
 
 def member(request):
-    u_list=Role.objects.filter(company_id=1)
+    u_list=Role.objects.filter(company_id=1).distinct()
     RoleCount=len(u_list)
     #def conf variable to store current 
     #groups and tags info
@@ -23,7 +23,7 @@ def member(request):
             pass
         else:
             try:
-                u_list=u_list.filter(groups__id=int(request.GET['gid']))
+                u_list=u_list.filter(groups__id=int(request.GET['gid'])).distinct()
                 conf['current_gid']=int(request.GET['gid'])
             except:
                 pass
@@ -32,7 +32,8 @@ def member(request):
             pass
         else:
             try:
-                u_list=u_list.filter(tags__id__in=(request.GET['tid'].split()))
+                u_list=u_list.filter(tags__id__in=(request.GET['tid'].split())).distinct()
+                print u_list
                 conf['current_tid']=util.listToInt(request.GET['tid'].split())
             except:
                 pass
