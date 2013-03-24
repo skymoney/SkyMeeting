@@ -65,3 +65,20 @@ class Role(models.Model):
     company=models.ForeignKey(Company)
     groups=models.ManyToManyField(Group)
     tags=models.ManyToManyField(Tag)
+
+class TempRole(models.Model):
+    trid=models.AutoField(primary_key=True,db_column='TempRoleId')
+    name=models.CharField(max_length=30,db_column='TempRoleName')
+    idcard=models.CharField(max_length=20,db_column='TempRoleIdCard')
+    phone=models.CharField(max_length=15,db_column='TempRolePhone')
+    email=models.CharField(max_length=30,db_column='TempRoleEmail')
+    company=models.ForeignKey(Company,db_column='TempRoleCompany')
+    
+    verifyByName=models.IntegerField(default=0,db_column='VerifyModeName')
+    verifyByPhone=models.IntegerField(default=0,db_column='VerifyModePhone')
+    verifyByQuest=models.IntegerField(default=0,db_column='VerifyModeQuest')
+    verifyQuest=models.CharField(max_length=100,default="",db_column='VerifyQuest')
+    verifyAnswer=models.CharField(max_length=100,default="",db_column='VerifyAnswer')
+    
+    class Meta:
+        db_table='TempRole'

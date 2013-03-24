@@ -3,7 +3,7 @@ Created on 2013-3-23
 
 @author: cheng
 '''
-from MemManage.models import Role,Tag,Group,Company
+from MemManage.models import Role,Tag,Group,Company,TempRole
 import simplejson as json
 import BasicUtil as util
 
@@ -134,3 +134,52 @@ def addTag(request):
         result["error"]=""  #descript error status
         result["errorcode"]=""
     return result
+
+def inviteUser(params):
+    #invite new user
+    #here a temp table is needed to store info 
+    #before user confirm and register
+    
+    #first verify whether exist in the table
+    cid=params["cid"]
+    idcard=params["idcard"]
+    result=dict()
+    try:
+        if len(TempRole.objects.filter(idcard=params["idcard"],company_id=int(params["cid"])))>0:
+            #already exist
+            result["success"]="false"
+            result["errors"]=""
+            return result
+        else:
+            tr=TempRole()
+            
+            tr.name=params["name"]
+            tr.idcard=params["idcard"]
+            tr.phone=params["phone"]
+            tr.email=params["email"]
+            tr.company_id=int(params["cid"])
+            
+            verifyMode=params["verifyMode"]
+            if len(verifyMode)>0:
+                modeNumSet=util.listToInt(verifyMode.split('+'))
+                for mode in modeNumSet:
+                    if mode==1:
+                        tr.verifyByName=1
+                    if mode==2:
+                        tr.verifyByPhone=1
+                    if mode==9:
+                        tr.verifyByQuest=1
+                        tr.verifyQuest=params["verifyQuestion"]
+                        tr.verifyAnswer=params["verifyAnswer"]
+            else:
+                pass
+            
+            tr.save()
+            
+            result["success"]="true"
+            return result
+    except :
+        result["success"]="false"
+        result["errors"]=""
+        return result
+        
