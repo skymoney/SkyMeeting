@@ -22,6 +22,23 @@ def addTag(request):
     #add new tag
     return HttpResponse(json.dumps(DAOHelper.addTag(request)))
 
+def deleteTag(request):
+    #permission check
+    #......
+    
+    params = dict()
+    params["cid"] = 1   #default!!!
+    params["tid"] = request.POST["tid"]                               #delete tag id
+    #hard code!!!
+    result = dict()
+    result["success"] = "true"
+    result["tid"] = request.POST["tid"]
+#    exception
+#    result["success"] = "false"
+#    result["errors"] = ""
+    
+    return HttpResponse(json.dumps(result))
+
 def inviteUser(request):
     #permission check
     #......
@@ -56,6 +73,7 @@ def deleteUser(request):
     #hard code!!!
     result = dict()
     result["success"] = "true"
+    result["id"] = request.POST["id"]
 #    exception
 #    result["success"] = "false"
 #    result["errors"] = ""

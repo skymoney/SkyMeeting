@@ -39,7 +39,7 @@
 	.new-item-row {
 		margin-top: 15px;
 	}
-	a.tag{
+	a.tag, div.tag{
 		padding: 0 7px;
 		margin-bottom: 5px;
 		height: 22px;
@@ -62,6 +62,23 @@
 	a.tag-selected{
 		background: #0088cc;
 		color: #fff;
+	}
+	a.delete-tag{
+		font-weight: bold;
+		line-height: 20px;
+		color: #000000;
+		text-shadow: 0 1px 0 #ffffff;
+		opacity: 0.3;
+		filter: alpha(opacity=30);
+
+	}
+	a.delete-tag:hover,.close:focus{
+		color: #000000;
+		text-decoration: none;
+		cursor: pointer;
+		opacity: 0.6;
+		filter: alpha(opacity=60);
+
 	}
 	/*patch*/
 	.checkbox{
@@ -142,9 +159,44 @@
 	#tagsDiv{
 		margin-bottom: 10px;
 	}
+	#tagsDivLabel{
+		line-height: 29px;
+	}
 	#tagList{
 		/*display: inline-block;*/
 		display: inline;
+	}
+	#editTagsLink{
+		display: inline-block;
+		float: right;
+	}
+	#editTagsOk{
+		display: none;
+		float: right;
+	}
+	#editTagsDiv{
+		display: none;
+		margin-bottom: 20px;
+	}
+	#tagsArea{
+		padding: 10px 7px 5px 7px;
+		border: 1px solid #e6e6e6;
+	}
+	#tagsArea .tag{
+		margin-left: 5px;
+		margin-right: 5px;
+	}
+	#editNewTag, #editNewTag:focus{
+		border: 0;
+		box-shadow: none;
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		margin: 0px;
+		padding: 4px 6px;
+		font-size: 14px;
+		line-height: 22px;
+		height: 22px;
+		width: 140px;
 	}
 	#otherQuestionDiv{
 		display: none;
@@ -217,6 +269,7 @@
   					{% endfor %}
   				</ul>
 
+  				<!-- current storage -->
   				<input type="hidden" id="curGroupId" data-value="{{ conf.current_gid }}" />
   				<input type="hidden" id="globalGroupString" data-value="{{ groupString }}" />
 
@@ -233,9 +286,8 @@
   				<!--Body content-->
   				<!-- tags -->
   				<div class="row-fluid" id="tagsDiv">
-  					<span>Tags:</span>
+  					<span id="tagsDivLabel">Tags:</span>
   					<ul class="inline" id="tagList">
-  						<!-- curTagIds??? -->
   						{% for tag in tagAll %}
   							{% if tag.id in conf.current_tid %}
   						<li><a class="tag tag-selected" data-tid="{{ tag.id }}">{{ tag.tname }}</a></li>
@@ -245,12 +297,31 @@
   						{% endfor %}
   					</ul>
 
+  					<!-- actions -->
+					<a href="javascript:void(0);" id="editTagsLink">Edit</a>
+					<input type="button" class="btn btn-mini btn-primary" id="editTagsOk" value="OK" />
+
+					<!-- current storage -->
   					<input type="hidden" id="curTagId" data-value="{{ conf.current_tid }}" />
   					<input type="hidden" id="globalTagString" data-value="{{ tagString }}" />
   				</div>
 
-  				<!-- tags management??? -->
-  				<!-- ...... -->
+  				<!-- tags management -->
+  				<div class="row-fluid" id="editTagsDiv">
+  					<div id="tagsArea">
+  						{% for tag in tagAll %}
+  						<div class="tag">
+  							<span>{{ tag.tname }}</span>
+  							<a href="javascript:void(0);" class="delete-tag" data-tid="{{ tag.id }}">x</a>
+  						</div>
+  						{% endfor %}
+  						<span>
+  							<input type="text" id="editNewTag" maxlength="10" />
+  							<!-- max length??? error hint??? -->
+  						</span>
+  					</div>
+  				</div>
+  				
 
 
   				<!-- members table -->
@@ -620,12 +691,19 @@ $(function() {
 	var globalGroups = eval($("#globalGroupString").attr("data-value"));
 	var globalTags = eval($("#globalTagString").attr("data-value"));
 
+	var AJAX_IDLE = 0;
+	var AJAX_BUSY = 0;
 	// ajax flags
-	var ajaxAddGroupFlag = 0;  // 0 - idle; 1 - busy
-	var ajaxAddTagFlag = 0;  // 0 - idle; 1 - busy
-	var ajaxInviteMemberFlag = 0;  // 0 - idle; 1 - busy
-	var ajaxEditMemberFlag = 0;  // 0 - idle; 1 - busy
-	var ajaxDeleteMemberFlag = 0;  // 0 - idle; 1 - busy
+	var ajaxDynAddGroupFlag = AJAX_IDLE;
+	var ajaxDynAddTagFlag = AJAX_IDLE;
+	var ajaxInviteMemberFlag = AJAX_IDLE;
+	var ajaxEditMemberFlag = AJAX_IDLE;
+	var ajaxDeleteMemberFlag = AJAX_IDLE;
+	var ajaxAddTagFlag = AJAX_IDLE;
+	var ajaxDeleteTagFlag = AJAX_IDLE;
+	var ajaxAddGroupFlag = AJAX_IDLE;
+	var ajaxEditGroupFlag = AJAX_IDLE;
+	var ajaxDeleteGroupFlag = AJAX_IDLE;
 
 
 	// ====================================
@@ -681,9 +759,123 @@ $(function() {
 		var groupId = $("#curGroupId").attr("data-value");
 		location.href = "/members/?gid=" + groupId + "&tid=" + tagIds;
 	};
-
 	$("a.tag").click(tagClickFunc);
 
+
+	// edit tags
+	$("#editTagsLink").click(function(){
+		$("#editTagsLink").hide();
+		$("#editTagsOk").show();
+
+		$("#tagList").hide();
+		$("#editTagsDiv").show();
+
+		$("#editNewTag").focus();
+
+	});
+	$("#editTagsOk").click(function(){
+		$("#editTagsOk").hide();
+		$("#editTagsLink").show();
+
+		$("#editTagsDiv").hide();
+		$("#tagList").show();
+
+		$("#editNewTag").val("");
+
+		// refresh???
+		var tidArray = new Array($("#curTagId").attr("data-value"));
+		alert(tidArray[0] + " " + tidArray[1]);
+		var tid = "";
+		for(var i=0; i<tidArray.length; i++)
+		{
+			if(i != 0)
+			{
+				tid += "+";
+			}
+			tid += tidArray[i];
+			// alert(tid);
+		}
+
+		var gid = $("#curGroupId").attr("data-value");
+		location.href = "/members/?gid=" + gid + "&tid=" + tid;
+	});
+
+
+	// delete tag function
+	var deleteTagFunc = function(){
+		var deleteTagId = $(this).attr("data-tid");
+
+		// ajax flag
+		if(ajaxDeleteTagFlag == AJAX_IDLE)
+		{
+			// set ajax flag
+			ajaxDeleteTagFlag = AJAX_BUSY;
+
+			// ajax submit
+			$.post(
+				"/members/deletetag/",
+				{
+					"tid": deleteTagId
+				},
+				function(data)
+				{
+					var result = eval("(" + data + ")");
+					if(result.success == "true")
+					{
+						var tid = result.tid;
+						$("#tagsArea").find("a[data-tid='" + tid + "']").parent(".tag").remove();
+					}
+					else
+					{
+						// error message
+						// ......
+					}
+
+					// reset ajax flag
+					ajaxDeleteTagFlag = AJAX_IDLE;
+				}
+			);
+		}
+
+	};
+	$("a.delete-tag").click(deleteTagFunc);
+
+
+	// input length restriction
+	var inputLengthRestrictFunc = function(){
+		var maxLen = parseInt($(this).attr("maxlength"));
+		// maxLen = 3;
+		var curLen = $(this).val().length;
+		if(curLen >= maxLen)
+		{
+			$(this).val($(this).val().substr(0, maxLen));
+		}
+	};
+	// $("#editNewTag").keydown(inputLengthRestrictFunc);
+
+
+	// add tag and delete tag by key
+	$("#editNewTag").keydown(function(event){
+		var newTagName = $("#editNewTag").val();
+
+		if(event.which == 32)  // space
+		{
+			if(newTagName.trim().length > 0)
+			{
+				alert("add");
+				// ajax
+
+			}
+		}
+		else if(event.which == 8)  // backspace
+		{
+			if(newTagName.length == 0)
+			{
+				// delete the last tag
+				$(this).parent().prev(".tag").find("a.delete-tag").click();
+			}
+		}
+	});
 
 
 	// ====================================
@@ -730,10 +922,10 @@ $(function() {
 
 
 		// ajax flag
-		if(ajaxInviteMemberFlag == 0)  // idle
+		if(ajaxInviteMemberFlag == AJAX_IDLE)
 		{
 			// set ajax flag
-			ajaxInviteMemberFlag = 1;  // busy
+			ajaxInviteMemberFlag = AJAX_BUSY;
 
 			// ajax submit
 			$.post(
@@ -773,7 +965,7 @@ $(function() {
 					}
 
 					// reset ajax flag
-					ajaxInviteMemberFlag = 0;  // idle
+					ajaxInviteMemberFlag = AJAX_IDLE;
 				}
 			);
 		}
@@ -946,10 +1138,10 @@ $(function() {
 
 
 		// ajax flag
-		if(ajaxAddGroupFlag == 0)  // idle
+		if(ajaxDynAddGroupFlag == AJAX_IDLE)
 		{
 			// set ajax flag
-			ajaxAddGroupFlag = 1;  // busy
+			ajaxDynAddGroupFlag = AJAX_BUSY;
 
 			//=========== ajax begins ===========
 			$.post(
@@ -1000,7 +1192,7 @@ $(function() {
 					}
 
 					// reset ajax flag
-					ajaxAddGroupFlag = 0;  // idle
+					ajaxDynAddGroupFlag = AJAX_IDLE;
 				}
 			);
 			//=========== ajax ends ===========
@@ -1069,10 +1261,10 @@ $(function() {
 
 
 		// ajax flag
-		if(ajaxAddTagFlag == 0)  // idle
+		if(ajaxDynAddTagFlag == AJAX_IDLE)
 		{
 			// set ajax flag
-			ajaxAddTagFlag = 1;  // busy
+			ajaxDynAddTagFlag = AJAX_BUSY;
 
 			//=========== ajax begins ===========
 			$.post(
@@ -1105,10 +1297,19 @@ $(function() {
 						$("#tagSect_chzn_o_" + tagSectIndex).click(searchResultClickFunc);
 
 
-						// update nav, append
+						// update tag list nav, append
 						$("#tagList").append("<li><a class=\"tag\" data-tid=\"" + newTagId + "\">" + newTagName + "</a></li>");
 						// bind tag click event
 						$("#tagList").children("li").last().find("a.tag").click(tagClickFunc);
+
+						// update tag edition nav, append
+						$("#tagsArea").children(".tag").last().after("<div class=\"tag\"><span>" + newTagName + "&nbsp;</span><a href=\"javascript:void(0);\" class=\"delete-tag\" data-tid=\"" + newTagId + "\">x</a></div>");
+						// bind delete tag click event
+						$("#tagsArea").children(".tag").last().find("a.delete-tag").click(deleteTagFunc);
+
+
+						// update global tags storage!!!
+						globalTags.push(eval("({\"tid\":" + newTagId + ",\"tname\":\"" + newTagName + "\"})"));
 
 						// clear and hide
 						$("#dynAddTagDiv").hide("fast");
@@ -1121,7 +1322,7 @@ $(function() {
 			    	}
 
 			    	// reset ajax flag
-			    	ajaxAddTagFlag = 0;  // idle
+			    	ajaxDynAddTagFlag = AJAX_IDLE;
 				}
 			);
 			//=========== ajax ends ===========
@@ -1178,10 +1379,10 @@ $(function() {
 
 
 		// ajax flag
-		if(ajaxEditMemberFlag == 0)  // idle
+		if(ajaxEditMemberFlag == AJAX_IDLE)
 		{
 			// set ajax flag
-			ajaxEditMemberFlag = 1;  // busy
+			ajaxEditMemberFlag = AJAX_BUSY;
 
 			// ajax submit
 			$.post(
@@ -1215,7 +1416,7 @@ $(function() {
 					}
 
 					// reset ajax flag
-					ajaxEditMemberFlag = 0;  // idle
+					ajaxEditMemberFlag = AJAX_IDLE;
 				}
 			);
 		}
@@ -1259,33 +1460,36 @@ $(function() {
 			"display":"inline-block", 
 			"position":"absolute",
 			"top":curTop + 20, 
-			"left":curLeft - width
+			"left":curLeft - width + 10
 		});
 		// animate......
 
 	});
 	$("#deleteUserOk").click(function(){
+		var deleteUserId = $("#deleteUserId").attr("data-value");
 
 		// ajax flag
-		if(ajaxDeleteMemberFlag == 0)  // idle
+		if(ajaxDeleteMemberFlag == AJAX_IDLE)
 		{
 			// set ajax flag
-			ajaxDeleteMemberFlag = 1;  // busy
+			ajaxDeleteMemberFlag = AJAX_BUSY;
 
-			// ajax submit
 			// ajax submit
 			$.post(
 				"/members/deleteuser/",
 				{
-					"id": $("#deleteUserId").attr("data-value")
+					"id": deleteUserId
 				},
 				function(data)
 				{
 					var result = eval("(" + data + ")");
 					if(result.success == "true")
 					{
-						alert("ok");
-						// 
+						var userId = result.id;
+						$("#membersTable").find("input[type='hidden'][data-id='" + userId + "']").parent("tr").remove();
+
+						// delete current tr or refresh???
+						// update group size......
 					}
 					else
 					{
@@ -1294,7 +1498,7 @@ $(function() {
 					}
 
 					// reset ajax flag
-					ajaxDeleteMemberFlag = 0;  // idle
+					ajaxDeleteMemberFlag = AJAX_IDLE;
 				}
 			);
 
@@ -1303,10 +1507,11 @@ $(function() {
 		$("#deleteUserDiv").hide();
 	});
 	$("#deleteUserCancel").click(function(){
-
 		$("#deleteUserDiv").hide();
 	});
-
+	$("#deleteUserHeader").find("a.close").click(function(){
+		$("#deleteUserDiv").hide();
+	});
 	// ====================================
 
 });
