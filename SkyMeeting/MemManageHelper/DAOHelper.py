@@ -184,4 +184,12 @@ def inviteUser(params):
         result["success"]="false"
         result["errors"]=""
         return result
-        
+
+def deleteRole(params):
+    #delete selected role
+    rid=params["rid"]
+    #delete specified role!
+    
+    #Attention this operation!!!!!!!
+    Role.objects.filter(id=rid).delete()
+    pass
