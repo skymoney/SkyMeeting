@@ -45,3 +45,21 @@ def inviteUser(request):
     
     return HttpResponse(json.dumps(DAOHelper.inviteUser(params)))
     
+def deleteUser(request):
+    #permission check
+    #......
+    
+    params = dict()
+    params["cid"] = 1   #default!!!
+    params["id"] = request.POST["id"]                               #delete user id
+    
+    #hard code!!!
+    result = dict()
+    result["success"] = "true"
+#    exception
+#    result["success"] = "false"
+#    result["errors"] = ""
+    
+    return HttpResponse(json.dumps(result))
+    
+    

@@ -152,6 +152,32 @@
 	#dynAddGroupErr, #dynAddTagErr{
 		color: #b94a48;
 	}
+	#deleteUserDiv{
+		display: none;
+		z-index: 9;
+		border: 1px solid #ccc;
+		background-color: #fff;
+	}
+	#deleteUserHeader{
+		padding: 9px 15px;
+	}
+	#deleteUserInner{
+		padding: 15px 30px;
+	}
+	#deleteUserHint{
+		color: #b94a48;
+		font-size: 16px;
+	}
+	#deleteUserName{
+		color: #0088cc;
+		font-weight: bold;
+	}
+	#deleteUserAction{
+		margin-top: 10px;
+	}
+	tr.delete-alert{
+		background-color: #f2dede;
+	}
 </style>
 {%endblock%}
 
@@ -309,8 +335,24 @@
 
 
 
-
-
+<!-- Popup div -->
+<div id="deleteUserDiv">
+	<div id="deleteUserHeader">
+		<a href="javascript:void(0);" class="close">x</a>
+	</div>
+	<div id="deleteUserInner">
+		<div id="deleteUserHint">
+			Are you sure to delete user
+			<span id="deleteUserName"></span>
+			from your company?
+		</div>
+		<input type="hidden" id="deleteUserId" />
+		<div class="align-center" id="deleteUserAction">
+			<input type="button" class="btn btn-primary" id="deleteUserOk" value="OK" />
+			<input type="button" class="btn" id="deleteUserCancel" value="Cancel" />
+		</div>
+	</div>
+</div>
 
 
 <!-- Popup Modal -->
@@ -579,10 +621,11 @@ $(function() {
 	var globalTags = eval($("#globalTagString").attr("data-value"));
 
 	// ajax flags
-	var addGroupFlag = 0;  // 0 - idle; 1 - busy
-	var addTagFlag = 0;  // 0 - idle; 1 - busy
-	var inviteMemberFlag = 0;  // 0 - idle; 1 - busy
-	var editMemberFlag = 0;  // 0 - idle; 1 - busy
+	var ajaxAddGroupFlag = 0;  // 0 - idle; 1 - busy
+	var ajaxAddTagFlag = 0;  // 0 - idle; 1 - busy
+	var ajaxInviteMemberFlag = 0;  // 0 - idle; 1 - busy
+	var ajaxEditMemberFlag = 0;  // 0 - idle; 1 - busy
+	var ajaxDeleteMemberFlag = 0;  // 0 - idle; 1 - busy
 
 
 	// ====================================
@@ -640,6 +683,9 @@ $(function() {
 	};
 
 	$("a.tag").click(tagClickFunc);
+
+
+
 	// ====================================
 
 
@@ -678,15 +724,16 @@ $(function() {
 
 		// alert("name:" + name + "; idcard:" + idcard + "; phone:" + phone + "; email:" + email + "; verifyMode:" + verifyMode + "; verifyQuestion:" + verifyQuestion + "; verifyAnswer:" + verifyAnswer);
 
+		// trim
 		// validation
 		// ......
 
 
 		// ajax flag
-		if(inviteMemberFlag == 0)  // idle
+		if(ajaxInviteMemberFlag == 0)  // idle
 		{
 			// set ajax flag
-			inviteMemberFlag = 1;  // busy
+			ajaxInviteMemberFlag = 1;  // busy
 
 			// ajax submit
 			$.post(
@@ -726,7 +773,7 @@ $(function() {
 					}
 
 					// reset ajax flag
-					inviteMemberFlag = 0;  // idle
+					ajaxInviteMemberFlag = 0;  // idle
 				}
 			);
 		}
@@ -899,10 +946,10 @@ $(function() {
 
 
 		// ajax flag
-		if(addGroupFlag == 0)  // idle
+		if(ajaxAddGroupFlag == 0)  // idle
 		{
 			// set ajax flag
-			addGroupFlag = 1;  // busy
+			ajaxAddGroupFlag = 1;  // busy
 
 			//=========== ajax begins ===========
 			$.post(
@@ -953,7 +1000,7 @@ $(function() {
 					}
 
 					// reset ajax flag
-					addGroupFlag = 0;  // idle
+					ajaxAddGroupFlag = 0;  // idle
 				}
 			);
 			//=========== ajax ends ===========
@@ -1022,10 +1069,10 @@ $(function() {
 
 
 		// ajax flag
-		if(addTagFlag == 0)  // idle
+		if(ajaxAddTagFlag == 0)  // idle
 		{
 			// set ajax flag
-			addTagFlag = 1;  // busy
+			ajaxAddTagFlag = 1;  // busy
 
 			//=========== ajax begins ===========
 			$.post(
@@ -1074,7 +1121,7 @@ $(function() {
 			    	}
 
 			    	// reset ajax flag
-			    	addTagFlag = 0;  // idle
+			    	ajaxAddTagFlag = 0;  // idle
 				}
 			);
 			//=========== ajax ends ===========
@@ -1131,10 +1178,10 @@ $(function() {
 
 
 		// ajax flag
-		if(editMemberFlag == 0)  // idle
+		if(ajaxEditMemberFlag == 0)  // idle
 		{
 			// set ajax flag
-			editMemberFlag = 1;  // busy
+			ajaxEditMemberFlag = 1;  // busy
 
 			// ajax submit
 			$.post(
@@ -1168,7 +1215,7 @@ $(function() {
 					}
 
 					// reset ajax flag
-					editMemberFlag = 0;  // idle
+					ajaxEditMemberFlag = 0;  // idle
 				}
 			);
 		}
@@ -1180,6 +1227,87 @@ $(function() {
 
 
 
+	// ====================================
+	// delete user modal
+	// ====================================
+	$(".delete-member").click(function(event){
+		// get mouse position
+		// var clientX = event.clientX;
+		// var clientY = event.clientY;
+
+		// get current element position
+		var offset = $(this).offset();
+		var curTop = offset.top;
+		var curLeft = offset.left;
+
+		// get popup div width
+		var width = $("#deleteUserDiv").width();
+
+		// get data
+		var target = $(this).parents("tr").find("input[type='hidden']");
+		var id = target.attr("data-id");
+		var name = target.attr("data-name");
+
+		// init deleteUserDiv
+		$("#deleteUserId").attr("data-value", id);
+		$("#deleteUserName").text(name);
+
+
+		// $(this).parents("tr").addClass("delete-alert");
+		// $("#deleteUserDiv").show("fast");
+		$("#deleteUserDiv").css({
+			"display":"inline-block", 
+			"position":"absolute",
+			"top":curTop + 20, 
+			"left":curLeft - width
+		});
+		// animate......
+
+	});
+	$("#deleteUserOk").click(function(){
+
+		// ajax flag
+		if(ajaxDeleteMemberFlag == 0)  // idle
+		{
+			// set ajax flag
+			ajaxDeleteMemberFlag = 1;  // busy
+
+			// ajax submit
+			// ajax submit
+			$.post(
+				"/members/deleteuser/",
+				{
+					"id": $("#deleteUserId").attr("data-value")
+				},
+				function(data)
+				{
+					var result = eval("(" + data + ")");
+					if(result.success == "true")
+					{
+						alert("ok");
+						// 
+					}
+					else
+					{
+						// error message
+						// ......
+					}
+
+					// reset ajax flag
+					ajaxDeleteMemberFlag = 0;  // idle
+				}
+			);
+
+		}
+
+		$("#deleteUserDiv").hide();
+	});
+	$("#deleteUserCancel").click(function(){
+
+		$("#deleteUserDiv").hide();
+	});
+
+	// ====================================
 
 });
 </script>

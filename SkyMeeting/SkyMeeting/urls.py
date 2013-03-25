@@ -10,6 +10,7 @@ urlpatterns=patterns('MemManage.views',
     url(r'^members/addgroup/$','addGroup'),
     url(r'^members/addtag/$','addTag'),
     url(r'^members/inviteuser/$','inviteUser'),
+    url(r'^members/deleteuser/$','deleteUser'),
 )
 
 urlpatterns += patterns('',
