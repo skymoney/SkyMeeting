@@ -6,8 +6,8 @@ from Login.models import Account
 
 
 class Company(models.Model):
-    cname=models.CharField(max_length=100,db_column="CompanyName")
-    clocation=models.CharField(max_length=100,db_column="CompanyLocation")
+    cname=models.CharField(max_length=100)
+    clocation=models.CharField(max_length=100)
     
 
 class GroupManager(models.Manager):
@@ -22,8 +22,8 @@ class GroupManager(models.Manager):
         return json.dumps(result)
     
 class Group(models.Model):
-    gname=models.CharField(max_length=50,db_column="GroupName")
-    cid=models.ForeignKey(Company,db_column="GroupCompany")
+    gname=models.CharField(max_length=50)
+    cid=models.ForeignKey(Company)
     
     objects=GroupManager()
     def toString(self):
@@ -45,8 +45,8 @@ class TagManager(models.Manager):
         return json.dumps(result)
 
 class Tag(models.Model):
-    tname=models.CharField(max_length=50,db_column="TagName")
-    cid=models.ForeignKey(Company,db_column="TagCompany")
+    tname=models.CharField(max_length=50)
+    cid=models.ForeignKey(Company)
     
     objects=TagManager()
     def toString(self):
@@ -57,14 +57,14 @@ class Tag(models.Model):
 
 #in fact this is role for company
 class Role(models.Model):
-    name=models.CharField(max_length=30,db_column="RoleName")
-    sex=models.IntegerField(default=-1,db_column="RoleSex")
-    location=models.CharField(max_length=50,db_column="RoleLocation")
-    idcard=models.CharField(max_length=20,db_column="RoleIdcard")
-    phone=models.CharField(max_length=15,db_column="RolePhone")
-    email=models.EmailField(max_length=30,db_column="RoleEmail")
-    aid=models.ForeignKey(Account,db_column="RoleAccount")
-    company=models.ForeignKey(Company,db_column="RoleCompany")
+    name=models.CharField(max_length=30)
+    sex=models.IntegerField(default=-1)
+    location=models.CharField(max_length=50)
+    idcard=models.CharField(max_length=20)
+    phone=models.CharField(max_length=15)
+    email=models.EmailField(max_length=30)
+    aid=models.ForeignKey(Account)
+    company=models.ForeignKey(Company)
     groups=models.ManyToManyField(Group)
     tags=models.ManyToManyField(Tag)
     
