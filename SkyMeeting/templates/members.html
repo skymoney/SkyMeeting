@@ -156,6 +156,26 @@
 	}
 
 	/*special*/
+	#addGroupDiv{
+		margin-top: 15px;
+		border: 1px solid #ccc;
+	}
+	#addGroupHeader{
+		padding: 6px 10px;
+	}
+	#addGroupInner{
+		padding: 8px 16px;
+	}
+	#newGroupName{
+		width: 180px;
+	}
+	#addGroupOk{
+		margin-bottom: 10px
+	}
+	#addGroupErr{
+		color: #b94a48;
+	}
+
 	#tagsDiv{
 		margin-bottom: 10px;
 	}
@@ -171,11 +191,9 @@
 		float: right;
 	}
 	#editTagsOk{
-		display: none;
 		float: right;
 	}
 	#editTagsDiv{
-		display: none;
 		margin-bottom: 20px;
 	}
 	#tagsArea{
@@ -200,7 +218,6 @@
 		width: 140px;
 	}
 	#addTagHintDiv{
-		display: none;
 		z-index: 5;
 		border: 1px solid #ccc;
 		background-color: rgb(255,255,235);
@@ -215,13 +232,12 @@
 
 
 	#otherQuestionDiv{
-		display: none;
+
 	}
 	#dynAddGroupErr, #dynAddTagErr{
 		color: #b94a48;
 	}
 	#deleteUserDiv{
-		display: none;
 		z-index: 9;
 		border: 1px solid #ccc;
 		background-color: #fff;
@@ -290,7 +306,23 @@
   				<input type="hidden" id="globalGroupString" data-value="{{ groupString }}" />
 
   				<div class="row-fluid new-item-row">
-  					<a href="javascript:void(0);">&plus;&nbsp;Create new group</a>
+  					<a href="javascript:void(0);" id="addGroupLink">&plus;&nbsp;Create new group</a>
+  				</div>
+
+  				<div class="row-fluid hide" id="addGroupDiv">
+  					<div id="addGroupHeader">
+  						<a href="javascript:void(0);" class="close">x</a>
+  					</div>
+  					<div id="addGroupInner">
+  						<div class="row-fluid">
+	  						<label for="newGroupName">Group name</label>
+	  						<input type="text" id="newGroupName" />
+	  						<input type="button" class="btn btn-mini btn-primary" id="addGroupOk" value="OK" />
+  						</div>
+  						<div class="row-fluid" id="addGroupErr">
+  							<!-- add by js -->
+  						</div>
+  					</div>
   				</div>
 			</div>
 
@@ -315,7 +347,7 @@
 
   					<!-- actions -->
 					<a href="javascript:void(0);" id="editTagsLink">Edit</a>
-					<input type="button" class="btn btn-mini btn-primary" id="editTagsOk" value="OK" />
+					<input type="button" class="btn btn-mini btn-primary hide" id="editTagsOk" value="OK" />
 
 					<!-- current storage -->
   					<input type="hidden" id="curTagId" data-value="{{ conf.current_tid }}" />
@@ -323,7 +355,7 @@
   				</div>
 
   				<!-- tags management -->
-  				<div class="row-fluid" id="editTagsDiv">
+  				<div class="row-fluid hide" id="editTagsDiv">
   					<div id="tagsArea">
   						{% for tag in tagAll %}
   						<div class="tag">
@@ -339,7 +371,7 @@
   				</div>
   				
   				<!-- add tag hint -->
-  				<div id="addTagHintDiv">
+  				<div class="hide" id="addTagHintDiv">
   					<div id="addTagHint">限10个字，空格分开</div>
   					<div id="addTagErr"></div>
   				</div>
@@ -432,7 +464,12 @@
 
 
 <!-- Popup div -->
-<div id="deleteUserDiv">
+<div class"" id="" style="display: inline-block; z-index: 9; position: absolute; top: 224px; left: 342px;">
+	<a href="javascript:void(0);" class=""><i class="icon-edit"></i></a>
+	<a href="javascript:void(0);" class=""><i class="icon-trash"></i></a>
+</div>
+
+<div class="hide" id="deleteUserDiv">
 	<div id="deleteUserHeader">
 		<a href="javascript:void(0);" class="close">x</a>
 	</div>
@@ -520,7 +557,7 @@
 				</div>
 			</div>
 			<!-- Verification method of other question -->
-			<div id="otherQuestionDiv">
+			<div class="row-fluid hide" id="otherQuestionDiv">
 				<div class="control-group">
 					<label class="control-label" for="inputQuestion">Question</label>
 					<div class="controls">
@@ -715,7 +752,7 @@ $(function() {
 <script type="text/javascript">
 $(function() {
 
-	// json storage
+	// json storage, for editModal initializaion
 	var globalGroups = eval($("#globalGroupString").attr("data-value"));
 	var globalTags = eval($("#globalTagString").attr("data-value"));
 
@@ -756,6 +793,107 @@ $(function() {
     	$(this).tooltip("hide");
     });
     // ====================================
+
+
+
+
+
+	// ====================================
+	// groups
+	// ====================================
+	$("#addGroupLink").click(function(){
+		if($("#addGroupDiv").css("display") == "none")
+		{
+			$("#addGroupDiv").slideDown("fast");
+			// clear and hide
+			$("#newGroupName").val("");
+			$("#addGroupErr").empty().hide();
+		}
+		else
+		{
+			$("#addGroupDiv").slideUp("fast");
+		}
+	});
+	$("#addGroupHeader").find("a.close").click(function(){
+		$("#addGroupDiv").slideUp("fast");
+	});
+	$("#addGroupOk").click(function(){
+		var newGroupName = $("#newGroupName").val();
+		newGroupName = newGroupName.trim();
+
+		// validation
+		// should use Reg search
+		if(newGroupName.indexOf(",") > -1 || newGroupName.indexOf("，") > -1)
+		{
+			// error message
+			$("#addGroupErr").text("Cannot contain punctuation");
+			$("#addGroupErr").show();
+			return false;
+		}
+		if(!(newGroupName.length > 0 && newGroupName.length <= 20))
+		{
+			// error message
+			$("#addGroupErr").text("Should be less than 20 characters");
+			$("#addGroupErr").show();
+			return false;
+		}
+
+
+		// ajax flag
+		if(ajaxAddGroupFlag == AJAX_IDLE)
+		{
+			// set ajax flag
+			ajaxAddGroupFlag = AJAX_BUSY;
+
+			// ajax submit
+			$.post(
+				"/members/addgroup/",
+				{
+					"groupName": newGroupName
+				},
+				function(data)
+				{
+					var result = eval("(" + data + ")");
+					if(result.success == "true")
+					{
+						var newGroupId = result.gid;
+
+						// update nav, append
+						$("#groupList").append(
+							"<li>" + 
+								"<a href=\"?gid=" + newGroupId + "\">" + 
+									"<span class=\"group-name\">" + newGroupName + "&nbsp;</span>" + 
+									"<span class=\"group-size\">(0)</span>" + 
+									"<i class=\"icon-chevron-right\"></i>" + 
+								"</a>" + 
+							"</li>");
+
+						// update global groups storage!!!
+						globalGroups.push(eval("({\"gid\":" + newGroupId + ",\"gname\":\"" + newGroupName + "\"})"));
+
+						// clear and hide
+						$("#addGroupDiv").slideUp("fast");
+					}
+					else
+					{
+						// error message
+						$("#addGroupErr").text("Failed because of server problem.");
+						$("#addGroupErr").show();
+					}
+
+					// reset ajax flag
+					ajaxAddGroupFlag = AJAX_IDLE;
+				}
+			);
+		}
+
+	});
+
+
+
+	// ====================================
+
+
 
 
 
@@ -804,7 +942,6 @@ $(function() {
 		$("#editTagsDiv").show();
 
 		$("#editNewTag").focus();
-
 	});
 	$("#tagsArea").click(function(){
 		$("#editNewTag").focus();
@@ -970,6 +1107,9 @@ $(function() {
 								// error message
 								// ......
 							}
+
+							// reset ajax flag
+							ajaxAddTagFlag = AJAX_IDLE;
 						}
 					);
 				}
@@ -999,8 +1139,9 @@ $(function() {
 
 	});
 
-
 	// ====================================
+
+
 
 
 
@@ -1099,6 +1240,8 @@ $(function() {
 
 
 
+
+
 	// ====================================
 	// edit member modal
 	// ====================================
@@ -1167,6 +1310,8 @@ $(function() {
 			cbxCode += "</label>";
 
 			groupCbxDiv.append(cbxCode);
+			// clear dynGroups
+			$("#dynGroups").empty();
 		}
 
 		// bind checkbox event
@@ -1297,11 +1442,14 @@ $(function() {
 						$("#groupList").append(
 							"<li>" + 
 								"<a href=\"?gid=" + newGroupId + "\">" + 
-									"<span class=\"group-name\">" + newGroupName + "</span>" + 
+									"<span class=\"group-name\">" + newGroupName + "&nbsp;</span>" + 
 									"<span class=\"group-size\">(0)</span>" + 
 									"<i class=\"icon-chevron-right\"></i>" + 
 								"</a>" + 
 							"</li>");
+
+						// update global groups storage!!!
+						globalGroups.push(eval("({\"gid\":" + newGroupId + ",\"gname\":\"" + newGroupName + "\"})"));
 
 						// clear and hide
 						$("#dynAddGroupDiv").hide("fast");
@@ -1494,6 +1642,7 @@ $(function() {
 
 		// alert("id:" + id + "; name:" + name + "; sex:" + sex + "; idcard:" + idcard + "; phone:" + phone + "; email:" + email + "; groupIds:" + groupIds + "; tagIds:" + tagIds);
 
+		// trim
 		// validation
 		// ......
 
@@ -1544,6 +1693,8 @@ $(function() {
 	});
 	// ====================================
 	
+
+
 
 
 
