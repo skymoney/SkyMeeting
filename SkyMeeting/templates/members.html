@@ -199,6 +199,21 @@
 		height: 22px;
 		width: 140px;
 	}
+	#addTagHintDiv{
+		display: none;
+		z-index: 5;
+		border: 1px solid #ccc;
+		background-color: rgb(255,255,235);
+		padding: 4px 6px;
+	}
+	#addTagHint{
+
+	}
+	#addTagErr{
+		color: #b94a48;
+	}
+
+
 	#otherQuestionDiv{
 		display: none;
 	}
@@ -323,6 +338,11 @@
   					</div>
   				</div>
   				
+  				<!-- add tag hint -->
+  				<div id="addTagHintDiv">
+  					<div id="addTagHint">限10个字，空格分开</div>
+  					<div id="addTagErr"></div>
+  				</div>
 
 
   				<!-- members table -->
@@ -407,6 +427,10 @@
 
 
 
+
+
+
+
 <!-- Popup div -->
 <div id="deleteUserDiv">
 	<div id="deleteUserHeader">
@@ -425,6 +449,11 @@
 		</div>
 	</div>
 </div>
+
+
+
+
+
 
 
 <!-- Popup Modal -->
@@ -513,8 +542,6 @@
 		<input type="button" class="btn" data-dismiss="modal" aria-hidden="true" value="Cancel" />
 	</div>
 </div>
-
-
 
 
 
@@ -706,6 +733,11 @@ $(function() {
 	var ajaxEditGroupFlag = AJAX_IDLE;
 	var ajaxDeleteGroupFlag = AJAX_IDLE;
 
+	// constants
+	var KEY_SPACE = 32;
+	var KEY_BACKSPACE = 8;
+
+
 
 	// ====================================
 	// tooltips
@@ -873,13 +905,38 @@ $(function() {
 	// $("#editNewTag").keydown(inputLengthRestrictFunc);
 
 
+	var showAddTagHint = function(){
+		var offset = $("#editNewTag").offset();
+		
+		$("#addTagHintDiv").css({
+			"display": "inline-block",
+			"position": "absolute",
+			"top": offset.top + 28,
+			"left": offset.left + 6
+		});
+	};
+
+	var clearAndHideAddTagHint = function(){
+		$("#addTagHintDiv").hide();
+		$("#addTagErr").text("");
+	}
+
 	// add tag and delete tag by key
 	$("#editNewTag").keydown(function(event){
 		var newTagName = $("#editNewTag").val();
 
-		if(event.which == 32)  // space
+		if(event.which == KEY_SPACE)
 		{
 			var newTagName = newTagName.trim();
+
+			// validation
+			// should use Reg search
+			if(newTagName.indexOf(",") > -1 || newTagName.indexOf("，") > -1)
+			{
+				$("#addTagErr").text("含有非法字符");
+				return false;
+			}
+
 			if(newTagName.length > 0)
 			{
 				// ajax flag
@@ -906,6 +963,7 @@ $(function() {
 
 								// clear input
 								$("#editNewTag").val("");
+								clearAndHideAddTagHint();
 							}
 							else
 							{
@@ -918,14 +976,27 @@ $(function() {
 
 			}
 		}
-		else if(event.which == 8)  // backspace
+		else if(event.which == KEY_BACKSPACE)
 		{
 			if(newTagName.length == 0)
 			{
+				// the last char is already deleted
 				// delete the last tag
 				$(this).parent().prev(".tag").find("a.delete-tag").click();
 			}
+			else if(newTagName.length == 1)
+			{
+				// the last char would be deleted
+				// hide hint
+				clearAndHideAddTagHint();
+			}
 		}
+		else
+		{
+			// if other input char, show hint, or even show tag recommendation if possible in future
+			showAddTagHint();
+		}
+
 	});
 
 
