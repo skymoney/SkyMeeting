@@ -1,5 +1,6 @@
 from django.db import models
 from MemManage.models import Role
+from datetime import datetime
 # Create your models here.  
 class Meeting(models.Model):
     meeting_id=models.AutoField(primary_key=True,db_column="meeting_id")
@@ -7,10 +8,10 @@ class Meeting(models.Model):
     meeting_type=models.IntegerField(default=1,db_column="meeting_type")
     start_time=models.DateTimeField(db_column="start_time")
     meeting_period=models.IntegerField(default=0,db_column="meeting_period")
-    close_time=models.DateTimeField(db_column="close_time")
+    close_time=models.DateTimeField(blank=True,null=True,default=datetime.now(),db_column="close_time")
     meeting_place=models.CharField(max_length=100,db_column="meeting_place")
-    contact_tel=models.CharField(max_length=100,db_column="contact_tel")
-    contact_email=models.EmailField(db_column="contact_email")
+    contact_tel=models.CharField(blank=True,null=True,default="",max_length=100,db_column="contact_tel")
+    contact_email=models.EmailField(blank=True,null=True,default="null@null.com",db_column="contact_email")
     detail=models.TextField(db_column="meeting_detail")
     create_user=models.ForeignKey(Role,db_column="create_user")
     create_time=models.DateTimeField(db_column="create_time")
