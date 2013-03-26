@@ -200,4 +200,13 @@ def deleteRole(params):
     return result
 
 def deleteTag(params):
-    pass
+    cid=params["cid"]
+    tid=params["tid"]
+    result=dict()
+    try:
+        Tag.objects.filter(id=tid).delete()
+        result["success"]="true"
+    except:
+        result["succss"]="false"
+        result["errors"]=""
+    return result
