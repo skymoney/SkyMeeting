@@ -28,15 +28,8 @@ def deleteTag(request):
     
     params = dict()
     params["cid"] = 1   #default!!!
-    params["tid"] = request.POST["tid"]                               #delete tag id
-    #hard code!!!
-    result = dict()
-    result["success"] = "true"
-#    exception
-#    result["success"] = "false"
-#    result["errors"] = ""
-    
-    return HttpResponse(json.dumps(result))
+    params["tid"] = request.POST["tid"]                            #delete tag id
+    return HttpResponse(json.dumps(DAOHelper.deleteTag(params)))
 
 def inviteUser(request):
     #permission check
