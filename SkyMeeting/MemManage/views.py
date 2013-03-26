@@ -32,7 +32,6 @@ def deleteTag(request):
     #hard code!!!
     result = dict()
     result["success"] = "true"
-    result["tid"] = request.POST["tid"]
 #    exception
 #    result["success"] = "false"
 #    result["errors"] = ""
@@ -73,7 +72,6 @@ def deleteUser(request):
     #hard code!!!
     result = dict()
     result["success"] = "true"
-    result["id"] = request.POST["id"]
 #    exception
 #    result["success"] = "false"
 #    result["errors"] = ""

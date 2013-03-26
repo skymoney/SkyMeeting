@@ -833,8 +833,8 @@ $(function() {
 					var result = eval("(" + data + ")");
 					if(result.success == "true")
 					{
-						var tid = result.tid;
-						$("#tagsArea").find("a[data-tid='" + tid + "']").parent(".tag").remove();
+						// var tid = result.tid;
+						$("#tagsArea").find("a[data-tid='" + deleteTagId + "']").parent(".tag").remove();
 					}
 					else
 					{
@@ -1534,8 +1534,8 @@ $(function() {
 					var result = eval("(" + data + ")");
 					if(result.success == "true")
 					{
-						var userId = result.id;
-						$("#membersTable").find("input[type='hidden'][data-id='" + userId + "']").parent("tr").remove();
+						// var userId = result.id;
+						$("#membersTable").find("input[type='hidden'][data-id='" + deleteUserId + "']").parent("tr").remove();
 
 						// delete current tr or refresh???
 						// update group size......
