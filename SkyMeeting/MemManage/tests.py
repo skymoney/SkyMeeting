@@ -24,7 +24,7 @@ class MemberTest(TestCase):
         #self.assertEqual("true",result["success"],"Add Group Test Done...")
         pass
     
-    def testInviteRole(self):
+    def tstInviteRole(self):
         from MemManageHelper import DAOHelper as helper
         params=dict()
         params["cid"]=1
@@ -40,3 +40,13 @@ class MemberTest(TestCase):
         result=helper.inviteUser(params)
         print result
         self.assertEquals("true",result["success"],"TestDone")
+        
+    def testDeteleTag(self):
+        from MemManageHelper import DAOHelper as helper
+        param=dict()
+        param["cid"]=1
+        param["tid"]=26
+        
+        result=helper.deleteTag(param)
+        print result
+        self.assertEqual("true",result["success"],"TestTag")
