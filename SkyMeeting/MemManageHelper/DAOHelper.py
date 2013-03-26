@@ -198,3 +198,6 @@ def deleteRole(params):
         result["success"]="false"
         result["errors"]=""
     return result
+
+def deleteTag(params):
+    pass

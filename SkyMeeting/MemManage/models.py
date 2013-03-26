@@ -6,8 +6,9 @@ from Login.models import Account
 
 
 class Company(models.Model):
-    cname=models.CharField(max_length=100)
-    clocation=models.CharField(max_length=100)
+    cname=models.CharField(max_length=100,db_column="CompanyName")
+    clocation=models.CharField(max_length=100,db_column="CompanyLocation")
+    
 
 class GroupManager(models.Manager):
     def getAllString(self):
@@ -19,10 +20,10 @@ class GroupManager(models.Manager):
             group_dict["cid"]=group.cid.id
             result.append(group_dict)
         return json.dumps(result)
-
+    
 class Group(models.Model):
-    gname=models.CharField(max_length=50)
-    cid=models.ForeignKey(Company)
+    gname=models.CharField(max_length=50,db_column="GroupName")
+    cid=models.ForeignKey(Company,db_column="GroupCompany")
     
     objects=GroupManager()
     def toString(self):
@@ -30,6 +31,7 @@ class Group(models.Model):
     
     def __unicode__(self):
         return self.gname
+    
 
 class TagManager(models.Manager):
     def getAllString(self):
@@ -43,8 +45,8 @@ class TagManager(models.Manager):
         return json.dumps(result)
 
 class Tag(models.Model):
-    tname=models.CharField(max_length=50)
-    cid=models.ForeignKey(Company)
+    tname=models.CharField(max_length=50,db_column="TagName")
+    cid=models.ForeignKey(Company,db_column="TagCompany")
     
     objects=TagManager()
     def toString(self):
@@ -55,16 +57,17 @@ class Tag(models.Model):
 
 #in fact this is role for company
 class Role(models.Model):
-    name=models.CharField(max_length=30)
-    sex=models.IntegerField(default=-1)
-    location=models.CharField(max_length=50)
-    idcard=models.CharField(max_length=20)
-    phone=models.CharField(max_length=15)
-    email=models.EmailField(max_length=30)
-    aid=models.ForeignKey(Account)
-    company=models.ForeignKey(Company)
+    name=models.CharField(max_length=30,db_column="RoleName")
+    sex=models.IntegerField(default=-1,db_column="RoleSex")
+    location=models.CharField(max_length=50,db_column="RoleLocation")
+    idcard=models.CharField(max_length=20,db_column="RoleIdcard")
+    phone=models.CharField(max_length=15,db_column="RolePhone")
+    email=models.EmailField(max_length=30,db_column="RoleEmail")
+    aid=models.ForeignKey(Account,db_column="RoleAccount")
+    company=models.ForeignKey(Company,db_column="RoleCompany")
     groups=models.ManyToManyField(Group)
     tags=models.ManyToManyField(Tag)
+    
 
 class TempRole(models.Model):
     trid=models.AutoField(primary_key=True,db_column='TempRoleId')
@@ -73,6 +76,8 @@ class TempRole(models.Model):
     phone=models.CharField(max_length=15,db_column='TempRolePhone')
     email=models.CharField(max_length=30,db_column='TempRoleEmail')
     company=models.ForeignKey(Company,db_column='TempRoleCompany')
+    
+    code=models.CharField(max_length=50,default="",db_column='TempCheckCode')
     
     verifyByName=models.IntegerField(default=0,db_column='VerifyModeName')
     verifyByPhone=models.IntegerField(default=0,db_column='VerifyModePhone')
