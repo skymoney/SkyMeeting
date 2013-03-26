@@ -185,6 +185,7 @@
 	#tagsArea .tag{
 		margin-left: 5px;
 		margin-right: 5px;
+		cursor: default;
 	}
 	#editNewTag, #editNewTag:focus{
 		border: 0;
@@ -773,6 +774,9 @@ $(function() {
 		$("#editNewTag").focus();
 
 	});
+	$("#tagsArea").click(function(){
+		$("#editNewTag").focus();
+	});
 	$("#editTagsOk").click(function(){
 		$("#editTagsOk").hide();
 		$("#editTagsLink").show();
@@ -783,20 +787,27 @@ $(function() {
 		$("#editNewTag").val("");
 
 		// refresh???
-		var tidArray = new Array($("#curTagId").attr("data-value"));
-		alert(tidArray[0] + " " + tidArray[1]);
-		var tid = "";
-		for(var i=0; i<tidArray.length; i++)
+		var gid = $("#curGroupId").attr("data-value");
+		var tid = $("#curTagId").attr("data-value");
+
+		// if multiple tags, remove square brackets
+		if(tid.indexOf("[") > -1)
 		{
-			if(i != 0)
-			{
-				tid += "+";
-			}
-			tid += tidArray[i];
-			// alert(tid);
+			tid = tid.substr(1, tid.length);
+		}
+		if(tid.indexOf("]") > -1)
+		{
+			tid = tid.substr(0, tid.length-1);
 		}
 
-		var gid = $("#curGroupId").attr("data-value");
+		// replace sperator
+		if(tid.indexOf(",") > -1)
+		{
+			var reg = new RegExp(", ", "g");
+			tid = tid.replace(reg, "+");
+		}
+		
+		// redirect
 		location.href = "/members/?gid=" + gid + "&tid=" + tid;
 	});
 
@@ -822,8 +833,8 @@ $(function() {
 					var result = eval("(" + data + ")");
 					if(result.success == "true")
 					{
-						var tid = result.tid;
-						$("#tagsArea").find("a[data-tid='" + tid + "']").parent(".tag").remove();
+						// var tid = result.tid;
+						$("#tagsArea").find("a[data-tid='" + deleteTagId + "']").parent(".tag").remove();
 					}
 					else
 					{
@@ -839,6 +850,14 @@ $(function() {
 
 	};
 	$("a.delete-tag").click(deleteTagFunc);
+
+
+	// update tagsArea function
+	var appendTagsArea = function(newTagId, newTagName){
+		$("#tagsArea").children(".tag").last().after("<div class=\"tag\"><span>" + newTagName + "&nbsp;</span><a href=\"javascript:void(0);\" class=\"delete-tag\" data-tid=\"" + newTagId + "\">x</a></div>");
+		// bind delete tag click event
+		$("#tagsArea").children(".tag").last().find("a.delete-tag").click(deleteTagFunc);
+	};
 
 
 	// input length restriction
@@ -860,10 +879,42 @@ $(function() {
 
 		if(event.which == 32)  // space
 		{
-			if(newTagName.trim().length > 0)
+			var newTagName = newTagName.trim();
+			if(newTagName.length > 0)
 			{
-				alert("add");
-				// ajax
+				// ajax flag
+				if(ajaxAddTagFlag == AJAX_IDLE)
+				{
+					// set ajax flag
+					ajaxAddTagFlag = AJAX_BUSY;
+
+					// ajax submit
+					$.post(
+						"/members/addtag/",
+						{
+							"tagName": newTagName
+						},
+						function(data)
+						{
+							var result = eval("(" + data + ")");
+							if(result.success == "true")
+							{
+								var newTagId = result.tid;
+
+								// append element
+								appendTagsArea(newTagId, newTagName);
+
+								// clear input
+								$("#editNewTag").val("");
+							}
+							else
+							{
+								// error message
+								// ......
+							}
+						}
+					);
+				}
 
 			}
 		}
@@ -1302,11 +1353,9 @@ $(function() {
 						// bind tag click event
 						$("#tagList").children("li").last().find("a.tag").click(tagClickFunc);
 
-						// update tag edition nav, append
-						$("#tagsArea").children(".tag").last().after("<div class=\"tag\"><span>" + newTagName + "&nbsp;</span><a href=\"javascript:void(0);\" class=\"delete-tag\" data-tid=\"" + newTagId + "\">x</a></div>");
-						// bind delete tag click event
-						$("#tagsArea").children(".tag").last().find("a.delete-tag").click(deleteTagFunc);
 
+						// update tag edition nav, append
+						appendTagsArea(newTagId, newTagName);
 
 						// update global tags storage!!!
 						globalTags.push(eval("({\"tid\":" + newTagId + ",\"tname\":\"" + newTagName + "\"})"));
@@ -1485,8 +1534,8 @@ $(function() {
 					var result = eval("(" + data + ")");
 					if(result.success == "true")
 					{
-						var userId = result.id;
-						$("#membersTable").find("input[type='hidden'][data-id='" + userId + "']").parent("tr").remove();
+						// var userId = result.id;
+						$("#membersTable").find("input[type='hidden'][data-id='" + deleteUserId + "']").parent("tr").remove();
 
 						// delete current tr or refresh???
 						// update group size......
