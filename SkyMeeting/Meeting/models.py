@@ -15,7 +15,8 @@ class Meeting(models.Model):
     create_user=models.ForeignKey(Role,db_column="create_user")
     create_time=models.DateTimeField(db_column="create_time")
     meeting_status=models.IntegerField(default=0,db_column="meeting_status")
-    role=models.ManyToManyField(Role,through="Meeting_Participant")
+    
+    
     class Meta:
         db_table="Meeting"
 
@@ -28,6 +29,8 @@ class File(models.Model):
     upload_time=models.DateTimeField(db_column="upload_time")
     file_status=models.IntegerField(default=0,db_column="file_status")
     
+    meeting=models.ManyToManyField(Meeting,through="Meeting_File")
+    
     class Meta:
         db_table="File"
 
@@ -35,7 +38,7 @@ class Meeting_Participant(models.Model):
     mp_id=models.AutoField(primary_key=True,db_column="mp_id")
     meeting_id=models.ForeignKey(Meeting,db_column='meeting_id')
     role_id=models.ForeignKey(Role,db_column="role_id")
-    status=models.IntegerField(default=0,db_column="status")
+    participant_status=models.IntegerField(default=0,db_column="participant_status")
     
     class Meta:
         db_table="Meeting_Participant"
@@ -43,5 +46,29 @@ class Meeting_Participant(models.Model):
 class Meeting_File(models.Model):
     meeting_file_id=models.AutoField(primary_key=True,db_column="meeting_file_id")
     meeting_id=models.ForeignKey(Meeting,db_column="meeting_id")
-    file_id=models.ForeignKey()
+    file_id=models.ForeignKey(File,db_column="file_id")
+    is_all_visiable=models.IntegerField(default=1,db_column="is_all_visiable")
+    role=models.ManyToManyField(Role,through="Meeting_File_Visible")
+    class Meta:
+        db_table="Meeting_File"
+
+class Meeting_File_Visible(models.Model):
+    meeting_file_id=models.ForeignKey(Meeting_File,db_column="meeting_file_id")
+    role_id=models.ForeignKey(Role,db_column="role_id")
+    visible_level=models.IntegerField(default=0,db_column="visible_level")
     
+    class Meta:
+        db_table="Meeting"
+
+class Meeting_Comment(models.Model):
+    comment_id=models.AutoField(primary_key=True,db_column="comment_id")
+    meeting_id=models.ForeignKey(Meeting,db_column="meeting_id")
+    create_user=models.ForeignKey(Role,db_column="create_user")
+    create_time=models.DateTimeField(db_column="create_time")
+    content=models.TextField(db_column="content")
+    reply_to_user=models.IntegerField(db_column="replay_to_user")
+    comment_status=models.IntegerField(default=0,db_column="comment_status")
+    #quote_from_comment_id=models.ForeignKey('Meeting_Comment',db_column="quote_from_comment_id")
+    #comment_status=models.IntegerField(default=0,db_column="comment_status")
+    class Meta:
+        db_table="Meeting_Comment"
