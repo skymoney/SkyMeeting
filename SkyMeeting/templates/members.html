@@ -155,6 +155,33 @@
 	  bottom: 270px;
 	}
 
+
+	/*common*/
+	.popup-div{
+		z-index: 9;
+		border: 1px solid #ccc;
+		background-color: #fff;
+	}
+	.popup-div-header{
+		padding: 9px 15px;
+	}
+	.popup-div-inner{
+		padding: 15px 30px;
+	}
+	.popup-action-div{
+		margin-top: 10px;
+		text-align: center;
+	}
+	.popup-delete-hint{
+		color: #b94a48;
+		font-size: 16px;
+	}
+	.popup-strong-hint{
+		color: #0088cc;
+		font-weight: bold;
+	}
+
+
 	/*special*/
 	#addGroupDiv{
 		margin-top: 15px;
@@ -250,28 +277,7 @@
 	#dynAddGroupErr, #dynAddTagErr{
 		color: #b94a48;
 	}
-	#deleteUserDiv{
-		z-index: 9;
-		border: 1px solid #ccc;
-		background-color: #fff;
-	}
-	#deleteUserHeader{
-		padding: 9px 15px;
-	}
-	#deleteUserInner{
-		padding: 15px 30px;
-	}
-	#deleteUserHint{
-		color: #b94a48;
-		font-size: 16px;
-	}
-	#deleteUserName{
-		color: #0088cc;
-		font-weight: bold;
-	}
-	#deleteUserAction{
-		margin-top: 10px;
-	}
+
 	tr.delete-alert{
 		background-color: #f2dede;
 	}
@@ -313,7 +319,7 @@
   						<div class="group-action hide">
 	  						<a href="javascript:void(0);" class="edit-group" title="Edit group"><i class="icon-edit"></i></a>
 							<a href="javascript:void(0);" class="delete-group" title="Delete group"><i class="icon-trash"></i></a>
-							<input type="hidden" data-gid="{{ group.gid }}" />
+							<input type="hidden" data-gid="{{ group.gid }}" data-gname="{{ group.gname }}" />
 						</div>
   					</li>
   					{% endfor %}
@@ -482,18 +488,38 @@
 
 
 <!-- Popup div -->
-<div class="hide" id="deleteUserDiv">
-	<div id="deleteUserHeader">
+<div class="popup-div hide" id="deleteGroupDiv">
+	<div class="popup-div-header" id="deleteGroupHeader">
 		<a href="javascript:void(0);" class="close">x</a>
 	</div>
-	<div id="deleteUserInner">
-		<div id="deleteUserHint">
+	<div class="popup-div-inner">
+		<div class="popup-delete-hint">
+			Are you sure to delete group
+			<span class="popup-strong-hint" id="deleteGroupName"></span>
+			from your company?
+		</div>
+		<input type="hidden" id="deleteGroupId" />
+		<div class="popup-action-div">
+			<input type="button" class="btn btn-primary" id="deleteGroupOk" value="OK" />
+			<input type="button" class="btn" id="deleteGroupCancel" value="Cancel" />
+		</div>
+	</div>
+</div>
+
+
+
+<div class="popup-div hide" id="deleteUserDiv">
+	<div class="popup-div-header" id="deleteUserHeader">
+		<a href="javascript:void(0);" class="close">x</a>
+	</div>
+	<div class="popup-div-inner">
+		<div class="popup-delete-hint">
 			Are you sure to delete user
-			<span id="deleteUserName"></span>
+			<span class="popup-strong-hint" id="deleteUserName"></span>
 			from your company?
 		</div>
 		<input type="hidden" id="deleteUserId" />
-		<div class="align-center" id="deleteUserAction">
+		<div class="popup-action-div">
 			<input type="button" class="btn btn-primary" id="deleteUserOk" value="OK" />
 			<input type="button" class="btn" id="deleteUserCancel" value="Cancel" />
 		</div>
@@ -912,12 +938,87 @@ $(function() {
 		$(this).find(".group-action").hide();
 	});
 
+
+	// edit group
 	$("a.edit-group").click(function(){
 		alert("edit");
 	});
+
+
+	// delete group
 	$("a.delete-group").click(function(){
-		alert("delete");
+		// get data
+		var target = $(this).siblings("input[type='hidden']");
+		var deleteGroupId = target.attr("data-gid");
+		var deleteGroupName = target.attr("data-gname");
+
+		// init delteGroupDiv
+		$("#deleteGroupId").attr("data-value", deleteGroupId);
+		$("#deleteGroupName").text(deleteGroupName);
+
+		// get position
+		var offset = $(this).offset();
+
+		$("#deleteGroupDiv").css({
+			"display": "inline-block",
+			"position": "absolute",
+			"top": offset.top,
+			"left": offset.left
+		});
 	});
+	$("#deleteGroupOk").click(function(){
+		var deleteGroupId = $("#deleteGroupId").attr("data-value");
+
+		// ajax flag
+		if(ajaxDeleteGroupFlag == AJAX_IDLE)
+		{
+			// set ajax flag
+			ajaxDeleteGroupFlag = AJAX_BUSY;
+
+			// ajax submit
+			$.post(
+				"/members/deletegroup/",
+				{
+					"gid": deleteGroupId
+				},
+				function(data)
+				{
+					var result = eval("(" + data + ")");
+					if(result.success == "true")
+					{
+						// update nav
+						$("#groupList").find("a[href='?gid=" + deleteGroupId + "']").parent("li").remove();
+
+						// update global groups storage!!!
+						for(var i=0; i<globalGroups.length; i++)
+						{
+							if(globalGroups[i].gid == deleteGroupId)
+							{
+								// alert(globalGroups.length);
+								// globalGroups.slice(i, 1);
+								// alert(globalGroups.length);
+								break;
+							}
+						}
+					}
+					else
+					{
+						// error message
+					}
+				}
+			);
+		}
+
+		$("#deleteGroupDiv").hide();
+	});
+	$("#deleteGroupCancel").click(function(){
+		$("#deleteGroupDiv").hide();
+	});
+	$("#deleteGroupHeader").find("a.close").click(function(){
+		$("#deleteGroupDiv").hide();
+	});
+
+
 	// ====================================
 
 
@@ -1719,19 +1820,7 @@ $(function() {
 	// ====================================
 	// delete user modal
 	// ====================================
-	$(".delete-member").click(function(event){
-		// get mouse position
-		// var clientX = event.clientX;
-		// var clientY = event.clientY;
-
-		// get current element position
-		var offset = $(this).offset();
-		var curTop = offset.top;
-		var curLeft = offset.left;
-
-		// get popup div width
-		var width = $("#deleteUserDiv").width();
-
+	$("a.delete-member").click(function(){
 		// get data
 		var target = $(this).parents("tr").find("input[type='hidden']");
 		var id = target.attr("data-id");
@@ -1741,6 +1830,13 @@ $(function() {
 		$("#deleteUserId").attr("data-value", id);
 		$("#deleteUserName").text(name);
 
+		// get current element position
+		var offset = $(this).offset();
+		var curTop = offset.top;
+		var curLeft = offset.left;
+
+		// get popup div width
+		var width = $("#deleteUserDiv").width();
 
 		// $(this).parents("tr").addClass("delete-alert");
 		// $("#deleteUserDiv").show("fast");
@@ -1751,7 +1847,6 @@ $(function() {
 			"left":curLeft - width + 10
 		});
 		// animate......
-
 	});
 	$("#deleteUserOk").click(function(){
 		var deleteUserId = $("#deleteUserId").attr("data-value");
