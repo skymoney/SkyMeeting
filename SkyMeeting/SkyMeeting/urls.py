@@ -7,11 +7,13 @@ from django.conf import settings
 urlpatterns=patterns('MemManage.views',
     url(r'^members/$','member'),
     url(r'^members/edituser','editRoleInfo'),
-    url(r'^members/addgroup/$','addGroup'),
-    url(r'^members/addtag/$','addTag'),
-    url(r'^members/deletetag/$','deleteTag'),
     url(r'^members/inviteuser/$','inviteUser'),
     url(r'^members/deleteuser/$','deleteUser'),
+    url(r'^members/addgroup/$','addGroup'),
+    url(r'^members/editgroup/$','editGroup'),
+    url(r'^members/deletegroup/$','deleteGroup'),
+    url(r'^members/addtag/$','addTag'),
+    url(r'^members/deletetag/$','deleteTag'),
 )
 
 urlpatterns += patterns('',
