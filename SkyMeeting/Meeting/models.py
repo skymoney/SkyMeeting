@@ -54,6 +54,7 @@ class Meeting_File(models.Model):
         db_table="Meeting_File"
 
 class Meeting_File_Visible(models.Model):
+    mfv_id=models.AutoField(primary_key=True,db_column="mfv_id")
     meeting_file_id=models.ForeignKey(Meeting_File,db_column="meeting_file_id")
     role_id=models.ForeignKey(Role,db_column="role_id")
     visible_level=models.IntegerField(default=0,db_column="visible_level")
@@ -67,7 +68,7 @@ class Meeting_Comment(models.Model):
     create_user=models.ForeignKey(Role,db_column="create_user")
     create_time=models.DateTimeField(db_column="create_time")
     content=models.TextField(db_column="content")
-    reply_to_user=models.IntegerField(db_column="replay_to_user")
+    reply_to_user=models.IntegerField(null=True,default=-1,db_column="replay_to_user")
     comment_status=models.IntegerField(default=0,db_column="comment_status")
     #quote_from_comment_id=models.ForeignKey('Meeting_Comment',db_column="quote_from_comment_id")
     #comment_status=models.IntegerField(default=0,db_column="comment_status")
