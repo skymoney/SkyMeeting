@@ -1132,6 +1132,9 @@ $(function() {
 					{
 						// var tid = result.tid;
 						$("#tagsArea").find("a[data-tid='" + deleteTagId + "']").parent(".tag").remove();
+
+						// update global tags storage!!!
+						// globalTags.remvoe(i);
 					}
 					else
 					{
@@ -1225,6 +1228,9 @@ $(function() {
 
 								// append element
 								appendTagsArea(newTagId, newTagName);
+
+								// update global tags storage!!!
+								globalTags.push(eval("({\"tid\":" + newTagId + ",\"tname\":\"" + newTagName + "\"})"));
 
 								// clear input
 								$("#editNewTag").val("");
