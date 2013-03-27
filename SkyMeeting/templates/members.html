@@ -175,6 +175,19 @@
 	#addGroupErr{
 		color: #b94a48;
 	}
+	.group-action{
+		z-index: 9;
+		float: right;
+		margin-top: -29px;
+		margin-right: 23px;
+	}
+	.group-action a{
+		display: inline;
+		padding: 0;
+		border: none;
+	}
+
+
 
 	#tagsDiv{
 		margin-bottom: 10px;
@@ -297,6 +310,11 @@
   							<span class="group-size">({{ group.count }})</span>
   							<i class="icon-chevron-right"></i>
   						</a>
+  						<div class="group-action hide">
+	  						<a href="javascript:void(0);" class="edit-group" title="Edit group"><i class="icon-edit"></i></a>
+							<a href="javascript:void(0);" class="delete-group" title="Delete group"><i class="icon-trash"></i></a>
+							<input type="hidden" data-gid="{{ group.gid }}" />
+						</div>
   					</li>
   					{% endfor %}
   				</ul>
@@ -464,11 +482,6 @@
 
 
 <!-- Popup div -->
-<div class"" id="" style="display: inline-block; z-index: 9; position: absolute; top: 224px; left: 342px;">
-	<a href="javascript:void(0);" class=""><i class="icon-edit"></i></a>
-	<a href="javascript:void(0);" class=""><i class="icon-trash"></i></a>
-</div>
-
 <div class="hide" id="deleteUserDiv">
 	<div id="deleteUserHeader">
 		<a href="javascript:void(0);" class="close">x</a>
@@ -675,12 +688,14 @@
 						<a href="javascript:void(0);" id="dynAddGroup">&plus;&nbsp;Add new group</a>
 					</div>
 					<div class="row-fluid hide" id="dynAddGroupDiv">
-						<input type="text" id="dynNewGroupName" />
-						<a href="javascript:void(0);" id="dynAddGroupOk"><i class="icon-ok"></i></a>
-						<a href="javascript:void(0);" id="dynAddGroupCancel"><i class="icon-remove-sign"></i></a>
-					</div>
-					<div class="row-fluid hide" id="dynAddGroupErr">
-						<!-- add message dynamically by js -->
+						<div class="row-fluid">
+							<input type="text" id="dynNewGroupName" />
+							<a href="javascript:void(0);" id="dynAddGroupOk"><i class="icon-ok"></i></a>
+							<a href="javascript:void(0);" id="dynAddGroupCancel"><i class="icon-remove-sign"></i></a>
+						</div>
+						<div class="row-fluid" id="dynAddGroupErr">
+							<!-- add message dynamically by js -->
+						</div>
 					</div>
 					
 				</div>
@@ -702,12 +717,14 @@
 						<a href="javascript:void(0);" id="dynAddTag">&plus;&nbsp;Add new tag</a>
 					</div>
 					<div class="row-fluid hide" id="dynAddTagDiv">
-						<input type="text" id="dynNewTagName" />
-						<a href="javascript:void(0);" id="dynAddTagOk"><i class="icon-ok"></i></a>
-						<a href="javascript:void(0);" id="dynAddTagCancel"><i class="icon-remove-sign"></i></a>
-					</div>
-					<div class="row-fluid hide" id="dynAddTagErr">
-						<!-- add message dynamically by js -->
+						<div class="row-fluid">
+							<input type="text" id="dynNewTagName" />
+							<a href="javascript:void(0);" id="dynAddTagOk"><i class="icon-ok"></i></a>
+							<a href="javascript:void(0);" id="dynAddTagCancel"><i class="icon-remove-sign"></i></a>
+						</div>
+						<div class="row-fluid" id="dynAddTagErr">
+							<!-- add message dynamically by js -->
+						</div>
 					</div>
 					
 				</div>
@@ -807,7 +824,7 @@ $(function() {
 			$("#addGroupDiv").slideDown("fast");
 			// clear and hide
 			$("#newGroupName").val("");
-			$("#addGroupErr").empty().hide();
+			$("#addGroupErr").empty();
 		}
 		else
 		{
@@ -827,14 +844,12 @@ $(function() {
 		{
 			// error message
 			$("#addGroupErr").text("Cannot contain punctuation");
-			$("#addGroupErr").show();
 			return false;
 		}
 		if(!(newGroupName.length > 0 && newGroupName.length <= 20))
 		{
 			// error message
-			$("#addGroupErr").text("Should be less than 20 characters");
-			$("#addGroupErr").show();
+			$("#addGroupErr").text("Length should be between 1 to 20");
 			return false;
 		}
 
@@ -878,7 +893,6 @@ $(function() {
 					{
 						// error message
 						$("#addGroupErr").text("Failed because of server problem.");
-						$("#addGroupErr").show();
 					}
 
 					// reset ajax flag
@@ -890,7 +904,20 @@ $(function() {
 	});
 
 
+	// group actions
+	$("#groupList").find("li").not($("#groupList").children("li").first()).mouseenter(function(){
+		$(this).find(".group-action").show();
+	});
+	$("#groupList").find("li").not($("#groupList").children("li").first()).mouseleave(function(){
+		$(this).find(".group-action").hide();
+	});
 
+	$("a.edit-group").click(function(){
+		alert("edit");
+	});
+	$("a.delete-group").click(function(){
+		alert("delete");
+	});
 	// ====================================
 
 
@@ -1055,7 +1082,7 @@ $(function() {
 
 	var clearAndHideAddTagHint = function(){
 		$("#addTagHintDiv").hide();
-		$("#addTagErr").text("");
+		$("#addTagErr").empty();
 	}
 
 	// add tag and delete tag by key
@@ -1247,9 +1274,9 @@ $(function() {
 	// ====================================
 	// init modal function
 	var initEditMemberFunc = function(dataElement){
-		// clear and hide error message
-		$("#dynAddGroupErr").empty().hide();
-		$("#dynAddTagErr").empty().hide();
+		// hide dynAdd divs
+		$("#dynAddGroupDiv").hide();
+		$("#dynAddTagDiv").hide();
 
 		// init text
 		$("#editId").attr("data-value", dataElement.attr("data-id"));
@@ -1380,7 +1407,11 @@ $(function() {
 		$("#dynAddGroupDiv").toggle("fast");
 		// clear and hide
 		$("#dynNewGroupName").val("");
-		$("#dynAddGroupErr").empty().hide();
+		$("#dynAddGroupErr").empty();
+	});
+	$("#dynAddGroupCancel").click(function(){
+		$("#dynAddGroupDiv").hide("fast");
+		$("#dynAddGroupErr").empty();
 	});
 	$("#dynAddGroupOk").click(function(){
 		var newGroupName = $("#dynNewGroupName").val();
@@ -1392,14 +1423,12 @@ $(function() {
 		{
 			// error message
 			$("#dynAddGroupErr").text("Cannot contain punctuation");
-			$("#dynAddGroupErr").show();
 			return false;
 		}
 		if(!(newGroupName.length > 0 && newGroupName.length <= 20))
 		{
 			// error message
-			$("#dynAddGroupErr").text("Should be less than 20 characters");
-			$("#dynAddGroupErr").show();
+			$("#dynAddGroupErr").text("Length should be between 1 to 20");
 			return false;
 		}
 
@@ -1458,7 +1487,6 @@ $(function() {
 					{
 						// error message
 						$("#dynAddGroupErr").text("Failed because of server problem.");
-						$("#dynAddGroupErr").show();
 					}
 
 					// reset ajax flag
@@ -1468,12 +1496,6 @@ $(function() {
 			//=========== ajax ends ===========
 		}
 
-	});
-	$("#dynAddGroupCancel").click(function(){
-		$("#dynAddGroupDiv").hide("fast");
-		// clear and hide
-		$("#dynNewGroupName").val("");
-		$("#dynAddGroupErr").empty().hide();
 	});
 
 
@@ -1506,7 +1528,11 @@ $(function() {
 		$("#dynAddTagDiv").toggle("fast");
 		// clear and hide
 		$("#dynNewTagName").val("");
-		$("#dynAddTagErr").empty().hide();
+		$("#dynAddTagErr").empty();
+	});
+	$("#dynAddTagCancel").click(function(){
+		$("#dynAddTagDiv").hide("fast");
+		$("#dynAddTagErr").empty();
 	});
 	$("#dynAddTagOk").click(function(){
 		var newTagName = $("#dynNewTagName").val();
@@ -1518,14 +1544,12 @@ $(function() {
 		{
 			// error message
 			$("#dynAddTagErr").text("Cannot contain punctuation");
-			$("#dynAddTagErr").show();
 			return false;
 		}
 		if(!(newTagName.length > 0 && newTagName.length <= 20))
 		{
 			// error message
-			$("#dynAddTagErr").text("Should be less than 20 characters");
-			$("#dynAddTagErr").show();
+			$("#dynAddTagErr").text("Length should be between 1 to 20");
 			return false;
 		}
 
@@ -1586,7 +1610,6 @@ $(function() {
 			    	{
 			    		// error message
 						$("#dynAddTagErr").text("Failed because of server problem.");
-						$("#dynAddTagErr").show();
 			    	}
 
 			    	// reset ajax flag
@@ -1596,12 +1619,6 @@ $(function() {
 			//=========== ajax ends ===========
 		}
 
-	});
-	$("#dynAddTagCancel").click(function(){
-		$("#dynAddTagDiv").hide("fast");
-		// clear and hide
-		$("#dynNewTagName").val("");
-		$("#dynAddTagErr").empty().hide();
 	});
 	
 
