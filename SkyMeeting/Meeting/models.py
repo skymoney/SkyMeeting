@@ -60,7 +60,7 @@ class Meeting_File_Visible(models.Model):
     visible_level=models.IntegerField(default=0,db_column="visible_level")
     
     class Meta:
-        db_table="Meeting"
+        db_table="Meeting_File_Visible"
 
 class Meeting_Comment(models.Model):
     comment_id=models.AutoField(primary_key=True,db_column="comment_id")

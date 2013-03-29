@@ -1,16 +1,30 @@
+#-*-coding:utf-8-*-
+'''
+Created on 2013-3-28
+
+@author: cheng
+'''
 from django.db import models
 import simplejson as json
 
-# Create your models here.
 from Login.models import Account
 
-
 class Company(models.Model):
-    cname=models.CharField(max_length=100)
-    clocation=models.CharField(max_length=100)
+    #Company table
+    cid=models.AutoField(primary_key=True,db_column="company_id")       #primary key of Company table
+    cname=models.CharField(max_length=100,db_column="company_name")     #Company name of Company table
+    clocation=models.CharField(max_length=100,db_column="company_location") #location of Company table
     
+    class Meta:
+        db_table="Company"      #set table name as Company
+
+
 
 class GroupManager(models.Manager):
+    '''
+    group manager to convert
+    Group list to string
+    '''
     def getAllString(self):
         result=[]
         for group in self.all():
@@ -20,20 +34,30 @@ class GroupManager(models.Manager):
             group_dict["cid"]=group.cid.id
             result.append(group_dict)
         return json.dumps(result)
-    
+
 class Group(models.Model):
-    gname=models.CharField(max_length=50)
-    cid=models.ForeignKey(Company)
+    #Group table
+    gid=models.AutoField(primary_key=True,db_column="group_id")     #primary key of Group table
+    gname=models.CharField(max_length=50,db_column="group_name")    #name of Group table 
+    company=models.ForeignKey(Company,db_column="group_company")      #company as foreign key
     
-    objects=GroupManager()
-    def toString(self):
-        return "{'gid':"+str(self.id)+",'gname':"+self.gname+",'cid':"+str(self.cid)+"}"
+    objects=GroupManager()      #customize manager
+    def toString(self):         #convert Group obj to string
+        return "{'gid':"+str(self.gid)+",'gname':"+self.gname+",'cid':"+str(self.cid)+"}"
     
-    def __unicode__(self):
+    def __unicode__(self):      #default __unicode__ method
         return self.gname
     
+    class Meta:
+        db_table="Group"
+
+
 
 class TagManager(models.Manager):
+    '''
+    tag manager of Tag table
+    to convert Tag list to String
+    '''
     def getAllString(self):
         result=[]
         for tag in self.all():
@@ -45,31 +69,40 @@ class TagManager(models.Manager):
         return json.dumps(result)
 
 class Tag(models.Model):
-    tname=models.CharField(max_length=50)
-    cid=models.ForeignKey(Company)
+    #Tag table
+    tid=models.AutoField(primary_key=True,db_column="tag_id")       #tag id of Tag table
+    tname=models.CharField(max_length=50,db_column="tag_name")      #name of Tag table
+    company=models.ForeignKey(Company,db_column="tag_company")      #company as foreign key of Tag
     
-    objects=TagManager()
-    def toString(self):
+    objects=TagManager()    #customize manager of Tag
+    def toString(self):     #convert Tag obj to String
         return "{'tid':"+str(self.id)+",'tname':"+self.tname+",'cid':"+str(self.cid.id)+"}"
     
-    def __unicode__(self):
+    def __unicode__(self):  #default __unicode__ method
         return self.tname
-
-#in fact this is role for company
-class Role(models.Model):
-    name=models.CharField(max_length=30)
-    sex=models.IntegerField(default=-1)
-    location=models.CharField(max_length=50)
-    idcard=models.CharField(max_length=20)
-    phone=models.CharField(max_length=15)
-    email=models.EmailField(max_length=30)
-    aid=models.ForeignKey(Account)
-    company=models.ForeignKey(Company)
-    groups=models.ManyToManyField(Group)
-    tags=models.ManyToManyField(Tag)
     
+    class Meta:
+        db_table="Tag"
+
+class Role(models.Model):
+    #Role table
+    rid=models.AutoField(primary_key=True,db_column="role_id")      #id of Role table
+    name=models.CharField(max_length=30,db_column="role_name")      #name of Role
+    sex=models.IntegerField(default=-1,db_column="role_sex")        #sex of Role
+    location=models.CharField(max_length=50,db_column="role_location")  #location of Role
+    idcard=models.CharField(max_length=20,db_column="role_idcard")  #idcard of Role
+    phone=models.CharField(max_length=15,db_column="role_phone")    #phone of Role
+    email=models.EmailField(max_length=30,db_column="role_email")   #email of Role
+    account=models.ForeignKey(Account,db_column="role_account")     #account as Foreign key of Role
+    company=models.ForeignKey(Company,db_column="role_company")                              #company as Foreign key of Role
+    groups=models.ManyToManyField(Group)                            #Group as many-to-many of Role
+    tags=models.ManyToManyField(Tag)                                #Tag as many-to-many of Role
+    
+    class Meta:
+        db_table="Role"
 
 class TempRole(models.Model):
+    #TempRole table
     trid=models.AutoField(primary_key=True,db_column='TempRoleId')
     name=models.CharField(max_length=30,db_column='TempRoleName')
     idcard=models.CharField(max_length=20,db_column='TempRoleIdCard')
