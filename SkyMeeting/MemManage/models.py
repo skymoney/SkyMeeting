@@ -29,9 +29,9 @@ class GroupManager(models.Manager):
         result=[]
         for group in self.all():
             group_dict=dict()
-            group_dict["gid"]=group.id
+            group_dict["gid"]=group.gid
             group_dict["gname"]=group.gname
-            group_dict["cid"]=group.cid.id
+            group_dict["cid"]=group.company_id
             result.append(group_dict)
         return json.dumps(result)
 
@@ -43,7 +43,7 @@ class Group(models.Model):
     
     objects=GroupManager()      #customize manager
     def toString(self):         #convert Group obj to string
-        return "{'gid':"+str(self.gid)+",'gname':"+self.gname+",'cid':"+str(self.cid)+"}"
+        return "{'gid':"+str(self.gid)+",'gname':"+self.gname+",'cid':"+str(self.company_id)+"}"
     
     def __unicode__(self):      #default __unicode__ method
         return self.gname
@@ -62,9 +62,9 @@ class TagManager(models.Manager):
         result=[]
         for tag in self.all():
             tag_dict=dict()
-            tag_dict["tid"]=tag.id
+            tag_dict["tid"]=tag.tid
             tag_dict["tname"]=tag.tname
-            tag_dict["cid"]=tag.cid_id
+            tag_dict["cid"]=tag.company_id
             result.append(tag_dict)
         return json.dumps(result)
 
@@ -76,7 +76,7 @@ class Tag(models.Model):
     
     objects=TagManager()    #customize manager of Tag
     def toString(self):     #convert Tag obj to String
-        return "{'tid':"+str(self.id)+",'tname':"+self.tname+",'cid':"+str(self.cid.id)+"}"
+        return "{'tid':"+str(self.tid)+",'tname':"+self.tname+",'cid':"+str(self.company_id)+"}"
     
     def __unicode__(self):  #default __unicode__ method
         return self.tname
