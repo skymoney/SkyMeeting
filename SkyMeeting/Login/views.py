@@ -5,6 +5,8 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login as auth_login
 from MemManage.models import TempRole,Role  
 from Login.models import Account 
+import simplejson
+
 
 #just for simple page show
 def welcome(request):
@@ -40,19 +42,29 @@ def invite(request):
    
 	   
 def regedit(request):
-	if request.method == 'GET':  
-        username = request.GET['username']  
-        password = request.GET['password']  
-        email = request.GET['email']
-		trueName = request.GET['trueName']
-		idCard = request.GET['idCard']
-        user = Account.objects.create_user(username, password)  
-        if user is not None:
+	if request.method == 'POST':  
+		username = request.POST['username']  
+		password = request.POST['password']  
+		#email = request.POST['email']
+		trueName = request.POST['trueName']
+		idCard = request.POST['idCard']
+		
+		#add verification of trueName and idCard here
+		#todo
+		
+		
+		user = Account.objects.create_user(username = username, password = password)  
+		if user is not None:
 			#Validation success
-            user.save()
-            return HttpResponse(simplejson.dumps({'msg':'ok'}))  
-        else:  
-            return HttpResponse(simplejson.dumps({'msg':'fail'})) 
+			user.save()
+			tempRole =  TempRole.objects.get(code = request.session['code'])
+			role = Role.objects.create(name= tempRole.name,idcard=tempRole.idcard,phone=tempRole.phone,email=tempRole.email,aid=user,company=tempRole.company)
+			tempRole.delete()
+			role.save()
+			del request.session['code']
+			return HttpResponse(simplejson.dumps({'msg':'ok'}))  
+		else:  
+			return HttpResponse(simplejson.dumps({'msg':'fail'})) 
    
 	
 def memlist(request):
