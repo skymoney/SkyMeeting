@@ -100,3 +100,23 @@ def deleteTag(request):
     params["tid"] = request.POST["tid"]                            #delete tag id
     return HttpResponse(json.dumps(DAOHelper.deleteTag(params)))
 
+
+
+def queryPerson(request):
+    #permission check
+    #......
+    params = dict()
+    params["cid"] = 1   #default!!!
+    params["gid"] = request.GET["gid"]
+    params["tid"] = request.GET["tid"]
+    
+    #hard code
+    personList = []
+    for i in range(0, 10):
+        person = {}
+        person["id"] = i + 1
+        person["name"] = "Person" + str(i + 1)
+        person["sex"] = 1
+        personList.append(person)
+
+    return HttpResponse(json.dumps(personList))

@@ -35,6 +35,7 @@
 	div.person{
 		display: inline-block;
 		padding: 0 7px;
+		margin-left: 8px;
 		margin-bottom: 5px;
 		height: 22px;
 		line-height: 22px;
@@ -63,6 +64,27 @@
 		filter: alpha(opacity=60);
 	}
 
+
+	/* participant modal */
+	#participantModal{
+		width: 60%;
+		left: 40%;
+	}
+	#tagsDiv{
+		margin-bottom: 10px;
+	}
+	#tagList{
+		display: inline;
+	}
+	#personSelectDiv{
+		padding-left: 20px;
+		margin-bottom: 20px;
+	}
+	/* patch */
+	.checkbox{
+		display: inline-block;
+		width: 220px;
+	}
 
 </style>
 {%endblock%}
@@ -171,43 +193,16 @@
 			</div>
 			<div class="form-block-content">
 				<div class="row-fluid" id="personList">
+					<!-- add by js -->
+					<!-- 
 					<div class="person">
 						<span class="person-name">Danis Lu</span>
 						<a href="javascript:void(0);" class="remove-person" data-id="1">x</a>
 					</div>
-					<div class="person">
-						<span class="person-name">Tony Free</span>
-						<a href="javascript:void(0);" class="remove-person" data-id="1">x</a>
-					</div>
-					<!-- the same -->
-					<div class="person">
-						<span class="person-name">Danis Lu</span>
-						<a href="javascript:void(0);" class="remove-person" data-id="1">x</a>
-					</div>
-					<div class="person">
-						<span class="person-name">Tony Free</span>
-						<a href="javascript:void(0);" class="remove-person" data-id="1">x</a>
-					</div>
-					<div class="person">
-						<span class="person-name">Danis Lu</span>
-						<a href="javascript:void(0);" class="remove-person" data-id="1">x</a>
-					</div>
-					<div class="person">
-						<span class="person-name">Tony Free</span>
-						<a href="javascript:void(0);" class="remove-person" data-id="1">x</a>
-					</div>
-					<div class="person">
-						<span class="person-name">Danis Lu</span>
-						<a href="javascript:void(0);" class="remove-person" data-id="1">x</a>
-					</div>
-					<div class="person">
-						<span class="person-name">Tony Free</span>
-						<a href="javascript:void(0);" class="remove-person" data-id="1">x</a>
-					</div>
-					<!-- the same ends -->
+					 -->
 				</div>
 				<div class="row-fluid new-item-row">
-					<a href="#participantModal" data-toggle="modal">&plus;&nbsp;Add participant</a>
+					<a href="javascript:void(0);" id="addParticipantLink">&plus;&nbsp;Add participant</a>
 				</div>
 			</div>
 		</div>
@@ -277,22 +272,22 @@
 				<div class="span4">
 					<ul class="nav nav-list side-nav" id="groupList">
 	  					<li class="active">
-	  						<a href="javascript:void(0);">
+	  						<a href="javascript:void(0);" class="group" data-gid="-1">
 	  							<span class="group-name">All</span>
 	  						</a>
 	  					</li>
 	  					<li>
-	  						<a href="javascript:void(0);">
+	  						<a href="javascript:void(0);" class="group" data-gid="1">
 	  							<span class="group-name">Board</span>
 	  						</a>
 	  					</li>
 	  					<li>
-	  						<a href="javascript:void(0);">
+	  						<a href="javascript:void(0);" class="group" data-gid="2">
 	  							<span class="group-name">Market Department</span>
 	  						</a>
 	  					</li>
 	  					<li>
-	  						<a href="javascript:void(0);">
+	  						<a href="javascript:void(0);" class="group" data-gid="3">
 	  							<span class="group-name">Research &amp; Development</span>
 	  						</a>
 	  					</li>
@@ -300,8 +295,132 @@
 				</div>
 
 
-				<div class="span8" style="border:1px solid #ccc; height:100px;">
+				<div class="span8">
+					<!-- sub tag nav -->
+					<!-- all tags, not change with group!!! -->
+					<div class="row-fluid" id="tagsDiv">
+	  					<span>Tags:</span>
+	  					<ul class="inline" id="tagList">
+	  						<li><a class="tag" data-tid="11">Manager</a></li>
+	  						<li><a class="tag" data-tid="12">Chief Officer</a></li>
+	  						<li><a class="tag" data-tid="13">Engineer</a></li>
+	  						<li><a class="tag" data-tid="14">Kubility</a></li>
+	  					</ul>
+	  				</div>
 
+	  				<!-- corresponding person list -->
+	  				<div id="personSelectDiv">
+	  					<div id="personAjaxDiv">
+		  					<label class="checkbox">
+								<div class="checker">
+									<span>
+										<input type="checkbox" name="selectPerson" value="1" />
+									</span>
+								</div>
+								Danis Lu
+							</label>
+							<label class="checkbox">
+								<div class="checker">
+									<span>
+										<input type="checkbox" name="selectPerson" value="2" />
+									</span>
+								</div>
+								Tony Free
+							</label>
+							<!-- the same -->
+							<label class="checkbox">
+								<div class="checker">
+									<span>
+										<input type="checkbox" name="selectPerson" value="1" />
+									</span>
+								</div>
+								Danis Lu
+							</label>
+							<label class="checkbox">
+								<div class="checker">
+									<span>
+										<input type="checkbox" name="selectPerson" value="2" />
+									</span>
+								</div>
+								Tony Free
+							</label>
+							<label class="checkbox">
+								<div class="checker">
+									<span>
+										<input type="checkbox" name="selectPerson" value="1" />
+									</span>
+								</div>
+								Danis Lu
+							</label>
+							<label class="checkbox">
+								<div class="checker">
+									<span>
+										<input type="checkbox" name="selectPerson" value="2" />
+									</span>
+								</div>
+								Tony Free
+							</label>
+							<label class="checkbox">
+								<div class="checker">
+									<span>
+										<input type="checkbox" name="selectPerson" value="1" />
+									</span>
+								</div>
+								Danis Lu
+							</label>
+							<label class="checkbox">
+								<div class="checker">
+									<span>
+										<input type="checkbox" name="selectPerson" value="2" />
+									</span>
+								</div>
+								Tony Free
+							</label>
+							<label class="checkbox">
+								<div class="checker">
+									<span>
+										<input type="checkbox" name="selectPerson" value="1" />
+									</span>
+								</div>
+								Danis Lu
+							</label>
+							<label class="checkbox">
+								<div class="checker">
+									<span>
+										<input type="checkbox" name="selectPerson" value="2" />
+									</span>
+								</div>
+								Tony Free
+							</label>
+							<!-- the same ends -->
+						</div>
+						<!-- select all -->
+						<div>
+							<label class="checkbox">
+								<div class="checker">
+									<span>
+										<input type="checkbox" id="selectAllPerson" />
+									</span>
+								</div>
+								All
+							</label>
+						</div>
+	  				</div>
+
+
+	  				<div class="row-fluid pagination-row">
+						<div class="pagination">
+						  <ul>
+						    <li class="prev disabled"><a href="#">← Previous</a></li>
+						    <li class="active"><a href="#">1</a></li>
+						    <li><a href="#">2</a></li>
+						    <li><a href="#">3</a></li>
+						    <li><a href="#">4</a></li>
+						    <li><a href="#">5</a></li>
+						    <li class="next"><a href="#">Next → </a></li>
+						  </ul>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -309,7 +428,7 @@
 
 	</div>
 	<div class="modal-footer">
-		<input type="button" class="btn btn-primary" id="participantModalOkBtn" value="Save changes" />
+		<input type="button" class="btn btn-primary" id="participantModalOk" value="Save changes" />
 		<input type="button" class="btn" data-dismiss="modal" aria-hidden="true" value="Cancel" />
 	</div>
 </div>
@@ -326,7 +445,7 @@
 		<p>文件选择器 可见性</p>
 	</div>
 	<div class="modal-footer">
-		<input type="button" class="btn btn-primary" id="attachmentModalOkBtn" value="Save changes" />
+		<input type="button" class="btn btn-primary" id="attachmentModalOk" value="Save changes" />
 		<input type="button" class="btn" data-dismiss="modal" aria-hidden="true" value="Cancel" />
 	</div>
 </div>
@@ -388,15 +507,226 @@ $(function() {
 <!-- 事件绑定js -->
 <script type="text/javascript">
 $(function() {
+	// constants
+	var AJAX_IDLE = 0;
+	var AJAX_BUSY = 0;
 
+	// ajax flags
+	var ajaxQueryPersonFlag = AJAX_IDLE;
+
+	// global storage
+	// format: [{id, name}, ...]
+	var globalSelectedPersons = new Array();
+
+	// util functions of global storage
+	// return true if not duplicate and add successfully
+	var addToGlobalSelectedPersons = function(id, name){
+		var found = false;
+		for(var i=0; i<globalSelectedPersons.length; i++)
+		{
+			if(globalSelectedPersons[i].id == id)
+			{
+				found = true;
+				break;
+			}
+		}
+
+		if(found == false)
+		{
+			name = name.trim();  //???
+			globalSelectedPersons.push((eval("({\"id\":" + id + ",\"name\":\"" + name + "\"})")));
+			return true;
+		}
+		return false;
+	};
+	var removeFromGlobalSelectedPersons = function(id){
+		for(var i=0; i<globalSelectedPersons.length; i++)
+		{
+			if(globalSelectedPersons[i].id == id)
+			{
+				globalSelectedPersons.splice(i, 1);
+				break;
+			}
+		}
+	}
+
+
+
+	/*
+		return value:
+			"" if no tags selected,
+			"1+2+3" etc.
+	*/
+	var getSelectedTagIds = function(){
+		var tagIds = "";
+		$("a.tag-selected").each(function(){
+			if(tagIds.length == 0)
+			{
+				tagIds += $(this).attr("data-tid");
+			}
+			else
+			{
+				tagIds += ("+" + $(this).attr("data-tid"));
+			}
+		});
+		return tagIds;
+	};
+
+	/*
+		query persons with group and tags
+		NOTE: page is not included now!!!
+	*/
+	var queryPersonList = function(gid, tid){
+		// alert(gid + " " + tid);
+		// ajax flag
+		if(ajaxQueryPersonFlag == AJAX_IDLE)
+		{
+			// set ajax flag
+			ajaxQueryPersonFlag = AJAX_BUSY;
+
+			// ajax submit
+			$.get(
+				"/members/queryperson/",
+				{
+					"gid": gid,
+					"tid": tid
+				},
+				function(data)
+				{
+					var persons = eval(data);
+					var target = $("#personAjaxDiv");
+					target.empty();
+
+					for(var i=0; i<persons.length; i++)
+					{
+						var code = "<label class=\"checkbox\">";
+						code += "<div class=\"checker\">";
+						code += "<span>";
+						code += "<input type=\"checkbox\" name=\"selectPerson\" value=\"" + persons[i].id + "\" />";
+						code += "</span></div>";
+						code += persons[i].name;
+						code += "</label>";
+						target.append(code);
+					}
+
+					// bind checkbox event
+					target.find("div.checker input").bind("click", checkerClickFunc);
+
+					// reset ajax flag
+					ajaxQueryPersonFlag = AJAX_IDLE;
+				}
+			);
+		}
+	};
 
 	var removePersonFunc = function(){
 		var id = $(this).attr("data-id");
-		// ......
-
 		$(this).parent(".person").remove();
+
+		// update global storage
+		removeFromGlobalSelectedPersons(id);
 	};
-	$("a.remove-person").click(removePersonFunc);
+
+
+
+	$("a.group").click(function(){
+		// toggle class
+		$(this).parent("li").siblings("li").each(function(){
+			$(this).removeClass("active");
+		});
+		$(this).parent("li").addClass("active");
+
+		// clear all selected tags
+		$("a.tag-selected").each(function(){
+			$(this).removeClass("tag-selected");
+		});
+
+		// get params
+		var gid = $(this).attr("data-gid");
+		var tagIds = getSelectedTagIds();
+
+		queryPersonList(gid, tagIds);
+	});
+
+	$("a.tag").click(function(){
+		// toggle class
+		if($(this).hasClass("tag-selected"))
+		{
+			$(this).removeClass("tag-selected");
+		}
+		else
+		{
+			$(this).addClass("tag-selected");
+		}
+
+		// get params
+		var gid = $("#groupList").find("li.active").find("a.group").attr("data-gid");
+		var tagIds = getSelectedTagIds();
+
+		queryPersonList(gid, tagIds);
+	});
+
+	$("#selectAllPerson").click(function(){
+		var checked = $(this).parent("span").hasClass("checked");
+		if(checked)
+		{
+			// check all persons
+			$("#personAjaxDiv").find(".checker").each(function(){
+				if($(this).find("span").hasClass("checked") == false)
+				{
+					$(this).find("input[type='checkbox']").click();
+				}
+			});
+		}
+		else
+		{
+			// cancel all persons
+			$("#personAjaxDiv").find(".checker").each(function(){
+				if($(this).find("span").hasClass("checked") == true)
+				{
+					$(this).find("input[type='checkbox']").click();
+				}
+			});
+		}
+	});
+
+
+
+	$("#addParticipantLink").click(function(){
+		// $("#groupList").children("li").first().find("a.group").click();
+		// // clear checkAll......
+
+		$("#participantModal").modal("show");
+	});
+
+	$("#participantModalOk").click(function(){
+		$("#personAjaxDiv").find("input[name='selectPerson']:checked").each(function(){
+			// get data
+			var id = $(this).val();
+			var name = $(this).parents("label").text();
+
+			// update global storage
+			var result = addToGlobalSelectedPersons(id, name);
+			if(result == true)
+			{
+				// add to personList
+				$("#personList").append(
+					"<div class=\"person\">" + 
+						"<span class=\"person-name\">" + name + "</span>" + 
+						"<a href=\"javascript:void(0);\" class=\"remove-person\" data-id=\"" + id + "\">&nbsp;x</a>" + 
+					"</div>");
+
+				// bind event
+				$("#personList").children(".person").last().find("a.remove-person").click(removePersonFunc);
+			}
+		});
+
+		$("#participantModal").modal("hide");
+	});
+
+
+
+
 
 
 
