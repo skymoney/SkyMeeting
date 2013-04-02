@@ -8,118 +8,62 @@
 <link href="../public/css/jquery-ui-1.10.1.css" rel="stylesheet">
 
 <style type="text/css">
-.ui-datepicker{
-	font-size: 12px;
-	line-height: 13px;
-}
-.date-input[readonly]{
-	cursor: pointer;
-	background-color: white;
-}
-.ke-container{
-	/*没用 要延迟加载*/
-	margin: 10px 0px; 
-}
-.fulltext-input{
-	width: 700px;
-	height: 300px;
-	visibility: hidden;
-}
+	/* plugin patch */
+	.ui-datepicker{
+		font-size: 12px;
+		line-height: 13px;
+	}
+	.date-input[readonly]{
+		cursor: pointer;
+		background-color: white;
+	}
+	.ke-container{
+		/*没用 要延迟加载*/
+		margin: 10px 0px; 
+	}
+	.fulltext-input{
+		width: 700px;
+		height: 300px;
+		visibility: hidden;
+	}
 
-/*common*/
-.form-block{
-	margin-bottom: 10px;
-}
-.form-block-header{
-	border-bottom: 1px dashed #ccc;
-}
-.form-block-content{
-	padding-top: 20px;
-	padding-bottom: 10px;
-}
-.inline-error{
-	display: inline-block;
-}
-/*patch*/
-.alert{
-	margin-bottom: 0;
-}
-.help-block, help-inline{
-	color: #999;
-}
-.checkbox{
-	padding-left: 0;
-}
-.checkbox.inline{
-	margin-right: 15px;
-}
+	/* participant */
+	#personList{
 
-.box{
-	border: 1px solid #DEDEDE;
-	border-radius:3px;
-	-webkit-border-radius:3px;
-	-moz-border-radius:3px;
-	margin-top: 10px; 
-	margin-bottom: 10px ;
-	box-shadow: 0 0 10px rgba(189, 189, 189, 0.4);
-	-webkit-box-shadow: 0 0 10px rgba(189, 189, 189, 0.4);
-	-moz-box-shadow: 0 0 10px rgba(189, 189, 189, 0.4);
-}
-.box-header{
-	border:none;
-	padding-top:5px;
-	border-bottom: 1px solid #DEDEDE;
-	border-radius:3px 3px 0 0;
-	-webkit-border-radius:3px 3px 0 0;
-	-moz-border-radius:3px 3px 0 0;
-	height:12px;
-	min-height:12px;
-	margin-bottom: 0;
-	/*cursor:move;*/
-	font-weight:bold;
-	font-size:16px;
-	background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(0,0,0,0.1) 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(100%,rgba(0,0,0,0.1)));
-	background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(0,0,0,0.1) 100%);
-	background: -o-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(0,0,0,0.1) 100%);
-	background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(0,0,0,0.1) 100%);
-	background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(0,0,0,0.1) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#1a000000',GradientType=0 );
-}
-.box-header h2{
-	font-size:15px;
-	width:auto;
-	clear:none;
-	float:left;
-	line-height:25px;
-}
-.box-header h3{
-	font-size:13px;
-	width:auto;
-	clear:none;
-	float:left;
-	line-height:25px;
-}
-.box-header h2 > i{
-	margin-top:1px;
-}
-.box-icon{
-	float:right;
-}
-.box-icon a{
-	clear:none;
-	float:left;
-	margin:0 2px;
-	height: 18px;
-	width:5px;
-	margin-top: -1px;
-}
-.box-icon a i{
-	margin-left:-4.5px;
-}
-.box-content{
-	padding:10px;
-}
+	}
+	/* 现在person样式和tag一样 */
+	div.person{
+		display: inline-block;
+		padding: 0 7px;
+		margin-bottom: 5px;
+		height: 22px;
+		line-height: 22px;
+		background: #f1f1f1;
+		text-align: center;
+		color: #999;
+		text-decoration: none;
+		border: 1px solid #ccc;
+		-webkit-border-radius: 3px;
+		-moz-border-radius: 3px;
+		border-radius: 3px;
+	}
+	a.remove-person{
+		font-weight: bold;
+		line-height: 20px;
+		color: #000000;
+		text-shadow: 0 1px 0 #ffffff;
+		opacity: 0.3;
+		filter: alpha(opacity=30);
+	}
+	a.remove-person:hover{
+		color: #000000;
+		text-decoration: none;
+		cursor: pointer;
+		opacity: 0.6;
+		filter: alpha(opacity=60);
+	}
+
+
 </style>
 {%endblock%}
 
@@ -136,6 +80,7 @@
 			</div>
 		</div>			
 	</div> -->
+	
 	<form class="form-horizontal" action="" method="post">
 
 		<!-- Basic info block -->
@@ -195,63 +140,6 @@
 					</div>
 				</div>
 
-
-
-				<!-- any more??? -->
-				<!-- test checkbox -->
-				<div class="control-group">
-					<label class="control-label">Additional check</label>
-					<div class="controls">
-						<label class="checkbox inline">
-							<div class="checker" id="uniform-exCheck1">
-								<span>
-									<input type="checkbox" id="checkbox1" value="1" />
-								</span>
-							</div>
-							Option 1
-						</label>
-						<label class="checkbox inline">
-							<div class="checker" id="uniform-exCheck2">
-								<span>
-									<input type="checkbox" id="checkbox2" value="2" />
-								</span>
-							</div>
-							Option 2
-						</label>
-						<label class="checkbox inline">
-							<div class="checker" id="uniform-exCheck3">
-								<span>
-									<input type="checkbox" id="checkbox3" value="3" />
-								</span>
-							</div>
-							Option 3
-						</label>
-					</div>
-				</div>
-				<!-- test radio -->
-				<div class="control-group">
-					<label class="control-label">Additional radio</label>
-					<div class="controls">
-						<label class="radio">
-							<div class="radio" id="uniform-exRadio1">
-								<span class="checked">
-									<input type="radio" id="radio1" value="1" checked="checked" />
-								</span>
-							</div>
-							Option one is this and that-be sure to include why it's great
-						</label>
-						<!-- add clearfix if not want to be inline-block -->
-						<div class="clearfix"></div>
-						<label class="radio">
-							<div class="radio" id="uniform-exRadio2">
-								<span>
-									<input type="radio" id="radio2" value="2" />
-								</span>
-							</div>
-							Option two can be something else and selecting it will deselect option one
-						</label>
-					</div>
-				</div>
 			</div>
 		</div>
 
@@ -282,11 +170,43 @@
 				<h4>Participants</h4>
 			</div>
 			<div class="form-block-content">
-				<div class="row-fluid">
-					<!-- 已选列表 -->
-					<p>none</p>
+				<div class="row-fluid" id="personList">
+					<div class="person">
+						<span class="person-name">Danis Lu</span>
+						<a href="javascript:void(0);" class="remove-person" data-id="1">x</a>
+					</div>
+					<div class="person">
+						<span class="person-name">Tony Free</span>
+						<a href="javascript:void(0);" class="remove-person" data-id="1">x</a>
+					</div>
+					<!-- the same -->
+					<div class="person">
+						<span class="person-name">Danis Lu</span>
+						<a href="javascript:void(0);" class="remove-person" data-id="1">x</a>
+					</div>
+					<div class="person">
+						<span class="person-name">Tony Free</span>
+						<a href="javascript:void(0);" class="remove-person" data-id="1">x</a>
+					</div>
+					<div class="person">
+						<span class="person-name">Danis Lu</span>
+						<a href="javascript:void(0);" class="remove-person" data-id="1">x</a>
+					</div>
+					<div class="person">
+						<span class="person-name">Tony Free</span>
+						<a href="javascript:void(0);" class="remove-person" data-id="1">x</a>
+					</div>
+					<div class="person">
+						<span class="person-name">Danis Lu</span>
+						<a href="javascript:void(0);" class="remove-person" data-id="1">x</a>
+					</div>
+					<div class="person">
+						<span class="person-name">Tony Free</span>
+						<a href="javascript:void(0);" class="remove-person" data-id="1">x</a>
+					</div>
+					<!-- the same ends -->
 				</div>
-				<div clas="row-fluid">
+				<div class="row-fluid new-item-row">
 					<a href="#participantModal" data-toggle="modal">&plus;&nbsp;Add participant</a>
 				</div>
 			</div>
@@ -303,8 +223,7 @@
 			</div>
 			<div class="form-block-content">
 				<div class="row-fluid">
-					<!-- 已添加列表 -->
-					<p>none</p>
+					<p>none</p>					
 				</div>
 				<div clas="row-fluid">
 					<a href="#attachmentModal" data-toggle="modal">&plus;&nbsp;Add attachment</a>
@@ -352,7 +271,42 @@
 		<h3 id="participantModalLabel">Participants</h3>
 	</div>
 	<div class="modal-body">
-		<p>按部门 按标签 分组</p>
+		<div class="container-fluid" style="padding-left:0px; padding-right:0px;">
+			<div class="row-fluid">
+				<!-- sub group nav -->
+				<div class="span4">
+					<ul class="nav nav-list side-nav" id="groupList">
+	  					<li class="active">
+	  						<a href="javascript:void(0);">
+	  							<span class="group-name">All</span>
+	  						</a>
+	  					</li>
+	  					<li>
+	  						<a href="javascript:void(0);">
+	  							<span class="group-name">Board</span>
+	  						</a>
+	  					</li>
+	  					<li>
+	  						<a href="javascript:void(0);">
+	  							<span class="group-name">Market Department</span>
+	  						</a>
+	  					</li>
+	  					<li>
+	  						<a href="javascript:void(0);">
+	  							<span class="group-name">Research &amp; Development</span>
+	  						</a>
+	  					</li>
+	  				</ul>
+				</div>
+
+
+				<div class="span8" style="border:1px solid #ccc; height:100px;">
+
+				</div>
+			</div>
+		</div>
+
+
 	</div>
 	<div class="modal-footer">
 		<input type="button" class="btn btn-primary" id="participantModalOkBtn" value="Save changes" />
@@ -434,6 +388,18 @@ $(function() {
 <!-- 事件绑定js -->
 <script type="text/javascript">
 $(function() {
+
+
+	var removePersonFunc = function(){
+		var id = $(this).attr("data-id");
+		// ......
+
+		$(this).parent(".person").remove();
+	};
+	$("a.remove-person").click(removePersonFunc);
+
+
+
 
 
 });
