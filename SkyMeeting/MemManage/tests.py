@@ -56,7 +56,7 @@ class MemberTest(TestCase):
         param=dict()
         param["cid"]=1
         param["gid"]=1
-        param["gname"]="test"
+        param["gname"]="EditGroup"
         result=helper.editGroup(param)
         print result
         self.assertEqual("true",result["success"],"Test Edit Group")

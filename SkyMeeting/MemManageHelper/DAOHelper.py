@@ -48,6 +48,7 @@ def member(request):
         singleTag["tname"]=tag.tname
         singleTag["cid"]=tag.company_id
         tagList.append(singleTag)
+    print tagList
     #here can optimize by just sql query instead of Model method
     for g in g_list:
         singleGroup={}
@@ -118,6 +119,32 @@ def addGroup(request):
         result["errorcode"]=""
     return result
 
+def editGroup(params):
+    #edit group name given group id
+    cid=params["cid"]
+    gid=params["gid"]
+    newName=params["gname"]
+    result=dict()
+    try:
+        Group.objects.filter(gid=gid).update(gname=newName)
+        result["success"]="true"
+    except:
+        result["success"]="false"
+        result["errors"]=""
+    return result
+
+def deleteGroup(params):
+    #delete group given group id
+    cid=params["cid"]       #verify and confirm delete info
+    gid=params["gid"]
+    result=dict()
+    try:
+        Group.objects.filter(gid=gid).delete()
+        result["success"]="true"
+    except:
+        result["success"]="false"
+        result["errors"]=""
+
 def addTag(request):
     #add new tag
     tname=request.POST["tagName"]
@@ -134,6 +161,18 @@ def addTag(request):
         result["success"]="fasle"
         result["error"]=""  #descript error status
         result["errorcode"]=""
+    return result
+
+def deleteTag(params):
+    cid=params["cid"]
+    tid=params["tid"]
+    result=dict()
+    try:
+        Tag.objects.filter(tid=tid).delete()
+        result["success"]="true"
+    except:
+        result["succss"]="false"
+        result["errors"]=""
     return result
 
 def inviteUser(params):
@@ -199,14 +238,3 @@ def deleteRole(params):
         result["errors"]=""
     return result
 
-def deleteTag(params):
-    cid=params["cid"]
-    tid=params["tid"]
-    result=dict()
-    try:
-        Tag.objects.filter(tid=tid).delete()
-        result["success"]="true"
-    except:
-        result["succss"]="false"
-        result["errors"]=""
-    return result
