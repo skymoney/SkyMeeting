@@ -5,7 +5,9 @@
 {%block cssfile%}
 <!-- others -->
 <link href="../public/css/uniform.default.css" rel="stylesheet">
-<link href="../public/css/jquery-ui-1.10.1.css" rel="stylesheet">
+<!-- <link href="../public/css/jquery-ui-1.10.1.css" rel="stylesheet"> --><!-- no images included -->
+<link href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" rel="stylesheet">
+<link href="../public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
 
 <style type="text/css">
 	/* plugin patch */
@@ -28,9 +30,6 @@
 	}
 
 	/* participant */
-	#personList{
-
-	}
 	/* 现在person样式和tag一样 */
 	div.person{
 		display: inline-block;
@@ -63,7 +62,6 @@
 		opacity: 0.6;
 		filter: alpha(opacity=60);
 	}
-
 
 	/* participant modal */
 	#participantModal{
@@ -134,14 +132,14 @@
 							<option value="2">Formal meeting</option>
 							<option value="3">Informal meeting</option>
 						</select>
+						<!-- static meeting type??? -->
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="inputDate">Time</label>
+					<label class="control-label" for="startDatetime">Start time</label>
 					<div class="controls">
-						<input type="text" class="date-input" id="inputDate" readonly="readonly" />
+						<input type="text" class="date-input" id="startDatetime" readonly="readonly" />
 					</div>
-					<!-- time picker??? -->
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="inputPlace">Place</label>
@@ -176,9 +174,6 @@
 			</div>
 			<div class="form-block-content">
 				<textarea class="fulltext-input" id="inputDetail"></textarea>
-
-				<p>富文本编辑器 or 格式化树形结构编辑框???</p>
-				<!-- 格式化树形结构编辑框??? -->
 			</div>
 		</div>
 
@@ -218,7 +213,7 @@
 			</div>
 			<div class="form-block-content">
 				<div class="row-fluid">
-					<p>none</p>					
+					<p>none</p>
 				</div>
 				<div clas="row-fluid">
 					<a href="#attachmentModal" data-toggle="modal">&plus;&nbsp;Add attachment</a>
@@ -231,16 +226,16 @@
 
 
 		<!-- Voting block -->
-		<div class="row-fluid form-block">
+		<!-- <div class="row-fluid form-block">
 			<div class="form-block-header">
 				<h4>Voting</h4>
 			</div>
 			<div class="form-block-content">
 				<div clas="row-fluid">
-					<a href="#" data-toggle="modal">Customization</a>
+					<a href="javascript:void(0);" data-toggle="modal">Customization</a>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 
 
@@ -262,7 +257,7 @@
 <div class="modal hide fade" id="participantModal" role="dialog" aria-labelledby="participantModalLabel" aria-hidden="true">
 	<div class="modal-header">
 		<!-- <input type="button" class="close" data-dismiss="modal" aria-hidden="true" value="x" /> -->
-		<a href="#" class="close" role="button" data-dismiss="modal" aria-hidden="true">x</a>
+		<a href="javascript:void(0);" class="close" role="button" data-dismiss="modal" aria-hidden="true">x</a>
 		<h3 id="participantModalLabel">Participants</h3>
 	</div>
 	<div class="modal-body">
@@ -311,6 +306,8 @@
 	  				<!-- corresponding person list -->
 	  				<div id="personSelectDiv">
 	  					<div id="personAjaxDiv">
+	  						<!-- add by js -->
+	  						<!-- 
 		  					<label class="checkbox">
 								<div class="checker">
 									<span>
@@ -319,80 +316,7 @@
 								</div>
 								Danis Lu
 							</label>
-							<label class="checkbox">
-								<div class="checker">
-									<span>
-										<input type="checkbox" name="selectPerson" value="2" />
-									</span>
-								</div>
-								Tony Free
-							</label>
-							<!-- the same -->
-							<label class="checkbox">
-								<div class="checker">
-									<span>
-										<input type="checkbox" name="selectPerson" value="1" />
-									</span>
-								</div>
-								Danis Lu
-							</label>
-							<label class="checkbox">
-								<div class="checker">
-									<span>
-										<input type="checkbox" name="selectPerson" value="2" />
-									</span>
-								</div>
-								Tony Free
-							</label>
-							<label class="checkbox">
-								<div class="checker">
-									<span>
-										<input type="checkbox" name="selectPerson" value="1" />
-									</span>
-								</div>
-								Danis Lu
-							</label>
-							<label class="checkbox">
-								<div class="checker">
-									<span>
-										<input type="checkbox" name="selectPerson" value="2" />
-									</span>
-								</div>
-								Tony Free
-							</label>
-							<label class="checkbox">
-								<div class="checker">
-									<span>
-										<input type="checkbox" name="selectPerson" value="1" />
-									</span>
-								</div>
-								Danis Lu
-							</label>
-							<label class="checkbox">
-								<div class="checker">
-									<span>
-										<input type="checkbox" name="selectPerson" value="2" />
-									</span>
-								</div>
-								Tony Free
-							</label>
-							<label class="checkbox">
-								<div class="checker">
-									<span>
-										<input type="checkbox" name="selectPerson" value="1" />
-									</span>
-								</div>
-								Danis Lu
-							</label>
-							<label class="checkbox">
-								<div class="checker">
-									<span>
-										<input type="checkbox" name="selectPerson" value="2" />
-									</span>
-								</div>
-								Tony Free
-							</label>
-							<!-- the same ends -->
+							 -->
 						</div>
 						<!-- select all -->
 						<div>
@@ -411,20 +335,19 @@
 	  				<div class="row-fluid pagination-row">
 						<div class="pagination">
 						  <ul>
-						    <li class="prev disabled"><a href="#">← Previous</a></li>
-						    <li class="active"><a href="#">1</a></li>
-						    <li><a href="#">2</a></li>
-						    <li><a href="#">3</a></li>
-						    <li><a href="#">4</a></li>
-						    <li><a href="#">5</a></li>
-						    <li class="next"><a href="#">Next → </a></li>
+						    <li class="prev disabled"><a href="javascript:void(0);">← Previous</a></li>
+						    <li class="active"><a href="javascript:void(0);">1</a></li>
+						    <li><a href="javascript:void(0);">2</a></li>
+						    <li><a href="javascript:void(0);">3</a></li>
+						    <li><a href="javascript:void(0);">4</a></li>
+						    <li><a href="javascript:void(0);">5</a></li>
+						    <li class="next"><a href="javascript:void(0);">Next → </a></li>
 						  </ul>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
 
 	</div>
 	<div class="modal-footer">
@@ -438,7 +361,7 @@
 <div class="modal hide fade" id="attachmentModal" role="dialog" aria-labelledby="attachmentModalLabel" aria-hidden="true">
 	<div class="modal-header">
 		<!-- <input type="button" class="close" data-dismiss="modal" aria-hidden="true" value="x" /> -->
-		<a href="#" class="close" role="button" data-dismiss="modal" aria-hidden="true">x</a>
+		<a href="javascript:void(0);" class="close" role="button" data-dismiss="modal" aria-hidden="true">x</a>
 		<h3 id="attachmentModalLabel">Attachments</h3>
 	</div>
 	<div class="modal-body">
@@ -459,6 +382,9 @@
 <!-- lib for datepicker -->
 <script src="../public/js/jquery-ui-1.10.1.min.js"></script>
 <script src="../public/js/jquery.ui.datepicker-zh-CN.js"></script>
+<!-- lib for timepicker (enhanced datepicker) -->
+<script src="../public/js/jquery-ui-timepicker-addon.js"></script>
+<script src="../public/js/jquery.ui.timepicker-zh-CN.js"></script>
 
 <!-- lib for kindeditor -->
 <script src="../public/js/kindeditor-4.0.5/kindeditor-min.js"></script>
@@ -470,14 +396,23 @@
 <!-- 初始化js -->
 <script type="text/javascript">
 $(function() {
-	// init datepicker
-    $("#inputDate").datepicker({
-    	showMonthAfterYear: true,
+	// init datetime picker
+	$("#startDatetime").datetimepicker({
+		showMonthAfterYear: true,
         // changeMonth: true, 
         // changeYear: true, 
 		minDate: '-2y', maxDate: '+2y', 
-		dateFormat: 'yy-mm-dd'
+		dateFormat: 'yy/mm/dd',
+
+        // showSecond: true,
+        timeFormat: 'hh:mm',
+        stepHour: 1,
+        stepMinute: 1,
+        stepSecond: 1
     });
+
+
+
 
     // init KindEditor
     var editor;
@@ -693,8 +628,15 @@ $(function() {
 
 
 	$("#addParticipantLink").click(function(){
-		// $("#groupList").children("li").first().find("a.group").click();
-		// // clear checkAll......
+		// back to default page
+		// NOTE: extra query!!!
+		$("#groupList").children("li").first().find("a.group").click();
+
+		// clear checkAll
+		if($("#selectAllPerson").parent("span").hasClass("checked"))
+		{
+			$("#selectAllPerson").click();
+		}
 
 		$("#participantModal").modal("show");
 	});
