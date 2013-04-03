@@ -45,7 +45,7 @@ def deleteUser(request):
 #    result["success"] = "false"
 #    result["errors"] = ""
     
-    return HttpResponse(json.dumps(result)) 
+    return HttpResponse(json.dumps(DAOHelper.deleteRole(params))) 
 
 
 
@@ -68,7 +68,7 @@ def editGroup(request):
 #    result["success"] = "false"
 #    result["errors"] = ""
     
-    return HttpResponse(json.dumps(result))
+    return HttpResponse(json.dumps(DAOHelper.editGroup(params)))
 
 def deleteGroup(request):
     #permission check
@@ -84,7 +84,7 @@ def deleteGroup(request):
 #    result["success"] = "false"
 #    result["errors"] = ""
     
-    return HttpResponse(json.dumps(result))
+    return HttpResponse(json.dumps(DAOHelper.deleteGroup(params)))
 
 
 

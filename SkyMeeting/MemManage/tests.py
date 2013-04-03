@@ -41,7 +41,7 @@ class MemberTest(TestCase):
         print result
         self.assertEquals("true",result["success"],"TestDone")
         
-    def testDeteleTag(self):
+    def tstDeteleTag(self):
         from MemManageHelper import DAOHelper as helper
         param=dict()
         param["cid"]=1
@@ -50,3 +50,13 @@ class MemberTest(TestCase):
         result=helper.deleteTag(param)
         print result
         self.assertEqual("true",result["success"],"TestTag")
+    
+    def testEditGroup(self):
+        from MemManageHelper import DAOHelper as helper
+        param=dict()
+        param["cid"]=1
+        param["gid"]=1
+        param["gname"]="EditGroup"
+        result=helper.editGroup(param)
+        print result
+        self.assertEqual("true",result["success"],"Test Edit Group")
