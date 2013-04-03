@@ -12,6 +12,7 @@ class MyCustomBackend:
 		else:
 			return None  
    
+   
 	def get_user(self, user_id):  
 		try:  
 			return Account.objects.get(pk=user_id)  
