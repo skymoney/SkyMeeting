@@ -8,6 +8,13 @@ import simplejson as json
 import BasicUtil as util
 
 def member(request):
+    '''
+    get members given conditions,such as gid,tid and page number
+    @param gid: group id
+    @param tid: tag id
+    @param pn: page number   
+    default order by name,10 persons once
+    '''
     u_list=Role.objects.filter(company_id=1).distinct()
     RoleCount=len(u_list)
     #def conf variable to store current 
