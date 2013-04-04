@@ -126,7 +126,7 @@
 	.comment .content {
 		background:url(../public/img/comment.gif) 100% 100% no-repeat;
 		margin:0 -15px;
-		padding:0 15px 10px;
+		padding:10px 15px;
 		line-height:145%;
 	}
 	.comment .content p {
@@ -356,30 +356,30 @@
 			<ul class="thumbnails" id="fileList">
 				<li class="">
 					<div class="thumbnail">
-						<a href="#" class="image-link">
+						<a href="javascript:void(0);" class="image-link">
 							<img class="file-image" src="../public/img/file_pdf_48x48.png" />
 						</a>
-						<a href="#" class="default-link">
+						<a href="javascript:void(0);" class="default-link">
 							<div class="file-name">important file1.pdf</div>
 						</a>
 					</div>
 				</li>
 				<li class="">
 					<div class="thumbnail">
-						<a href="#" class="image-link">
+						<a href="javascript:void(0);" class="image-link">
 							<img class="file-image" src="../public/img/file_doc_48x48.png" />
 						</a>
-						<a href="#" class="default-link">
+						<a href="javascript:void(0);" class="default-link">
 							<div class="file-name">important important important important important file2.doc</div>
 						</a>
 					</div>
 				</li>
 				<li class="">
 					<div class="thumbnail">
-						<a href="#" class="image-link">
+						<a href="javascript:void(0);" class="image-link">
 							<img class="file-image" src="../public/img/file_pic_48x48.png" />
 						</a>
-						<a href="#" class="default-link">
+						<a href="javascript:void(0);" class="default-link">
 							<div class="file-name">important important file3.jpg</div>
 						</a>
 					</div>
@@ -387,40 +387,40 @@
 				<!-- the same -->
 				<li class="">
 					<div class="thumbnail">
-						<a href="#" class="image-link">
+						<a href="javascript:void(0);" class="image-link">
 							<img class="file-image" src="../public/img/file_doc_48x48.png" />
 						</a>
-						<a href="#" class="default-link">
+						<a href="javascript:void(0);" class="default-link">
 							<div class="file-name">important important important important important file2.doc</div>
 						</a>
 					</div>
 				</li>
 				<li class="">
 					<div class="thumbnail">
-						<a href="#" class="image-link">
+						<a href="javascript:void(0);" class="image-link">
 							<img class="file-image" src="../public/img/file_pic_48x48.png" />
 						</a>
-						<a href="#" class="default-link">
+						<a href="javascript:void(0);" class="default-link">
 							<div class="file-name">important important file3.jpg</div>
 						</a>
 					</div>
 				</li>
 				<li class="">
 					<div class="thumbnail">
-						<a href="#" class="image-link">
+						<a href="javascript:void(0);" class="image-link">
 							<img class="file-image" src="../public/img/file_doc_48x48.png" />
 						</a>
-						<a href="#" class="default-link">
+						<a href="javascript:void(0);" class="default-link">
 							<div class="file-name">important important important important important file2.doc</div>
 						</a>
 					</div>
 				</li>
 				<li class="">
 					<div class="thumbnail">
-						<a href="#" class="image-link">
+						<a href="javascript:void(0);" class="image-link">
 							<img class="file-image" src="../public/img/file_pic_48x48.png" />
 						</a>
-						<a href="#" class="default-link">
+						<a href="javascript:void(0);" class="default-link">
 							<div class="file-name">important important file3.jpg</div>
 						</a>
 					</div>
@@ -443,13 +443,14 @@
 			<div id="commentListDiv">
 				<!-- comments START -->
 				<ol id="commentList">
-					<li class="comment regularcomment" id="comment-308296">
+					<!-- for each -->
+					<li class="comment">
 						<div class="author">
 							<div class="pic">
 								<img src='../public/img/head2_48x48.png' class='img-polaroid' />
 							</div>
 							<div class="name">
-								<a href="#" id="commentauthor-308296" class="url">
+								<a href="javascript:void(0);">
 									Danis Lu
 								</a>
 							</div>
@@ -458,30 +459,27 @@
 							<div class="date">
 								2013年3月11日09:06
 								&nbsp;|&nbsp;
-								<a href="#">#1</a>
+								<a>#<span class="floor-number">1</span></a>
 							</div>
 							<div class="act">
-								<a href="#">回复</a>
-								&nbsp;|&nbsp;
-								<a href="#">引用</a>
+								<a href="javascript:void(0);" class="reply">回复</a>
 							</div>
 							<div class="clearfix"></div>
 							<div class="content">
-								<div id="commentbody-308296">
-									<p>@左耳朵耗子，你好，读了你的这篇文章，说出了很多我心里的话，有很多感触。可否授权我在我的博客上转载一下？</p>
-								</div>
+								你好，读了你的这篇文章，说出了很多我心里的话，有很多感触。可否授权我在我的博客上转载一下？
 							</div>
 						</div>
+						<input type="hidden" data-comment-id="111" data-author-id="1" data-author-name="Danis Lu" data-floor-no="2" />
 						<div class="clearfix"></div>
 					</li>
-					<li class="comment regularcomment" id="comment-308296">
+					<li class="comment">
 						<div class="author">
 							<div class="pic">
 								<img src='../public/img/head2_48x48.png' class='img-polaroid' />
 							</div>
 							<div class="name">
-								<a href="#" id="commentauthor-308296" class="url">
-									Danis LuLuLuLu Yining
+								<a href="javascript:void(0);">
+									Danis LuLuLuLuLu
 								</a>
 							</div>
 						</div>
@@ -489,86 +487,21 @@
 							<div class="date">
 								2013年3月11日09:06
 								&nbsp;|&nbsp;
-								<a href="#">#2</a>
+								<a>#<span class="floor-number">2</span></a>
 							</div>
 							<div class="act">
-								<a href="#">回复</a>
-								&nbsp;|&nbsp;
-								<a href="#">引用</a>
+								<a href="javascript:void(0);" class="reply">回复</a>
 							</div>
 							<div class="clearfix"></div>
 							<div class="content">
-								<div id="commentbody-308296">
-									<p>你好，读了你的这篇文章，说出了很多我心里的话，有很多感触。可否授权我在我的博客上转载一下？@左耳朵耗子，你好，读了你的这篇文章，说出了很多我心里的话，有很多感触。可否授权我在我的博客上转载一下？</p>
-								</div>
+								读了你的这篇文章，说出了很多我心里的话，有很多感触。
 							</div>
 						</div>
+						<input type="hidden" data-comment-id="112" data-author-id="2" data-author-name="Danis LuLuLuLuLu" data-floor-no="2" />
 						<div class="clearfix"></div>
 					</li>
-					<!-- the same -->
-					<li class="comment regularcomment" id="comment-308296">
-						<div class="author">
-							<div class="pic">
-								<img src='../public/img/head2_48x48.png' class='img-polaroid' />
-							</div>
-							<div class="name">
-								<a href="#" id="commentauthor-308296" class="url">
-									Danis Lu
-								</a>
-							</div>
-						</div>
-						<div class="info">
-							<div class="date">
-								2013年3月11日09:06
-								&nbsp;|&nbsp;
-								<a href="#">#3</a>
-							</div>
-							<div class="act">
-								<a href="#">回复</a>
-								&nbsp;|&nbsp;
-								<a href="#">引用</a>
-							</div>
-							<div class="clearfix"></div>
-							<div class="content">
-								<div id="commentbody-308296">
-									<p>@左耳朵耗子，你好，读了你的这篇文章，说出了很多我心里的话，有很多感触。可否授权我在我的博客上转载一下？</p>
-								</div>
-							</div>
-						</div>
-						<div class="clearfix"></div>
-					</li>
-					<li class="comment regularcomment" id="comment-308296">
-						<div class="author">
-							<div class="pic">
-								<img src='../public/img/head2_48x48.png' class='img-polaroid' />
-							</div>
-							<div class="name">
-								<a href="#" id="commentauthor-308296" class="url">
-									Danis LuLuLuLu Yining
-								</a>
-							</div>
-						</div>
-						<div class="info">
-							<div class="date">
-								2013年3月11日09:06
-								&nbsp;|&nbsp;
-								<a href="#">#4</a>
-							</div>
-							<div class="act">
-								<a href="#">回复</a>
-								&nbsp;|&nbsp;
-								<a href="#">引用</a>
-							</div>
-							<div class="clearfix"></div>
-							<div class="content">
-								<div id="commentbody-308296">
-									<p>你好，读了你的这篇文章，说出了很多我心里的话，有很多感触。可否授权我在我的博客上转载一下？@左耳朵耗子，你好，读了你的这篇文章，说出了很多我心里的话，有很多感触。可否授权我在我的博客上转载一下？</p>
-								</div>
-							</div>
-						</div>
-						<div class="clearfix"></div>
-					</li>
-					<!-- the same ends -->
+
+					<!-- <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/> -->
 				</ol>
 				<!-- comments END -->
 			</div>
@@ -581,9 +514,10 @@
 				<form id="commentPostForm">
 					<div class="row-fluid">
 						<textarea id="inputComment" rows="3" placeholder="Add comment"></textarea>
+						<input type="hidden" id="replyToData" data-comment-id="" data-author-id="" data-author-name="" />
 					</div>
 					<div class="row-fluid align-right">
-						<input type="button" class="btn btn-primary" value="提交" />
+						<input type="button" class="btn btn-primary btn-small" id="addCommentOk" value="提交" />
 					</div>
 				</form>
 			</div>
@@ -591,7 +525,7 @@
 	</div>
 
 
-
+	<input type="hidden" id="meetingData" data-meeting-id="10086" />
 
 
 </div>
@@ -602,9 +536,147 @@
 
 
 {%block morestatic%}
+<!-- lib for scroll plugin -->
+<script src="../public/js/jquery.scrollTo.min.js"></script>
+
+
+
 <!-- 事件绑定js -->
 <script type="text/javascript">
+/* extend functions */
+$.fn.setCursorPosition = function(position) {
+    if(this.length == 0) return this;
+    return $(this).setSelection(position, position);
+}
+$.fn.setSelection = function(selectionStart, selectionEnd) {
+    if(this.length == 0) return this;
+    input = this[0];
+
+    if (input.createTextRange) {
+        var range = input.createTextRange();
+        range.collapse(true);
+        range.moveEnd('character', selectionEnd);
+        range.moveStart('character', selectionStart);
+        range.select();
+    } else if (input.setSelectionRange) {
+        input.focus();
+        input.setSelectionRange(selectionStart, selectionEnd);
+    }
+
+    return this;
+}
+$.fn.focusEnd = function() {
+    this.setCursorPosition(this.val().length);
+}
+
+
+
+$(function() {
+	// constants
+	var TEXT_REPLY = "回复";
+	var TEXT_REPLY_SEPERATOR = ": ";
+
+	var AJAX_IDLE = 0;
+	var AJAX_BUSY = 0;
+
+	// ajax flags
+	var ajaxAddCommentFlag = AJAX_IDLE;
+
+
+
+	var replyClickFunc = function(){
+		var dataElement = $(this).parents("li.comment").find("input[type='hidden']");
+		var commentId = dataElement.attr("data-comment-id");
+		var authorId = dataElement.attr("data-author-id");
+		var authorName = dataElement.attr("data-author-name");
+
+		$("#replyToData").attr("data-comment-id", commentId);
+		$("#replyToData").attr("data-author-id", authorId);
+		$("#replyToData").attr("data-author-name", authorName);
+
+		// 简单粗暴!!!
+		$("#inputComment").val(TEXT_REPLY + authorName + TEXT_REPLY_SEPERATOR);
+
+		$("#inputComment").focusEnd();
+		$.scrollTo("#inputComment");
+		// $.scrollTo( '#inputComment', 800, {easing:'elasout'} );
+		// !!!
+	};
+	$("a.reply").click(replyClickFunc);
+
+
+	$("#addCommentOk").click(function(){
+		var meetingId = $("#meetingData").attr("data-meeting-id");
+		// meetingId被改怎么破???
+		if(meetingId.length == 0)
+		{
+			return false;
+		}
+
+		var content = $("#inputComment").val();
+		content = content.trim();
 		
+		// validation
+		// too young too simple, what if injected code???
+		if(!(content.length > 0 && content.length < 1000))
+		{
+			// error message
+			return false;
+		}
+
+
+		var replyToCommentId = $("#replyToData").attr("data-comment-id");
+		var replyToAuthorId = $("#replyToData").attr("data-author-id");
+		var replyToAuthorName = $("#replyToData").attr("data-author-name");
+
+		// check reply content
+		if(content.indexOf(TEXT_REPLY + replyToAuthorName) != 0)
+		{
+			// reset empty
+			replyToCommentId = "";
+			replyToAuthorId = "";
+			replyToAuthorName = "";
+		}
+		
+
+		// ajax flag
+		if(ajaxAddCommentFlag == AJAX_IDLE)
+		{
+			// set ajax flag
+			ajaxAddCommentFlag = AJAX_BUSY;
+
+			// ajax submit
+			$.post(
+				"/meeting/addcomment/",
+				{
+					"meetingId": meetingId,
+					"content": content,
+					"replyToUser": replyToAuthorId,
+					"replyToComment": replyToCommentId
+				},
+				function(data)
+				{
+					var result = eval("(" + data + ")");
+					if(result.success == "true")
+					{
+						var currentFloor = $("#commentList").children("li").last().find(".floor-number").text();
+						alert(currentFloor);
+						
+					}
+					else
+					{
+						// error message
+					}
+
+					// reset ajax flag
+					ajaxAddCommentFlag = AJAX_IDLE;
+				}
+			);
+		}
+
+	});
+
+});
 </script>
 
 <!-- 表单验证js -->
