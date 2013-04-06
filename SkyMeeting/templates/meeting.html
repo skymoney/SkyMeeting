@@ -115,7 +115,7 @@
 		/*width:494px;*/
 		width:545px;
 	}
-	.comment .date {
+	.comment .basic {
 		float:left;
 		font-size:10px;
 	}
@@ -456,10 +456,10 @@
 							</div>
 						</div>
 						<div class="info">
-							<div class="date">
-								2013年3月11日09:06
-								&nbsp;|&nbsp;
-								<a>#<span class="floor-number">1</span></a>
+							<div class="basic">
+								<span class="time">2013年3月11日09:06</span>
+								|
+								<a>#<span class="floor">1</span></a>
 							</div>
 							<div class="act">
 								<a href="javascript:void(0);" class="reply">回复</a>
@@ -469,7 +469,7 @@
 								你好，读了你的这篇文章，说出了很多我心里的话，有很多感触。可否授权我在我的博客上转载一下？
 							</div>
 						</div>
-						<input type="hidden" data-comment-id="111" data-author-id="1" data-author-name="Danis Lu" data-floor-no="2" />
+						<input type="hidden" data-comment-id="111" data-author-id="1" data-author-name="Danis Lu" />
 						<div class="clearfix"></div>
 					</li>
 					<li class="comment">
@@ -479,15 +479,15 @@
 							</div>
 							<div class="name">
 								<a href="javascript:void(0);">
-									Danis LuLuLuLuLu
+									Danis LuLuLuLu
 								</a>
 							</div>
 						</div>
 						<div class="info">
-							<div class="date">
-								2013年3月11日09:06
-								&nbsp;|&nbsp;
-								<a>#<span class="floor-number">2</span></a>
+							<div class="basic">
+								<span class="time">2013年3月11日09:06</span>
+								|
+								<a>#<span class="floor">2</span></a>
 							</div>
 							<div class="act">
 								<a href="javascript:void(0);" class="reply">回复</a>
@@ -497,7 +497,7 @@
 								读了你的这篇文章，说出了很多我心里的话，有很多感触。
 							</div>
 						</div>
-						<input type="hidden" data-comment-id="112" data-author-id="2" data-author-name="Danis LuLuLuLuLu" data-floor-no="2" />
+						<input type="hidden" data-comment-id="112" data-author-id="2" data-author-name="Danis LuLuLuLu" />
 						<div class="clearfix"></div>
 					</li>
 
@@ -659,9 +659,44 @@ $(function() {
 					var result = eval("(" + data + ")");
 					if(result.success == "true")
 					{
-						var currentFloor = $("#commentList").children("li").last().find(".floor-number").text();
-						alert(currentFloor);
+						var curFloor = $("#commentList").children("li").last().find(".floor").text();
+						var nextFloor = Number(curFloor) + 1;
 						
+						$("#commentList").append(
+							"<li class=\"comment\">" + 
+								"<div class=\"author\">" + 
+									"<div class=\"pic\">" + 
+										"<img src=\"../public/img/head_48x48.png\" class=\"img-polaroid\" />" + 
+									"</div>" + 
+									"<div class=\"name\">" + 
+										"<a href=\"javascript:void(0);\">" + result.authorName + "</a>" + 
+									"</div>" + 
+								"</div>" + 
+								"<div class=\"info\">" + 
+									"<div class=\"basic\">" + 
+										"<span class=\"time\">" + result.createTime + "</span>" + 
+										"&nbsp;|&nbsp;" + 
+										"<a>" + "#" + "<span class=\"floor\">" + nextFloor + "</span></a>" + 
+									"</div>" + 
+									"<div class=\"act\">" + 
+										"<a href=\"javascript:void(0);\" class=\"reply\">" + TEXT_REPLY + "</a>" + 
+									"</div>" + 
+									"<div class=\"clearfix\"></div>" + 
+									"<div class=\"content\">" + content + "</div>" + 
+								"</div>" + 
+								"<input type=\"hidden\" data-comment-id=\"" + result.commentId + "\" data-author-id=\"" + result.authorId + "\" data-author-name=\"" + result.authorName + "\" />" + 
+								"<div class=\"clearfix\"></div>" + 
+							"</li>");
+						
+						// 自己可以回复自己吗???
+						// bind event
+						$("#commentList").children("li").last().find("a.reply").click(replyClickFunc);
+
+						// clear input comment
+						$("#inputComment").val("");
+						$("#replyToData").attr("data-comment-id", "");
+						$("#replyToData").attr("data-author-id", "");
+						$("#replyToData").attr("data-author-name", "");
 					}
 					else
 					{

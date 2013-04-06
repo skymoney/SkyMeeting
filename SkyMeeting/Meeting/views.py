@@ -32,11 +32,23 @@ def addComment(request):
     #comment status
     
     #hard code!!!
+#    comment = {}
+#    comment["commentId"] = "1234"
+#    comment["meetingId"] = "1"
+#    comment["authorId"] = "1"
+#    comment["authorName"] = "Tony Jiong"
+#    comment["createTime"] = "2013/4/6 15:21"
+#    comment["content"] = request.POST["content"]
+#    comment["replyToUser"] = ""
+#    comment["commentStatus"] = ""
+    
     result = dict()
     result["success"] = "true"
     result["commentId"] = 100
     result["authorId"] = 1
-    result["authorName"] = "xxx"
+    result["authorName"] = "Tony Jiong"
+    result["createTime"] = "2013/4/6 15:21"
+    result["headUrl"] = "???"
 #    exception
 #    result["success"] = "false"
 #    result["errors"] = ""
