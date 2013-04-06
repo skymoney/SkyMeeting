@@ -1,3 +1,4 @@
+#-*-coding:utf-8-*-
 '''
 Created on 2013-3-23
 
@@ -244,4 +245,23 @@ def deleteRole(params):
         result["success"]="false"
         result["errors"]=""
     return result
+
+def queryPerson(params):
+    '''
+    query person given group id and company id
+    10 persons once
+    default order by name
+    '''
+    gid=params["gid"]
+    uList=Role.objects.filter(gid=gid).order_by("name")[0:10]
+    roleList=[]
+    #get specified fields of Role
+    for u in uList:
+        role=dict()
+        role["id"]=u.rid
+        role["name"]=u.name
+        role["sex"]=u.sex
+        roleList.append(role)
+    
+    return roleList
 
