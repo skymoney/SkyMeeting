@@ -8,7 +8,7 @@ from MemManage.models import Role,Tag,Group,Company,TempRole
 import simplejson as json
 import BasicUtil as util
 
-def member(request):
+def member(params):
     '''
     get members given conditions,such as gid,tid and page number
     @param gid: group id
@@ -26,28 +26,28 @@ def member(request):
     conf["current_gid"]=-1
     conf["current_tid"]=-1
         
-    if 'gid' in request.GET and len(request.GET['gid'])>0:
-        if request.GET['gid']=="-1":
+    if 'gid' in params and len(params['gid'])>0:
+        if params['gid']=="-1":
             pass
         else:
             try:
-                u_list=u_list.filter(groups__gid=int(request.GET['gid'])).distinct()
-                conf['current_gid']=int(request.GET['gid'])
+                u_list=u_list.filter(groups__gid=int(params['gid'])).distinct()
+                conf['current_gid']=int(params['gid'])
             except:
                 pass
-    if 'tid' in request.GET and len(request.GET['tid'])>0:
-        if '-1' in request.GET['tid'].split():
+    if 'tid' in params and len(params['tid'])>0:
+        if '-1' in params['tid'].split():
             pass
         else:
             try:
-                u_list=u_list.filter(tags__tid__in=(request.GET['tid'].split())).distinct()
+                u_list=u_list.filter(tags__tid__in=(params['tid'].split())).distinct()
                 print u_list
-                conf['current_tid']=util.listToInt(request.GET['tid'].split())
+                conf['current_tid']=util.listToInt(params['tid'].split())
             except:
                 pass
        
-    g_list=Group.objects.filter(company=1)
-    t_list=Tag.objects.filter(company=1)
+    g_list=Group.objects.filter(company=params["cid"])
+    t_list=Tag.objects.filter(company=params["cid"])
     groupList=[]
     tagList=[]
     for tag in t_list:
@@ -56,11 +56,10 @@ def member(request):
         singleTag["tname"]=tag.tname
         singleTag["cid"]=tag.company_id
         tagList.append(singleTag)
-    print tagList
     #here can optimize by just sql query instead of Model method
     for g in g_list:
         singleGroup={}
-        num=len(Role.objects.filter(company_id=1,groups__gid=g.gid))
+        num=len(Role.objects.filter(company_id=params["cid"],groups__gid=g.gid))
         singleGroup["gid"]=g.gid
         singleGroup["gname"]=g.gname
         singleGroup["cid"]=g.company_id
@@ -253,7 +252,16 @@ def queryPerson(params):
     default order by name
     '''
     gid=params["gid"]
-    uList=Role.objects.filter(gid=gid).order_by("name")[0:10]
+    cid=params["cid"]
+    tids=params["tid"]
+    
+    uList=Role.objects.filter(company_id=cid)
+    if gid!="-1":
+        uList=uList.filter(groups__gid=gid)
+    
+    #tids not in use currently
+    
+    uList=uList.order_by("name")[0:10]
     roleList=[]
     #get specified fields of Role
     for u in uList:
