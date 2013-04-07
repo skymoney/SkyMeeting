@@ -8,15 +8,16 @@ from MemManage.models import Role,Tag,Group,Company,TempRole
 import simplejson as json
 import BasicUtil as util
 
-def member(params):
+def members(params):
     '''
-    get members given conditions,such as gid,tid and page number
+    get members given conditions
+    @param gid: company id
     @param gid: group id
     @param tid: tag id
     @param pn: page number   
-    default order by name,10 persons once
+    default order by name, 10 persons once
     '''
-    u_list=Role.objects.filter(company_id=1).distinct()
+    u_list=Role.objects.filter(company_id=params['cid']).distinct()
     RoleCount=len(u_list)
     #def conf variable to store current 
     #groups and tags info

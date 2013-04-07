@@ -5,7 +5,7 @@ from django.conf import settings
 # admin.autodiscover()
 
 urlpatterns=patterns('MemManage.views',
-    url(r'^members/$','member'),
+    url(r'^members/$','members'),
     url(r'^members/edituser','editRoleInfo'),
     url(r'^members/inviteuser/$','inviteUser'),
     url(r'^members/deleteuser/$','deleteUser'),

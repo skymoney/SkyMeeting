@@ -6,9 +6,19 @@ from django.template import Context
 from MemManageHelper import DAOHelper
 import simplejson as json
 
-def member(request):
-    #member ops including visiting
-    return render_to_response('members.html',Context(DAOHelper.member(request)))
+def members(request):
+    #permission check
+    #......
+    params = dict()
+    params["cid"] = 1   #default!!!
+    params["pn"] = 1    #default!!! page number
+    
+    if "gid" in request.GET:
+        params["gid"] = request.GET["gid"]
+    if "tid" in request.GET:
+        params["tid"] = request.GET["tid"]
+    
+    return render_to_response('members.html', Context(DAOHelper.members(params)))
 
 
 
