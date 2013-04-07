@@ -164,10 +164,10 @@
   					<span id="tagsDivLabel">Tags:</span>
   					<ul class="inline" id="tagList">
   						{% for tag in tagAll %}
-  							{% if tag.id in conf.current_tid %}
-  						<li><a class="tag tag-selected" data-tid="{{ tag.id }}">{{ tag.tname }}</a></li>
+  							{% if tag.tid in conf.current_tid %}
+  						<li><a class="tag tag-selected" data-tid="{{ tag.tid }}">{{ tag.tname }}</a></li>
   							{% else %}
-  						<li><a class="tag" data-tid="{{ tag.id }}">{{ tag.tname }}</a></li>
+  						<li><a class="tag" data-tid="{{ tag.tid }}">{{ tag.tname }}</a></li>
   							{% endif %}
   						{% endfor %}
   					</ul>
@@ -187,7 +187,7 @@
   						{% for tag in tagAll %}
   						<div class="tag">
   							<span>{{ tag.tname }}</span>
-  							<a href="javascript:void(0);" class="delete-tag" data-tid="{{ tag.id }}">x</a>
+  							<a href="javascript:void(0);" class="delete-tag" data-tid="{{ tag.tid }}">x</a>
   						</div>
   						{% endfor %}
   						<span>
@@ -254,7 +254,7 @@
 									<i class="icon-trash icon-red"></i>
 								</a>
 							</td>
-							<input type="hidden" data-id="{{ role.id }}" data-name="{{ role.name }}" data-sex="{{ role.sex }}" data-idcard="{{ role.idcard }}" data-phone="{{ role.phone }}" data-email="{{ role.email }}" data-location="{{ role.location }}" data-groups="{{ role.groups.getAllString }}" data-tags="{{ role.tags.getAllString }}" />
+							<input type="hidden" data-id="{{ role.rid }}" data-name="{{ role.name }}" data-sex="{{ role.sex }}" data-idcard="{{ role.idcard }}" data-phone="{{ role.phone }}" data-email="{{ role.email }}" data-location="{{ role.location }}" data-groups="{{ role.groups.getAllString }}" data-tags="{{ role.tags.getAllString }}" />
 						</tr>
 						{% endfor %}
 					</tbody>
