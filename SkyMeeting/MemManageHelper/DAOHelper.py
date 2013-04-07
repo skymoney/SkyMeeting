@@ -96,7 +96,7 @@ def editRoleInfo(request):
         if len(request.POST["groupIds"])>0:
             groupIds=request.POST["groupIds"].split('+')
             for group in groupIds:
-                Role.objects.get(id=roleid).groups.add(int(group))
+                Role.objects.get(rid=roleid).groups.add(int(group))
         if len(request.POST['tagIds'])>0:
             tagIds=request.POST["tagIds"].split('+')
             for tag in tagIds:
@@ -152,13 +152,14 @@ def deleteGroup(params):
     except:
         result["success"]="false"
         result["errors"]=""
+    return result
 
 def addTag(request):
     #add new tag
     tname=request.POST["tagName"]
     nt=Tag()
     nt.tname=tname
-    nt.cid=Company.objects.get(cid=1)
+    nt.company=Company.objects.get(cid=1)
     result=dict()
     try:
         nt.save()
