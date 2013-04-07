@@ -8,6 +8,11 @@
 <link href="../public/css/chosen.css" rel="stylesheet">
 
 <style type="text/css">
+	.chzn-drop{
+		left: 0;
+		display: none;
+	}
+
 	/* special */
 	tr.delete-alert{
 		background-color: #f2dede;
@@ -580,6 +585,7 @@
 			</div>
 
 			<input type="hidden" id="editId" />
+			<div class="form-end"></div>
 		</form>
 	</div>
 	<div class="modal-footer">
@@ -601,7 +607,12 @@
 {%block morestatic%}
 <!-- <script src="../public/js/jquery.uniform.min.js"></script> -->
 <script src="../public/js/uniform.default.js"></script>
-<script src="../public/js/jquery.chosen.min.js"></script>
+<!-- <script src="../public/js/jquery.chosen.min.js"></script> -->
+<script src="../public/js/jquery.chosen.js"></script>
+<!-- lib for scroll plugin -->
+<script src="../public/js/jquery.scrollTo.min.js"></script>
+
+
 
 <!-- 初始化js -->
 <script type="text/javascript">
@@ -680,6 +691,16 @@ $(function() {
 			}
 		}
 	}
+
+
+
+	/* used in modal popup */
+	var scrollToFormEndFunc = function(){
+		$(this).parents(".modal-body").scrollTo(".form-end");
+	};
+	// $("#dynAddTag").bind("click", scrollToFormEndFunc);
+
+
 
 
 
@@ -1464,8 +1485,11 @@ $(function() {
 
 		selectorCode += "</select>";
 		$("#tagSectDiv").append(selectorCode);
+
 		// re-init chosen selector
 		$("#tagSect").chosen();
+		// my scroll patch
+		$("#tagSect_chzn").bind("click", scrollToFormEndFunc);
 		//============= init tags ends =============
 
 
@@ -1602,7 +1626,10 @@ $(function() {
 
 	// add new tag
 	$("#dynAddTag").click(function(){
-		$("#dynAddTagDiv").toggle("fast");
+		$("#dynAddTagDiv").toggle("fast", function(){
+			// my scroll patch
+			$(this).parents(".modal-body").scrollTo(".form-end");
+		});
 		// clear and hide
 		$("#dynNewTagName").val("");
 		$("#dynAddTagErr").empty();

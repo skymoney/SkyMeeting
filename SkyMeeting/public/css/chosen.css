@@ -12,7 +12,7 @@
   border-top: 0;
   position: absolute;
   top: 29px;
-  left: 0;
+  /*left: 0;*/
   -webkit-box-shadow: 0 4px 5px rgba(0,0,0,.15);
   -moz-box-shadow   : 0 4px 5px rgba(0,0,0,.15);
   -o-box-shadow     : 0 4px 5px rgba(0,0,0,.15);
@@ -127,7 +127,7 @@
 
 .chzn-container-single-nosearch .chzn-search input {
   position: absolute;
-  left: -9000px;
+  /*left: -9000px;*/
 }
 
 /* @group Multi Chosen */
