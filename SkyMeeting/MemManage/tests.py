@@ -60,3 +60,4 @@ class MemberTest(TestCase):
         result=helper.editGroup(param)
         print result
         self.assertEqual("true",result["success"],"Test Edit Group")
+    
