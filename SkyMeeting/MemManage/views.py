@@ -10,9 +10,23 @@ def member(request):
     #member ops including visiting
     return render_to_response('members.html',Context(DAOHelper.member(request)))
 
+
+
 def editRoleInfo(request):
+    #permission check
+    #......
+    params = dict()
+    params["id"] = request.POST["id"]                               #edit user id
+    params["name"] = request.POST["name"]
+    params["sex"] = request.POST["sex"]
+    params["idcard"] = request.POST["idcard"]
+    params["phone"] = request.POST["phone"]
+    params["email"] = request.POST["email"]
+    params["groupIds"] = request.POST["groupIds"]                   # "" for no groups selected, or "1+2" etc.
+    params["tagIds"] = request.POST["tagIds"]                       # "" for no tags selected, or "1+2+3" etc.
+    
     #save specified role info
-    return HttpResponse(json.dumps(DAOHelper.editRoleInfo(request)))
+    return HttpResponse(json.dumps(DAOHelper.editRoleInfo(params)))
 
 def inviteUser(request):
     #permission check
@@ -38,20 +52,18 @@ def deleteUser(request):
     params["cid"] = 1   #default!!!
     params["id"] = request.POST["id"]                               #delete user id
     
-    #hard code!!!
-    result = dict()
-    result["success"] = "true"
-#    exception
-#    result["success"] = "false"
-#    result["errors"] = ""
-    
     return HttpResponse(json.dumps(DAOHelper.deleteRole(params))) 
 
 
 
 def addGroup(request):
-    #add new group    
-    return HttpResponse(json.dumps(DAOHelper.addGroup(request)))
+    #permission check
+    #......
+    params = dict()
+    params["cid"] = 1   #default!!!
+    params["groupName"] = request.POST["groupName"]
+    
+    return HttpResponse(json.dumps(DAOHelper.addGroup(params)))
 
 def editGroup(request):
     #permission check
@@ -60,13 +72,6 @@ def editGroup(request):
     params["cid"] = 1   #default!!!
     params["gid"] = request.POST["gid"]
     params["gname"] = request.POST["gname"]
-    
-    #hard code!!!
-    result = dict()
-    result["success"] = "true"
-#    exception
-#    result["success"] = "false"
-#    result["errors"] = ""
     
     return HttpResponse(json.dumps(DAOHelper.editGroup(params)))
 
@@ -77,20 +82,18 @@ def deleteGroup(request):
     params["cid"] = 1   #default!!!
     params["gid"] = request.POST["gid"]
     
-    #hard code!!!
-    result = dict()
-    result["success"] = "true"
-#    exception
-#    result["success"] = "false"
-#    result["errors"] = ""
-    
     return HttpResponse(json.dumps(DAOHelper.deleteGroup(params)))
 
 
 
 def addTag(request):
-    #add new tag
-    return HttpResponse(json.dumps(DAOHelper.addTag(request)))
+    #permission check
+    #......
+    params = dict()
+    params["cid"] = 1   #default!!!
+    params["tagName"] = request.POST["tagName"]
+    
+    return HttpResponse(json.dumps(DAOHelper.addTag(params)))
 
 def deleteTag(request):
     #permission check
@@ -98,6 +101,7 @@ def deleteTag(request):
     params = dict()
     params["cid"] = 1   #default!!!
     params["tid"] = request.POST["tid"]                            #delete tag id
+    
     return HttpResponse(json.dumps(DAOHelper.deleteTag(params)))
 
 
@@ -119,4 +123,6 @@ def queryPerson(request):
         person["sex"] = 1
         personList.append(person)
 
-    return HttpResponse(json.dumps(personList))
+    return HttpResponse(json.dumps(DAOHelper.queryPerson(params)))
+
+

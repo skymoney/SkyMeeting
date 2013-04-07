@@ -78,43 +78,43 @@ def member(request):
     
     return returnDict
 
-def editRoleInfo(request):
+def editRoleInfo(params):
     result=dict()
     try:
-        roleid=int(request.POST["id"])
+        roleid=int(params["id"])
         Role.objects.filter(rid=roleid).update(
-                     name=request.POST["name"],
-                     sex=int(request.POST["sex"]),
-                     idcard=request.POST["idcard"],
-                     phone=request.POST["phone"],
-                     email=request.POST["email"])
+                     name=params["name"],
+                     sex=int(params["sex"]),
+                     idcard=params["idcard"],
+                     phone=params["phone"],
+                     email=params["email"])
         #clear all original groups and tags
         Role.objects.get(rid=roleid).groups.clear()
         Role.objects.get(rid=roleid).tags.clear()
         
         #here can be optimized by sql query instead of model method
-        if len(request.POST["groupIds"])>0:
-            groupIds=request.POST["groupIds"].split('+')
+        if len(params["groupIds"])>0:
+            groupIds=params["groupIds"].split('+')
             for group in groupIds:
                 Role.objects.get(rid=roleid).groups.add(int(group))
-        if len(request.POST['tagIds'])>0:
-            tagIds=request.POST["tagIds"].split('+')
+        if len(params['tagIds'])>0:
+            tagIds=params["tagIds"].split('+')
             for tag in tagIds:
                 Role.objects.get(rid=roleid).tags.add(int(tag))
         result["success"]="true"
     except:
         result["success"]="false"
-        result["errorcode"]=""  #add error status
-        result["error"]=""
+        result["errors"]=""
     return result
 
-def addGroup(request):
+def addGroup(params):
     #add new group
-    gname=request.POST['groupName']
+    cid=params['cid']
+    gname=params['groupName']
     #here add permission deal
     ng=Group()
     ng.gname=gname
-    ng.company=Company.objects.get(cid=1)
+    ng.company=Company.objects.get(cid=cid)
     result=dict()
     try:
         ng.save()
@@ -123,8 +123,7 @@ def addGroup(request):
         result["gid"]=ng_id
     except:
         result["success"]="false"
-        result["error"]=""  #describe error status
-        result["errorcode"]=""
+        result["errors"]=""
     return result
 
 def editGroup(params):
@@ -154,12 +153,13 @@ def deleteGroup(params):
         result["errors"]=""
     return result
 
-def addTag(request):
+def addTag(params):
     #add new tag
-    tname=request.POST["tagName"]
+    cid=params["cid"]
+    tname=params["tagName"]
     nt=Tag()
     nt.tname=tname
-    nt.company=Company.objects.get(cid=1)
+    nt.company=Company.objects.get(cid=cid)
     result=dict()
     try:
         nt.save()
@@ -167,9 +167,8 @@ def addTag(request):
         result["success"]="true"
         result["tid"]=nt_id
     except:
-        result["success"]="fasle"
-        result["error"]=""  #descript error status
-        result["errorcode"]=""
+        result["succss"]="false"
+        result["errors"]=""
     return result
 
 def deleteTag(params):
