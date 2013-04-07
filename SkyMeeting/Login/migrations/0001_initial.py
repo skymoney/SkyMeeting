@@ -9,29 +9,29 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
         # Adding model 'Account'
-        db.create_table(u'Login_account', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('aname', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('apassword', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('atime', self.gf('django.db.models.fields.DateTimeField')()),
-            ('alastlogin', self.gf('django.db.models.fields.DateTimeField')()),
+        db.create_table('Account', (
+            ('aid', self.gf('django.db.models.fields.AutoField')(primary_key=True, db_column='account_id')),
+            ('aname', self.gf('django.db.models.fields.CharField')(max_length=50, db_column='account_name')),
+            ('apassword', self.gf('django.db.models.fields.CharField')(max_length=50, db_column='account_password')),
+            ('atime', self.gf('django.db.models.fields.DateTimeField')(db_column='account_createtime')),
+            ('alastlogin', self.gf('django.db.models.fields.DateTimeField')(db_column='account_lastlogin')),
         ))
         db.send_create_signal(u'Login', ['Account'])
 
 
     def backwards(self, orm):
         # Deleting model 'Account'
-        db.delete_table(u'Login_account')
+        db.delete_table('Account')
 
 
     models = {
         u'Login.account': {
-            'Meta': {'object_name': 'Account'},
-            'alastlogin': ('django.db.models.fields.DateTimeField', [], {}),
-            'aname': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'apassword': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'atime': ('django.db.models.fields.DateTimeField', [], {}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
+            'Meta': {'object_name': 'Account', 'db_table': "'Account'"},
+            'aid': ('django.db.models.fields.AutoField', [], {'primary_key': 'True', 'db_column': "'account_id'"}),
+            'alastlogin': ('django.db.models.fields.DateTimeField', [], {'db_column': "'account_lastlogin'"}),
+            'aname': ('django.db.models.fields.CharField', [], {'max_length': '50', 'db_column': "'account_name'"}),
+            'apassword': ('django.db.models.fields.CharField', [], {'max_length': '50', 'db_column': "'account_password'"}),
+            'atime': ('django.db.models.fields.DateTimeField', [], {'db_column': "'account_createtime'"})
         }
     }
 
