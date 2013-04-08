@@ -3,6 +3,9 @@ Created on 2013-4-8
 
 @author: cheng
 '''
+import datetime
+
+
 
 def query2List(meetingData):
     meetingResult=[]
@@ -12,15 +15,16 @@ def query2List(meetingData):
         singleMeeting['mid']=meeting.meeting_id
         singleMeeting['mtitle']=meeting.meeting_title
         singleMeeting['mtype']=meeting.meeting_type
-        singleMeeting['mstart']=str(meeting.start_time)
+        #deal start time
+        start_time=meeting.start_time
+        singleMeeting['mstart']=meeting.start_time.strftime( '%Y/%m/%d %H:%M' )
         singleMeeting['mperiod']=meeting.meeting_period
-        singleMeeting['mclose']=str(meeting.close_time)
+        singleMeeting['mclose']=meeting.close_time.strftime( '%Y/%m/%d %H:%M' )
         singleMeeting['mplace']=meeting.meeting_place
         singleMeeting['mtel']=meeting.contact_tel
         singleMeeting['memail']=str(meeting.contact_email)
-        singleMeeting['mdetail']=meeting.detail
         singleMeeting['muser']=meeting.create_user
-        singleMeeting['mcreate']=str(meeting.create_time)
-        
+        singleMeeting['mcreate']=meeting.create_user.strftime( '%Y-%m-%d' )
+        singleMeeting['mstatus']=meeting.meeting_status
         meetingResult.append(singleMeeting)
     return meetingResult
