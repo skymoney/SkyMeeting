@@ -8,26 +8,54 @@ import simplejson as json
 def boards(request):
     return render_to_response('404.html')
 
+def documents(request):
+    return render_to_response('404.html')
+
+
+
 def meetings(request):
     #permission check
     #......
     params = dict()
     params["rid"] = 1 #default!!!
     if "ad" in request.GET:
-        params["ad"] = request.GET["ad"]
+        params["ad"] = request.GET["ad"]        # 1 for my created meetings, 0 for my attended meetings
     if "type" in request.GET:
-        params["type"] = request.GET["type"]
+        params["type"] = request.GET["type"]    # -1 for all meetings, 1 for formal, 2 for informal
     
     return render_to_response('meetingList.html', Context(MeetingDAOHelper.meetings(params)))
-
-def documents(request):
-    return render_to_response('404.html')
 
 def newMeeting(request):
     return render_to_response('newMeeting.html')
 
+def addMeeting(request):
+    #permission check
+    #......
+    params = dict()
+    params["title"] = request.POST["title"]
+    params["type"] = request.POST["type"]
+    params["startTime"] = request.POST["startTime"]             # yyyy/mm/dd hh:mm
+    params["place"] = request.POST["place"]
+    params["tel"] = request.POST["tel"]
+    params["email"] = request.POST["email"]
+    params["detail"] = request.POST["detail"]                   # HTML code
+    params["participants"] = request.POST["participants"]       # role ids, "1+2+3" etc.
+    params["files"] = "???"
+    
+    result = dict()
+    result["success"] = "true"
+    result["mid"] = "1234"
+    #    exception
+    #    result["success"] = "false"
+    #    result["errors"] = ""
+    return HttpResponse(json.dumps(result))
+    
 def meeting(request):
-    return render_to_response('meeting.html')
+    #permission check
+    #......
+    params = dict()
+    params["mid"] = request.GET["mid"]
+    return render_to_response('meeting.html', Context(MeetingDAOHelper.getSingleMeeting(params)))
 
 def addComment(request):
     #permission check
