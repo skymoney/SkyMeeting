@@ -101,7 +101,7 @@
 		</div>			
 	</div> -->
 	
-	<form class="form-horizontal" action="" method="post">
+	<form class="form-horizontal" id="meetingForm">
 
 		<!-- Basic info block -->
 		<div class="row-fluid form-block">
@@ -112,14 +112,11 @@
 				<div class="control-group">
 					<label class="control-label" for="inputTitle">Title</label>
 					<div class="controls">
-						<input type="text" id="inputTitle" placeholder="Title" />
-						<!-- error prompt -->
-						<div class="alert alert-error inline-error hide" id="inputTitleError">
-							Please input meeting title.
-						</div>
-						<!-- help hint -->
-						<span class="help-block">Should be less than 100 characters.</span>
-						<!-- <span class="help-inline hide" id="inputTitleError">Please input meeting title.</span> -->
+						<input type="text" id="inputTitle" placeholder="Title" data-validate-presence="true" data-validate-error="#inputTitleError" />
+						<span class="alert alert-error hide" id="inputTitleError">
+							Meeting title cannot be blank.
+						</span>
+						<div class="help-block">Should be less than 100 characters.</div>
 					</div>
 				</div>
 
@@ -132,31 +129,48 @@
 							<option value="2">Formal meeting</option>
 							<option value="3">Informal meeting</option>
 						</select>
+						<!-- 验证失效 -->
+						<span class="alert alert-error hide" id="inputTypeError">
+							Meeting title cannot be blank.
+						</span>
 						<!-- static meeting type??? -->
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="startDatetime">Start time</label>
 					<div class="controls">
-						<input type="text" class="date-input" id="startDatetime" readonly="readonly" />
+						<input type="text" class="date-input" id="startDatetime" readonly="readonly" data-validate-presence="true" data-validate-error="#startDatetimeError" />
+						<span class="alert alert-error hide" id="startDatetimeError">
+							Start time cannot be blank.
+						</span>
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="inputPlace">Place</label>
 					<div class="controls">
-						<input type="text" id="inputPlace" placeholder="Place" />
+						<input type="text" id="inputPlace" placeholder="Place" data-validate-presence="true" data-validate-error="#inputPlaceError" />
+						<span class="alert alert-error hide" id="inputPlaceError">
+							Place cannot be blank.
+						</span>
+						<div class="help-block">Should be less than 50 characters.</div>
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="inputContactTel">Contact tel</label>
 					<div class="controls">
-						<input type="text" id="inputContactTel" placeholder="Contact tel" />
+						<input type="text" id="inputContactTel" placeholder="Contact tel" data-validate-presence="true" data-validate-format="/^[0-9]+$/" data-validate-error="#inputContactTelError" />
+						<span class="alert alert-error hide" id="inputContactTelError">
+							Should be a phone number.
+						</span>
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="inputContactMail">Contact mail</label>
 					<div class="controls">
-						<input type="text" id="inputContactMail" placeholder="Contact mail" />
+						<input type="text" id="inputContactMail" placeholder="Contact mail" data-validate-email="true" data-validate-error="#inputContactMailError" />
+						<span class="alert alert-error hide" id="inputContactMailError">
+							Should be an email address.
+						</span>
 					</div>
 				</div>
 
@@ -175,6 +189,10 @@
 			<div class="form-block-content">
 				<textarea class="fulltext-input" id="inputDetail"></textarea>
 			</div>
+			<!-- 验证失效 -->
+			<span class="alert alert-error hide" id="inputDetailError">
+				Detail info cannot be blank.
+			</span>
 		</div>
 
 
@@ -243,8 +261,8 @@
 
 		<!-- Actions block -->
 		<div class="form-actions">
-	        <input type="button" class="btn btn-primary" id="formOkBtn" value="Save changes" />
-	        <input type="button" class="btn" id="formCancelBtn" value="Cancel" />
+	        <input type="button" class="btn btn-primary" id="meetingFormOk" value="Save changes" data-validate="#meetingForm" />
+	        <input type="button" class="btn" id="meetingFormCancel" value="Cancel" />
 		</div>
 	</form>
 </div>
@@ -413,7 +431,6 @@ $(function() {
 
 
 
-
     // init KindEditor
     var editor;
 	KindEditor.ready(function(K) {
@@ -428,12 +445,16 @@ $(function() {
 		});
 	});
 
+
     // 有问题???阻止点击背景关闭
     $("#participantModal").on("show", function(){
     	// alert("a");
     	$(".modal-backdrop fade in").unbind("click");
     });
-   
+
+
+    // $.fn.validations.options.validateOn = "";
+    $("#meetingForm").validations();
 });
 </script>
 
@@ -687,7 +708,7 @@ $(function() {
 
 $(function() {
 
-	$("#formOkBtn").click(function(){
+	$("#meetingFormOk").click(function(){
 		
 		$("#inputTitle").parents(".control-group").addClass("error");
 		$("#inputTitle").focus();

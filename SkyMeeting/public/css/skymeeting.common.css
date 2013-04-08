@@ -1,13 +1,4 @@
-﻿    
-    /* align */
-    div.align-center, span.align-center{
-    	text-align: center;
-    }
-    div.align-right, span.align-right{
-    	text-align: right;
-    }
-
-
+﻿
     /* links */
 	a.default-link{
     	color: black;
@@ -272,7 +263,7 @@
 	.alert{
 		margin-bottom: 0;
 	}
-	.help-block, help-inline{
+	.help-block, .help-inline{
 		color: #999;
 	}
 	/* uniform patch */
