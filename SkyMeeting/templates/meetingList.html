@@ -50,7 +50,7 @@
 			<tbody>
 				{% for meeting in meetingData %}
 				<tr>
-					<td><a href="">{{ meeting.mtitle }}</a></td>
+					<td><a href="../meeting/?mid={{ meeting.mid }}" target="_blank">{{ meeting.mtitle }}</a></td>
 					<td>
 						{% if meeting.mtype == 1 %}
 							Formal meeting

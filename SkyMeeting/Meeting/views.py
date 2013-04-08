@@ -51,7 +51,11 @@ def addMeeting(request):
     return HttpResponse(json.dumps(result))
     
 def meeting(request):
-    return render_to_response('meeting.html')
+    #permission check
+    #......
+    params = dict()
+    params["mid"] = request.GET["mid"]
+    return render_to_response('meeting.html', Context(MeetingDAOHelper.getSingleMeeting(params)))
 
 def addComment(request):
     #permission check
