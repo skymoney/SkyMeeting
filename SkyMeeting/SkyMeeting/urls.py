@@ -17,6 +17,14 @@ urlpatterns=patterns('MemManage.views',
     url(r'^members/queryperson/$','queryPerson'),
 )
 
+urlpatterns += patterns('Meeting.views',
+    url(r'^meetings/$','meetings'),
+    url(r'^newmeeting/$','newMeeting'),
+    url(r'^addmeeting/$','addMeeting'),
+    url(r'^meeting/$','meeting'),
+    url(r'^meeting/addcomment/$','addComment'),
+)
+
 urlpatterns += patterns('',
     # Examples:
     # url(r'^$', 'SkyMeeting.views.home', name='home'),
@@ -33,9 +41,5 @@ urlpatterns += patterns('',
     url(r'^logout/$','Login.views.logout'),
     url(r'^home/$','Login.views.home'),
     url(r'^boards/$','Meeting.views.boards'),    
-    url(r'^meetings/$','Meeting.views.meetings'),
     url(r'^documents/$','Meeting.views.documents'),
-    url(r'^newmeeting/$','Meeting.views.newMeeting'),
-    url(r'^meeting/$','Meeting.views.meeting'),
-    url(r'^meeting/addcomment/$','Meeting.views.addComment'),
 )

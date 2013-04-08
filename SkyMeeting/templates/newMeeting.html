@@ -121,17 +121,16 @@
 				</div>
 
 				<div class="control-group">
-					<label class="control-label" for="inputType">Meeting type</label>
+					<label class="control-label" for="typeSct">Meeting type</label>
 					<div class="controls">
-						<select id="inputType">
+						<select id="typeSct">
 							<option value="-1">---- Please select ----</option>
-							<option value="1">Board meeting</option>
-							<option value="2">Formal meeting</option>
-							<option value="3">Informal meeting</option>
+							<option value="1">Formal meeting</option>
+							<option value="2">Informal meeting</option>
 						</select>
 						<!-- 验证失效 -->
-						<span class="alert alert-error hide" id="inputTypeError">
-							Meeting title cannot be blank.
+						<span class="alert alert-error hide" id="typeSctError">
+							Please select meeting type.
 						</span>
 						<!-- static meeting type??? -->
 					</div>
@@ -156,19 +155,19 @@
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="inputContactTel">Contact tel</label>
+					<label class="control-label" for="inputTel">Contact tel</label>
 					<div class="controls">
-						<input type="text" id="inputContactTel" placeholder="Contact tel" data-validate-presence="true" data-validate-format="/^[0-9]+$/" data-validate-error="#inputContactTelError" />
-						<span class="alert alert-error hide" id="inputContactTelError">
+						<input type="text" id="inputTel" placeholder="Contact tel" data-validate-presence="true" data-validate-format="/^[0-9]+$/" data-validate-error="#inputTelError" />
+						<span class="alert alert-error hide" id="inputTelError">
 							Should be a phone number.
 						</span>
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="inputContactMail">Contact mail</label>
+					<label class="control-label" for="inputEmail">Contact email</label>
 					<div class="controls">
-						<input type="text" id="inputContactMail" placeholder="Contact mail" data-validate-email="true" data-validate-error="#inputContactMailError" />
-						<span class="alert alert-error hide" id="inputContactMailError">
+						<input type="text" id="inputEmail" placeholder="Contact mail" data-validate-email="true" data-validate-error="#inputEmailError" />
+						<span class="alert alert-error hide" id="inputEmailError">
 							Should be an email address.
 						</span>
 					</div>
@@ -430,7 +429,6 @@ $(function() {
     });
 
 
-
     // init KindEditor
     var editor;
 	KindEditor.ready(function(K) {
@@ -453,8 +451,9 @@ $(function() {
     });
 
 
+    // 表单验证框架 略弱!!!
     // $.fn.validations.options.validateOn = "";
-    $("#meetingForm").validations();
+    // $("#meetingForm").validations();
 });
 </script>
 
@@ -508,6 +507,11 @@ $(function() {
 
 
 
+
+
+	// ===============================
+	// participants modal
+	// ===============================
 	/*
 		return value:
 			"" if no tags selected,
@@ -645,6 +649,7 @@ $(function() {
 			});
 		}
 	});
+	// 小BUG: check all后再取消某人!!!
 
 
 
@@ -686,14 +691,108 @@ $(function() {
 
 		$("#participantModal").modal("hide");
 	});
+	// ===============================
 
 
 
 
 
+	// ===============================
+	// form submission
+	// ===============================
+	$("#typeSct").change(function(){
+		/*if($(this).find("option:selected").val() == -1)
+		{
+			$("#typeSctError").show();
+		}
+		else
+		{
+			$("#typeSctError").hide();
+		}*/
+		$("#typeSctError").hide();
+	});
+
+	/*$(".ke-container").find("iframe").contents().find("body").keypress(function(){
+		alert("A");
+		if($(this).html().length != 0)
+		{
+			$("#inputDetailError").hide();
+		}
+	});*/
 
 
+	$("#meetingFormOk").click(function(){
+		
+		// $("#inputTitle").parents(".control-group").addClass("error");
+		// $("#inputTitle").focus();
+		// $("#inputTitleError").removeClass("hide");
 
+		var title = $("#inputTitle").val().trim();
+		var type = $("#typeSct").find("option:selected").val();
+		var startTime = $("#startDatetime").val();
+		var place = $("#inputPlace").val().trim();
+		var tel = $("#inputTel").val().trim();
+		var email = $("#inputEmail").val().trim();
+
+		// validation
+		if(type == -1)
+		{
+			$("#typeSctError").show();
+			$("#typeSct").focus();
+			return false;
+		}
+
+		var detail = $("#inputDetail").siblings(".ke-container").find("iframe").contents().find("body").html();
+		if(detail.length == 0)
+		{
+			$("#inputDetailError").show();
+			$(".ke-container").find("iframe").contents().find("body").focus();
+			return false;
+		}
+
+
+		if(globalSelectedPersons.length == 0)
+		{
+			alert("Please select participants.")
+			return false;
+		}
+
+		var participants = globalSelectedPersons[0].id;
+		for(var i=1; i<globalSelectedPersons.length; i++)
+		{
+			participants += "+" + globalSelectedPersons[i].id;
+		}
+		
+
+		// ajax submit
+		$.post(
+			"/addmeeting/",
+			{
+				"title": title,
+				"type": type,
+				"startTime": startTime,
+				"place": place,
+				"tel": tel,
+				"email": email,
+				"detail": detail,
+				"participants": participants
+			},
+			function(data)
+			{
+				var result = eval("(" + data + ")");
+				if(result.success == "true")
+				{
+					alert(result.mid);
+				}
+				else
+				{
+					// error message
+				}
+			}
+		);
+
+	});
+	// ===============================
 
 });
 </script>
@@ -708,14 +807,7 @@ $(function() {
 
 $(function() {
 
-	$("#meetingFormOk").click(function(){
-		
-		$("#inputTitle").parents(".control-group").addClass("error");
-		$("#inputTitle").focus();
-		$("#inputTitleError").removeClass("hide");
 
-
-	});
 	
 });
 </script>

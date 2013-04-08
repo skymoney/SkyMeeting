@@ -19,8 +19,8 @@
 				<label for="meetingTypeSct">Choose your meeting type...</label>
 				<select id="meetingTypeSct" size="1">
 					<option value="-1">All</option>
-					<option value="1">Formal meeting</option>
-					<option value="2">Informal meeting</option>
+					<option value="1" {% if type == 1 or type == "1" %}selected="selected"{% endif %}>Formal meeting</option>
+					<option value="2" {% if type == 2 or type == "2" %}selected="selected"{% endif %}>Informal meeting</option>
 				</select>
 				<!-- static meeting type??? -->
 			</div>
@@ -28,7 +28,7 @@
 				<label for="meetingAdSct">Choose...</label>
 				<select id="meetingAdSct" size="1">
 					<option value="0">我参加的会议</option>
-					<option value="1">我创建的会议</option>
+					<option value="1" {% if ad == 1 or ad == "1" %}selected="selected"{% endif %}>我创建的会议</option>
 				</select>
 			</div>
 		</div>
@@ -40,7 +40,7 @@
 				<tr role="row">
 					<th class="span4">Meeting name</th>
 					<th>Meeting type</th>
-					<th>Date time</th>
+					<th>Start time</th>
 					<th class="span2">Location</th>
 					<th>Created by / date</th>
 					<th>Status</th>
