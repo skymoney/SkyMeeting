@@ -9,7 +9,7 @@ Description:provide ops with db and controller layer
 
 from MemManage.models import *
 from Meeting.models import *
-
+from datetime import datetime
 import BasicUtil as util
 
 def meetings(params):
@@ -96,3 +96,35 @@ def getSingleMeeting(params):
     finalResult["meetingData"]=util.getSingleMeetingInfo(meeting)
     #add more return values such as file and comment
     return finalResult
+
+def addComment(params):
+    '''
+    add comment to specified meeting by specified user
+    @param meetingId: meeting id
+    @param userId: role id
+    @param time: when comment posted
+    @param content: content of comment
+    @param replyToUser: rid of reply comment
+    @param replyToComment: reply comment id of this comment
+    @param status: status of comment
+    '''
+    result=dict()
+    
+    commentObj=Meeting_Comment()
+    commentObj.meeting_id=Meeting.objects.get(meeting_id=int(params["meetingId"]))
+    commentObj.create_user=Role.objects.get(rid=int(params["userId"]))
+    commentObj.create_time=datetime.now().strftime( '%Y-%m-%d %H:%M' )
+    commentObj.content=params["content"]
+    commentObj.reply_to_user=int(params["replyToUser"])
+    commentObj.comment_status=0     #default 0
+    commentObj.quote_from_comment_id=int(params["replyToComment"])
+    
+    try:
+        commentObj.save()
+        result["success"]="true"        
+    except:
+        result["success"]="false"
+        result["errors"]=""
+    
+    return result
+    

@@ -70,7 +70,7 @@ class Meeting_Comment(models.Model):
     content=models.TextField(db_column="content")
     reply_to_user=models.IntegerField(null=True,default=-1,db_column="replay_to_user")
     comment_status=models.IntegerField(default=0,db_column="comment_status")
-    #quote_from_comment_id=models.ForeignKey('Meeting_Comment',db_column="quote_from_comment_id")
+    quote_from_comment_id=models.IntegerField(null=True,default=0,db_column="quote_from_comment_id")
     #comment_status=models.IntegerField(default=0,db_column="comment_status")
     class Meta:
         db_table="Meeting_Comment"
