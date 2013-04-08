@@ -2,13 +2,23 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.template import Context
+from MeetingHelper import MeetingDAOHelper
 import simplejson as json
 
 def boards(request):
     return render_to_response('404.html')
 
-def meetings(reqeust):
-    return render_to_response('meetingList.html')
+def meetings(request):
+    #permission check
+    #......
+    params = dict()
+    params["rid"] = 1 #default!!!
+    if "ad" in request.GET:
+        params["ad"] = request.GET["ad"]
+    if "type" in request.GET:
+        params["type"] = request.GET["type"]
+    
+    return render_to_response('meetingList.html', Context(MeetingDAOHelper.meetings(params)))
 
 def documents(request):
     return render_to_response('404.html')
