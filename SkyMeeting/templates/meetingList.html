@@ -15,15 +15,22 @@
 <div class="container">
 		<h3>My Meetings</h3>
 		<div class="row-fluid">
-			<div class="span6">
-				<label>Choose your meeting type...</label>
-				<select class="" id="meetingTypeSct" size="1">
+			<div class="span3">
+				<label for="meetingTypeSct">Choose your meeting type...</label>
+				<select id="meetingTypeSct" size="1">
 					<option value="-1">All</option>
 					<option value="1">Formal meeting</option>
 					<option value="2">Informal meeting</option>
 				</select>
-
-			</div>		
+				<!-- static meeting type??? -->
+			</div>
+			<div class="pull-right">
+				<label for="meetingAdSct">Choose...</label>
+				<select id="meetingAdSct" size="1">
+					<option value="0">我参加的会议</option>
+					<option value="1">我创建的会议</option>
+				</select>
+			</div>
 		</div>
 
 
@@ -41,93 +48,36 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr class="odd">
-					<td><a href="meeting.html">XXX Board Meeting 2013</a></td>
-					<td>Board meeting</td>
-					<td>2013-03-30 15:00</td>
-					<td>Online</td>
-					<td>Danis Lu / 2013-03-10</td>
+				{% for meeting in meetingData %}
+				<tr>
+					<td><a href="">{{ meeting.mtitle }}</a></td>
 					<td>
-						<span class="label label-info">Confirmed</span>
+						{% if meeting.mtype == 1 %}
+							Formal meeting
+						{% elif meeting.mtype == 2 %}
+							Informal meeting
+						{% else %}
+							Unknown
+						{% endif %}
+					</td>
+					<td>{{ meeting.mstart }}</td>
+					<td>{{ meeting.mplace }}</td>
+					<td>{{ meeting.muser.name }} / {{ meeting.mcreate }}</td>
+					<td>
+						<span class="label label-info">Pending</span>
 					</td>
 					<td>
 						<img src="../public/img/attachment_24x24.png" />
 					</td>
 				</tr>
-				<tr class="even">
-					<td>XX Project Discussion</td>
-					<td>Temp meeting</td>
-					<td>2013-03-11 14:00</td>
-					<td>SE Building 605</td>
-					<td>Jia Liu / 2013-03-10</td>
-					<td>
-						<span class="label">Closed</span>
-					</td>
-					<td>
-						none
-					</td>
-				</tr>
-				<tr class="odd">
-					<td><a href="meeting.html">XXXXXXXXXXXXXXXXXXXXXXXXXXXXX Board Meeting 2013</a></td>
-					<td>Formal meeting</td>
-					<td>2013-03-31 15:00</td>
-					<td>Online</td>
-					<td>Danis Lu / 2013-03-10</td>
-					<td>
-						<span class="label label-info">Confirmed</span>
-					</td>
-					<td>
-						<img src="../public/img/attachment_24x24.png" />
-					</td>
-				</tr>
-				<!-- the same -->
-				<tr class="odd">
-					<td><a href="meeting.html">XXX Board Meeting 2013</a></td>
-					<td>Board meeting</td>
-					<td>2013-03-30 15:00</td>
-					<td>Online</td>
-					<td>Danis Lu / 2013-03-10</td>
-					<td>
-						<span class="label label-info">Confirmed</span>
-					</td>
-					<td>
-						<img src="../public/img/attachment_24x24.png" />
-					</td>
-				</tr>
-				<tr class="even">
-					<td>XX Project Discussion</td>
-					<td>Temp meeting</td>
-					<td>2013-03-11 14:00</td>
-					<td>SE Building 605</td>
-					<td>Jia Liu / 2013-03-10</td>
-					<td>
-						<span class="label">Closed</span>
-					</td>
-					<td>
-						none
-					</td>
-				</tr>
-				<tr class="odd">
-					<td><a href="meeting.html">XXXXXXXXXXXXXXXXXXXXXXXXXXXXX Board Meeting 2013</a></td>
-					<td>Formal meeting</td>
-					<td>2013-03-31 15:00</td>
-					<td>Online</td>
-					<td>Danis Lu / 2013-03-10</td>
-					<td>
-						<span class="label label-info">Confirmed</span>
-					</td>
-					<td>
-						<img src="../public/img/attachment_24x24.png" />
-					</td>
-				</tr>
-				<!-- the same ends -->
+				{% endfor %}
 			</tbody>
 		</table>
 
 
 
 		<div class="row-fluid new-item-row">
-			<a href="newMeeting.html">&plus;&nbsp;Create new meeting</a>
+			<a href="../newmeeting/">&plus;&nbsp;Create new meeting</a>
 		</div>
 		<div class="row-fluid pagination-row">
 			<div class="pagination">
@@ -143,4 +93,24 @@
 			</div>
 		</div>
 	</div>
+{%endblock%}
+
+
+
+
+
+{%block morestatic%}
+<script type="text/javascript">
+$(function() {
+
+	var redirectFunc = function(){
+		var type = $("#meetingTypeSct").find("option:selected").val();
+		var ad = $("#meetingAdSct").find("option:selected").val();
+		location.href = "/meetings/?type=" + type + "&ad=" + ad;
+	};
+	$("#meetingTypeSct").change(redirectFunc);
+	$("#meetingAdSct").change(redirectFunc);
+
+});
+</script>
 {%endblock%}
