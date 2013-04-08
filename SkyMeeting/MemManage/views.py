@@ -124,15 +124,6 @@ def queryPerson(request):
     params["gid"] = request.GET["gid"]
     params["tid"] = request.GET["tid"]
     
-    #hard code
-    personList = []
-    for i in range(0, 10):
-        person = {}
-        person["id"] = i + 1
-        person["name"] = "Person" + str(i + 1)
-        person["sex"] = 1
-        personList.append(person)
-
     return HttpResponse(json.dumps(DAOHelper.queryPerson(params)))
 
 
