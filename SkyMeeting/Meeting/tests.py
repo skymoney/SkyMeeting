@@ -8,9 +8,17 @@ Replace this with more appropriate tests for your application.
 from django.test import TestCase
 
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+class MeetingTest(TestCase):
+    def testMeetings(self):
+        params=dict()
+        params['rid']=1
+        #params['type']=1
+        from MeetingHelper import MeetingDAOHelper
+        print MeetingDAOHelper.getPartMeetings(params)
+    
+    def testGetCreateMeeting(self):
+        params=dict()
+        params['rid']=1
+        from MeetingHelper import MeetingDAOHelper
+        print MeetingDAOHelper.getCreateMeeting(params)
+        
