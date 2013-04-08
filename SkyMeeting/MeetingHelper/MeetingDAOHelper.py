@@ -37,6 +37,8 @@ def getPartMeetings(params):
     '''
     meetingSet=Meeting_Participant.objects.filter(role_id=params["rid"]).distinct()
     meetingIdList=[]
+    finalResult=dict()
+    finalResult["type"]="-1"
     #get all id set related to role
     for meeting_single in meetingSet:
         meetingIdList.append(meeting_single.meeting_id_id)
@@ -45,12 +47,13 @@ def getPartMeetings(params):
     if "type" in params and params["type"]!="-1":
         typeNum=params["type"]
         meetingData=meetingData.filter(meeting_type=typeNum)
-    
-    finalResult=dict()
+        finalResult["type"]=params["type"]    
     
     #query for file attachment
     
     finalResult["meetingData"]=util.query2List(meetingData)
+    finalResult["ad"]="0"
+    
     return finalResult
 
 def getCreateMeeting(params):
@@ -58,12 +61,22 @@ def getCreateMeeting(params):
     get meeting who createed 
     '''
     rid=params["rid"]
-    
+    finalResult=dict()
+    finalResult['type']="-1"
     meetingData=Meeting.objects.filter(create_user=rid)
     if "type" in params and params!="-1":
+        #if type specified, filter specified meetings
         meetingData=meetingData.filter(meeting_type=params["type"])
+        finalResult['type']=params['type']    
     
-    finalResult=dict()
+    #more return values can be put here
+    finalResult["meetingData"]=util.query2List(meetingData)    
+    finalResult['ad']="1"   #return whether create or participate
     
-    finalResult["meetingData"]=util.query2List(meetingData)
     return finalResult
+
+def uploadFile(params):
+    '''
+    upload file
+    '''
+    pass
