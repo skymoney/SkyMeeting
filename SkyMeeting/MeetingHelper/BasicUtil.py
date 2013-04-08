@@ -22,7 +22,7 @@ def query2List(meetingData):
         singleMeeting['mtel']=meeting.contact_tel
         singleMeeting['memail']=str(meeting.contact_email)
         singleMeeting['muser']=meeting.create_user
-        singleMeeting['mcreate']=meeting.create_user.strftime( '%Y-%m-%d' )
+        singleMeeting['mcreate']=meeting.create_time.strftime( '%Y-%m-%d' )
         singleMeeting['mstatus']=meeting.meeting_status
         meetingResult.append(singleMeeting)
     return meetingResult
