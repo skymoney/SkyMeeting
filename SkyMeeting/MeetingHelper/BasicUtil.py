@@ -15,8 +15,6 @@ def query2List(meetingData):
         singleMeeting['mid']=meeting.meeting_id
         singleMeeting['mtitle']=meeting.meeting_title
         singleMeeting['mtype']=meeting.meeting_type
-        #deal start time
-        start_time=meeting.start_time
         singleMeeting['mstart']=meeting.start_time.strftime( '%Y/%m/%d %H:%M' )
         singleMeeting['mperiod']=meeting.meeting_period
         singleMeeting['mclose']=meeting.close_time.strftime( '%Y/%m/%d %H:%M' )
