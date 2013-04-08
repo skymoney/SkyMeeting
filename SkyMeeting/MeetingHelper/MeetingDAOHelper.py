@@ -80,3 +80,19 @@ def uploadFile(params):
     upload file
     '''
     pass
+
+def getSingleMeeting(params):
+    '''
+    get single meeting detail info
+    given meeting id
+    @param mid: meeting id 
+    '''
+    mid=params["mid"]
+    meeting=Meeting.objects.get(meeting_id=mid)
+    role_list=Role.objects.filter(meeting_participant__meeting_id=mid)
+    finalResult=dict()
+    
+    finalResult["meetingParticipant"]=util.getMeetingParticipant(role_list)
+    finalResult["meetingData"]=util.getSingleMeetingInfo(meeting)
+    #add more return values such as file and comment
+    return finalResult

@@ -26,3 +26,34 @@ def query2List(meetingData):
         singleMeeting['mstatus']=meeting.meeting_status
         meetingResult.append(singleMeeting)
     return meetingResult
+
+
+def getSingleMeetingInfo(singleMeetingObj):
+    singleMeetingData=dict()
+    singleMeetingData['mid']=singleMeetingObj.meeting_id
+    singleMeetingData['mtitle']=singleMeetingObj.meeting_title
+    singleMeetingData['mtype']=singleMeetingObj.meeting_type
+    singleMeetingData['mstart']=singleMeetingObj.start_time.strftime( '%Y/%m/%d %H:%M' )
+    singleMeetingData['mperiod']=singleMeetingObj.meeting_period
+    singleMeetingData['mclose']=singleMeetingObj.close_time.strftime( '%Y/%m/%d %H:%M' )
+    singleMeetingData['mplace']=singleMeetingObj.meeting_place
+    singleMeetingData['mtel']=singleMeetingObj.contact_tel
+    singleMeetingData['memail']=str(singleMeetingObj.contact_email)
+    singleMeetingData["mdetail"]=singleMeetingObj.detail
+    singleMeetingData['muser']=singleMeetingObj.create_user
+    singleMeetingData['mcreate']=singleMeetingObj.create_time.strftime( '%Y-%m-%d' )
+    singleMeetingData['mstatus']=singleMeetingObj.meeting_status
+    
+    return singleMeetingData
+
+def getMeetingParticipant(roleSet):
+    roleResult=[]
+    
+    for role in roleSet:
+        roleInfo=dict()
+        roleInfo["rid"]=role.rid
+        roleInfo["name"]=role.name
+        roleInfo["sex"]=role.sex
+        roleResult.append(roleInfo)
+    
+    return roleResult
