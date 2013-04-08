@@ -64,7 +64,7 @@ def getCreateMeeting(params):
     finalResult=dict()
     finalResult['type']="-1"
     meetingData=Meeting.objects.filter(create_user=rid)
-    if "type" in params and params!="-1":
+    if "type" in params and params["type"]!="-1":
         #if type specified, filter specified meetings
         meetingData=meetingData.filter(meeting_type=params["type"])
         finalResult['type']=params['type']    
