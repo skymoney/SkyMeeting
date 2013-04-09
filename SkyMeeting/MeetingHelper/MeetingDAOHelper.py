@@ -79,7 +79,9 @@ def getCreateMeeting(params):
 def uploadFile(params):
     '''
     upload file
+    @param file: file object
     '''
+    
     pass
 
 def getSingleMeeting(params):
@@ -153,7 +155,7 @@ def addComment(params):
     commentObj=Meeting_Comment()
     commentObj.meeting_id=Meeting.objects.get(meeting_id=int(params["meetingId"]))
     commentObj.create_user=Role.objects.get(rid=int(params["userId"]))
-    commentObj.create_time=datetime.now().strftime( '%Y-%m-%d %H:%M' )
+    commentObj.create_time=datetime.now()
     commentObj.content=params["content"]
     try:
         commentObj.reply_to_user=int(params["replyToUser"])
