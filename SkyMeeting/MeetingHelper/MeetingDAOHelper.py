@@ -155,9 +155,15 @@ def addComment(params):
     commentObj.create_user=Role.objects.get(rid=int(params["userId"]))
     commentObj.create_time=datetime.now().strftime( '%Y-%m-%d %H:%M' )
     commentObj.content=params["content"]
-    commentObj.reply_to_user=int(params["replyToUser"])
+    try:
+        commentObj.reply_to_user=int(params["replyToUser"])
+    except:
+        pass
     commentObj.comment_status=0     #default 0
-    commentObj.quote_from_comment_id=int(params["replyToComment"])
+    try:
+        commentObj.quote_from_comment_id=int(params["replyToComment"])
+    except:
+        pass
     
     try:
         commentObj.save()
