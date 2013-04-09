@@ -58,8 +58,18 @@ def getMeetingParticipant(roleSet):
     
     return roleResult
 
-def getAllGroups():
-    '''
-    
-    '''
-    pass
+def comment2List(c_list):
+    finalResult=[]
+    for comment in c_list:
+        singleComment=dict()
+        singleComment["comment_id"]=comment.comment_id
+        singleComment["meeting_id"]=comment.meeting_id_id
+        singleComment["create_user_id"]=comment.create_user_id
+        singleComment["create_user_name"]=comment.create_user.name
+        singleComment["create_time"]=comment.create_time.strftime("%Y/%m/%d %H:%M")
+        singleComment["content"]=comment.content
+        singleComment["replay_to_user"]=comment.reply_to_user
+        singleComment["comment_status"]=comment.comment_status
+        singleComment["quote_from_comment_id"]=comment.quote_from_comment_id
+        finalResult.append(singleComment)  
+    return finalResult

@@ -179,6 +179,18 @@ def addComment(params):
     
     return result
     
+def fetchComment(params):
+    '''
+    fetch all comments given specified company lid
+    '''
+    #may be paging after
+    commentList=Meeting_Comment.objects.filter(meeting_id=params["mid"]).distinct()
+    
+    finalResult=dict()
+    finalResult["comment"]=util.comment2List(commentList)
+    
+    return finalResult
+
 def newMetingInitial(params):
     '''
     create new meeting initial info

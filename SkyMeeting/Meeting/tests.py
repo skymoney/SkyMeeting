@@ -23,13 +23,13 @@ class MeetingTest(TestCase):
         from MeetingHelper import MeetingDAOHelper
         print MeetingDAOHelper.getCreateMeeting(params)
         
-    def testGetSingleMeetingInfo(self):
+    def tetGetSingleMeetingInfo(self):
         params=dict()
         params["mid"]=1
         from MeetingHelper import MeetingDAOHelper
         print MeetingDAOHelper.getSingleMeeting(params)
     
-    def testAddComment(self):
+    def tetAddComment(self):
         params=dict()
         params["meetingId"]=1
         params["userId"]=2
@@ -40,3 +40,14 @@ class MeetingTest(TestCase):
         result=MeetingDAOHelper.addComment(params)
         print result
         self.assertEqual("true",result["success"],"Add Comment done...")
+    
+    def testFetchComment(self):
+        params=dict()
+        params["mid"]=1
+        
+        from MeetingHelper import MeetingDAOHelper
+        
+        result=MeetingDAOHelper.fetchComment(params)
+        print result
+        
+        
