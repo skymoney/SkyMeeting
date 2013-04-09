@@ -4,8 +4,7 @@ Created on 2013-4-8
 @author: cheng
 '''
 import datetime
-
-
+from django.conf import settings
 
 def query2List(meetingData):
     meetingResult=[]
@@ -73,3 +72,24 @@ def comment2List(c_list):
         singleComment["quote_from_comment_id"]=comment.quote_from_comment_id
         finalResult.append(singleComment)  
     return finalResult
+
+def handleFile(file):
+    '''
+    handle file uploaded
+    '''
+    print file.name
+    result=dict()
+    try:
+        #store file in local disk
+        path=settings.MEDIA_ROOT+file.name
+        with open(path,'wb') as destination:
+            for chunk in file.chunks():
+                destination.write(chunk)
+        
+        #insert into File table
+        
+        result["success"]="true"
+    except:
+        result["success"]="false"
+        result["errors"]=""
+    
