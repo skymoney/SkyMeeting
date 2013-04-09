@@ -188,7 +188,7 @@
 			<div class="form-block-content">
 				<textarea class="fulltext-input" id="inputDetail"></textarea>
 			</div>
-			<!-- 验证失效 -->
+			<!-- 验证框架失效 -->
 			<span class="alert alert-error hide" id="inputDetailError">
 				Detail info cannot be blank.
 			</span>
@@ -213,6 +213,9 @@
 					</div>
 					 -->
 				</div>
+				<span class="alert alert-error hide" id="participantsError">
+					Participants cannot be none.
+				</span>
 				<div class="row-fluid new-item-row">
 					<a href="javascript:void(0);" id="addParticipantLink">&plus;&nbsp;Add participant</a>
 				</div>
@@ -571,6 +574,7 @@ $(function() {
 
 					// bind checkbox event
 					target.find("div.checker input").bind("click", checkerClickFunc);
+					target.find("div.checker input").bind("click", notAllClickFunc);
 
 					// reset ajax flag
 					ajaxQueryPersonFlag = AJAX_IDLE;
@@ -579,16 +583,7 @@ $(function() {
 		}
 	};
 
-	var removePersonFunc = function(){
-		var id = $(this).attr("data-id");
-		$(this).parent(".person").remove();
-
-		// update global storage
-		removeFromGlobalSelectedPersons(id);
-	};
-
-
-
+	// ========== refresh person list ==========
 	$("a.group").click(function(){
 		// toggle class
 		$(this).parent("li").siblings("li").each(function(){
@@ -626,32 +621,41 @@ $(function() {
 		queryPersonList(gid, tagIds);
 	});
 
+
+	// ========== checkbox event ==========
+	var notAllClickFunc = function(){
+		if(isCheckboxChecked($(this)) == false)
+		{
+			checkboxCancel($("#selectAllPerson"));
+		}
+	}
+
 	$("#selectAllPerson").click(function(){
-		var checked = $(this).parent("span").hasClass("checked");
-		if(checked)
+		if(isCheckboxChecked($(this)))
 		{
 			// check all persons
 			$("#personAjaxDiv").find(".checker").each(function(){
-				if($(this).find("span").hasClass("checked") == false)
-				{
-					$(this).find("input[type='checkbox']").click();
-				}
+				checkerCheck($(this));
 			});
 		}
 		else
 		{
 			// cancel all persons
 			$("#personAjaxDiv").find(".checker").each(function(){
-				if($(this).find("span").hasClass("checked") == true)
-				{
-					$(this).find("input[type='checkbox']").click();
-				}
+				checkerCancel($(this));
 			});
 		}
 	});
-	// 小BUG: check all后再取消某人!!!
 
 
+	// ========== modal submission ==========
+	var removePersonFunc = function(){
+		var id = $(this).attr("data-id");
+		$(this).parent(".person").remove();
+
+		// update global storage
+		removeFromGlobalSelectedPersons(id);
+	};
 
 	$("#addParticipantLink").click(function(){
 		// back to default page
@@ -659,7 +663,7 @@ $(function() {
 		$("#groupList").children("li").first().find("a.group").click();
 
 		// clear checkAll
-		if($("#selectAllPerson").parent("span").hasClass("checked"))
+		if(isCheckboxChecked($("#selectAllPerson")))
 		{
 			$("#selectAllPerson").click();
 		}
@@ -668,7 +672,12 @@ $(function() {
 	});
 
 	$("#participantModalOk").click(function(){
-		$("#personAjaxDiv").find("input[name='selectPerson']:checked").each(function(){
+		// flag only if select any one person
+		var isChecked = false;
+
+		$("#personAjaxDiv").find("input[name='selectPerson'][checked='checked']").each(function(){
+			isChecked = true;
+
 			// get data
 			var id = $(this).val();
 			var name = $(this).parents("label").text();
@@ -688,6 +697,12 @@ $(function() {
 				$("#personList").children(".person").last().find("a.remove-person").click(removePersonFunc);
 			}
 		});
+
+		if(isChecked)
+		{
+			// clear error message
+			$("#participantsError").hide();
+		}
 
 		$("#participantModal").modal("hide");
 	});
@@ -722,11 +737,17 @@ $(function() {
 
 
 	$("#meetingFormOk").click(function(){
+		// clear all errors
+		$("#meetingForm").find(".alert-error").each(function(){
+			$(this).hide();
+		});
 		
 		// $("#inputTitle").parents(".control-group").addClass("error");
 		// $("#inputTitle").focus();
 		// $("#inputTitleError").removeClass("hide");
 
+
+		// basic info
 		var title = $("#inputTitle").val().trim();
 		var type = $("#typeSct").find("option:selected").val();
 		var startTime = $("#startDatetime").val();
@@ -734,7 +755,6 @@ $(function() {
 		var tel = $("#inputTel").val().trim();
 		var email = $("#inputEmail").val().trim();
 
-		// validation
 		if(type == -1)
 		{
 			$("#typeSctError").show();
@@ -742,18 +762,20 @@ $(function() {
 			return false;
 		}
 
+		// detail info
 		var detail = $("#inputDetail").siblings(".ke-container").find("iframe").contents().find("body").html();
+		// NOTE: length == 0 很不精确，比如按一个回车!!!
 		if(detail.length == 0)
 		{
-			$("#inputDetailError").show();
+			$("#inputDetailError").css("display", "inline-block");
 			$(".ke-container").find("iframe").contents().find("body").focus();
 			return false;
 		}
 
-
+		// participants
 		if(globalSelectedPersons.length == 0)
 		{
-			alert("Please select participants.")
+			$("#participantsError").css("display", "inline-block");
 			return false;
 		}
 
@@ -762,7 +784,7 @@ $(function() {
 		{
 			participants += "+" + globalSelectedPersons[i].id;
 		}
-		
+
 
 		// ajax submit
 		$.post(
