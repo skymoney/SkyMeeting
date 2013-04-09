@@ -97,6 +97,43 @@ def getSingleMeeting(params):
     #add more return values such as file and comment
     return finalResult
 
+def addMeeting(params):
+    '''
+    create a new meeting
+    '''
+    meeting=Meeting()
+    result=dict()
+    meeting.meeting_title=params["title"]
+    meeting.meeting_type=int(params["type"])
+    meeting.start_time=datetime.strptime(params["startTime"],"%Y/%m/%d %H:%M")
+    meeting.meeting_period=12       #current default 12
+    meeting.close_time
+    meeting.meeting_place=params["place"]
+    meeting.contact_tel=params["tel"]
+    meeting.contact_email=params["email"]
+    meeting.detail=params["detail"]
+    meeting.create_user=Role.objects.get(rid=params["rid"])
+    meeting.create_time=datetime.now()
+    meeting.meeting_status=1
+    
+    try:
+        meeting.save()      #save meeting info
+        #save participant info
+        if "participants" in params:
+            roleIdSet=params["participants"].split('+')
+            for roleId in roleIdSet:
+                Meeting_Participant(meeting_id=meeting,role_id=Role.objects.get(rid=roleId),participant_status=0).save()
+        if "file" in params:
+            #store file info
+            pass
+        
+        result["success"]="true"
+        result["mid"]=meeting.meeting_id
+    except:
+        result["success"]="false"
+    
+    return result
+
 def addComment(params):
     '''
     add comment to specified meeting by specified user
@@ -121,7 +158,12 @@ def addComment(params):
     
     try:
         commentObj.save()
-        result["success"]="true"        
+        result["success"]="true"  
+        result["commentId"]=commentObj.comment_id
+        result["authorId"]=commentObj.create_user.rid
+        result["authorName"]=commentObj.create_user.name
+        result["createTime"]=commentObj.create_time.strftime("%Y/%m/%d %H:%M")
+        result["headUrl"]=""
     except:
         result["success"]="false"
         result["errors"]=""
