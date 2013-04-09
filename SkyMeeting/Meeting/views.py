@@ -26,7 +26,11 @@ def meetings(request):
     return render_to_response('meetingList.html', Context(MeetingDAOHelper.meetings(params)))
 
 def newMeeting(request):
-    return render_to_response('newMeeting.html')
+    #permission check
+    #......
+    params = dict()
+    params["cid"] = 1 #default!!!
+    return render_to_response('newMeeting.html', Context(MeetingDAOHelper.newMetingInitial(params)))
 
 def addMeeting(request):
     #permission check

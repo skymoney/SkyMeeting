@@ -341,7 +341,6 @@
 						<div class="clearfix"></div>
 					</li>
 
-					<!-- <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/> -->
 				</ol>
 				<!-- comments END -->
 			</div>
@@ -356,8 +355,13 @@
 						<textarea id="inputComment" rows="3" placeholder="Add comment"></textarea>
 						<input type="hidden" id="replyToData" data-comment-id="" data-author-id="" data-author-name="" />
 					</div>
-					<div class="row-fluid text-right">
-						<input type="button" class="btn btn-primary btn-small" id="addCommentOk" value="提交" />
+					<div class="row-fluid">
+						<span class="alert alert-error pull-left hide" id="addCommentError">
+							Comment cannot be blank.
+						</span>
+						<span class="pull-right">
+							<input type="button" class="btn btn-primary btn-small" id="addCommentOk" value="提交" />
+						</span>
 					</div>
 				</form>
 			</div>
@@ -446,13 +450,12 @@ $(function() {
 
 
 	$("#addCommentOk").click(function(){
+		// clear errors
+		$("#addCommentError").hide();
+		
 		var meetingId = $("#meetingData").attr("data-meeting-id");
 		// meetingId被改怎么破???
-		if(meetingId.length == 0)
-		{
-			return false;
-		}
-
+		
 		var content = $("#inputComment").val();
 		content = content.trim();
 		
@@ -461,6 +464,7 @@ $(function() {
 		if(!(content.length > 0 && content.length < 1000))
 		{
 			// error message
+			$("#addCommentError").show();
 			return false;
 		}
 
