@@ -47,7 +47,7 @@ def regedit(request):
 		password = request.POST['password']  
 		#email = request.POST['email']
 		trueName = request.POST['trueName']
-		idCard = request.POST['idCard']
+		idCard = request.POST['idcard']
 		
 		#add verification of trueName and idCard here
 		#todo
