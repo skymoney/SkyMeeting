@@ -87,9 +87,9 @@ def handleFile(file):
                 destination.write(chunk)
         
         #insert into File table
-        
+        result["path"]=path
         result["success"]="true"
     except:
         result["success"]="false"
         result["errors"]=""
-    
+    return result

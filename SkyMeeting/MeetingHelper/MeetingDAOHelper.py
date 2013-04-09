@@ -81,8 +81,28 @@ def uploadFile(params):
     upload file
     @param file: file object
     '''
-    
-    pass
+    file=params["file"]
+    finalResult=dict()
+    result=util.handleFile(file)
+    if result["success"]=="true":
+        fileTb=File()
+        fileTb.file_path=result["path"]
+        fileTb.file_name=file.name
+        fileTb.file_size=file.size
+        fileTb.upload_user=Role.objects.get(rid=params["rid"])
+        fileTb.upload_time=datetime.now()
+        fileTb.file_status=0
+        try:
+            fileTb.save()
+            finalResult["success"]="true"
+            finalResult["fildId"]=fileTb.file_id
+        except:
+            finalResult["success"]="false"
+            finalResult["errors"]=""
+    else:
+        finalResult["success"]="false"
+        finalResult["errors"]=""
+    return finalResult
 
 def getSingleMeeting(params):
     '''
