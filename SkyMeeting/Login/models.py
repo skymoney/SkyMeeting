@@ -19,31 +19,26 @@ class AccountManager(models.Manager):
 
 # Create your models here.
 
-class Account(models.Model):  
-	aname = models.CharField(max_length=50) 
-	apassword=models.CharField(max_length=50)
-	last_login=models.DateTimeField()        #create time
-	date_joined=models.DateTimeField()   #last login time
-	alevel=models.CharField(max_length=20)
+class Account(models.Model):
+	id=models.AutoField(primary_key=True,db_column="account_id")
+	aname = models.CharField(max_length=50,db_column="account_name") 
+	apassword=models.CharField(max_length=50,db_column="account_password")
+	last_login=models.DateTimeField(db_column="account_createtime")        #create time
+	date_joined=models.DateTimeField(db_column="account_lastlogin")   #last login time
+	alevel=models.CharField(max_length=20,db_column="account_level")
 	
 	objects = AccountManager()
   
 	def is_authenticated(self):  
-		return True  
-  
-	def hashed_password(self, password=None):  
-		if not password:  
-			return self.apassword  
-		else:  
-			return hashlib.md5(password).hexdigest()  
+		return True 
           
 	def check_password(self, password):  
-		if self.hashed_password(password) == self.apassword:  
+		if password == self.apassword:  
 			return True  
 		return False  
 		
 	def set_password(self, raw_password):
-		self.apassword = self.hashed_password(raw_password)
+		self.apassword = raw_password
       
 	class Meta:  
 		db_table = "Account"  
