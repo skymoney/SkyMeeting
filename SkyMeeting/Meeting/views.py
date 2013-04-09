@@ -43,13 +43,7 @@ def addMeeting(request):
     params["participants"] = request.POST["participants"]       # role ids, "1+2+3" etc.
     params["files"] = "???"
     
-    result = dict()
-    result["success"] = "true"
-    result["mid"] = "1234"
-    #    exception
-    #    result["success"] = "false"
-    #    result["errors"] = ""
-    return HttpResponse(json.dumps(result))
+    return HttpResponse(json.dumps(MeetingDAOHelper.addMeeting(params)))
     
 def meeting(request):
     #permission check
@@ -64,7 +58,6 @@ def addComment(request):
     params = dict()
     params["meetingId"] = request.POST["meetingId"]
     params["userId"] = 1                                            #get from session
-    params["time"] = ""                                             #get current time
     params["content"] = request.POST["content"]                     #simple text
     params["replyToUser"] = request.POST["replyToUser"]             #reply to user id
     params["replyToComment"] = request.POST["replyToComment"]       #reply to comment id
@@ -81,16 +74,13 @@ def addComment(request):
 #    comment["replyToUser"] = ""
 #    comment["commentStatus"] = ""
     
-    result = dict()
-    result["success"] = "true"
-    result["commentId"] = 100
-    result["authorId"] = 1
-    result["authorName"] = "Tony Jiong"
-    result["createTime"] = "2013/4/6 15:21"
-    result["headUrl"] = "???"
-#    exception
-#    result["success"] = "false"
-#    result["errors"] = ""
+#    result = dict()
+#    result["success"] = "true"
+#    result["commentId"] = 100
+#    result["authorId"] = 1
+#    result["authorName"] = "Tony Jiong"
+#    result["createTime"] = "2013/4/6 15:21"
+#    result["headUrl"] = "???"
     
     return HttpResponse(json.dumps(MeetingDAOHelper.addComment(params)))
 
