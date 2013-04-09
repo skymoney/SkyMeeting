@@ -57,3 +57,9 @@ def getMeetingParticipant(roleSet):
         roleResult.append(roleInfo)
     
     return roleResult
+
+def getAllGroups():
+    '''
+    
+    '''
+    pass

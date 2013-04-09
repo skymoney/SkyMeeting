@@ -9,8 +9,9 @@ Description:provide ops with db and controller layer
 
 from MemManage.models import *
 from Meeting.models import *
-from datetime import datetime
+from datetime import datetime,timedelta
 import BasicUtil as util
+from GlobalUtil import DataUtil
 
 def meetings(params):
     '''
@@ -107,24 +108,26 @@ def addMeeting(params):
     meeting.meeting_type=int(params["type"])
     meeting.start_time=datetime.strptime(params["startTime"],"%Y/%m/%d %H:%M")
     meeting.meeting_period=12       #current default 12
-    meeting.close_time
+    meeting.close_time=meeting.start_time+timedelta(days=7) #default start_time plus 7 days
     meeting.meeting_place=params["place"]
     meeting.contact_tel=params["tel"]
     meeting.contact_email=params["email"]
     meeting.detail=params["detail"]
-    meeting.create_user=Role.objects.get(rid=params["rid"])
-    meeting.create_time=datetime.now()
-    meeting.meeting_status=1
+    meeting.create_user=Role.objects.get(rid=params["createUser"])
+    meeting.create_time=datetime.now()      #default current time
+    meeting.meeting_status=1        #meeting_status 1 or 0 or more..
     
     try:
         meeting.save()      #save meeting info
         #save participant info
+        #currently not include create_user,just users who will participate
         if "participants" in params:
             roleIdSet=params["participants"].split('+')
             for roleId in roleIdSet:
                 Meeting_Participant(meeting_id=meeting,role_id=Role.objects.get(rid=roleId),participant_status=0).save()
         if "file" in params:
             #store file info
+            #currently not done...
             pass
         
         result["success"]="true"
@@ -170,3 +173,18 @@ def addComment(params):
     
     return result
     
+def newMetingInitial(params):
+    '''
+    create new meeting initial info
+    Group and Tag are needed to initialize page
+    @param cid: company id
+    '''
+    #getAllGroups()
+    g_list=Group.objects.filter(company_id=params["cid"])
+    groupList=DataUtil.getGroupList(g_list)
+    
+    t_list=Tag.objects.filter(company_id=params["cid"])
+    tagList=DataUtil.getTagList(t_list)
+    
+    
+    pass
