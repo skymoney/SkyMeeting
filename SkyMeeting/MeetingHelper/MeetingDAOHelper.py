@@ -186,5 +186,9 @@ def newMetingInitial(params):
     t_list=Tag.objects.filter(company_id=params["cid"])
     tagList=DataUtil.getTagList(t_list)
     
+    finalResult=dict()
     
-    pass
+    finalResult["groupAll"]=groupList
+    finalResult["tagAll"]=tagList
+    
+    return finalResult
