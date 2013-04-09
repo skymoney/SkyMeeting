@@ -32,6 +32,7 @@ def addMeeting(request):
     #permission check
     #......
     params = dict()
+    params["createUser"] = 1 #default!!!                        # create by user id
     params["title"] = request.POST["title"]
     params["type"] = request.POST["type"]
     params["startTime"] = request.POST["startTime"]             # yyyy/mm/dd hh:mm
@@ -91,5 +92,5 @@ def addComment(request):
 #    result["success"] = "false"
 #    result["errors"] = ""
     
-    return HttpResponse(json.dumps(result))
+    return HttpResponse(json.dumps(MeetingDAOHelper.addComment(params)))
 

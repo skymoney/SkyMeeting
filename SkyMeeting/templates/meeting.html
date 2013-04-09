@@ -179,16 +179,24 @@
 				<dt id="imageDt">organizer</dt>
 			  	<dd id="imageDd">
 					<span><img class="" src="../public/img/head_64x64.png" /></span>
-					<span>Jia Liu</span>
+					<span>{{ meetingData.muser.name }}</span>
 				</dd>
 			  	<dt>Meeting type</dt>
-			  	<dd>Board meeting</dd>
+			  	<dd>
+			  		{% if meetingData.mtype == 1 %}
+						Formal meeting
+					{% elif meetingData.mtype == 2 %}
+						Informal meeting
+					{% else %}
+						Unknown
+					{% endif %}
+			  	</dd>
 			  	<dt>Contact tel</dt>
-			  	<dd>15298387338</dd>
+			  	<dd>{{ meetingData.mtel }}</dd>
 			  	<dt>Contact mail</dt>
-			  	<dd>danislyn@gmail.com</dd>
-			  	<dt>Additional info</dt>
-			  	<dd>important important important important important important important important important important important important important important important important important important important important important important important important important important important important important important important important </dd>
+			  	<dd>{{ meetingData.memail }}</dd>
+			  	<!-- <dt>Additional info</dt>
+			  	<dd>important important important important important important important important important important important important important important important important important important important important important important important important important important important important important important important important </dd> -->
 			</dl>
 		</div>
 	</div>
@@ -203,8 +211,7 @@
 			<h4>Detail info</h4>
 		</div>
 		<div class="meeting-block-content">
-			<p style="padding:0px 16px;">Abstract Tag recommendation encourages users to add more tags in bridging the semantic gap between human concept  the features of media object, which provides a feasible solution for content-based multimedia information retrieval. In this paper, we study personalized tag recommendation in a popular online photo sharing site | Flickr. Social relationship information of users is collected to generate an online social network. From the perspective of network topology, we propose node topological potential to characterize user's social in°uence. With this metric, we distinguish di®erent social relations between users and ¯nd out those who really have in°uence on the target users. Tag recommendations are based on tagging history and the latent personalized preference learned from those who have most in°uence in user's social network. We evaluate our method on large scale real-world data. The experimental results demonstrate that our method can outperform the non-personalized global co-occurrence method and other two state-of-the-art personalized approaches using social networks. We also analyze the further usage of our approach for the cold-start problem of tag recommendation.<br/>
-			Keywords recommendation system, social tagging, personalization, social network, Flickr</p>
+			<p style="padding:0px 16px;">{{ meetingData.mdetail }}</p>
 			<!-- 富文本html or 格式化树状文本??? -->
 		</div>
 	</div>
@@ -220,125 +227,18 @@
 		</div>
 		<div class="meeting-block-content">
 			<ul class="thumbnails" id="personList">
-				<li class="">
+				{% for person in meetingParticipant %}
+				<li>
 					<div class="thumbnail">
+						<!-- default head!!! -->
 						<img class="person-head" src="../public/img/man1_64x64.png" />
 						<div class="caption">
-							<div class="person-name">Jia Liu</div>
-							<div class="person-position">Boss</div>
+							<div class="person-name">{{ person.name }}</div>
+							<div class="person-position"><!-- ??? --></div>
 						</div>
 					</div>
 				</li>
-				<li class="">
-					<div class="thumbnail">
-						<img class="person-head" src="../public/img/man3_64x64.png" />
-						<div class="caption">
-							<div class="person-name">Jia Liu</div>
-							<div class="person-position">Manager Assistant</div>
-						</div>
-					</div>
-				</li>
-				<li class="">
-					<div class="thumbnail">
-						<img class="person-head" src="../public/img/man4_64x64.png" />
-						<div class="caption">
-							<div class="person-name">Jia Liu</div>
-							<div class="person-position">Engineer</div>
-						</div>
-					</div>
-				</li>
-				<!-- the same -->
-				<li class="">
-					<div class="thumbnail">
-						<img class="person-head" src="../public/img/man3_64x64.png" />
-						<div class="caption">
-							<div class="person-name">Jia Liu</div>
-							<div class="person-position">Manager Assistant</div>
-						</div>
-					</div>
-				</li>
-				<li class="">
-					<div class="thumbnail">
-						<img class="person-head" src="../public/img/man4_64x64.png" />
-						<div class="caption">
-							<div class="person-name">Jia Liu</div>
-							<div class="person-position">Engineer</div>
-						</div>
-					</div>
-				</li>
-				<li class="">
-					<div class="thumbnail">
-						<img class="person-head" src="../public/img/man3_64x64.png" />
-						<div class="caption">
-							<div class="person-name">Jia Liu</div>
-							<div class="person-position">Manager Assistant</div>
-						</div>
-					</div>
-				</li>
-				<li class="">
-					<div class="thumbnail">
-						<img class="person-head" src="../public/img/man4_64x64.png" />
-						<div class="caption">
-							<div class="person-name">Jia Liu</div>
-							<div class="person-position">Engineer</div>
-						</div>
-					</div>
-				</li>
-				<li class="">
-					<div class="thumbnail">
-						<img class="person-head" src="../public/img/man3_64x64.png" />
-						<div class="caption">
-							<div class="person-name">Jia Liu</div>
-							<div class="person-position">Manager Assistant</div>
-						</div>
-					</div>
-				</li>
-				<li class="">
-					<div class="thumbnail">
-						<img class="person-head" src="../public/img/man4_64x64.png" />
-						<div class="caption">
-							<div class="person-name">Jia Liu</div>
-							<div class="person-position">Engineer</div>
-						</div>
-					</div>
-				</li>
-				<li class="">
-					<div class="thumbnail">
-						<img class="person-head" src="../public/img/man3_64x64.png" />
-						<div class="caption">
-							<div class="person-name">Jia Liu</div>
-							<div class="person-position">Manager Assistant</div>
-						</div>
-					</div>
-				</li>
-				<li class="">
-					<div class="thumbnail">
-						<img class="person-head" src="../public/img/man4_64x64.png" />
-						<div class="caption">
-							<div class="person-name">Jia Liu</div>
-							<div class="person-position">Engineer</div>
-						</div>
-					</div>
-				</li>
-				<li class="">
-					<div class="thumbnail">
-						<img class="person-head" src="../public/img/man3_64x64.png" />
-						<div class="caption">
-							<div class="person-name">Jia Liu</div>
-							<div class="person-position">Manager Assistant</div>
-						</div>
-					</div>
-				</li>
-				<li class="">
-					<div class="thumbnail">
-						<img class="person-head" src="../public/img/man4_64x64.png" />
-						<div class="caption">
-							<div class="person-name">Jia Liu</div>
-							<div class="person-position">Engineer</div>
-						</div>
-					</div>
-				</li>
-				<!-- the same ends -->
+				{% endfor %}
 			</ul>
 		</div>
 	</div>
@@ -354,7 +254,8 @@
 		</div>
 		<div class="meeting-block-content">
 			<ul class="thumbnails" id="fileList">
-				<li class="">
+
+				<li>
 					<div class="thumbnail">
 						<a href="javascript:void(0);" class="image-link">
 							<img class="file-image" src="../public/img/file_pdf_48x48.png" />
@@ -364,68 +265,7 @@
 						</a>
 					</div>
 				</li>
-				<li class="">
-					<div class="thumbnail">
-						<a href="javascript:void(0);" class="image-link">
-							<img class="file-image" src="../public/img/file_doc_48x48.png" />
-						</a>
-						<a href="javascript:void(0);" class="default-link">
-							<div class="file-name">important important important important important file2.doc</div>
-						</a>
-					</div>
-				</li>
-				<li class="">
-					<div class="thumbnail">
-						<a href="javascript:void(0);" class="image-link">
-							<img class="file-image" src="../public/img/file_pic_48x48.png" />
-						</a>
-						<a href="javascript:void(0);" class="default-link">
-							<div class="file-name">important important file3.jpg</div>
-						</a>
-					</div>
-				</li>
-				<!-- the same -->
-				<li class="">
-					<div class="thumbnail">
-						<a href="javascript:void(0);" class="image-link">
-							<img class="file-image" src="../public/img/file_doc_48x48.png" />
-						</a>
-						<a href="javascript:void(0);" class="default-link">
-							<div class="file-name">important important important important important file2.doc</div>
-						</a>
-					</div>
-				</li>
-				<li class="">
-					<div class="thumbnail">
-						<a href="javascript:void(0);" class="image-link">
-							<img class="file-image" src="../public/img/file_pic_48x48.png" />
-						</a>
-						<a href="javascript:void(0);" class="default-link">
-							<div class="file-name">important important file3.jpg</div>
-						</a>
-					</div>
-				</li>
-				<li class="">
-					<div class="thumbnail">
-						<a href="javascript:void(0);" class="image-link">
-							<img class="file-image" src="../public/img/file_doc_48x48.png" />
-						</a>
-						<a href="javascript:void(0);" class="default-link">
-							<div class="file-name">important important important important important file2.doc</div>
-						</a>
-					</div>
-				</li>
-				<li class="">
-					<div class="thumbnail">
-						<a href="javascript:void(0);" class="image-link">
-							<img class="file-image" src="../public/img/file_pic_48x48.png" />
-						</a>
-						<a href="javascript:void(0);" class="default-link">
-							<div class="file-name">important important file3.jpg</div>
-						</a>
-					</div>
-				</li>
-				<!-- the same ends -->
+				
 			</ul>
 		</div>
 	</div>
