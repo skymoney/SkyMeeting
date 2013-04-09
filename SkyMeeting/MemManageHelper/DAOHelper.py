@@ -7,7 +7,7 @@ Created on 2013-3-23
 from MemManage.models import Role,Tag,Group,Company,TempRole
 import simplejson as json
 import BasicUtil as util
-
+from GlobalUtil import DataUtil
 def members(params):
     '''
     get members given conditions
@@ -50,22 +50,13 @@ def members(params):
     g_list=Group.objects.filter(company=params["cid"])
     t_list=Tag.objects.filter(company=params["cid"])
     groupList=[]
-    tagList=[]
-    for tag in t_list:
-        singleTag={}
-        singleTag["tid"]=tag.tid
-        singleTag["tname"]=tag.tname
-        singleTag["cid"]=tag.company_id
-        tagList.append(singleTag)
+    tagList=DataUtil.getTagList(t_list)
     #here can optimize by just sql query instead of Model method
-    for g in g_list:
-        singleGroup={}
-        num=len(Role.objects.filter(company_id=params["cid"],groups__gid=g.gid))
-        singleGroup["gid"]=g.gid
-        singleGroup["gname"]=g.gname
-        singleGroup["cid"]=g.company_id
-        singleGroup["count"]=num
-        groupList.append(singleGroup)
+    groupList=DataUtil.getGroupList(g_list)
+    for group in groupList:
+        num=len(Role.objects.filter(company_id=params["cid"],groups__gid=group["gid"]))
+        group["count"]=num
+        
     #conf can set more values here
     #return data
     returnDict["memberAll"]=u_list
