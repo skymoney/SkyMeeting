@@ -283,64 +283,36 @@
 			<div id="commentListDiv">
 				<!-- comments START -->
 				<ol id="commentList">
-					<!-- for each -->
+					{% for comment in meetingComment %}
 					<li class="comment">
 						<div class="author">
 							<div class="pic">
-								<img src='../public/img/head2_48x48.png' class='img-polaroid' />
+								<img src='../public/img/head_48x48.png' class='img-polaroid' />
 							</div>
 							<div class="name">
 								<a href="javascript:void(0);">
-									Danis Lu
+									{{ comment.create_user_name }}
 								</a>
 							</div>
 						</div>
 						<div class="info">
 							<div class="basic">
-								<span class="time">2013年3月11日09:06</span>
+								<span class="time">{{ comment.create_time }}</span>
 								|
-								<a>#<span class="floor">1</span></a>
+								<a>#<span class="floor">{{ forloop.counter }}</span></a>
 							</div>
 							<div class="act">
 								<a href="javascript:void(0);" class="reply">回复</a>
 							</div>
 							<div class="clearfix"></div>
 							<div class="content">
-								你好，读了你的这篇文章，说出了很多我心里的话，有很多感触。可否授权我在我的博客上转载一下？
+								{{ comment.content }}
 							</div>
 						</div>
-						<input type="hidden" data-comment-id="111" data-author-id="1" data-author-name="Danis Lu" />
+						<input type="hidden" data-comment-id="{{ comment.comment_id }}" data-author-id="{{ comment.create_user_id }}" data-author-name="{{ comment.create_user_name }}" data-reply-to-user="" data-reply-to-comment="" />
 						<div class="clearfix"></div>
-					</li>
-					<li class="comment">
-						<div class="author">
-							<div class="pic">
-								<img src='../public/img/head2_48x48.png' class='img-polaroid' />
-							</div>
-							<div class="name">
-								<a href="javascript:void(0);">
-									Danis LuLuLuLu
-								</a>
-							</div>
-						</div>
-						<div class="info">
-							<div class="basic">
-								<span class="time">2013年3月11日09:06</span>
-								|
-								<a>#<span class="floor">2</span></a>
-							</div>
-							<div class="act">
-								<a href="javascript:void(0);" class="reply">回复</a>
-							</div>
-							<div class="clearfix"></div>
-							<div class="content">
-								读了你的这篇文章，说出了很多我心里的话，有很多感触。
-							</div>
-						</div>
-						<input type="hidden" data-comment-id="112" data-author-id="2" data-author-name="Danis LuLuLuLu" />
-						<div class="clearfix"></div>
-					</li>
-
+					</li>					
+					{% endfor %}
 				</ol>
 				<!-- comments END -->
 			</div>
