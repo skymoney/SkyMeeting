@@ -291,21 +291,13 @@
 	  							<span class="group-name">All</span>
 	  						</a>
 	  					</li>
+	  					{% for group in groupAll %}
 	  					<li>
-	  						<a href="javascript:void(0);" class="group" data-gid="1">
-	  							<span class="group-name">Board</span>
+	  						<a href="javascript:void(0);" class="group" data-gid="{{ group.gid }}">
+	  							<span class="group-name">{{ group.gname }}</span>
 	  						</a>
 	  					</li>
-	  					<li>
-	  						<a href="javascript:void(0);" class="group" data-gid="2">
-	  							<span class="group-name">Market Department</span>
-	  						</a>
-	  					</li>
-	  					<li>
-	  						<a href="javascript:void(0);" class="group" data-gid="3">
-	  							<span class="group-name">Research &amp; Development</span>
-	  						</a>
-	  					</li>
+	  					{% endfor %}
 	  				</ul>
 				</div>
 
@@ -316,10 +308,9 @@
 					<div class="row-fluid" id="tagsDiv">
 	  					<span>Tags:</span>
 	  					<ul class="inline" id="tagList">
-	  						<li><a class="tag" data-tid="11">Manager</a></li>
-	  						<li><a class="tag" data-tid="12">Chief Officer</a></li>
-	  						<li><a class="tag" data-tid="13">Engineer</a></li>
-	  						<li><a class="tag" data-tid="14">Kubility</a></li>
+	  						{% for tag in tagAll %}
+	  						<li><a class="tag" data-tid="{{ tag.tid }}">{{ tag.tname }}</a></li>
+	  						{% endfor %}
 	  					</ul>
 	  				</div>
 
@@ -788,6 +779,7 @@ $(function() {
 		}
 
 
+		// ajax flag!!! disable button
 		// ajax submit
 		$.post(
 			"/addmeeting/",
