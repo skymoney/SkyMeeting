@@ -23,13 +23,13 @@ class MeetingTest(TestCase):
         from MeetingHelper import MeetingDAOHelper
         print MeetingDAOHelper.getCreateMeeting(params)
         
-    def tetGetSingleMeetingInfo(self):
+    def testGetSingleMeetingInfo(self):
         params=dict()
         params["mid"]=1
         from MeetingHelper import MeetingDAOHelper
         print MeetingDAOHelper.getSingleMeeting(params)
     
-    def testAddComment(self):
+    def tetAddComment(self):
         params=dict()
         params["meetingId"]=1
         params["userId"]=2

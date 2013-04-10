@@ -118,6 +118,7 @@ def getSingleMeeting(params):
     finalResult["meetingParticipant"]=util.getMeetingParticipant(role_list)
     finalResult["meetingData"]=util.getSingleMeetingInfo(meeting)
     #add more return values such as file and comment
+    finalResult["meetingComment"]=fetchComment(params)["comment"]
     return finalResult
 
 def addMeeting(params):
