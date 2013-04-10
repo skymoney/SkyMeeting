@@ -42,4 +42,6 @@ urlpatterns += patterns('',
     url(r'^home/$','Login.views.home'),
     url(r'^boards/$','Meeting.views.boards'),    
     url(r'^documents/$','Meeting.views.documents'),
+    url(r'^testupload/$','Meeting.views.testupload'),
+    url(r'^upfile/$','Meeting.views.testupfile'),
 )
