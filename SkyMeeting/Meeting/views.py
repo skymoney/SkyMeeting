@@ -87,17 +87,16 @@ def addComment(request):
 #    result["headUrl"] = "???"
     
     return HttpResponse(json.dumps(MeetingDAOHelper.addComment(params)))
-'''
-def testupload(request):
-    return render_to_response("testupload.html")
-def testupfile(request):
+
+def uploadFile(request):
     fSet=[]
     for f in request.FILES:
         fSet.append(request.FILES[str(f)])
+    
     params=dict()
     params["file"]=fSet
-    params["rid"]="1"
+    params["rid"]="1" #default!!!
+    
     result=MeetingDAOHelper.uploadFile(params)
     print result
-    return HttpResponse("done...")
-'''
+    return HttpResponse(json.dumps(result))

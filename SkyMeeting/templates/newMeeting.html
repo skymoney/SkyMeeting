@@ -8,6 +8,7 @@
 <!-- <link href="../public/css/jquery-ui-1.10.1.css" rel="stylesheet"> --><!-- no images included -->
 <link href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" rel="stylesheet">
 <link href="../public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+<link href="../public/css/fineuploader-3.4.1.css" rel="stylesheet" />
 
 <style type="text/css">
 	/* plugin patch */
@@ -78,6 +79,13 @@
 		padding-left: 20px;
 		margin-bottom: 20px;
 	}
+	/* attachment modal */
+	#fineUploader{
+		display: inline-block;
+	}
+	#uploadMsg{
+		width: 50%;
+	}
 	/* patch */
 	.checkbox{
 		display: inline-block;
@@ -88,8 +96,9 @@
 {%endblock%}
 
 {%block content%}
+{% load i18n %}
 <div class="container">
-	<h3>New Meeting</h3>
+	<h3>{% trans "New Meeting" %}</h3>
 	<!-- <div class="row-fluid">
 		<div class="box span12">
 			<div class="box-header well">
@@ -233,10 +242,13 @@
 			</div>
 			<div class="form-block-content">
 				<div class="row-fluid">
-					<p>none</p>
-				</div>
-				<div clas="row-fluid">
-					<a href="#attachmentModal" data-toggle="modal">&plus;&nbsp;Add attachment</a>
+					<div id="fineUploader" class="btn btn-primary">
+						<div>
+							<i class="icon-upload icon-white"></i>
+							Add file
+						</div>
+					</div>
+					<div id="uploadMsg"></div>
 				</div>
 			</div>
 		</div>
@@ -263,7 +275,7 @@
 
 		<!-- Actions block -->
 		<div class="form-actions">
-	        <input type="button" class="btn btn-primary" id="meetingFormOk" value="Save changes" data-validate="#meetingForm" />
+	        <input type="button" class="btn btn-primary" id="meetingFormOk" value="Save" data-validate="#meetingForm" />
 	        <input type="button" class="btn" id="meetingFormCancel" value="Cancel" />
 		</div>
 	</form>
@@ -366,25 +378,6 @@
 		<input type="button" class="btn" data-dismiss="modal" aria-hidden="true" value="Cancel" />
 	</div>
 </div>
-
-
-
-<div class="modal hide fade" id="attachmentModal" role="dialog" aria-labelledby="attachmentModalLabel" aria-hidden="true">
-	<div class="modal-header">
-		<!-- <input type="button" class="close" data-dismiss="modal" aria-hidden="true" value="x" /> -->
-		<a href="javascript:void(0);" class="close" role="button" data-dismiss="modal" aria-hidden="true">x</a>
-		<h3 id="attachmentModalLabel">Attachments</h3>
-	</div>
-	<div class="modal-body">
-		<form>
-			<input type="file" id="" />
-		</form>
-	</div>
-	<div class="modal-footer">
-		<input type="button" class="btn btn-primary" id="attachmentModalOk" value="Save changes" />
-		<input type="button" class="btn" data-dismiss="modal" aria-hidden="true" value="Cancel" />
-	</div>
-</div>
 {%endblock%}
 
 
@@ -402,6 +395,9 @@
 <!-- lib for kindeditor -->
 <script src="../public/js/kindeditor-4.0.5/kindeditor-min.js"></script>
 <script src="../public/js/kindeditor-4.0.5/lang/zh_CN.js"></script>
+
+<!-- lib for fileupload -->
+<script src="../public/js/jquery.fineuploader-3.4.1.min.js"></script>
 
 <!-- <script src="../public/js/jquery.uniform.min.js"></script> -->
 <script src="../public/js/uniform.default.js"></script>
@@ -706,6 +702,70 @@ $(function() {
 
 
 	// ===============================
+	// file upload
+	// ===============================
+    $fub = $('#fineUploader');
+    $messages = $('#uploadMsg');
+ 
+    var uploader = new qq.FineUploaderBasic({
+		button: $fub[0],
+		request: {
+     		endpoint: '/upfile/'
+      	},
+      	validation: {
+        	allowedExtensions: ['jpeg', 'jpg', 'gif', 'png', 'pdf', 'docx', 'doc', 'pptx', 'ppt', 'xlsx', 'xls', 'txt', 'rar', 'exe'],
+        	sizeLimit: 1048576000 // 100 MB = 100 * 1024 * 1024 bytes
+      	},
+      	callbacks: {
+        	onSubmit: function(id, fileName) {
+	          	$messages.append('<div id="file-' + id + '" class="alert" style="margin: 20px 0 0"></div>');
+	        },
+        	onUpload: function(id, fileName) {
+          		$('#file-' + id).addClass('alert-info')
+               		.html('<img src="../public/img/loading.gif" alt="Initializing. Please hold."> ' +
+                     			'Initializing ' +
+                      		'“' + fileName + '”');
+       		},
+        	onProgress: function(id, fileName, loaded, total) {
+          		if (loaded < total) {
+            		progress = Math.round(loaded / total * 100) + '% of ' + Math.round(total / 1024) + ' kB';
+            		$('#file-' + id).removeClass('alert-info')
+                            .html('<img src="../public/img/loading.gif" alt="In progress. Please hold."> ' +
+                                  'Uploading ' +
+                                  '“' + fileName + '” ' +
+                                  progress);
+          		} else {
+            		$('#file-' + id).addClass('alert-info')
+                            .html('<img src="../public/img/loading.gif" alt="Saving. Please hold."> ' +
+                                  'Saving ' +
+                                  '“' + fileName + '”');
+          		}
+        	},
+        	onComplete: function(id, fileName, responseJSON) {
+        		var result = responseJSON[0];
+          		if (result.success == "true") {
+            		$('#file-' + id).removeClass('alert-info')
+                            .addClass('alert-success')
+                            .html('<i class="icon-ok"></i> ' +
+                                  'Successfully saved ' +
+                                  '“' + fileName + '”');
+          		} else {
+            		$('#file-' + id).removeClass('alert-info')
+                            .addClass('alert-error')
+                            .html('<i class="icon-exclamation-sign"></i> ' +
+                                  'Error with ' +
+                                  '“' + fileName + '”');
+          		}
+        	}
+      	}
+    });
+	// ===============================
+
+
+
+
+
+	// ===============================
 	// form submission
 	// ===============================
 	$("#typeSct").change(function(){
@@ -780,6 +840,10 @@ $(function() {
 
 
 		// ajax flag!!! disable button
+		$("#meetingFormOk").addClass("disabled");
+		$("#meetingFormOk").attr("disabled", "disabled");
+		$("#meetingFormOk").val("Saving...");
+
 		// ajax submit
 		$.post(
 			"/addmeeting/",
@@ -805,27 +869,17 @@ $(function() {
 				{
 					// error message
 				}
+
+				// reset ajax flag!!! enable button
+				$("#meetingFormOk").removeClass("disabled");
+				$("#meetingFormOk").removeAttr("disabled");
+				$("#meetingFormOk").val("Save");
 			}
 		);
 
 	});
 	// ===============================
 
-});
-</script>
-
-
-
-<!-- 表单验证js -->
-<script type="text/javascript">
-	// var targetContent = $("iframe").contents().find("body").html();
-	// document.getElementById('inputDetail').value = targetContent;
-	// alert("长度:" + document.getElementById('inputDetail').value.length);
-
-$(function() {
-
-
-	
 });
 </script>
 {%endblock%}
