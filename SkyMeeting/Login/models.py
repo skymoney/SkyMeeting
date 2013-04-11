@@ -20,7 +20,7 @@ class AccountManager(models.Manager):
 # Create your models here.
 
 class Account(models.Model):
-	id=models.AutoField(primary_key=True,db_column="account_id")
+	aid=models.AutoField(primary_key=True,db_column="account_id")
 	aname = models.CharField(max_length=50,db_column="account_name") 
 	apassword=models.CharField(max_length=50,db_column="account_password")
 	last_login=models.DateTimeField(db_column="account_createtime")        #create time
