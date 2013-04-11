@@ -97,7 +97,7 @@ def uploadFile(params):
             try:
                 fileTb.save()
                 finalResult["success"]="true"
-                finalResult["fildId"]=fileTb.file_id
+                finalResult["fileId"]=fileTb.file_id
             except:
                 finalResult["success"]="false"
                 finalResult["errors"]=""
