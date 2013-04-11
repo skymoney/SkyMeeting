@@ -513,6 +513,18 @@ $(function() {
 
 
 
+	/* common util functions */
+	var disableButton = function(btn){
+		btn.addClass("disabled");
+		btn.attr("disabled", "disabled");
+	};
+	var enableButton = function(btn){
+		btn.removeClass("disabled");
+		btn.removeAttr("disabled");
+	}
+
+
+
 
 
 	// ===============================
@@ -734,11 +746,13 @@ $(function() {
       	callbacks: {
         	onSubmit: function(id, fileName) {
 	          	$messages.append('<div id="file-' + id + '" class="alert" style="margin: 20px 0 0"></div>');
+	          	// disable form submit button
+	          	disableButton($("#meetingFormOk"));
 	        },
         	onUpload: function(id, fileName) {
           		$('#file-' + id).addClass('alert-info')
                		.html('<img src="../public/img/loading.gif" alt="Initializing. Please hold."> ' +
-                     			'Initializing ' +
+                 			'Initializing ' +
                       		'“' + fileName + '”');
        		},
         	onProgress: function(id, fileName, loaded, total) {
@@ -774,6 +788,8 @@ $(function() {
                                   'Error with ' +
                                   '“' + fileName + '”');
           		}
+
+          		enableButton($("#meetingFormOk"));
         	}
       	}
     });
@@ -808,6 +824,10 @@ $(function() {
 		}
 	});*/
 
+	$("#meetingFormCancel").click(function(){
+		// redirect to meetings page
+		location.href = "/meetings/";
+	});
 
 	$("#meetingFormOk").click(function(){
 		// clear all errors
@@ -870,8 +890,7 @@ $(function() {
 
 
 		// ajax flag!!! disable button
-		$("#meetingFormOk").addClass("disabled");
-		$("#meetingFormOk").attr("disabled", "disabled");
+		disableButton($("#meetingFormOk"));
 		$("#meetingFormOk").val("Saving...");
 
 		// ajax submit
@@ -902,8 +921,7 @@ $(function() {
 				}
 
 				// reset ajax flag!!! enable button
-				$("#meetingFormOk").removeClass("disabled");
-				$("#meetingFormOk").removeAttr("disabled");
+				enableButton($("#meetingFormOk"));
 				$("#meetingFormOk").val("Save");
 			}
 		);

@@ -211,7 +211,7 @@
 			<h4>Detail info</h4>
 		</div>
 		<div class="meeting-block-content">
-			<p style="padding:0px 16px;">{{ meetingData.mdetail }}</p>
+			<p style="padding:0px 16px;">{{ meetingData.mdetail|safe }}</p>
 			<!-- 富文本html or 格式化树状文本??? -->
 		</div>
 	</div>
@@ -254,18 +254,19 @@
 		</div>
 		<div class="meeting-block-content">
 			<ul class="thumbnails" id="fileList">
-
+				{% for file in meetingFile %}
 				<li>
 					<div class="thumbnail">
 						<a href="javascript:void(0);" class="image-link">
-							<img class="file-image" src="../public/img/file_pdf_48x48.png" />
+							<img class="file-image" src="../public/img/file_{{ file.fextname }}_48x48.png" />
 						</a>
 						<a href="javascript:void(0);" class="default-link">
-							<div class="file-name">important file1.pdf</div>
+							<div class="file-name">{{ file.fname }}</div>
 						</a>
 					</div>
+					<input type="hidden" data-fid="{{ file.fid }}" data-fname="{{ file.fname }}" data-fsize="{{ file.fsize }}" data-fextname="{{ file.fextname }}" data-fstatus="" />
 				</li>
-				
+				{% endfor %}
 			</ul>
 		</div>
 	</div>
