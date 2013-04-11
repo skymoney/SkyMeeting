@@ -77,11 +77,12 @@ def handleFile(file):
     '''
     handle file uploaded
     '''
+    import time
     print file.name
     result=dict()
     try:
         #store file in local disk
-        path=settings.MEDIA_ROOT+file.name
+        path=settings.MEDIA_ROOT+str(int(time.time()))+"_"+file.name
         with open(path,'wb') as destination:
             for chunk in file.chunks():
                 destination.write(chunk)
