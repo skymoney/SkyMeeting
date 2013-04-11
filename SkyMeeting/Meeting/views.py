@@ -45,7 +45,7 @@ def addMeeting(request):
     params["email"] = request.POST["email"]
     params["detail"] = request.POST["detail"]                   # HTML code
     params["participants"] = request.POST["participants"]       # role ids, "1+2+3" etc.
-    params["files"] = "???"
+    params["files"] = request.POST["files"]                     # file ids, "1+2+3" etc.
     
     return HttpResponse(json.dumps(MeetingDAOHelper.addMeeting(params)))
     

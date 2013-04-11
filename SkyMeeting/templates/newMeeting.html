@@ -464,9 +464,11 @@ $(function() {
 	// global storage
 	// format: [{id, name}, ...]
 	var globalSelectedPersons = new Array();
+	// format: [{fileId, fileName}, ...]
+	var globalBindedFiles = new Array();
 
 	// util functions of global storage
-	// return true if not duplicate and add successfully
+	/* return true if not duplicate and add successfully */
 	var addToGlobalSelectedPersons = function(id, name){
 		var found = false;
 		for(var i=0; i<globalSelectedPersons.length; i++)
@@ -480,7 +482,6 @@ $(function() {
 
 		if(found == false)
 		{
-			name = name.trim();  //???
 			globalSelectedPersons.push((eval("({\"id\":" + id + ",\"name\":\"" + name + "\"})")));
 			return true;
 		}
@@ -492,6 +493,19 @@ $(function() {
 			if(globalSelectedPersons[i].id == id)
 			{
 				globalSelectedPersons.splice(i, 1);
+				break;
+			}
+		}
+	}
+	var addToGlobalBindedFiles = function(fileId, fileName){
+		globalBindedFiles.push((eval("({\"fileId\":" + fileId + ",\"fileName\":\"" + fileName + "\"})")));
+	};
+	var removeFromGlobalBindedFiles = function(fileId){
+		for(var i=0; i<globalBindedFiles.length; i++)
+		{
+			if(globalBindedFiles[i].fileId == fileId)
+			{
+				globalBindedFiles.splice(i, 1);
 				break;
 			}
 		}
@@ -712,10 +726,11 @@ $(function() {
 		request: {
      		endpoint: '/upfile/'
       	},
-      	validation: {
-        	allowedExtensions: ['jpeg', 'jpg', 'gif', 'png', 'pdf', 'docx', 'doc', 'pptx', 'ppt', 'xlsx', 'xls', 'txt', 'rar', 'exe'],
-        	sizeLimit: 1048576000 // 100 MB = 100 * 1024 * 1024 bytes
-      	},
+      	multiple: false,
+      	/*validation: {
+      		allowedExtensions: ['jpeg', 'jpg', 'gif', 'png', 'pdf', 'docx', 'doc', 'pptx', 'ppt', 'xlsx', 'xls', 'txt', 'rar'],
+        	sizeLimit: 104857600 // 100 MB = 100 * 1024 * 1024 bytes
+      	},*/
       	callbacks: {
         	onSubmit: function(id, fileName) {
 	          	$messages.append('<div id="file-' + id + '" class="alert" style="margin: 20px 0 0"></div>');
@@ -749,6 +764,9 @@ $(function() {
                             .html('<i class="icon-ok"></i> ' +
                                   'Successfully saved ' +
                                   '“' + fileName + '”');
+
+               		// update global storage
+               		addToGlobalBindedFiles(result.fileId, fileName);
           		} else {
             		$('#file-' + id).removeClass('alert-info')
                             .addClass('alert-error')
@@ -759,6 +777,8 @@ $(function() {
         	}
       	}
     });
+
+	// upload cancel and file cancel???
 	// ===============================
 
 
@@ -799,7 +819,6 @@ $(function() {
 		// $("#inputTitle").focus();
 		// $("#inputTitleError").removeClass("hide");
 
-
 		// basic info
 		var title = $("#inputTitle").val().trim();
 		var type = $("#typeSct").find("option:selected").val();
@@ -838,6 +857,17 @@ $(function() {
 			participants += "+" + globalSelectedPersons[i].id;
 		}
 
+		// files
+		var files = "";
+		for(var i=0; i<globalBindedFiles.length; i++)
+		{
+			if(i != 0)
+			{
+				files += "+";
+			}
+			files += globalBindedFiles[i].fileId;
+		}
+
 
 		// ajax flag!!! disable button
 		$("#meetingFormOk").addClass("disabled");
@@ -855,7 +885,8 @@ $(function() {
 				"tel": tel,
 				"email": email,
 				"detail": detail,
-				"participants": participants
+				"participants": participants,
+				"files": files
 			},
 			function(data)
 			{
