@@ -4,6 +4,7 @@ from django.conf import settings
 # from django.contrib import admin
 # admin.autodiscover()
 
+
 urlpatterns=patterns('MemManage.views',
     url(r'^members/$','members'),
     url(r'^members/edituser','editRoleInfo'),
@@ -43,4 +44,5 @@ urlpatterns += patterns('',
     url(r'^boards/$','Meeting.views.boards'),    
     url(r'^documents/$','Meeting.views.documents'),
     url(r'^upfile/$','Meeting.views.uploadFile'),
+    url(r'^jsi18n/(?P<packages>\S+)/$','django.views.i18n.javascript_catalog'),
 )
