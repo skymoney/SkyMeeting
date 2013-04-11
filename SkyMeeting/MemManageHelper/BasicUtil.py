@@ -1,4 +1,4 @@
-#-*-coding:utf-8-*-
+#-*- coding:utf-8 -*-
 
 '''
 Description: Provide basic ops for views methods
