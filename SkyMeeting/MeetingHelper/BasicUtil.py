@@ -57,6 +57,20 @@ def getMeetingParticipant(roleSet):
     
     return roleResult
 
+def getMeetingFile(fileSet):
+    fileResult=[]
+    
+    for f in fileSet:
+        fileInfo=dict()
+        fileInfo["fid"]=f.file_id
+        fileInfo["fname"]=f.file_name
+        fileInfo["fsize"]=f.file_size
+        fileInfo["fextname"]=f.file_name.split('.')[len(f.file_name.split('.'))-1]
+        fileInfo["fstatus"]=f.file_status
+        
+        fileResult.append(fileInfo)
+    return fileResult
+
 def comment2List(c_list):
     finalResult=[]
     for comment in c_list:

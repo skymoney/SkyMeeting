@@ -116,12 +116,18 @@ def getSingleMeeting(params):
     mid=params["mid"]
     meeting=Meeting.objects.get(meeting_id=mid)
     role_list=Role.objects.filter(meeting_participant__meeting_id=mid)
+    file_list=File.objects.filter(meeting_file__meeting_id=mid)
     finalResult=dict()
     
     finalResult["meetingParticipant"]=util.getMeetingParticipant(role_list)
     finalResult["meetingData"]=util.getSingleMeetingInfo(meeting)
     #add more return values such as file and comment
     finalResult["meetingComment"]=fetchComment(params)["comment"]
+    
+    #file 
+    #file id,name,size,extname,
+    
+    finalResult["meetingFile"]=util.getMeetingFile(file_list)
     return finalResult
 
 def addMeeting(params):
@@ -151,10 +157,12 @@ def addMeeting(params):
             roleIdSet=params["participants"].split('+')
             for roleId in roleIdSet:
                 Meeting_Participant(meeting_id=meeting,role_id=Role.objects.get(rid=roleId),participant_status=0).save()
-        if "file" in params:
+        if "files" in params:
             #store file info
             #currently not done...
-            pass
+            fileIdSet=params["files"].split('+')
+            for fileId in fileIdSet:
+                Meeting_File(meeting_id=meeting,file_id=File.objects.get(file_id=fileId),is_all_visiable=1).save()
         
         result["success"]="true"
         result["mid"]=meeting.meeting_id
