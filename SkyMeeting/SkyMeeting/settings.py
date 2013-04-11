@@ -45,8 +45,12 @@ USE_I18N = True
 ugettext = lambda s:s
 
 LANGUAGES = (
-    ("zh_cn",ugettext('Chinese')),
+    ("zh",ugettext('Chinese')),
     ("en",ugettext('English')),
+)
+
+LOCALE_PATHS=(
+    os.path.join(os.path.dirname(__file__),'../locale').replace("\\",'/'),
 )
 
 # If you set this to False, Django will not format dates, numbers and

@@ -29,6 +29,10 @@ def newMeeting(request):
     #permission check
     #......
     params = dict()
+    print request.LANGUAGE_CODE
+    import os
+    print os.path.join(os.path.dirname(__file__),'../locale').replace("\\",'/')
+    
     params["cid"] = 1 #default!!!
     return render_to_response('newMeeting.html', Context(MeetingDAOHelper.newMetingInitial(params)))
 
