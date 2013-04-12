@@ -44,5 +44,6 @@ urlpatterns += patterns('',
     url(r'^boards/$','Meeting.views.boards'),    
     url(r'^documents/$','Meeting.views.documents'),
     url(r'^upfile/$','Meeting.views.uploadFile'),
+    url(r'^setlang/$','django.views.i18n.set_language'),
     url(r'^jsi18n/(?P<packages>\S+)/$','django.views.i18n.javascript_catalog'),
 )

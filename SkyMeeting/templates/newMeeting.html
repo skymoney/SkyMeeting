@@ -1,4 +1,5 @@
 ﻿{% extends 'base.html'%}
+{% load i18n %}
 
 {%block title%}SkyMeeting{%endblock%}
 
@@ -96,7 +97,6 @@
 {%endblock%}
 
 {%block content%}
-{% load i18n %}
 <div class="container">
 	<h3>{% trans "New Meeting" %}</h3>
 	<!-- <div class="row-fluid">
@@ -115,7 +115,7 @@
 		<!-- Basic info block -->
 		<div class="row-fluid form-block">
 			<div class="form-block-header">
-				<h4>Basic Info</h4>
+				<h4>{% trans "Basic Info" %}</h4>
 			</div>
 			<div class="form-block-content">
 				<div class="control-group">
@@ -123,61 +123,61 @@
 					<div class="controls">
 						<input type="text" id="inputTitle" placeholder="Title" data-validate-presence="true" data-validate-error="#inputTitleError" />
 						<span class="alert alert-error hide" id="inputTitleError">
-							Meeting title cannot be blank.
+							{% trans "Meeting title cannot be blank." %}
 						</span>
-						<div class="help-block">Should be less than 100 characters.</div>
+						<div class="help-block">{% trans "Should be less than 100 characters." %}</div>
 					</div>
 				</div>
 
 				<div class="control-group">
-					<label class="control-label" for="typeSct">Meeting type</label>
+					<label class="control-label" for="typeSct">{% trans "Meeting type" %}</label>
 					<div class="controls">
 						<select id="typeSct">
-							<option value="-1">---- Please select ----</option>
-							<option value="1">Formal meeting</option>
-							<option value="2">Informal meeting</option>
+							<option value="-1">---- {% trans "Please select" %} ----</option>
+							<option value="1">{% trans "Formal meeting" %}</option>
+							<option value="2">{% trans "Informal meeting" %}</option>
 						</select>
 						<!-- 验证失效 -->
 						<span class="alert alert-error hide" id="typeSctError">
-							Please select meeting type.
+							{% trans "Please select meeting type." %}
 						</span>
 						<!-- static meeting type??? -->
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="startDatetime">Start time</label>
+					<label class="control-label" for="startDatetime">{% trans "Start time" %}</label>
 					<div class="controls">
 						<input type="text" class="date-input" id="startDatetime" readonly="readonly" data-validate-presence="true" data-validate-error="#startDatetimeError" />
 						<span class="alert alert-error hide" id="startDatetimeError">
-							Start time cannot be blank.
+							{% trans "Start time cannot be blank." %}
 						</span>
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="inputPlace">Place</label>
+					<label class="control-label" for="inputPlace">{% trans "Place" %}</label>
 					<div class="controls">
 						<input type="text" id="inputPlace" placeholder="Place" data-validate-presence="true" data-validate-error="#inputPlaceError" />
 						<span class="alert alert-error hide" id="inputPlaceError">
-							Place cannot be blank.
+							{% trans "Place cannot be blank." %}
 						</span>
-						<div class="help-block">Should be less than 50 characters.</div>
+						<div class="help-block">{% trans "Should be less than 50 characters." %}</div>
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="inputTel">Contact tel</label>
+					<label class="control-label" for="inputTel">{% trans "Contact tel" %}</label>
 					<div class="controls">
 						<input type="text" id="inputTel" placeholder="Contact tel" data-validate-presence="true" data-validate-format="/^[0-9]+$/" data-validate-error="#inputTelError" />
 						<span class="alert alert-error hide" id="inputTelError">
-							Should be a phone number.
+							{% trans "Should be a phone number." %}
 						</span>
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="inputEmail">Contact email</label>
+					<label class="control-label" for="inputEmail">{% trans "Contact email" %}</label>
 					<div class="controls">
 						<input type="text" id="inputEmail" placeholder="Contact mail" data-validate-email="true" data-validate-error="#inputEmailError" />
 						<span class="alert alert-error hide" id="inputEmailError">
-							Should be an email address.
+							{% trans "Should be an email address." %}
 						</span>
 					</div>
 				</div>
@@ -192,14 +192,14 @@
 		<!-- Detail info block -->
 		<div class="row-fluid form-block">
 			<div class="form-block-header">
-				<h4>Detail Info</h4>
+				<h4>{% trans "Detail Info" %}</h4>
 			</div>
 			<div class="form-block-content">
 				<textarea class="fulltext-input" id="inputDetail"></textarea>
 			</div>
 			<!-- 验证框架失效 -->
 			<span class="alert alert-error hide" id="inputDetailError">
-				Detail info cannot be blank.
+				{% trans "Detail info cannot be blank." %}
 			</span>
 		</div>
 
@@ -210,7 +210,7 @@
 		<!-- Participant block -->
 		<div class="row-fluid form-block">
 			<div class="form-block-header">
-				<h4>Participants</h4>
+				<h4>{% trans "Participants" %}</h4>
 			</div>
 			<div class="form-block-content">
 				<div class="row-fluid" id="personList">
@@ -223,10 +223,10 @@
 					 -->
 				</div>
 				<span class="alert alert-error hide" id="participantsError">
-					Participants cannot be none.
+					{% trans "Participants cannot be none." %}
 				</span>
 				<div class="row-fluid new-item-row">
-					<a href="javascript:void(0);" id="addParticipantLink">&plus;&nbsp;Add participant</a>
+					<a href="javascript:void(0);" id="addParticipantLink">+&nbsp;{% trans "Add participant" %}</a>
 				</div>
 			</div>
 		</div>
@@ -238,14 +238,14 @@
 		<!-- Attachment block -->
 		<div class="row-fluid form-block">
 			<div class="form-block-header">
-				<h4>Attachments</h4>
+				<h4>{% trans "Attachments" %}</h4>
 			</div>
 			<div class="form-block-content">
 				<div class="row-fluid">
 					<div id="fineUploader" class="btn btn-primary">
 						<div>
 							<i class="icon-upload icon-white"></i>
-							Add file
+							{% trans "Add file" %}
 						</div>
 					</div>
 					<div id="uploadMsg"></div>
@@ -275,8 +275,8 @@
 
 		<!-- Actions block -->
 		<div class="form-actions">
-	        <input type="button" class="btn btn-primary" id="meetingFormOk" value="Save" data-validate="#meetingForm" />
-	        <input type="button" class="btn" id="meetingFormCancel" value="Cancel" />
+	        <input type="button" class="btn btn-primary" id="meetingFormOk" value="{% trans 'Save' %}" data-validate="#meetingForm" />
+	        <input type="button" class="btn" id="meetingFormCancel" value="{% trans 'Cancel' %}" />
 		</div>
 	</form>
 </div>
@@ -290,7 +290,7 @@
 	<div class="modal-header">
 		<!-- <input type="button" class="close" data-dismiss="modal" aria-hidden="true" value="x" /> -->
 		<a href="javascript:void(0);" class="close" role="button" data-dismiss="modal" aria-hidden="true">x</a>
-		<h3 id="participantModalLabel">Participants</h3>
+		<h3 id="participantModalLabel">{% trans "Participants" %}</h3>
 	</div>
 	<div class="modal-body">
 		<div class="container-fluid" style="padding-left:0px; padding-right:0px;">
@@ -300,7 +300,7 @@
 					<ul class="nav nav-list side-nav" id="groupList">
 	  					<li class="active">
 	  						<a href="javascript:void(0);" class="group" data-gid="-1">
-	  							<span class="group-name">All</span>
+	  							<span class="group-name">{% trans "All" %}</span>
 	  						</a>
 	  					</li>
 	  					{% for group in groupAll %}
@@ -318,7 +318,7 @@
 					<!-- sub tag nav -->
 					<!-- all tags, not change with group!!! -->
 					<div class="row-fluid" id="tagsDiv">
-	  					<span>Tags:</span>
+	  					<span>{% trans "Tags" %}:</span>
 	  					<ul class="inline" id="tagList">
 	  						{% for tag in tagAll %}
 	  						<li><a class="tag" data-tid="{{ tag.tid }}">{{ tag.tname }}</a></li>
@@ -349,7 +349,7 @@
 										<input type="checkbox" id="selectAllPerson" />
 									</span>
 								</div>
-								All
+								{% trans "All" %}
 							</label>
 						</div>
 	  				</div>
@@ -358,13 +358,13 @@
 	  				<div class="row-fluid pagination-row">
 						<div class="pagination">
 						  <ul>
-						    <li class="prev disabled"><a href="javascript:void(0);">← Previous</a></li>
+						    <li class="prev disabled"><a href="javascript:void(0);">← {% trans "Previous" %}</a></li>
 						    <li class="active"><a href="javascript:void(0);">1</a></li>
 						    <li><a href="javascript:void(0);">2</a></li>
 						    <li><a href="javascript:void(0);">3</a></li>
 						    <li><a href="javascript:void(0);">4</a></li>
 						    <li><a href="javascript:void(0);">5</a></li>
-						    <li class="next"><a href="javascript:void(0);">Next → </a></li>
+						    <li class="next"><a href="javascript:void(0);">{% trans "Next" %} → </a></li>
 						  </ul>
 						</div>
 					</div>
@@ -374,8 +374,8 @@
 
 	</div>
 	<div class="modal-footer">
-		<input type="button" class="btn btn-primary" id="participantModalOk" value="Save changes" />
-		<input type="button" class="btn" data-dismiss="modal" aria-hidden="true" value="Cancel" />
+		<input type="button" class="btn btn-primary" id="participantModalOk" value="{% trans 'Save changes' %}" />
+		<input type="button" class="btn" data-dismiss="modal" aria-hidden="true" value="{% trans 'Cancel' %}" />
 	</div>
 </div>
 {%endblock%}
@@ -437,10 +437,10 @@ $(function() {
 
 
     // 有问题???阻止点击背景关闭
-    $("#participantModal").on("show", function(){
+    /*$("#participantModal").on("show", function(){
     	// alert("a");
     	$(".modal-backdrop fade in").unbind("click");
-    });
+    });*/
 
 
     // 表单验证框架 略弱!!!
@@ -734,15 +734,20 @@ $(function() {
     $messages = $('#uploadMsg');
  
     var uploader = new qq.FineUploaderBasic({
+    	multiple: false,
 		button: $fub[0],
 		request: {
      		endpoint: '/upfile/'
       	},
-      	multiple: false,
       	/*validation: {
       		allowedExtensions: ['jpeg', 'jpg', 'gif', 'png', 'pdf', 'docx', 'doc', 'pptx', 'ppt', 'xlsx', 'xls', 'txt', 'rar'],
         	sizeLimit: 104857600 // 100 MB = 100 * 1024 * 1024 bytes
       	},*/
+        /*deleteFile: {
+            enabled: true,
+            endpoint: '/upfile/',
+            forceConfirm: true
+        },*/
       	callbacks: {
         	onSubmit: function(id, fileName) {
 	          	$messages.append('<div id="file-' + id + '" class="alert" style="margin: 20px 0 0"></div>');
@@ -751,23 +756,16 @@ $(function() {
 	        },
         	onUpload: function(id, fileName) {
           		$('#file-' + id).addClass('alert-info')
-               		.html('<img src="../public/img/loading.gif" alt="Initializing. Please hold."> ' +
-                 			'Initializing ' +
-                      		'“' + fileName + '”');
+               		.html('<img src="../public/img/loading.gif" alt=' + gettext("Initializing. Please hold.") + '> ' + gettext("Initializing") + ' “' + fileName + '”');
        		},
         	onProgress: function(id, fileName, loaded, total) {
           		if (loaded < total) {
             		progress = Math.round(loaded / total * 100) + '% of ' + Math.round(total / 1024) + ' kB';
             		$('#file-' + id).removeClass('alert-info')
-                            .html('<img src="../public/img/loading.gif" alt="In progress. Please hold."> ' +
-                                  'Uploading ' +
-                                  '“' + fileName + '” ' +
-                                  progress);
+                            .html('<img src="../public/img/loading.gif" alt=' + gettext("In progress. Please hold.") + '> ' + gettext("Uploading") + ' “' + fileName + '” ' + progress);
           		} else {
             		$('#file-' + id).addClass('alert-info')
-                            .html('<img src="../public/img/loading.gif" alt="Saving. Please hold."> ' +
-                                  'Saving ' +
-                                  '“' + fileName + '”');
+                            .html('<img src="../public/img/loading.gif" alt=' + gettext("Saving. Please hold.") + '> ' + gettext("Saving") + ' “' + fileName + '”');
           		}
         	},
         	onComplete: function(id, fileName, responseJSON) {
@@ -775,18 +773,14 @@ $(function() {
           		if (result.success == "true") {
             		$('#file-' + id).removeClass('alert-info')
                             .addClass('alert-success')
-                            .html('<i class="icon-ok"></i> ' +
-                                  'Successfully saved ' +
-                                  '“' + fileName + '”');
+                            .html('<i class="icon-ok"></i> ' + gettext("Successfully saved") + ' “' + fileName + '”');
 
                		// update global storage
                		addToGlobalBindedFiles(result.fileId, fileName);
           		} else {
             		$('#file-' + id).removeClass('alert-info')
                             .addClass('alert-error')
-                            .html('<i class="icon-exclamation-sign"></i> ' +
-                                  'Error with ' +
-                                  '“' + fileName + '”');
+                            .html('<i class="icon-exclamation-sign"></i> ' + gettext("Error with") + ' “' + fileName + '”');
           		}
 
           		enableButton($("#meetingFormOk"));
@@ -891,7 +885,7 @@ $(function() {
 
 		// ajax flag!!! disable button
 		disableButton($("#meetingFormOk"));
-		$("#meetingFormOk").val("Saving...");
+		$("#meetingFormOk").val(gettext("Saving..."));
 
 		// ajax submit
 		$.post(
@@ -922,7 +916,7 @@ $(function() {
 
 				// reset ajax flag!!! enable button
 				enableButton($("#meetingFormOk"));
-				$("#meetingFormOk").val("Save");
+				$("#meetingFormOk").val(gettext("Save"));
 			}
 		);
 
@@ -932,5 +926,4 @@ $(function() {
 });
 </script>
 {%endblock%}
-
 

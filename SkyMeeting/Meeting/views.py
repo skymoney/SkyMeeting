@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.template import Context
 from MeetingHelper import MeetingDAOHelper
+from GlobalUtil import RequestUtil
 import simplejson as json
 
 def boards(request):
@@ -23,18 +24,19 @@ def meetings(request):
     if "type" in request.GET:
         params["type"] = request.GET["type"]    # -1 for all meetings, 1 for formal, 2 for informal
     
-    return render_to_response('meetingList.html', Context(MeetingDAOHelper.meetings(params)))
+    result = MeetingDAOHelper.meetings(params)
+    result["langPack"] = RequestUtil.getLangPack(request)
+    return render_to_response('meetingList.html', Context(result))
 
 def newMeeting(request):
     #permission check
     #......
     params = dict()
-    print request.LANGUAGE_CODE
-    import os
-    print os.path.join(os.path.dirname(__file__),'../locale').replace("\\",'/')
-    
     params["cid"] = 1 #default!!!
-    return render_to_response('newMeeting.html', Context(MeetingDAOHelper.newMetingInitial(params)))
+    
+    result = MeetingDAOHelper.newMetingInitial(params)
+    result["langPack"] = RequestUtil.getLangPack(request)
+    return render_to_response('newMeeting.html', Context(result))
 
 def addMeeting(request):
     #permission check
@@ -58,7 +60,10 @@ def meeting(request):
     #......
     params = dict()
     params["mid"] = request.GET["mid"]
-    return render_to_response('meeting.html', Context(MeetingDAOHelper.getSingleMeeting(params)))
+    
+    result = MeetingDAOHelper.getSingleMeeting(params)
+    result["langPack"] = RequestUtil.getLangPack(request)
+    return render_to_response('meeting.html', Context(result))
 
 def addComment(request):
     #permission check
