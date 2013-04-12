@@ -734,15 +734,20 @@ $(function() {
     $messages = $('#uploadMsg');
  
     var uploader = new qq.FineUploaderBasic({
+    	multiple: false,
 		button: $fub[0],
 		request: {
      		endpoint: '/upfile/'
       	},
-      	multiple: false,
       	/*validation: {
       		allowedExtensions: ['jpeg', 'jpg', 'gif', 'png', 'pdf', 'docx', 'doc', 'pptx', 'ppt', 'xlsx', 'xls', 'txt', 'rar'],
         	sizeLimit: 104857600 // 100 MB = 100 * 1024 * 1024 bytes
       	},*/
+        /*deleteFile: {
+            enabled: true,
+            endpoint: '/upfile/',
+            forceConfirm: true
+        },*/
       	callbacks: {
         	onSubmit: function(id, fileName) {
 	          	$messages.append('<div id="file-' + id + '" class="alert" style="margin: 20px 0 0"></div>');
