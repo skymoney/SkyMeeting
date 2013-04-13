@@ -1,0 +1,80 @@
+/* plugin patch */
+.ui-datepicker{
+	font-size: 12px;
+	line-height: 13px;
+}
+.date-input[readonly]{
+	cursor: pointer;
+	background-color: white;
+}
+.ke-container{
+	/*没用 要延迟加载*/
+	margin: 10px 0px; 
+}
+.fulltext-input{
+	width: 700px;
+	height: 300px;
+	visibility: hidden;
+}
+
+/* participant */
+/* 现在person样式和tag一样 */
+div.person{
+	display: inline-block;
+	padding: 0 7px;
+	margin-left: 8px;
+	margin-bottom: 5px;
+	height: 22px;
+	line-height: 22px;
+	background: #f1f1f1;
+	text-align: center;
+	color: #999;
+	text-decoration: none;
+	border: 1px solid #ccc;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+a.remove-person{
+	font-weight: bold;
+	line-height: 20px;
+	color: #000000;
+	text-shadow: 0 1px 0 #ffffff;
+	opacity: 0.3;
+	filter: alpha(opacity=30);
+}
+a.remove-person:hover{
+	color: #000000;
+	text-decoration: none;
+	cursor: pointer;
+	opacity: 0.6;
+	filter: alpha(opacity=60);
+}
+
+/* participant modal */
+#participantModal{
+	width: 60%;
+	left: 40%;
+}
+#tagsDiv{
+	margin-bottom: 10px;
+}
+#tagList{
+	display: inline;
+}
+#personSelectDiv{
+	padding-left: 20px;
+	margin-bottom: 20px;
+}
+/* attachment modal */
+#fineUploader{
+	display: inline-block;
+}
+#uploadMsg{
+	width: 50%;
+}
+/* patch */
+.checkbox{
+	display: inline-block;
+	width: 220px;
+}

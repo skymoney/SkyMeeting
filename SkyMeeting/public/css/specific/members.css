@@ -1,0 +1,81 @@
+.chzn-drop{
+	left: 0;
+	display: none;
+}
+
+/* special */
+tr.delete-alert{
+	background-color: #f2dede;
+}
+
+/* groups */
+#addGroupDiv{
+	margin-top: 15px;
+	border: 1px solid #ccc;
+}
+#newGroupName{
+	width: 180px;
+}
+#addGroupOk, #editGroupOk{
+	margin-bottom: 10px
+}
+.group-action{
+	z-index: 9;
+	float: right;
+	margin-top: -29px;
+	margin-right: 23px;
+}
+.group-action a{
+	display: inline;
+	padding: 0;
+	border: none;
+}
+
+/* tags */
+#tagsDiv{
+	margin-bottom: 10px;
+}
+#tagsDivLabel{
+	line-height: 29px;
+}
+#tagList{
+	/*display: inline-block;*/
+	display: inline;
+}
+#editTagsLink{
+	display: inline-block;
+	float: right;
+}
+#editTagsOk{
+	float: right;
+}
+#editTagsDiv{
+	margin-bottom: 20px;
+}
+#tagsArea{
+	padding: 10px 7px 5px 7px;
+	border: 1px solid #e6e6e6;
+}
+#tagsArea .tag{
+	margin-left: 5px;
+	margin-right: 5px;
+	cursor: default;
+}
+#editNewTag, #editNewTag:focus{
+	border: 0;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	margin: 0px;
+	padding: 4px 6px;
+	font-size: 14px;
+	line-height: 22px;
+	height: 22px;
+	width: 140px;
+}
+#addTagHintDiv{
+	z-index: 5;
+	border: 1px solid #ccc;
+	background-color: rgb(255,255,235);
+	padding: 4px 6px;
+}

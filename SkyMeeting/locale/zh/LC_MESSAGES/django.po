@@ -54,7 +54,7 @@ msgid "Basic Info"
 msgstr "基本信息"
 
 #: templates/meeting.html:180
-msgid "organizer"
+msgid "Organizer"
 msgstr "发起者"
 
 #: templates/meeting.html:185 templates/meetingList.html:43
@@ -178,7 +178,7 @@ msgstr "新建会议"
 #: templates/meetingList.html:86 templates/members.html:277
 #: templates/newMeeting.html:361
 msgid "Previous"
-msgstr "前一页"
+msgstr "上一页"
 
 #: templates/meetingList.html:92 templates/members.html:283
 #: templates/newMeeting.html:367

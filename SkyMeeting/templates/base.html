@@ -100,17 +100,7 @@
 	<!-- lib for js validation -->
 	<script src="../public/js/jquery.validation-1.0.1.min.js"></script>
 
-	<!-- js for language change -->
-	<script type="text/javascript">
-	$(function(){
-		$("#langList").find("a").click(function(){
-			var langCode = $(this).attr("data-lang-code");
-			var form = $("#langForm");
-			form.find("input[name='language']").val(langCode);
-			form.submit();
-		});
-	});
-	</script>
+	<script type="text/javascript" src="../public/js/specific/base.js"></script>
 	{%block morestatic%}{%endblock%}
   </body>
   {%block footer%}{%endblock%}

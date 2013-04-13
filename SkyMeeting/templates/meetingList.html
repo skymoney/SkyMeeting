@@ -4,12 +4,7 @@
 {%block title%}SkyMeeting{%endblock%}
 
 {%block cssfile%}
-<style type="text/css">
-	#meetingTable {
-		margin-top: 10px;
-		margin-bottom: 15px;
-	}
-</style>
+<link rel="stylesheet" type="text/css" href="../public/css/specific/meetingList.css">
 {%endblock%}
 
 {%block content%}
@@ -96,22 +91,6 @@
 	</div>
 {%endblock%}
 
-
-
-
-
 {%block morestatic%}
-<script type="text/javascript">
-$(function() {
-
-	var redirectFunc = function(){
-		var type = $("#meetingTypeSct").find("option:selected").val();
-		var ad = $("#meetingAdSct").find("option:selected").val();
-		location.href = "/meetings/?type=" + type + "&ad=" + ad;
-	};
-	$("#meetingTypeSct").change(redirectFunc);
-	$("#meetingAdSct").change(redirectFunc);
-
-});
-</script>
+<script type="text/javascript" src="../public/js/specific/meetingList.js"></script>
 {%endblock%}
