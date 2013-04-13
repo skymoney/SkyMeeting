@@ -34,9 +34,8 @@ msgid "Boards"
 msgstr "董事会"
 
 #: templates/base.html:50
-#, fuzzy
 msgid "Meetings"
-msgstr "新建会议"
+msgstr "会议"
 
 #: templates/base.html:53
 msgid "Documents"
@@ -50,9 +49,8 @@ msgstr "成员统计"
 msgid "Search"
 msgstr "搜索"
 
-#: templates/meeting.html:176
-#, fuzzy
-msgid "Basic info"
+#: templates/meeting.html:176 templates/newMeeting.html:118
+msgid "Basic Info"
 msgstr "基本信息"
 
 #: templates/meeting.html:180
@@ -61,9 +59,8 @@ msgstr "发起者"
 
 #: templates/meeting.html:185 templates/meetingList.html:43
 #: templates/newMeeting.html:133
-#, fuzzy
 msgid "Meeting type"
-msgstr "新建会议"
+msgstr "会议类型"
 
 #: templates/meeting.html:188 templates/meetingList.html:23
 #: templates/meetingList.html.py:57 templates/newMeeting.html:137
@@ -88,10 +85,9 @@ msgstr "联系电话"
 msgid "Contact mail"
 msgstr "联系邮箱"
 
-#: templates/meeting.html:210
-#, fuzzy
-msgid "Detail info"
-msgstr "基本信息"
+#: templates/meeting.html:210 templates/newMeeting.html:195
+msgid "Detail Info"
+msgstr "详细信息"
 
 #: templates/meeting.html:225 templates/newMeeting.html:213
 #: templates/newMeeting.html.py:293
@@ -119,14 +115,12 @@ msgid "Post"
 msgstr "提交"
 
 #: templates/meetingList.html:17
-#, fuzzy
 msgid "My Meetings"
-msgstr "新建会议"
+msgstr "我的会议"
 
 #: templates/meetingList.html:20
-#, fuzzy
 msgid "Choose your meeting type"
-msgstr "新建会议"
+msgstr "选择会议类型"
 
 #: templates/meetingList.html:22 templates/members.html:111
 #: templates/newMeeting.html:303 templates/newMeeting.html.py:352
@@ -138,19 +132,16 @@ msgid "Choose"
 msgstr "选择"
 
 #: templates/meetingList.html:31
-#, fuzzy
 msgid "Meetings I attended"
-msgstr "新建会议"
+msgstr "我参加的会议"
 
 #: templates/meetingList.html:32
-#, fuzzy
 msgid "Meetings I created"
-msgstr "新建会议"
+msgstr "我创建的会议"
 
 #: templates/meetingList.html:42
-#, fuzzy
 msgid "Meeting name"
-msgstr "新建会议"
+msgstr "会议名称"
 
 #: templates/meetingList.html:44 templates/newMeeting.html:148
 msgid "Start time"
@@ -178,10 +169,9 @@ msgstr "附件"
 
 #: templates/meetingList.html:68
 msgid "Active"
-msgstr ""
+msgstr "活跃"
 
 #: templates/meetingList.html:81
-#, fuzzy
 msgid "Create new meeting"
 msgstr "新建会议"
 
@@ -352,10 +342,6 @@ msgstr "保存更改"
 msgid "New Meeting"
 msgstr "新建会议"
 
-#: templates/newMeeting.html:118
-msgid "Basic Info"
-msgstr "基本信息"
-
 #: templates/newMeeting.html:126
 msgid "Meeting title cannot be blank."
 msgstr "会议标题不能为空"
@@ -399,11 +385,6 @@ msgstr "联系邮箱"
 #: templates/newMeeting.html:180
 msgid "Should be an email address."
 msgstr "应填一个邮箱地址"
-
-#: templates/newMeeting.html:195
-#, fuzzy
-msgid "Detail Info"
-msgstr "基本信息"
 
 #: templates/newMeeting.html:202
 msgid "Detail info cannot be blank."
