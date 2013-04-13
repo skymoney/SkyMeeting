@@ -4,8 +4,15 @@ from django.conf import settings
 # from django.contrib import admin
 # admin.autodiscover()
 
+urlpatterns = patterns('Login.views',
+    url(r'^$','welcome'),
+    url(r'^login/$','login'),  
+    url(r'^logout/$','logout'),
+    url(r'^home/$','home'),
+    url(r'^invite/$','invite'),
+)
 
-urlpatterns=patterns('MemManage.views',
+urlpatterns += patterns('MemManage.views',
     url(r'^members/$','members'),
     url(r'^members/edituser','editRoleInfo'),
     url(r'^members/inviteuser/$','inviteUser'),
@@ -37,10 +44,6 @@ urlpatterns += patterns('',
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^public/(?P<path>.*)$','django.views.static.serve',{"document_root":settings.STATIC_PATH}), #add static files
-    url(r'^$','Login.views.welcome'),
-    url(r'^login/$','Login.views.login'),  
-    url(r'^logout/$','Login.views.logout'),
-    url(r'^home/$','Login.views.home'),
     url(r'^boards/$','Meeting.views.boards'),    
     url(r'^documents/$','Meeting.views.documents'),
     url(r'^upfile/$','Meeting.views.uploadFile'),
