@@ -2,7 +2,7 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import authenticate, login as auth_login,logout as auth_logout
 from MemManage.models import TempRole,Role  
 from Login.models import Account 
 import simplejson
@@ -23,7 +23,12 @@ def login(request):
         return HttpResponse('fuck')
 
 def logout(request):
-    pass
+    '''
+    user logout
+    del session and redirect to welcome page
+    '''
+    auth_logout(request)
+    return HttpResponseRedirect('/')
 
 def invite(request):
     try :
@@ -75,3 +80,9 @@ def home(request):
         return render_to_response('meetingList.html')
     else:
         return HttpResponseRedirect('/')
+
+def register(request):
+    '''
+    user register
+    '''
+    pass

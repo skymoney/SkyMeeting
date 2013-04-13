@@ -13,3 +13,13 @@ def getLangPack(request):
             break
     
     return langPack
+
+def checkIsLogin(request):
+    #check user whether login
+    if request.user.is_authenticated():
+        return True
+    else:
+        return False
+
+def checkPermission(request):
+    pass
