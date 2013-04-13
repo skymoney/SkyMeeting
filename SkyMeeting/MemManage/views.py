@@ -4,6 +4,7 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.template import Context
 from MemManageHelper import DAOHelper
+from GlobalUtil import RequestUtil
 import simplejson as json
 
 def members(request):
@@ -18,7 +19,9 @@ def members(request):
     if "tid" in request.GET:
         params["tid"] = request.GET["tid"]
     
-    return render_to_response('members.html', Context(DAOHelper.members(params)))
+    result = DAOHelper.members(params)
+    result["langPack"] = RequestUtil.getLangPack(request)
+    return render_to_response('members.html', Context(result))
 
 
 

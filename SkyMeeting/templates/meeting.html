@@ -1,154 +1,10 @@
 ﻿{% extends 'base.html'%}
+{% load i18n %}
 
 {%block title%}SkyMeeting{%endblock%}
 
 {%block cssfile%}
-<style type="text/css">
-    /*override bootstrap css*/
-    /*.dl-horizontal dt, .dl-horizontal dd{
-    	margin-top: 12px;
-    }
-    .dl-horizontal dt:first-child, .dl-horizontal dd:first-child{
-    	margin-top: 0px;
-    }*/
-    .dl-horizontal dd{
-    	margin-bottom: 12px;
-    }
-    .dl-horizontal dd:last-child{
-    	margin-bottom: 0px;
-    }
-    #imageDt{
-    	margin-top: 20px;
-    }
-    #imageDd span{
-    	display: inline-block;
-    }
-
-    /*special*/
-    .meeting-block{
-		margin-bottom: 10px;
-	}
-	.meeting-block-header{
-		border-bottom: 1px dashed #ccc;
-	}
-	.meeting-block-content{
-		padding-top: 20px;
-		padding-bottom: 10px;
-	}
-    #meetingTitle{
-    	display: inline-block;
-    	padding: 0px 50px;
-    	border-bottom: 1px solid #ccc;
-    }
-    #meetingSubTitle{
-    	margin: 10px 0px;
-    	color: #0088cc;
-    	font-size: 16px;
-    }
-
-    #personList li{
-    	margin-left: 8px;
-    	margin-right: 8px;
-    	width: 120px;
-    }
-	.person-name{
-		text-align: center;
-	}
-	.person-position{
-		text-align: center;
-	}
-	img.person-head{
-		padding-top: 6px;
-	}
-    #fileList li{
-    	margin-left: 8px;
-    	margin-right: 8px;
-    	/*width: 200px;*/
-    }
-    .file-name{
-    	display: inline-block;
-    }
-    img.file-image{
-
-    }
-
-    /*copied from collshell.cn*/
-    /* comment START */
-	#commentListDiv {
-		
-	}
-	#commentListDiv ol, 
-	#commentListDiv li {
-		list-style:none;
-	}
-	#commentList {
-		padding-bottom:5px;
-	}
-	#commentList .comment, 
-	#commentList .messagebox {
-		margin-top:15px;
-	}
-	.comment .author {
-		float:left;
-		width:81px;
-		text-align:center;
-	}
-	.comment .pic {
-		background:url(../public/img/commentpoint.png) 100% 33% no-repeat;
-		padding-right:12px;
-		margin-top:10px;
-	}
-	.comment .name {
-		width:67px;
-		padding-right:12px;
-		font-weight:bold;
-		overflow:hidden;
-	}
-	.comment .avatar {
-		padding:1px;
-		border:1px solid #999;
-	}
-	.comment .info {
-		background:#EDEFF0 url(../public/img/comment.gif) 0 0 no-repeat;
-		float:left;
-		padding:10px 15px 0;
-		/*width:494px;*/
-		width:545px;
-	}
-	.comment .basic {
-		float:left;
-		font-size:10px;
-	}
-	.comment .act {
-		float:right;
-		font-size:10px;
-	}
-	.comment .content {
-		background:url(../public/img/comment.gif) 100% 100% no-repeat;
-		margin:0 -15px;
-		padding:10px 15px;
-		line-height:145%;
-	}
-	.comment .content p {
-		margin-top:10px;
-	}
-	.comment .content blockquote p {
-		margin-top:0;
-		margin-bottom:10px;
-	}
-
-	#commentPostDiv{
-		/*width: 600px;*/
-		margin-left: 106px;
-	}
-	#commentPostForm{
-		width: 577px;
-	}
-	#inputComment{
-		width: 562px;
-	}
-	/* comment END */
-</style>
+<link rel="stylesheet" type="text/css" href="../public/css/specific/meeting.css">
 {%endblock%}
 
 {%block content%}
@@ -172,31 +28,29 @@
 	<!-- Basic info block -->
 	<div class="row-fluid meeting-block">
 		<div class="meeting-block-header">
-			<h4>Basic info</h4>
+			<h4>{% trans "Basic Info" %}</h4>
 		</div>
 		<div class="meeting-block-content">
 			<dl class="dl-horizontal">
-				<dt id="imageDt">organizer</dt>
+				<dt id="imageDt">{% trans "Organizer" %}</dt>
 			  	<dd id="imageDd">
 					<span><img class="" src="../public/img/head_64x64.png" /></span>
 					<span>{{ meetingData.muser.name }}</span>
 				</dd>
-			  	<dt>Meeting type</dt>
+			  	<dt>{% trans "Meeting type" %}</dt>
 			  	<dd>
 			  		{% if meetingData.mtype == 1 %}
-						Formal meeting
+						{% trans "Formal meeting" %}
 					{% elif meetingData.mtype == 2 %}
-						Informal meeting
+						{% trans "Informal meeting" %}
 					{% else %}
-						Unknown
+						{% trans "Unknown" %}
 					{% endif %}
 			  	</dd>
-			  	<dt>Contact tel</dt>
+			  	<dt>{% trans "Contact tel" %}</dt>
 			  	<dd>{{ meetingData.mtel }}</dd>
-			  	<dt>Contact mail</dt>
+			  	<dt>{% trans "Contact mail" %}</dt>
 			  	<dd>{{ meetingData.memail }}</dd>
-			  	<!-- <dt>Additional info</dt>
-			  	<dd>important important important important important important important important important important important important important important important important important important important important important important important important important important important important important important important important </dd> -->
 			</dl>
 		</div>
 	</div>
@@ -208,7 +62,7 @@
 	<!-- Detail info block -->
 	<div class="row-fluid meeting-block">
 		<div class="meeting-block-header">
-			<h4>Detail info</h4>
+			<h4>{% trans "Detail Info" %}</h4>
 		</div>
 		<div class="meeting-block-content">
 			<p style="padding:0px 16px;">{{ meetingData.mdetail|safe }}</p>
@@ -223,7 +77,7 @@
 	<!-- Participant block -->
 	<div class="row-fluid">
 		<div class="meeting-block-header">
-			<h4>Participants</h4>
+			<h4>{% trans "Participants" %}</h4>
 		</div>
 		<div class="meeting-block-content">
 			<ul class="thumbnails" id="personList">
@@ -250,7 +104,7 @@
 	<!-- Attachment block -->
 	<div class="row-fluid">
 		<div class="meeting-block-header">
-			<h4>Attachments</h4>
+			<h4>{% trans "Attachments" %}</h4>
 		</div>
 		<div class="meeting-block-content">
 			<ul class="thumbnails" id="fileList">
@@ -278,7 +132,7 @@
 	<!-- Comment block -->
 	<div class="row-fluid">
 		<div class="meeting-block-header">
-			<h4>Comments</h4>
+			<h4>{% trans "Comments" %}</h4>
 		</div>
 		<div class="meeting-block-content">
 			<div id="commentListDiv">
@@ -303,7 +157,7 @@
 								<a>#<span class="floor">{{ forloop.counter }}</span></a>
 							</div>
 							<div class="act">
-								<a href="javascript:void(0);" class="reply">回复</a>
+								<a href="javascript:void(0);" class="reply">{% trans "Reply" %}</a>
 							</div>
 							<div class="clearfix"></div>
 							<div class="content">
@@ -330,10 +184,10 @@
 					</div>
 					<div class="row-fluid">
 						<span class="alert alert-error pull-left hide" id="addCommentError">
-							Comment cannot be blank.
+							{% trans "Comment cannot be blank." %}
 						</span>
 						<span class="pull-right">
-							<input type="button" class="btn btn-primary btn-small" id="addCommentOk" value="提交" />
+							<input type="button" class="btn btn-primary btn-small" id="addCommentOk" value="{% trans 'Post' %}" />
 						</span>
 					</div>
 				</form>
@@ -341,200 +195,13 @@
 		</div>
 	</div>
 
-
 	<input type="hidden" id="meetingData" data-meeting-id="{{ meetingData.mid }}" />
-
-
 </div>
 {%endblock%}
-
-
-
-
 
 {%block morestatic%}
 <!-- lib for scroll plugin -->
 <script src="../public/js/jquery.scrollTo.min.js"></script>
 
-
-
-<!-- 事件绑定js -->
-<script type="text/javascript">
-/* extend functions */
-$.fn.setCursorPosition = function(position) {
-    if(this.length == 0) return this;
-    return $(this).setSelection(position, position);
-}
-$.fn.setSelection = function(selectionStart, selectionEnd) {
-    if(this.length == 0) return this;
-    input = this[0];
-
-    if (input.createTextRange) {
-        var range = input.createTextRange();
-        range.collapse(true);
-        range.moveEnd('character', selectionEnd);
-        range.moveStart('character', selectionStart);
-        range.select();
-    } else if (input.setSelectionRange) {
-        input.focus();
-        input.setSelectionRange(selectionStart, selectionEnd);
-    }
-
-    return this;
-}
-$.fn.focusEnd = function() {
-    this.setCursorPosition(this.val().length);
-}
-
-
-
-$(function() {
-	// constants
-	var TEXT_REPLY = "回复";
-	var TEXT_REPLY_SEPERATOR = ": ";
-
-	var AJAX_IDLE = 0;
-	var AJAX_BUSY = 0;
-
-	// ajax flags
-	var ajaxAddCommentFlag = AJAX_IDLE;
-
-
-
-	var replyClickFunc = function(){
-		var dataElement = $(this).parents("li.comment").find("input[type='hidden']");
-		var commentId = dataElement.attr("data-comment-id");
-		var authorId = dataElement.attr("data-author-id");
-		var authorName = dataElement.attr("data-author-name");
-
-		$("#replyToData").attr("data-comment-id", commentId);
-		$("#replyToData").attr("data-author-id", authorId);
-		$("#replyToData").attr("data-author-name", authorName);
-
-		// 简单粗暴!!!
-		$("#inputComment").val(TEXT_REPLY + authorName + TEXT_REPLY_SEPERATOR);
-
-		$("#inputComment").focusEnd();
-		$.scrollTo("#inputComment");
-		// $.scrollTo( '#inputComment', 800, {easing:'elasout'} );
-		// !!!
-	};
-	$("a.reply").click(replyClickFunc);
-
-
-	$("#addCommentOk").click(function(){
-		// clear errors
-		$("#addCommentError").hide();
-		
-		var meetingId = $("#meetingData").attr("data-meeting-id");
-		// meetingId被改怎么破???
-		
-		var content = $("#inputComment").val();
-		content = content.trim();
-		
-		// validation
-		// too young too simple, what if injected code???
-		if(!(content.length > 0 && content.length < 1000))
-		{
-			// error message
-			$("#addCommentError").show();
-			return false;
-		}
-
-
-		var replyToCommentId = $("#replyToData").attr("data-comment-id");
-		var replyToAuthorId = $("#replyToData").attr("data-author-id");
-		var replyToAuthorName = $("#replyToData").attr("data-author-name");
-
-		// check reply content
-		if(content.indexOf(TEXT_REPLY + replyToAuthorName) != 0)
-		{
-			// reset empty
-			replyToCommentId = "";
-			replyToAuthorId = "";
-			replyToAuthorName = "";
-		}
-		
-
-		// ajax flag
-		if(ajaxAddCommentFlag == AJAX_IDLE)
-		{
-			// set ajax flag
-			ajaxAddCommentFlag = AJAX_BUSY;
-
-			// ajax submit
-			$.post(
-				"/meeting/addcomment/",
-				{
-					"meetingId": meetingId,
-					"content": content,
-					"replyToUser": replyToAuthorId,
-					"replyToComment": replyToCommentId
-				},
-				function(data)
-				{
-					var result = eval("(" + data + ")");
-					if(result.success == "true")
-					{
-						var curFloor = $("#commentList").children("li").last().find(".floor").text();
-						var nextFloor = Number(curFloor) + 1;
-						
-						$("#commentList").append(
-							"<li class=\"comment\">" + 
-								"<div class=\"author\">" + 
-									"<div class=\"pic\">" + 
-										"<img src=\"../public/img/head_48x48.png\" class=\"img-polaroid\" />" + 
-									"</div>" + 
-									"<div class=\"name\">" + 
-										"<a href=\"javascript:void(0);\">" + result.authorName + "</a>" + 
-									"</div>" + 
-								"</div>" + 
-								"<div class=\"info\">" + 
-									"<div class=\"basic\">" + 
-										"<span class=\"time\">" + result.createTime + "</span>" + 
-										"&nbsp;|&nbsp;" + 
-										"<a>" + "#" + "<span class=\"floor\">" + nextFloor + "</span></a>" + 
-									"</div>" + 
-									"<div class=\"act\">" + 
-										"<a href=\"javascript:void(0);\" class=\"reply\">" + TEXT_REPLY + "</a>" + 
-									"</div>" + 
-									"<div class=\"clearfix\"></div>" + 
-									"<div class=\"content\">" + content + "</div>" + 
-								"</div>" + 
-								"<input type=\"hidden\" data-comment-id=\"" + result.commentId + "\" data-author-id=\"" + result.authorId + "\" data-author-name=\"" + result.authorName + "\" />" + 
-								"<div class=\"clearfix\"></div>" + 
-							"</li>");
-						
-						// 自己可以回复自己吗???
-						// bind event
-						$("#commentList").children("li").last().find("a.reply").click(replyClickFunc);
-
-						// clear input comment
-						$("#inputComment").val("");
-						$("#replyToData").attr("data-comment-id", "");
-						$("#replyToData").attr("data-author-id", "");
-						$("#replyToData").attr("data-author-name", "");
-					}
-					else
-					{
-						// error message
-					}
-
-					// reset ajax flag
-					ajaxAddCommentFlag = AJAX_IDLE;
-				}
-			);
-		}
-
-	});
-
-});
-</script>
-
-<!-- 表单验证js -->
-<script type="text/javascript">
-	
-</script>
+<script type="text/javascript" src="../public/js/specific/meeting.js"></script>
 {%endblock%}
-
-

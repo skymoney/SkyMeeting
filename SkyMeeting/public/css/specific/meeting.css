@@ -1,0 +1,144 @@
+/*override bootstrap css*/
+/*.dl-horizontal dt, .dl-horizontal dd{
+	margin-top: 12px;
+}
+.dl-horizontal dt:first-child, .dl-horizontal dd:first-child{
+	margin-top: 0px;
+}*/
+.dl-horizontal dd{
+	margin-bottom: 12px;
+}
+.dl-horizontal dd:last-child{
+	margin-bottom: 0px;
+}
+#imageDt{
+	margin-top: 20px;
+}
+#imageDd span{
+	display: inline-block;
+}
+
+/*special*/
+.meeting-block{
+	margin-bottom: 10px;
+}
+.meeting-block-header{
+	border-bottom: 1px dashed #ccc;
+}
+.meeting-block-content{
+	padding-top: 20px;
+	padding-bottom: 10px;
+}
+#meetingTitle{
+	display: inline-block;
+	padding: 0px 50px;
+	border-bottom: 1px solid #ccc;
+}
+#meetingSubTitle{
+	margin: 10px 0px;
+	color: #0088cc;
+	font-size: 16px;
+}
+
+#personList li{
+	margin-left: 8px;
+	margin-right: 8px;
+	width: 120px;
+}
+.person-name{
+	text-align: center;
+}
+.person-position{
+	text-align: center;
+}
+img.person-head{
+	padding-top: 6px;
+}
+#fileList li{
+	margin-left: 8px;
+	margin-right: 8px;
+	/*width: 200px;*/
+}
+.file-name{
+	display: inline-block;
+}
+img.file-image{
+
+}
+
+/*copied from collshell.cn*/
+/* comment START */
+#commentListDiv {
+	
+}
+#commentListDiv ol, 
+#commentListDiv li {
+	list-style:none;
+}
+#commentList {
+	padding-bottom:5px;
+}
+#commentList .comment, 
+#commentList .messagebox {
+	margin-top:15px;
+}
+.comment .author {
+	float:left;
+	width:81px;
+	text-align:center;
+}
+.comment .pic {
+	background:url(../public/img/commentpoint.png) 100% 33% no-repeat;
+	padding-right:12px;
+	margin-top:10px;
+}
+.comment .name {
+	width:67px;
+	padding-right:12px;
+	font-weight:bold;
+	overflow:hidden;
+}
+.comment .avatar {
+	padding:1px;
+	border:1px solid #999;
+}
+.comment .info {
+	background:#EDEFF0 url(../public/img/comment.gif) 0 0 no-repeat;
+	float:left;
+	padding:10px 15px 0;
+	/*width:494px;*/
+	width:545px;
+}
+.comment .basic {
+	float:left;
+	font-size:10px;
+}
+.comment .act {
+	float:right;
+	font-size:10px;
+}
+.comment .content {
+	background:url(../public/img/comment.gif) 100% 100% no-repeat;
+	margin:0 -15px;
+	padding:10px 15px;
+	line-height:145%;
+}
+.comment .content p {
+	margin-top:10px;
+}
+.comment .content blockquote p {
+	margin-top:0;
+	margin-bottom:10px;
+}
+
+#commentPostDiv{
+	/*width: 600px;*/
+	margin-left: 106px;
+}
+#commentPostForm{
+	width: 577px;
+}
+#inputComment{
+	width: 562px;
+}
+/* comment END */

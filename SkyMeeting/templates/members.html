@@ -1,4 +1,5 @@
 ﻿{% extends 'base.html'%}
+{% load i18n %}
 
 {%block title%}SkyMeeting{%endblock%}
 
@@ -7,94 +8,12 @@
 <link href="../public/css/uniform.default.css" rel="stylesheet">
 <link href="../public/css/chosen.css" rel="stylesheet">
 
-<style type="text/css">
-	.chzn-drop{
-		left: 0;
-		display: none;
-	}
-
-	/* special */
-	tr.delete-alert{
-		background-color: #f2dede;
-	}
-
-	/* groups */
-	#addGroupDiv{
-		margin-top: 15px;
-		border: 1px solid #ccc;
-	}
-	#newGroupName{
-		width: 180px;
-	}
-	#addGroupOk, #editGroupOk{
-		margin-bottom: 10px
-	}
-	.group-action{
-		z-index: 9;
-		float: right;
-		margin-top: -29px;
-		margin-right: 23px;
-	}
-	.group-action a{
-		display: inline;
-		padding: 0;
-		border: none;
-	}
-
-	/* tags */
-	#tagsDiv{
-		margin-bottom: 10px;
-	}
-	#tagsDivLabel{
-		line-height: 29px;
-	}
-	#tagList{
-		/*display: inline-block;*/
-		display: inline;
-	}
-	#editTagsLink{
-		display: inline-block;
-		float: right;
-	}
-	#editTagsOk{
-		float: right;
-	}
-	#editTagsDiv{
-		margin-bottom: 20px;
-	}
-	#tagsArea{
-		padding: 10px 7px 5px 7px;
-		border: 1px solid #e6e6e6;
-	}
-	#tagsArea .tag{
-		margin-left: 5px;
-		margin-right: 5px;
-		cursor: default;
-	}
-	#editNewTag, #editNewTag:focus{
-		border: 0;
-		box-shadow: none;
-		-webkit-box-shadow: none;
-		-moz-box-shadow: none;
-		margin: 0px;
-		padding: 4px 6px;
-		font-size: 14px;
-		line-height: 22px;
-		height: 22px;
-		width: 140px;
-	}
-	#addTagHintDiv{
-		z-index: 5;
-		border: 1px solid #ccc;
-		background-color: rgb(255,255,235);
-		padding: 4px 6px;
-	}
-</style>
+<link rel="stylesheet" type="text/css" href="../public/css/specific/members.css">
 {%endblock%}
 
 {%block content%}
 <div class="container">
-	<h3>Members</h3>
+	<h3>{% trans "Members" %}</h3>
 
 	<div class="container-fluid" style="padding-left:0px;">
 		<div class="row-fluid">
@@ -107,7 +26,7 @@
   					<li>
 					{% endif %}
   						<a href="?gid=-1">
-  							<span class="group-name">All</span>
+  							<span class="group-name">{% trans "All" %}</span>
   							<span class="group-size">({{ groupAllCount }})</span>
   							<!-- groupAllCount??? -->
   							<i class="icon-chevron-right"></i>
@@ -125,8 +44,8 @@
   							<i class="icon-chevron-right"></i>
   						</a>
   						<div class="group-action hide">
-	  						<a href="javascript:void(0);" class="edit-group" title="Edit group"><i class="icon-edit"></i></a>
-							<a href="javascript:void(0);" class="delete-group" title="Delete group"><i class="icon-trash"></i></a>
+	  						<a href="javascript:void(0);" class="edit-group" title="{% trans 'Edit group' %}"><i class="icon-edit"></i></a>
+							<a href="javascript:void(0);" class="delete-group" title="{% trans 'Delete group' %}"><i class="icon-trash"></i></a>
 							<input type="hidden" data-gid="{{ group.gid }}" data-gname="{{ group.gname }}" />
 						</div>
   					</li>
@@ -138,7 +57,7 @@
   				<input type="hidden" id="globalGroupString" data-value="{{ groupString }}" />
 
   				<div class="row-fluid new-item-row">
-  					<a href="javascript:void(0);" id="addGroupLink">&plus;&nbsp;Create new group</a>
+  					<a href="javascript:void(0);" id="addGroupLink">+&nbsp;{% trans "Create new group" %}</a>
   				</div>
 
   				<div class="row-fluid hide" id="addGroupDiv">
@@ -147,9 +66,9 @@
   					</div>
   					<div class="popup-div-inner-small">
   						<div class="row-fluid">
-	  						<label for="newGroupName">Group name</label>
+	  						<label for="newGroupName">{% trans "Group name" %}</label>
 	  						<input type="text" id="newGroupName" />
-	  						<input type="button" class="btn btn-mini btn-primary" id="addGroupOk" value="OK" />
+	  						<input type="button" class="btn btn-mini btn-primary" id="addGroupOk" value="{% trans 'OK' %}" />
   						</div>
   						<div class="row-fluid alert-msg" id="addGroupErr">
   							<!-- add by js -->
@@ -166,7 +85,7 @@
   				<!--Body content-->
   				<!-- tags -->
   				<div class="row-fluid" id="tagsDiv">
-  					<span id="tagsDivLabel">Tags:</span>
+  					<span id="tagsDivLabel">{% trans "Tags" %}:</span>
   					<ul class="inline" id="tagList">
   						{% for tag in tagAll %}
   							{% if tag.tid in conf.current_tid %}
@@ -178,8 +97,8 @@
   					</ul>
 
   					<!-- actions -->
-					<a href="javascript:void(0);" id="editTagsLink">Edit</a>
-					<input type="button" class="btn btn-mini btn-primary hide" id="editTagsOk" value="OK" />
+					<a href="javascript:void(0);" id="editTagsLink">{% trans "Edit" %}</a>
+					<input type="button" class="btn btn-mini btn-primary hide" id="editTagsOk" value="{% trans 'OK' %}" />
 
 					<!-- current storage -->
   					<input type="hidden" id="curTagId" data-value="{{ conf.current_tid }}" />
@@ -204,7 +123,7 @@
   				
   				<!-- add tag hint -->
   				<div class="hide" id="addTagHintDiv">
-  					<div id="addTagHint">限10个字，空格分开</div>
+  					<div id="addTagHint">{% trans "10 characters limited, separated by space" %}</div>
   					<div class="alert-msg" id="addTagErr"></div>
   				</div>
 
@@ -213,13 +132,13 @@
   				<table class="table table-striped table-bordered table-hover" id="membersTable">
 					<thead>
 						<tr role="row">
-							<th>Name</th>
-							<th>Gender</th>
-							<th>ID Card</th>
-							<th>Phone</th>
-							<th>Email</th>
-							<th>Tags</th>
-							<th>OP</th>
+							<th>{% trans "Name" %}</th>
+							<th>{% trans "Gender" %}</th>
+							<th>{% trans "ID Card" %}</th>
+							<th>{% trans "Phone" %}</th>
+							<th>{% trans "Email" %}</th>
+							<th>{% trans "Tags" %}</th>
+							<th>{% trans "OP" %}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -228,11 +147,11 @@
 							<td><a href="javascript:void(0);" class="edit-member">{{ role.name }}</a></td>
 							<td>
 								{% if role.sex == 1 %}
-									Male
+									{% trans "Male" %}
 								{% elif role.sex == 0 %}
-									Female
+									{% trans "Female" %}
 								{% else %}
-									Unknown
+									{% trans "Unknown" %}
 								{% endif %}
 							</td>
 							<td>{{ role.idcard }}</td>
@@ -252,10 +171,10 @@
 								<!-- substring of tooltip??? -->
 							</td>
 							<td>
-								<a href="javascript:void(0);" class="image-link edit-member" title="Edit member">
+								<a href="javascript:void(0);" class="image-link edit-member" title="{% trans 'Edit member' %}">
 									<i class="icon-edit icon-green"></i>
 								</a>
-								<a href="javascript:void(0);" class="image-link delete-member" title="Delete member">
+								<a href="javascript:void(0);" class="image-link delete-member" title="trans 'Delete member' %}">
 									<i class="icon-trash icon-red"></i>
 								</a>
 							</td>
@@ -268,18 +187,18 @@
 
 
 				<div class="row-fluid new-item-row">
-					<a href="#inviteModal" data-toggle="modal">&plus;&nbsp;Invite new member</a>
+					<a href="#inviteModal" data-toggle="modal">+&nbsp;{% trans "Invite new member" %}</a>
 				</div>
 				<div class="row-fluid pagination-row">
 					<div class="pagination">
 					  <ul>
-					    <li class="prev disabled"><a href="javascript:void(0);">← Previous</a></li>
+					    <li class="prev disabled"><a href="javascript:void(0);">← {% trans "Previous" %}</a></li>
 					    <li class="active"><a href="javascript:void(0);">1</a></li>
 					    <li><a href="javascript:void(0);">2</a></li>
 					    <li><a href="javascript:void(0);">3</a></li>
 					    <li><a href="javascript:void(0);">4</a></li>
 					    <li><a href="javascript:void(0);">5</a></li>
-					    <li class="next"><a href="javascript:void(0);">Next → </a></li>
+					    <li class="next"><a href="javascript:void(0);">{% trans "Next" %} → </a></li>
 					  </ul>
 					</div>
 				</div>
@@ -303,9 +222,9 @@
 	</div>
 	<div class="popup-div-inner-small">
 		<div class="row-fluid">
-			<label for="editGroupName">Edit group name</label>
+			<label for="editGroupName">{% trans "Edit group name" %}</label>
 			<input type="text" id="editGroupName" />
-			<input type="button" class="btn btn-primary btn-mini" id="editGroupOk" value="OK" />
+			<input type="button" class="btn btn-primary btn-mini" id="editGroupOk" value="{% trans 'OK' %}" />
 			<input type="hidden" id="editGroupId" />
 		</div>
 		<div class="row-fluid alert-msg" id="editGroupErr">
@@ -322,14 +241,14 @@
 	</div>
 	<div class="popup-div-inner">
 		<div class="popup-delete-hint alert-msg">
-			Are you sure to delete group
+			{% trans "Are you sure to delete group" %}
 			<span class="popup-strong-hint" id="deleteGroupName"></span>
-			from your company?
+			{% trans "from your company?" %}
 		</div>
 		<input type="hidden" id="deleteGroupId" />
 		<div class="popup-action-div">
-			<input type="button" class="btn btn-primary" id="deleteGroupOk" value="OK" />
-			<input type="button" class="btn" id="deleteGroupCancel" value="Cancel" />
+			<input type="button" class="btn btn-primary" id="deleteGroupOk" value="{% trans 'OK' %}" />
+			<input type="button" class="btn" id="deleteGroupCancel" value="{% trans 'Cancel' %}" />
 		</div>
 	</div>
 </div>
@@ -342,14 +261,14 @@
 	</div>
 	<div class="popup-div-inner">
 		<div class="popup-delete-hint alert-msg">
-			Are you sure to delete user
+			{% trans "Are you sure to delete user" %}
 			<span class="popup-strong-hint" id="deleteUserName"></span>
-			from your company?
+			{% trans " from your company?" %}
 		</div>
 		<input type="hidden" id="deleteUserId" />
 		<div class="popup-action-div">
-			<input type="button" class="btn btn-primary" id="deleteUserOk" value="OK" />
-			<input type="button" class="btn" id="deleteUserCancel" value="Cancel" />
+			<input type="button" class="btn btn-primary" id="deleteUserOk" value="{% trans 'OK' %}" />
+			<input type="button" class="btn" id="deleteUserCancel" value="{% trans 'Cancel' %}" />
 		</div>
 	</div>
 </div>
@@ -366,36 +285,36 @@
 	<div class="modal-header">
 		<!-- <input type="button" class="close" data-dismiss="modal" aria-hidden="true" value="x" /> -->
 		<a href="javascript:void(0);" class="close" role="button" data-dismiss="modal" aria-hidden="true">x</a>
-		<h3 id="inviteModalLabel">Invite new member</h3>
+		<h3 id="inviteModalLabel">{% trans "Invite new member" %}</h3>
 	</div>
 	<div class="modal-body">
 		<form class="form-horizontal">
 			<div class="control-group">
-				<label class="control-label" for="inputName">Name</label>
+				<label class="control-label" for="inputName">{% trans "Name" %}</label>
 				<div class="controls">
-					<input type="text" id="inputName" placeholder="Name" />
+					<input type="text" id="inputName" placeholder="{% trans 'Name' %}" />
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="inputIDno">ID Card Number</label>
+				<label class="control-label" for="inputIDno">{% trans "ID Card Number" %}</label>
 				<div class="controls">
-					<input type="text" id="inputIDno" placeholder="ID Card Number" />
+					<input type="text" id="inputIDno" placeholder="{% trans 'ID Card Number' %}" />
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="inputPhone">Phone</label>
+				<label class="control-label" for="inputPhone">{% trans "Phone" %}</label>
 				<div class="controls">
-					<input type="text" id="inputPhone" placeholder="Phone" />
+					<input type="text" id="inputPhone" placeholder="{% trans 'Phone' %}" />
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="inputEmail">Email</label>
+				<label class="control-label" for="inputEmail">{% trans "Email" %}</label>
 				<div class="controls">
-					<input type="text" id="inputEmail" placeholder="Email" />
+					<input type="text" id="inputEmail" placeholder="{% trans 'Email' %}" />
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label">Verification mode</label>
+				<label class="control-label">{% trans "Verification mode" %}</label>
 				<div class="controls">
 					<label class="checkbox">
 						<div class="checker">
@@ -403,7 +322,7 @@
 								<input type="checkbox" id="checkName" name="verifyMode" value="1" />
 							</span>
 						</div>
-						Name
+						{% trans "Name" %}
 					</label>
 					<label class="checkbox">
 						<div class="checker">
@@ -411,7 +330,7 @@
 								<input type="checkbox" id="checkIDno" name="verifyMode" value="2" />
 							</span>
 						</div>
-						ID Card Number
+						{% trans "ID Card Number" %}
 					</label>
 					<label class="checkbox">
 						<div class="checker">
@@ -419,22 +338,22 @@
 								<input type="checkbox" id="checkOther" name="verifyMode" value="9" />
 							</span>
 						</div>
-						Other question
+						{% trans "Other question" %}
 					</label>
 				</div>
 			</div>
 			<!-- Verification method of other question -->
 			<div class="row-fluid hide" id="otherQuestionDiv">
 				<div class="control-group">
-					<label class="control-label" for="inputQuestion">Question</label>
+					<label class="control-label" for="inputQuestion">{% trans "Question" %}</label>
 					<div class="controls">
-						<input type="text" id="inputQuestion" placeholder="Question" />
+						<input type="text" id="inputQuestion" placeholder="{% trans 'Question' %}" />
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="inputAnswer">Answer</label>
+					<label class="control-label" for="inputAnswer">{% trans "Answer" %}</label>
 					<div class="controls">
-						<input type="text" id="inputAnswer" placeholder="Answer" />
+						<input type="text" id="inputAnswer" placeholder="{% trans 'Answer' %}" />
 					</div>
 				</div>
 			</div>
@@ -442,8 +361,8 @@
 		</form>
 	</div>
 	<div class="modal-footer">
-		<input type="button" class="btn btn-primary" id="inviteModalOk" value="Send invitation" />
-		<input type="button" class="btn" data-dismiss="modal" aria-hidden="true" value="Cancel" />
+		<input type="button" class="btn btn-primary" id="inviteModalOk" value="{% trans 'Send invitation' %}" />
+		<input type="button" class="btn" data-dismiss="modal" aria-hidden="true" value="{% trans 'Cancel' %}" />
 	</div>
 </div>
 
@@ -456,19 +375,19 @@
 	<div class="modal-header">
 		<!-- <input type="button" class="close" data-dismiss="modal" aria-hidden="true" value="x" /> -->
 		<a href="javascript:void(0);" class="close" role="button" data-dismiss="modal" aria-hidden="true">x</a>
-		<h3 id="editModalLabel">Edit member</h3>
+		<h3 id="editModalLabel">{% trans "Edit member" %}</h3>
 	</div>
 	<div class="modal-body">
 		<form class="form-horizontal">
 			<!-- basic -->
 			<div class="control-group">
-				<label class="control-label" for="editName">Name</label>
+				<label class="control-label" for="editName">{% trans "Name" %}</label>
 				<div class="controls">
-					<input type="text" id="editName" placeholder="Name" />
+					<input type="text" id="editName" placeholder="{% trans 'Name' %}" />
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label">Gender</label>
+				<label class="control-label">{% trans "Gender" %}</label>
 				<div class="controls">
 					<label class="radio inline">
 						<div class="radio">
@@ -476,7 +395,7 @@
 								<input type="radio" id="genderMale" name="editGender" value="1" />
 							</span>
 						</div>
-						Male
+						{% trans "Male" %}
 					</label>
 					<label class="radio inline">
 						<div class="radio">
@@ -484,7 +403,7 @@
 								<input type="radio" id="genderFemale" name="editGender" value="0" />
 							</span>
 						</div>
-						Female
+						{% trans "Female" %}
 					</label>
 					<label class="radio inline">
 						<div class="radio">
@@ -492,33 +411,33 @@
 								<input type="radio" id="genderUnknown" name="editGender" value="-1" />
 							</span>
 						</div>
-						Unknown
+						{% trans "Unknown" %}
 					</label>
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="editIDno">ID Card Number</label>
+				<label class="control-label" for="editIDno">{% trans "ID Card Number" %}</label>
 				<div class="controls">
-					<input type="text" id="editIDno" placeholder="ID Card Number" />
+					<input type="text" id="editIDno" placeholder="{% trans 'ID Card Number' %}" />
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="editPhone">Phone</label>
+				<label class="control-label" for="editPhone">{% trans "Phone" %}</label>
 				<div class="controls">
-					<input type="text" id="editPhone" placeholder="Phone" />
+					<input type="text" id="editPhone" placeholder="{% trans 'Phone' %}" />
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="editEmail">Email</label>
+				<label class="control-label" for="editEmail">{% trans "Email" %}</label>
 				<div class="controls">
-					<input type="text" id="editEmail" placeholder="Email" />
+					<input type="text" id="editEmail" placeholder="{% trans 'Email' %}" />
 				</div>
 			</div>
 
 
 			<!-- groups -->
 			<div class="control-group">
-				<label class="control-label">Groups Belonged To</label>
+				<label class="control-label">{% trans "Groups Belonged To" %}</label>
 				<div class="controls">
 					<div id="groupCbxDiv">
 						<!-- 
@@ -539,7 +458,7 @@
 
 					<!-- dynamically add groups -->
 					<div class="row-fluid">
-						<a href="javascript:void(0);" id="dynAddGroup">&plus;&nbsp;Add new group</a>
+						<a href="javascript:void(0);" id="dynAddGroup">+&nbsp;{% trans "Add new group" %}</a>
 					</div>
 					<div class="row-fluid hide" id="dynAddGroupDiv">
 						<div class="row-fluid">
@@ -558,7 +477,7 @@
 
 			<!-- tags -->
 			<div class="control-group">
-				<label class="control-label">Tags</label>
+				<label class="control-label">{% trans "Tags" %}</label>
 				<div class="controls">
 					<div id="tagSectDiv">
 						<select id="tagSect" multiple="multiple" data-rel="chosen" >
@@ -568,7 +487,7 @@
 
 					<!-- dynamically add tags -->
 					<div class="row-fluid">
-						<a href="javascript:void(0);" id="dynAddTag">&plus;&nbsp;Add new tag</a>
+						<a href="javascript:void(0);" id="dynAddTag">+&nbsp;{% trans "Add new tag" %}</a>
 					</div>
 					<div class="row-fluid hide" id="dynAddTagDiv">
 						<div class="row-fluid">
@@ -589,20 +508,11 @@
 		</form>
 	</div>
 	<div class="modal-footer">
-		<input type="button" class="btn btn-primary" id="editModalOk" value="Save changes" />
-		<input type="button" class="btn" data-dismiss="modal" aria-hidden="true" value="Cancel" />
+		<input type="button" class="btn btn-primary" id="editModalOk" value="{% trans 'Save changes' %}" />
+		<input type="button" class="btn" data-dismiss="modal" aria-hidden="true" value="{% trans 'Cancel' %}" />
 	</div>
 </div>
-
-
-
-
-
 {%endblock%}
-
-
-
-
 
 {%block morestatic%}
 <!-- <script src="../public/js/jquery.uniform.min.js"></script> -->
@@ -612,1299 +522,5 @@
 <!-- lib for scroll plugin -->
 <script src="../public/js/jquery.scrollTo.min.js"></script>
 
-
-
-<!-- 初始化js -->
-<script type="text/javascript">
-$(function() {
-	//chosen - improved selector
-	// $('[data-rel="chosen"],[rel="chosen"]').chosen();
-
-});
-</script>
-
-
-
-<!-- 事件绑定js -->
-<script type="text/javascript">
-$(function() {
-	// constants
-	var KEY_SPACE = 32;
-	var KEY_BACKSPACE = 8;
-
-	var AJAX_IDLE = 0;
-	var AJAX_BUSY = 0;
-
-	// ajax flags
-	var ajaxDynAddGroupFlag = AJAX_IDLE;
-	var ajaxDynAddTagFlag = AJAX_IDLE;
-	var ajaxInviteMemberFlag = AJAX_IDLE;
-	var ajaxEditMemberFlag = AJAX_IDLE;
-	var ajaxDeleteMemberFlag = AJAX_IDLE;
-	var ajaxAddTagFlag = AJAX_IDLE;
-	var ajaxDeleteTagFlag = AJAX_IDLE;
-	var ajaxAddGroupFlag = AJAX_IDLE;
-	var ajaxEditGroupFlag = AJAX_IDLE;
-	var ajaxDeleteGroupFlag = AJAX_IDLE;
-
-
-	// json storage, for editModal initializaion
-	// format: [{gid, gname, cid, count}, ...]
-	var globalGroups = eval($("#globalGroupString").attr("data-value"));
-	// format: [{tid, tname, cid}, ...]
-	var globalTags = eval($("#globalTagString").attr("data-value"));
-
-	// util functions of gloabl storage
-	var addToGlobalGroups = function(newGroupId, newGroupName){
-		globalGroups.push(eval("({\"gid\":" + newGroupId + ",\"gname\":\"" + newGroupName + "\"})"));
-	}
-	var addToGlobalTags = function(newTagId, newTagName){
-		globalTags.push(eval("({\"tid\":" + newTagId + ",\"tname\":\"" + newTagName + "\"})"));
-	}
-	var removeFromGlobalGroups = function(deleteGroupId){
-		for(var i=0; i<globalGroups.length; i++)
-		{
-			if(globalGroups[i].gid == deleteGroupId)
-			{
-				globalGroups.splice(i, 1);
-				break;
-			}
-		}
-	}
-	var removeFromGlobalTags = function(deleteTagId){
-		for(var i=0; i<globalTags.length; i++)
-		{
-			if(globalTags[i].tid == deleteTagId)
-			{
-				globalTags.splice(i, 1);
-				break;
-			}
-		}
-	}
-	var updateGlobalGroups = function(groupId, newGroupName){
-		for(var i=0; i<globalGroups.length; i++)
-		{
-			if(globalGroups[i].gid == groupId)
-			{
-				globalGroups[i].gname = newGroupName;
-				break;
-			}
-		}
-	}
-
-
-
-	/* used in modal popup */
-	var scrollToFormEndFunc = function(){
-		$(this).parents(".modal-body").scrollTo(".form-end");
-	};
-
-
-
-
-
-	// ====================================
-	// tooltips
-	// ====================================
-	// tooltip for tags omited
-    $(document).tooltip({
-        selector: "a[data-toggle=tooltip]"
-    });
-    $(document).tooltip();
-
-    // tooltip patch
-    $("a[data-toggle=tooltip]").click(function(){
-    	$(this).tooltip("toggle");
-    });
-    $("a[data-toggle=tooltip]").mouseleave(function(){
-    	$(this).tooltip("hide");
-    });
-    // ====================================
-
-
-
-
-
-	// ====================================
-	// groups
-	// ====================================
-	var appendGroupNavList = function(newGroupId, newGroupName){
-		// update nav, append
-		$("#groupList").append(
-			"<li>" + 
-				"<a href=\"?gid=" + newGroupId + "\">" + 
-					"<span class=\"group-name\">" + newGroupName + "&nbsp;</span>" + 
-					"<span class=\"group-size\">(0)</span>" + 
-					"<i class=\"icon-chevron-right\"></i>" + 
-				"</a>" + 
-				"<div class=\"group-action hide\">" + 
-					"<a href=\"javascript:void(0);\" class=\"edit-group\" title=\"Edit group\">" + 
-						"<i class=\"icon-edit\"></i>" + 
-					"</a>" + 
-					"<a href=\"javascript:void(0);\" class=\"delete-group\" title=\"Delete group\">" + 
-						"<i class=\"icon-trash\"></i>" + 
-					"</a>" + 
-					"<input type=\"hidden\" data-gid=\"" + newGroupId + "\" data-gname=\"" + newGroupName + "\" />" +
-			"</li>");
-		
-		// bind event for new item of groupList
-		var newItem = $("#groupList").children("li").last();
-		newItem.find("a.edit-group").click(editGroupShowFunc);
-		newItem.find("a.delete-group").click(deleteGroupShowFunc);
-		newItem.mouseenter(function(){
-			$(this).find(".group-action").show();
-		});
-		newItem.mouseleave(function(){
-			$(this).find(".group-action").hide();
-		});
-	};
-
-
-	$("#addGroupLink").click(function(){
-		if($("#addGroupDiv").css("display") == "none")
-		{
-			$("#addGroupDiv").slideDown("fast");
-			// clear and hide
-			$("#newGroupName").val("");
-			$("#addGroupErr").empty();
-		}
-		else
-		{
-			$("#addGroupDiv").slideUp("fast");
-		}
-	});
-	$("#addGroupHeader").find("a.close").click(function(){
-		$("#addGroupDiv").slideUp("fast");
-	});
-	$("#addGroupOk").click(function(){
-		var newGroupName = $("#newGroupName").val();
-		newGroupName = newGroupName.trim();
-
-		// validation
-		// should use Reg search
-		if(newGroupName.indexOf(",") > -1 || newGroupName.indexOf("，") > -1)
-		{
-			// error message
-			$("#addGroupErr").text("Cannot contain punctuation");
-			return false;
-		}
-		if(!(newGroupName.length > 0 && newGroupName.length <= 20))
-		{
-			// error message
-			$("#addGroupErr").text("Length should be between 1 to 20");
-			return false;
-		}
-
-
-		// ajax flag
-		if(ajaxAddGroupFlag == AJAX_IDLE)
-		{
-			// set ajax flag
-			ajaxAddGroupFlag = AJAX_BUSY;
-
-			// ajax submit
-			$.post(
-				"/members/addgroup/",
-				{
-					"groupName": newGroupName
-				},
-				function(data)
-				{
-					var result = eval("(" + data + ")");
-					if(result.success == "true")
-					{
-						var newGroupId = result.gid;
-
-						// update group nav
-						appendGroupNavList(newGroupId, newGroupName);
-
-						// update global groups storage
-						addToGlobalGroups(newGroupId, newGroupName);
-
-						// clear and hide
-						$("#addGroupDiv").slideUp("fast");
-					}
-					else
-					{
-						// error message
-						$("#addGroupErr").text("Failed because of server problem.");
-					}
-
-					// reset ajax flag
-					ajaxAddGroupFlag = AJAX_IDLE;
-				}
-			);
-		}
-
-	});
-
-
-	// group actions mouse event
-	$("#groupList").find("li").not($("#groupList").children("li").first()).mouseenter(function(){
-		$(this).find(".group-action").show();
-	});
-	$("#groupList").find("li").not($("#groupList").children("li").first()).mouseleave(function(){
-		$(this).find(".group-action").hide();
-	});
-
-
-	// edit group
-	var editGroupShowFunc = function(){
-		// get data
-		var target = $(this).siblings("input[type='hidden']");
-		var editGroupId = target.attr("data-gid");
-		var editGroupName = target.attr("data-gname");
-
-		// init editGroupDiv
-		$("#editGroupId").attr("data-value", editGroupId);
-		$("#editGroupName").val(editGroupName);
-
-		// clear error message
-		$("#editGroupErr").empty();
-
-		// get position
-		var offset = $(this).offset();
-
-		$("#editGroupDiv").css({
-			"display": "inline-block",
-			"position": "absolute",
-			"top": offset.top,
-			"left": offset.left
-		});
-	};
-	$("a.edit-group").click(editGroupShowFunc);
-
-	$("#editGroupOk").click(function(){
-		var editGroupId = $("#editGroupId").attr("data-value");
-		var editGroupName = $("#editGroupName").val();
-		editGroupName = editGroupName.trim();
-
-		// validation
-		// should use Reg search
-		if(editGroupName.indexOf(",") > -1 || editGroupName.indexOf("，") > -1)
-		{
-			// error message
-			$("#editGroupErr").text("Cannot contain punctuation");
-			return false;
-		}
-		if(!(editGroupName.length > 0 && editGroupName.length <= 20))
-		{
-			// error message
-			$("#editGroupErr").text("Length should be between 1 to 20");
-			return false;
-		}
-
-
-		// ajax flag
-		if(ajaxEditGroupFlag == AJAX_IDLE)
-		{
-			// set ajax flag
-			ajaxEditGroupFlag = AJAX_BUSY;
-
-			// ajax submit
-			$.post(
-				"/members/editgroup/",
-				{
-					"gid": editGroupId,
-					"gname": editGroupName
-				},
-				function(data)
-				{
-					var result = eval("(" + data + ")");
-					if(result.success == "true")
-					{
-						// update group nav item
-						$("#groupList").find("a[href='?gid=" + editGroupId + "']").find(".group-name").text(editGroupName);
-
-						// update global groups storage
-						updateGlobalGroups(editGroupId, editGroupName);
-					}
-					else
-					{
-						// error message
-					}
-
-					// reset ajax flag
-					ajaxEditGroupFlag = AJAX_IDLE;
-				}
-			);
-		}
-
-		$("#editGroupDiv").hide();
-	});
-	$("#editGroupHeader").find("a.close").click(function(){
-		$("#editGroupDiv").hide();
-	});
-
-
-	// delete group
-	var deleteGroupShowFunc = function(){
-		// get data
-		var target = $(this).siblings("input[type='hidden']");
-		var deleteGroupId = target.attr("data-gid");
-		var deleteGroupName = target.attr("data-gname");
-
-		// init delteGroupDiv
-		$("#deleteGroupId").attr("data-value", deleteGroupId);
-		$("#deleteGroupName").text(deleteGroupName);
-
-		// get position
-		var offset = $(this).offset();
-
-		$("#deleteGroupDiv").css({
-			"display": "inline-block",
-			"position": "absolute",
-			"top": offset.top,
-			"left": offset.left
-		});
-	};
-	$("a.delete-group").click(deleteGroupShowFunc);
-
-	$("#deleteGroupOk").click(function(){
-		var deleteGroupId = $("#deleteGroupId").attr("data-value");
-
-		// ajax flag
-		if(ajaxDeleteGroupFlag == AJAX_IDLE)
-		{
-			// set ajax flag
-			ajaxDeleteGroupFlag = AJAX_BUSY;
-
-			// ajax submit
-			$.post(
-				"/members/deletegroup/",
-				{
-					"gid": deleteGroupId
-				},
-				function(data)
-				{
-					var result = eval("(" + data + ")");
-					if(result.success == "true")
-					{
-						// update group nav
-						$("#groupList").find("a[href='?gid=" + deleteGroupId + "']").parent("li").remove();
-
-						// update global groups storage
-						removeFromGlobalGroups(deleteGroupId);
-					}
-					else
-					{
-						// error message
-					}
-				}
-			);
-		}
-
-		$("#deleteGroupDiv").hide();
-	});
-	$("#deleteGroupCancel").click(function(){
-		$("#deleteGroupDiv").hide();
-	});
-	$("#deleteGroupHeader").find("a.close").click(function(){
-		$("#deleteGroupDiv").hide();
-	});
-
-
-	// ====================================
-
-
-
-
-
-
-
-	// ====================================
-	// tags
-	// ====================================
-	// tag click function
-	var tagClickFunc = function(){
-		// toggle class
-		if($(this).hasClass("tag-selected"))
-		{
-			$(this).removeClass("tag-selected");
-		}
-		else
-		{
-			$(this).addClass("tag-selected");
-		}
-
-		// redirect
-		var tagIds = "";
-		$("a.tag-selected").each(function(){
-			if(tagIds.length == 0)
-			{
-				tagIds += $(this).attr("data-tid");
-			}
-			else
-			{
-				tagIds += ("+" + $(this).attr("data-tid"));
-			}
-		});
-
-		var groupId = $("#curGroupId").attr("data-value");
-		location.href = "/members/?gid=" + groupId + "&tid=" + tagIds;
-	};
-	$("a.tag").click(tagClickFunc);
-
-
-	// edit tags
-	$("#editTagsLink").click(function(){
-		$("#editTagsLink").hide();
-		$("#editTagsOk").show();
-
-		$("#tagList").hide();
-		$("#editTagsDiv").show();
-
-		$("#editNewTag").focus();
-	});
-	$("#tagsArea").click(function(){
-		$("#editNewTag").focus();
-	});
-	$("#editTagsOk").click(function(){
-		$("#editTagsOk").hide();
-		$("#editTagsLink").show();
-
-		$("#editTagsDiv").hide();
-		$("#tagList").show();
-
-		$("#editNewTag").val("");
-
-		// refresh???
-		var gid = $("#curGroupId").attr("data-value");
-		var tid = $("#curTagId").attr("data-value");
-
-		// if multiple tags, remove square brackets
-		if(tid.indexOf("[") > -1)
-		{
-			tid = tid.substr(1, tid.length);
-		}
-		if(tid.indexOf("]") > -1)
-		{
-			tid = tid.substr(0, tid.length-1);
-		}
-
-		// replace sperator
-		if(tid.indexOf(",") > -1)
-		{
-			var reg = new RegExp(", ", "g");
-			tid = tid.replace(reg, "+");
-		}
-		
-		// redirect
-		location.href = "/members/?gid=" + gid + "&tid=" + tid;
-	});
-
-
-	// delete tag function
-	var deleteTagFunc = function(){
-		var deleteTagId = $(this).attr("data-tid");
-
-		// ajax flag
-		if(ajaxDeleteTagFlag == AJAX_IDLE)
-		{
-			// set ajax flag
-			ajaxDeleteTagFlag = AJAX_BUSY;
-
-			// ajax submit
-			$.post(
-				"/members/deletetag/",
-				{
-					"tid": deleteTagId
-				},
-				function(data)
-				{
-					var result = eval("(" + data + ")");
-					if(result.success == "true")
-					{
-						// var tid = result.tid;
-						$("#tagsArea").find("a[data-tid='" + deleteTagId + "']").parent(".tag").remove();
-
-						// update tag nav list???
-
-						// update global tags storage
-						removeFromGlobalTags(deleteTagId);
-					}
-					else
-					{
-						// error message
-						// ......
-					}
-
-					// reset ajax flag
-					ajaxDeleteTagFlag = AJAX_IDLE;
-				}
-			);
-		}
-
-	};
-	$("a.delete-tag").click(deleteTagFunc);
-
-
-	// update tagsArea function
-	var appendTagsArea = function(newTagId, newTagName){
-		$("#tagsArea").children(".tag").last().after("<div class=\"tag\"><span>" + newTagName + "&nbsp;</span><a href=\"javascript:void(0);\" class=\"delete-tag\" data-tid=\"" + newTagId + "\">x</a></div>");
-		// bind delete tag click event
-		$("#tagsArea").children(".tag").last().find("a.delete-tag").click(deleteTagFunc);
-	};
-
-	// update tagList function
-	var appendTagNavList = function(newTagId, newTagName){
-		$("#tagList").append("<li><a class=\"tag\" data-tid=\"" + newTagId + "\">" + newTagName + "</a></li>");
-		// bind tag click event
-		$("#tagList").children("li").last().find("a.tag").click(tagClickFunc);
-	}
-
-
-	// input length restriction
-	var inputLengthRestrictFunc = function(){
-		var maxLen = parseInt($(this).attr("maxlength"));
-		// maxLen = 3;
-		var curLen = $(this).val().length;
-		if(curLen >= maxLen)
-		{
-			$(this).val($(this).val().substr(0, maxLen));
-		}
-	};
-	// $("#editNewTag").keydown(inputLengthRestrictFunc);
-
-
-	var showAddTagHint = function(){
-		var offset = $("#editNewTag").offset();
-		
-		$("#addTagHintDiv").css({
-			"display": "inline-block",
-			"position": "absolute",
-			"top": offset.top + 28,
-			"left": offset.left + 6
-		});
-	};
-
-	var clearAndHideAddTagHint = function(){
-		$("#addTagHintDiv").hide();
-		$("#addTagErr").empty();
-	}
-
-	// add tag and delete tag by key
-	$("#editNewTag").keydown(function(event){
-		var newTagName = $("#editNewTag").val();
-
-		if(event.which == KEY_SPACE)
-		{
-			var newTagName = newTagName.trim();
-
-			// validation
-			// should use Reg search
-			if(newTagName.indexOf(",") > -1 || newTagName.indexOf("，") > -1)
-			{
-				$("#addTagErr").text("含有非法字符");
-				return false;
-			}
-
-			if(newTagName.length > 0)
-			{
-				// ajax flag
-				if(ajaxAddTagFlag == AJAX_IDLE)
-				{
-					// set ajax flag
-					ajaxAddTagFlag = AJAX_BUSY;
-
-					// ajax submit
-					$.post(
-						"/members/addtag/",
-						{
-							"tagName": newTagName
-						},
-						function(data)
-						{
-							var result = eval("(" + data + ")");
-							if(result.success == "true")
-							{
-								var newTagId = result.tid;
-
-								// update tag nav list???
-
-								// update tagsArea
-								appendTagsArea(newTagId, newTagName);
-
-								// update global tags storage
-								addToGlobalTags(newTagId, newTagName);
-
-								// clear input
-								$("#editNewTag").val("");
-								clearAndHideAddTagHint();
-							}
-							else
-							{
-								// error message
-								// ......
-							}
-
-							// reset ajax flag
-							ajaxAddTagFlag = AJAX_IDLE;
-						}
-					);
-				}
-
-			}
-		}
-		else if(event.which == KEY_BACKSPACE)
-		{
-			if(newTagName.length == 0)
-			{
-				// the last char is already deleted
-				// delete the last tag
-				$(this).parent().prev(".tag").find("a.delete-tag").click();
-			}
-			else if(newTagName.length == 1)
-			{
-				// the last char would be deleted
-				// hide hint
-				clearAndHideAddTagHint();
-			}
-		}
-		else
-		{
-			// if other input char, show hint, or even show tag recommendation if possible in future
-			showAddTagHint();
-		}
-
-	});
-
-	// ====================================
-
-
-
-
-
-
-
-	// ====================================
-	// invite member modal
-	// ====================================
-	// toggle
-	$("#checkOther").change(function(){
-		$("#otherQuestionDiv").toggle("fast");
-	});
-
-	$("#inviteModalOk").click(function(){
-		// get form input
-		var name = $("#inputName").val();
-		var idcard = $("#inputIDno").val();
-		var phone = $("#inputPhone").val();
-		var email = $("#inputEmail").val();
-		var verifyQuestion = $("#inputQuestion").val();
-		var verifyAnswer = $("#inputAnswer").val();
-
-		var verifyMode = "";
-		$("input[name='verifyMode']:checked").each(function(){
-			if(verifyMode.length == 0)
-			{
-				verifyMode += $(this).val();
-			}
-			else
-			{
-				verifyMode += ("+" + $(this).val());
-			}
-		});
-
-
-		// alert("name:" + name + "; idcard:" + idcard + "; phone:" + phone + "; email:" + email + "; verifyMode:" + verifyMode + "; verifyQuestion:" + verifyQuestion + "; verifyAnswer:" + verifyAnswer);
-
-		// trim
-		// validation
-		// ......
-
-
-		// ajax flag
-		if(ajaxInviteMemberFlag == AJAX_IDLE)
-		{
-			// set ajax flag
-			ajaxInviteMemberFlag = AJAX_BUSY;
-
-			// ajax submit
-			$.post(
-				"/members/inviteuser/",
-				{
-					"name": name,
-					"idcard": idcard,
-					"phone": phone,
-					"email": email,
-					"verifyMode": verifyMode,
-					"verifyQuestion": verifyQuestion,
-					"verifyAnswer": verifyAnswer
-				},
-				function(data)
-				{
-					var result = eval("(" + data + ")");
-					if(result.success == "true")
-					{
-						// clear and hide
-						$("#inputName").val("");
-						$("#inputIDno").val("");
-						$("#inputPhone").val("");
-						$("#inputEmail").val("");
-						$("#inputQuestion").val("");
-						$("#inputAnswer").val("");
-
-						$("input[name='verifyMode']:checked").each(function(){
-							$(this).click();
-						});
-
-						$("#inviteModal").modal("hide");
-					}
-					else
-					{
-						// error message
-						// ......
-					}
-
-					// reset ajax flag
-					ajaxInviteMemberFlag = AJAX_IDLE;
-				}
-			);
-		}
-
-	});
-	// ====================================
-
-
-
-
-
-
-
-	// ====================================
-	// edit member modal
-	// ====================================
-	// init modal function
-	var initEditMemberFunc = function(dataElement){
-		// hide dynAdd divs
-		$("#dynAddGroupDiv").hide();
-		$("#dynAddTagDiv").hide();
-
-		// init text
-		$("#editId").attr("data-value", dataElement.attr("data-id"));
-		$("#editName").val(dataElement.attr("data-name"));
-		$("#editIDno").val(dataElement.attr("data-idcard"));
-		$("#editPhone").val(dataElement.attr("data-phone"));
-		$("#editEmail").val(dataElement.attr("data-email"));
-
-		// init gender radio
-		var genderVal = dataElement.attr("data-sex");
-		var genderElement = $("input[name='editGender'][value='" + genderVal + "']");
-		// invalid genderVal, element not found
-		if(genderElement.length == 0)
-		{
-			$("#genderUnknown").click();
-		}
-		else
-		{
-			genderElement.click();
-		}
-
-
-		//============ init groups ============
-		var groupCbxDiv = $("#groupCbxDiv");
-		groupCbxDiv.empty();
-
-		var curGroups = eval(dataElement.attr("data-groups"));
-
-		for(var i=0; i<globalGroups.length; i++)
-		{
-			var cbxCode = "<label class=\"checkbox\">";
-			cbxCode += "<div class=\"checker\">";
-
-			var found = false;
-			for(var j=0; j<curGroups.length; j++)
-			{
-				if(globalGroups[i].gid == curGroups[j].gid)
-				{
-					found = true;
-					break;
-				}
-			}
-
-			if(found)
-			{
-				cbxCode += "<span class=\"checked\">";
-				cbxCode += "<input type=\"checkbox\" name=\"editGroup\" value=\"" + globalGroups[i].gid + "\" checked=\"checked\" />";
-			}
-			else
-			{
-				cbxCode += "<span>";
-				cbxCode += "<input type=\"checkbox\" name=\"editGroup\" value=\"" + globalGroups[i].gid + "\" />";
-			}
-
-			cbxCode += "</span>";
-			cbxCode += "</div>";
-			cbxCode += globalGroups[i].gname;
-			cbxCode += "</label>";
-
-			groupCbxDiv.append(cbxCode);
-			// clear dynGroups
-			$("#dynGroups").empty();
-		}
-
-		// bind checkbox event
-		groupCbxDiv.find("div.checker input").bind("click", checkerClickFunc);
-
-		//========== init groups ends ==========
-
-
-
-		//============== init tags ==============
-		var tagSelector = $("#tagSect");
-		tagSelector.remove();
-		$("#tagSect_chzn").remove();
-
-		var selectorCode = "<select id=\"tagSect\" multiple=\"multiple\" data-rel=\"chosen\" >";
-
-		var curTags = eval(dataElement.attr("data-tags"));
-
-		for(var i=0; i<globalTags.length; i++)
-		{
-			var found = false;
-			for(var j=0; j<curTags.length; j++)
-			{
-				if(globalTags[i].tid == curTags[j].tid)
-				{
-					found = true;
-					break;
-				}
-			}
-
-			if(found)
-			{
-				selectorCode += "<option value=\"" + globalTags[i].tid + "\" selected=\"selected\">" + globalTags[i].tname + "</option>";
-			}
-			else
-			{
-				selectorCode += "<option value=\"" + globalTags[i].tid + "\">" + globalTags[i].tname + "</option>";
-			}
-		}
-
-		selectorCode += "</select>";
-		$("#tagSectDiv").append(selectorCode);
-
-		// re-init chosen selector
-		$("#tagSect").chosen();
-		// my scroll patch
-		$("#tagSect_chzn").bind("click", scrollToFormEndFunc);
-		//============= init tags ends =============
-
-
-		// finished, show modal
-		$("#editModal").modal("show");
-	};
-
-	// bind event for showing modal
-	$(".edit-member").click(function(){
-		var target = $(this).parents("tr").find("input[type='hidden']");
-		initEditMemberFunc(target);
-	});
-	// double click needed???
-	$("#membersTable").find("tbody").find("tr").dblclick(function(){
-		var target = $(this).find("input[type='hidden']");
-		initEditMemberFunc(target);
-	});
-
-
-
-	// add new group
-	$("#dynAddGroup").click(function(){
-		$("#dynAddGroupDiv").toggle("fast");
-		// clear and hide
-		$("#dynNewGroupName").val("");
-		$("#dynAddGroupErr").empty();
-	});
-	$("#dynAddGroupCancel").click(function(){
-		$("#dynAddGroupDiv").hide("fast");
-		$("#dynAddGroupErr").empty();
-	});
-	$("#dynAddGroupOk").click(function(){
-		var newGroupName = $("#dynNewGroupName").val();
-		newGroupName = newGroupName.trim();
-
-		// validation
-		// should use Reg search
-		if(newGroupName.indexOf(",") > -1 || newGroupName.indexOf("，") > -1)
-		{
-			// error message
-			$("#dynAddGroupErr").text("Cannot contain punctuation");
-			return false;
-		}
-		if(!(newGroupName.length > 0 && newGroupName.length <= 20))
-		{
-			// error message
-			$("#dynAddGroupErr").text("Length should be between 1 to 20");
-			return false;
-		}
-
-
-		// ajax flag
-		if(ajaxDynAddGroupFlag == AJAX_IDLE)
-		{
-			// set ajax flag
-			ajaxDynAddGroupFlag = AJAX_BUSY;
-
-			//=========== ajax begins ===========
-			$.post(
-				"/members/addgroup/",
-				{
-					"groupName": newGroupName
-				},
-				function(data)
-				{
-					var result = eval("(" + data + ")");
-					if(result.success == "true")
-					{
-						var newGroupId = result.gid;
-
-						// append element
-						$("#dynGroups").append(
-							"<label class=\"checkbox\">" + 
-								"<div class=\"checker\">" + 
-									"<span class=\"checked\">" + 
-										"<input type=\"checkbox\" name=\"editGroup\" value=\"" + newGroupId + "\" checked=\"checked\" />" + 
-									"</span>" + 
-								"</div>" + 
-								newGroupName + 
-							"</label>");
-
-						// bind event for new element
-						$("#dynGroups").children("label.checkbox").last().find("div.checker input").bind("click", checkerClickFunc);
-
-
-						// update group nav
-						appendGroupNavList(newGroupId, newGroupName);
-
-						// update global groups storage
-						addToGlobalGroups(newGroupId, newGroupName);
-
-						// clear and hide
-						$("#dynAddGroupDiv").hide("fast");
-					}
-					else
-					{
-						// error message
-						$("#dynAddGroupErr").text("Failed because of server problem.");
-					}
-
-					// reset ajax flag
-					ajaxDynAddGroupFlag = AJAX_IDLE;
-				}
-			);
-			//=========== ajax ends ===========
-		}
-
-	});
-
-
-
-	// patched function for chosen selector
-	var searchChoiceCloseFunc = function(){
-		var index = $(this).attr("rel");
-		$(this).parent("li").hide();  //still a little bug if hiden directly rather than removed
-		$("#tagSect_chzn_o_" + index).removeClass("result-selected").addClass("active-result");
-
-		//sync option in selector
-		$("#tagSect option:eq(" + index + ")").removeAttr("selected");
-	};
-
-	var searchResultClickFunc = function(){
-		var selfId = $(this).attr("id");
-		var index = selfId.substring(selfId.lastIndexOf("_")+1, selfId.length);
-		$("#tagSect_chzn_c_" + index).show();
-		$("#tagSect_chzn_o_" + index).removeClass("active-result").addClass("result-selected");
-
-		//patch
-		// $("#tagSect_chzn").find(".chzn-drop").css("left", "-9000px");  //problem
-		//sync option in selector
-		$("#tagSect option:eq(" + index + ")").attr("selected","selected");
-	};
-
-
-	// add new tag
-	$("#dynAddTag").click(function(){
-		$("#dynAddTagDiv").toggle("fast", function(){
-			// my scroll patch
-			$(this).parents(".modal-body").scrollTo(".form-end");
-		});
-		// clear and hide
-		$("#dynNewTagName").val("");
-		$("#dynAddTagErr").empty();
-	});
-	$("#dynAddTagCancel").click(function(){
-		$("#dynAddTagDiv").hide("fast");
-		$("#dynAddTagErr").empty();
-	});
-	$("#dynAddTagOk").click(function(){
-		var newTagName = $("#dynNewTagName").val();
-		newTagName = newTagName.trim();
-
-		// validation
-		// should use Reg search
-		if(newTagName.indexOf(",") > -1 || newTagName.indexOf("，") > -1)
-		{
-			// error message
-			$("#dynAddTagErr").text("Cannot contain punctuation");
-			return false;
-		}
-		if(!(newTagName.length > 0 && newTagName.length <= 20))
-		{
-			// error message
-			$("#dynAddTagErr").text("Length should be between 1 to 20");
-			return false;
-		}
-
-
-		// ajax flag
-		if(ajaxDynAddTagFlag == AJAX_IDLE)
-		{
-			// set ajax flag
-			ajaxDynAddTagFlag = AJAX_BUSY;
-
-			//=========== ajax begins ===========
-			$.post(
-				"/members/addtag/",
-				{
-					"tagName": newTagName
-				},
-				function(data)
-				{
-			    	var result = eval("(" + data + ")");
-			    	if(result.success == "true")
-			    	{
-			    		var newTagId = result.tid;
-
-			    		// append element
-						$("#tagSect").append("<option value=\"" + newTagId + "\" selected=\"selected\">" + newTagName + "</option>");
-						var tagSectIndex = $("#tagSect option").length - 1;
-
-						$("#tagSect_chzn").find("ul.chzn-choices").find(".search-field").
-							before("<li class=\"search-choice\" id=\"tagSect_chzn_c_" + tagSectIndex + "\">" + 
-										"<span>" + newTagName + "</span>" + 
-										"<a href=\"javascript:void(0);\" class=\"search-choice-close\" rel=\"" + tagSectIndex + "\"></a>" + 
-									"</li>");
-
-						$("#tagSect_chzn").find("ul.chzn-results").
-							append("<li id=\"tagSect_chzn_o_" + tagSectIndex + "\" class=\"result-selected\">" + newTagName + "</li>");
-
-						// bind event for new element
-						$("#tagSect_chzn_c_" + tagSectIndex).find(".search-choice-close").click(searchChoiceCloseFunc);
-						$("#tagSect_chzn_o_" + tagSectIndex).click(searchResultClickFunc);
-
-
-						// update tag list nav, append
-						appendTagNavList(newTagId, newTagName);
-
-						// update tag edition nav, append
-						appendTagsArea(newTagId, newTagName);
-
-						// update global tags storage
-						addToGlobalTags(newTagId, newTagName);
-
-						// clear and hide
-						$("#dynAddTagDiv").hide("fast");
-			    	}
-			    	else
-			    	{
-			    		// error message
-						$("#dynAddTagErr").text("Failed because of server problem.");
-			    	}
-
-			    	// reset ajax flag
-			    	ajaxDynAddTagFlag = AJAX_IDLE;
-				}
-			);
-			//=========== ajax ends ===========
-		}
-
-	});
-	
-
-
-	// edit member submit
-	$("#editModalOk").click(function(){
-		// get form input
-		var id = $("#editId").attr("data-value");
-		var name = $("#editName").val();
-		var sex = $("input[name='editGender']:checked").val();
-		var idcard = $("#editIDno").val();
-		var phone = $("#editPhone").val();
-		var email = $("#editEmail").val();
-
-		var groupIds = "";
-		$("input[name='editGroup']:checked").each(function(){
-			if(groupIds.length == 0)
-			{
-				groupIds += $(this).val();
-			}
-			else
-			{
-				groupIds += ("+" + $(this).val());
-			}
-		});
-
-		var tagIds = "";
-		$("#tagSect option:selected").each(function(){
-			if(tagIds.length == 0)
-			{
-				tagIds += $(this).val();
-			}
-			else
-			{
-				tagIds += ("+" + $(this).val());
-			}
-		});
-
-		// alert("id:" + id + "; name:" + name + "; sex:" + sex + "; idcard:" + idcard + "; phone:" + phone + "; email:" + email + "; groupIds:" + groupIds + "; tagIds:" + tagIds);
-
-		// trim
-		// validation
-		// ......
-
-
-		// ajax flag
-		if(ajaxEditMemberFlag == AJAX_IDLE)
-		{
-			// set ajax flag
-			ajaxEditMemberFlag = AJAX_BUSY;
-
-			// ajax submit
-			$.post(
-				"/members/edituser/",
-				{
-					"id": id,
-					"name": name,
-					"sex": sex,
-					"idcard": idcard,
-					"phone": phone,
-					"email": email,
-					// "location": "",  // unused now
-					"groupIds": groupIds,
-					"tagIds": tagIds
-				},
-				function(data)
-				{
-					var result = eval("(" + data + ")");
-					if(result.success == "true")
-					{
-						// redirect
-						// var curGid = $("#curGroupId").attr("data-value");
-						// var curTid = $("#curTagId").attr("data-value");
-						location.href = "/members/";
-						// should return the page number of the person edited
-					}
-					else
-					{
-						// error message
-						// ......
-					}
-
-					// reset ajax flag
-					ajaxEditMemberFlag = AJAX_IDLE;
-				}
-			);
-		}
-
-	});
-	// ====================================
-	
-
-
-
-
-
-
-	// ====================================
-	// delete user modal
-	// ====================================
-	$("a.delete-member").click(function(){
-		// get data
-		var target = $(this).parents("tr").find("input[type='hidden']");
-		var id = target.attr("data-id");
-		var name = target.attr("data-name");
-
-		// init deleteUserDiv
-		$("#deleteUserId").attr("data-value", id);
-		$("#deleteUserName").text(name);
-
-		// get current element position
-		var offset = $(this).offset();
-		var curTop = offset.top;
-		var curLeft = offset.left;
-
-		// get popup div width
-		var width = $("#deleteUserDiv").width();
-
-		// $(this).parents("tr").addClass("delete-alert");
-		// $("#deleteUserDiv").show("fast");
-		$("#deleteUserDiv").css({
-			"display":"inline-block", 
-			"position":"absolute",
-			"top":curTop + 20, 
-			"left":curLeft - width + 10
-		});
-		// animate......
-	});
-	$("#deleteUserOk").click(function(){
-		var deleteUserId = $("#deleteUserId").attr("data-value");
-
-		// ajax flag
-		if(ajaxDeleteMemberFlag == AJAX_IDLE)
-		{
-			// set ajax flag
-			ajaxDeleteMemberFlag = AJAX_BUSY;
-
-			// ajax submit
-			$.post(
-				"/members/deleteuser/",
-				{
-					"id": deleteUserId
-				},
-				function(data)
-				{
-					var result = eval("(" + data + ")");
-					if(result.success == "true")
-					{
-						// var userId = result.id;
-						$("#membersTable").find("input[type='hidden'][data-id='" + deleteUserId + "']").parent("tr").remove();
-
-						// delete current tr or refresh???
-						// update group size......
-					}
-					else
-					{
-						// error message
-						// ......
-					}
-
-					// reset ajax flag
-					ajaxDeleteMemberFlag = AJAX_IDLE;
-				}
-			);
-
-		}
-
-		$("#deleteUserDiv").hide();
-	});
-	$("#deleteUserCancel").click(function(){
-		$("#deleteUserDiv").hide();
-	});
-	$("#deleteUserHeader").find("a.close").click(function(){
-		$("#deleteUserDiv").hide();
-	});
-	// ====================================
-
-});
-</script>
-
-
-
-<!-- 表单验证js -->
-<script type="text/javascript">
-	
-</script>
+<script type="text/javascript" src="../public/js/specific/members.js"></script>
 {%endblock%}
-
-

@@ -1,3 +1,4 @@
+#-*- coding:utf-8 -*-
 # Django settings for SkyMeeting project.
 import os
 
@@ -45,8 +46,8 @@ USE_I18N = True
 ugettext = lambda s:s
 
 LANGUAGES = (
-    ("zh",ugettext('Chinese')),
-    ("en",ugettext('English')),
+    ("zh","中文"),
+    ("en","English"),
 )
 
 LOCALE_PATHS=(
