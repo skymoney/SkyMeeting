@@ -28,7 +28,7 @@ $.fn.focusEnd = function() {
 
 $(function() {
 	// constants
-	var TEXT_REPLY = gettext("回复");
+	var TEXT_REPLY = gettext("Reply");
 	var TEXT_REPLY_SEPERATOR = ": ";
 
 	var AJAX_IDLE = 0;

@@ -18,72 +18,72 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: public/js/specific/meeting.js:31
-msgid "回复"
-msgstr ""
+msgid "Reply"
+msgstr "回复"
 
 #: public/js/specific/members.js:112
 msgid "Edit group"
-msgstr ""
+msgstr "编辑分组"
 
 #: public/js/specific/members.js:115
 msgid "Delete group"
-msgstr ""
+msgstr "删除分组"
 
 #: public/js/specific/members.js:159 public/js/specific/members.js.c:258
 #: public/js/specific/members.js:899 public/js/specific/members.js.c:1016
 msgid "Cannot contain punctuation"
-msgstr ""
+msgstr "不能包含标点符号"
 
 #: public/js/specific/members.js:165 public/js/specific/members.js.c:264
 #: public/js/specific/members.js:905 public/js/specific/members.js.c:1022
 msgid "Length should be between 1 to 20"
-msgstr ""
+msgstr "应在1到20个字之间"
 
 #: public/js/specific/members.js:201 public/js/specific/members.js.c:956
 #: public/js/specific/members.js:1079
 msgid "Failed because of server problem."
-msgstr ""
+msgstr "服务器错误"
 
 #: public/js/specific/members.js:568
 msgid "Illegal characters detected"
-msgstr ""
+msgstr "含有非法字符"
 
 #: public/js/specific/newMeeting.js:351
 msgid "Initializing. Please hold."
-msgstr ""
+msgstr "初始化，请等待"
 
 #: public/js/specific/newMeeting.js:351
 msgid "Initializing"
-msgstr ""
+msgstr "初始化"
 
 #: public/js/specific/newMeeting.js:357
 msgid "In progress. Please hold."
-msgstr ""
+msgstr "进行中，请等待"
 
 #: public/js/specific/newMeeting.js:357
 msgid "Uploading"
-msgstr ""
+msgstr "上传中"
 
 #: public/js/specific/newMeeting.js:360
 msgid "Saving. Please hold."
-msgstr ""
+msgstr "保存中，请等待"
 
 #: public/js/specific/newMeeting.js:360
 msgid "Saving"
-msgstr ""
+msgstr "保存中"
 
 #: public/js/specific/newMeeting.js:368
 msgid "Successfully saved"
-msgstr ""
+msgstr "成功保存"
 
 #: public/js/specific/newMeeting.js:375
 msgid "Error with"
-msgstr ""
+msgstr "出现错误"
 
 #: public/js/specific/newMeeting.js:480
 msgid "Saving..."
-msgstr ""
+msgstr "保存中..."
 
 #: public/js/specific/newMeeting.js:511
 msgid "Save"
-msgstr ""
+msgstr "保存"
