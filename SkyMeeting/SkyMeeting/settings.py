@@ -132,6 +132,12 @@ TEMPLATE_DIRS = (
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE=True
 
+AUTHENTICATION_BACKENDS = (  
+  
+    'Login.auth.MyCustomBackend',   
+  
+)  
+
 INSTALLED_APPS = (
     #'django.contrib.auth',
     #'django.contrib.contenttypes',
