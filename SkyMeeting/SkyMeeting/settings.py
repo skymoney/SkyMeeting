@@ -183,3 +183,5 @@ LOGGING = {
         },
     }
 }
+
+LOGIN_URL="/"

@@ -10,14 +10,19 @@ import simplejson
 
 #just for simple page show
 def welcome(request):
-    return render_to_response('login.html')
+    print request
+    if "next" in request.GET:
+        redirectUrl=request.GET['next']
+    else:
+        redirectUrl="/home"
+    return render_to_response('login.html',{"redirectUrl":redirectUrl})
 
 def login(request):
     user = authenticate(username=request.POST['username'], password= request.POST['password']);
     if user is not None:
         # Redirect to a success page.
         auth_login(request,user)
-        return HttpResponseRedirect('/members')
+        return HttpResponseRedirect('/members'if "next" not in request.GET else request.GET["next"])
     else:
         # Return an error message.
         return HttpResponse('fuck')
@@ -77,7 +82,7 @@ def memlist(request):
 
 def home(request):
     if request.user.is_authenticated():
-        return render_to_response('meetingList.html')
+        return HttpResponseRedirect('/meetings')
     else:
         return HttpResponseRedirect('/')
 

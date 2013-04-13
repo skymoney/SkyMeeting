@@ -5,6 +5,7 @@ from django.template import Context
 from MeetingHelper import MeetingDAOHelper
 from GlobalUtil import RequestUtil
 import simplejson as json
+from django.contrib.auth.decorators import login_required  
 
 def boards(request):
     return render_to_response('404.html')
@@ -13,7 +14,7 @@ def documents(request):
     return render_to_response('404.html')
 
 
-
+@login_required()
 def meetings(request):
     #permission check
     #......
