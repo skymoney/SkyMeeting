@@ -1,0 +1,22 @@
+﻿/* patch */
+.navbar-wrapper{
+	/*position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;*/
+	z-index: 10;
+	margin-top: 20px;
+}
+.navbar-wrapper .dropdown ul{
+	margin-top: -1px;
+}
+.navbar-wrapper .dropdown:hover ul{
+	display: block;
+}
+#topbar{
+	overflow: visible;
+	height: 22px;
+}
+#roleDrop{
+	text-decoration: none;
+}

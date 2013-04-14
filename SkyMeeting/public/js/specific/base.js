@@ -6,10 +6,4 @@ $(function(){
 		form.find("input[name='language']").val(langCode);
 		form.submit();
 	});
-
-	// js for role change
-	/*$("#roleDrop").mouseenter(function(){
-		$(this).parent(".dropdown").addClass("open");
-	});*/
-
 });
