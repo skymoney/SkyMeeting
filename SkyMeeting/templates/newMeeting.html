@@ -39,7 +39,7 @@
 				<div class="control-group">
 					<label class="control-label" for="inputTitle">Title</label>
 					<div class="controls">
-						<input type="text" id="inputTitle" placeholder="Title" data-validate-presence="true" data-validate-error="#inputTitleError" />
+						<input type="text" id="inputTitle" placeholder="{% trans 'Title' %}" data-validate-presence="true" data-validate-error="#inputTitleError" />
 						<span class="alert alert-error hide" id="inputTitleError">
 							{% trans "Meeting title cannot be blank." %}
 						</span>
@@ -74,7 +74,7 @@
 				<div class="control-group">
 					<label class="control-label" for="inputPlace">{% trans "Place" %}</label>
 					<div class="controls">
-						<input type="text" id="inputPlace" placeholder="Place" data-validate-presence="true" data-validate-error="#inputPlaceError" />
+						<input type="text" id="inputPlace" placeholder="{% trans 'Place' %}" data-validate-presence="true" data-validate-error="#inputPlaceError" />
 						<span class="alert alert-error hide" id="inputPlaceError">
 							{% trans "Place cannot be blank." %}
 						</span>
@@ -84,7 +84,7 @@
 				<div class="control-group">
 					<label class="control-label" for="inputTel">{% trans "Contact tel" %}</label>
 					<div class="controls">
-						<input type="text" id="inputTel" placeholder="Contact tel" data-validate-presence="true" data-validate-format="/^[0-9]+$/" data-validate-error="#inputTelError" />
+						<input type="text" id="inputTel" placeholder="{% trans 'Contact tel' %}" data-validate-presence="true" data-validate-format="/^[0-9]+$/" data-validate-error="#inputTelError" />
 						<span class="alert alert-error hide" id="inputTelError">
 							{% trans "Should be a phone number." %}
 						</span>
@@ -93,7 +93,7 @@
 				<div class="control-group">
 					<label class="control-label" for="inputEmail">{% trans "Contact email" %}</label>
 					<div class="controls">
-						<input type="text" id="inputEmail" placeholder="Contact mail" data-validate-email="true" data-validate-error="#inputEmailError" />
+						<input type="text" id="inputEmail" placeholder="{% trans 'Contact email' %}" data-validate-email="true" data-validate-error="#inputEmailError" />
 						<span class="alert alert-error hide" id="inputEmailError">
 							{% trans "Should be an email address." %}
 						</span>
