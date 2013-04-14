@@ -16,6 +16,14 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'MemManage', ['Company'])
 
+        # Adding model 'HeadPhoto'
+        db.create_table('Head_Photo', (
+            ('hid', self.gf('django.db.models.fields.AutoField')(primary_key=True, db_column='headphoto_id')),
+            ('hname', self.gf('django.db.models.fields.CharField')(max_length=150, db_column='headphoto_name')),
+            ('hpath', self.gf('django.db.models.fields.CharField')(max_length=150, db_column='headphoto_path')),
+        ))
+        db.send_create_signal(u'MemManage', ['HeadPhoto'])
+
         # Adding model 'Group'
         db.create_table('Group', (
             ('gid', self.gf('django.db.models.fields.AutoField')(primary_key=True, db_column='group_id')),
@@ -43,6 +51,7 @@ class Migration(SchemaMigration):
             ('email', self.gf('django.db.models.fields.EmailField')(max_length=30, db_column='role_email')),
             ('account', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['Login.Account'], db_column='role_account')),
             ('company', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['MemManage.Company'], db_column='role_company')),
+            ('head_photo', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['MemManage.HeadPhoto'], db_column='role_headphoto')),
         ))
         db.send_create_signal(u'MemManage', ['Role'])
 
@@ -84,6 +93,9 @@ class Migration(SchemaMigration):
         # Deleting model 'Company'
         db.delete_table('Company')
 
+        # Deleting model 'HeadPhoto'
+        db.delete_table('Head_Photo')
+
         # Deleting model 'Group'
         db.delete_table('Group')
 
@@ -107,10 +119,11 @@ class Migration(SchemaMigration):
         u'Login.account': {
             'Meta': {'object_name': 'Account', 'db_table': "'Account'"},
             'aid': ('django.db.models.fields.AutoField', [], {'primary_key': 'True', 'db_column': "'account_id'"}),
-            'alastlogin': ('django.db.models.fields.DateTimeField', [], {'db_column': "'account_lastlogin'"}),
+            'alevel': ('django.db.models.fields.CharField', [], {'max_length': '20', 'db_column': "'account_level'"}),
             'aname': ('django.db.models.fields.CharField', [], {'max_length': '50', 'db_column': "'account_name'"}),
             'apassword': ('django.db.models.fields.CharField', [], {'max_length': '50', 'db_column': "'account_password'"}),
-            'atime': ('django.db.models.fields.DateTimeField', [], {'db_column': "'account_createtime'"})
+            'date_joined': ('django.db.models.fields.DateTimeField', [], {'db_column': "'account_lastlogin'"}),
+            'last_login': ('django.db.models.fields.DateTimeField', [], {'db_column': "'account_createtime'"})
         },
         u'MemManage.company': {
             'Meta': {'object_name': 'Company', 'db_table': "'Company'"},
@@ -124,12 +137,19 @@ class Migration(SchemaMigration):
             'gid': ('django.db.models.fields.AutoField', [], {'primary_key': 'True', 'db_column': "'group_id'"}),
             'gname': ('django.db.models.fields.CharField', [], {'max_length': '50', 'db_column': "'group_name'"})
         },
+        u'MemManage.headphoto': {
+            'Meta': {'object_name': 'HeadPhoto', 'db_table': "'Head_Photo'"},
+            'hid': ('django.db.models.fields.AutoField', [], {'primary_key': 'True', 'db_column': "'headphoto_id'"}),
+            'hname': ('django.db.models.fields.CharField', [], {'max_length': '150', 'db_column': "'headphoto_name'"}),
+            'hpath': ('django.db.models.fields.CharField', [], {'max_length': '150', 'db_column': "'headphoto_path'"})
+        },
         u'MemManage.role': {
             'Meta': {'object_name': 'Role', 'db_table': "'Role'"},
             'account': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['Login.Account']", 'db_column': "'role_account'"}),
             'company': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['MemManage.Company']", 'db_column': "'role_company'"}),
             'email': ('django.db.models.fields.EmailField', [], {'max_length': '30', 'db_column': "'role_email'"}),
             'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['MemManage.Group']", 'symmetrical': 'False'}),
+            'head_photo': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['MemManage.HeadPhoto']", 'db_column': "'role_headphoto'"}),
             'idcard': ('django.db.models.fields.CharField', [], {'max_length': '20', 'db_column': "'role_idcard'"}),
             'location': ('django.db.models.fields.CharField', [], {'max_length': '50', 'db_column': "'role_location'"}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'db_column': "'role_name'"}),

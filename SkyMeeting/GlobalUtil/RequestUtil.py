@@ -22,4 +22,11 @@ def checkIsLogin(request):
         return False
 
 def checkPermission(request):
-    pass
+    #check permission
+    #highest 1
+    #then 2 ...
+    if checkIsLogin(request) and request.user.account_level==1:
+        #highest permission
+        return True
+    else:
+        return False
