@@ -44,7 +44,8 @@ urlpatterns += patterns('',
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^public/(?P<path>.*)$','django.views.static.serve',{"document_root":settings.STATIC_PATH}), #add static files
-    url(r'^boards/$','Meeting.views.boards'),    
+    url(r'^dashboard/$','Meeting.views.dashboard'),
+    url(r'^profile/$','Meeting.views.profile'),
     url(r'^documents/$','Meeting.views.documents'),
     url(r'^upfile/$','Meeting.views.uploadFile'),
     url(r'^setlang/$','django.views.i18n.set_language'),

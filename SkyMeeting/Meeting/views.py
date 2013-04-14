@@ -7,8 +7,15 @@ from GlobalUtil import RequestUtil
 import simplejson as json
 from django.contrib.auth.decorators import login_required  
 
-def boards(request):
-    return render_to_response('404.html')
+def dashboard(request):
+    result = dict()
+    result["langPack"] = RequestUtil.getLangPack(request)
+    return render_to_response('home.html', Context(result))
+
+def profile(request):
+    result = dict()
+    result["langPack"] = RequestUtil.getLangPack(request)
+    return render_to_response('profile.html', Context(result))
 
 def documents(request):
     return render_to_response('404.html')

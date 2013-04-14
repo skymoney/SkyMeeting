@@ -1,0 +1,78 @@
+﻿{% extends 'base.html'%}
+{% load i18n %}
+
+{%block title%}SkyMeeting{%endblock%}
+
+{%block cssfile%}
+<link href="../public/css/uniform.default.css" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="../public/css/specific/profile.css">
+{%endblock%}
+
+{%block content%}
+<div class="container">
+	<h3>{% trans "Profile" %}</h3>
+	<form class="form-horizontal">
+		<div class="control-group">
+			<label class="control-label" for="editName">{% trans "Name" %}</label>
+			<div class="controls">
+				<input type="text" id="editName" placeholder="{% trans 'Name' %}" />
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">{% trans "Gender" %}</label>
+			<div class="controls">
+				<label class="radio inline">
+					<div class="radio">
+						<span class="checked">
+							<input type="radio" id="genderMale" name="editGender" value="1" />
+						</span>
+					</div>
+					{% trans "Male" %}
+				</label>
+				<label class="radio inline">
+					<div class="radio">
+						<span>
+							<input type="radio" id="genderFemale" name="editGender" value="0" />
+						</span>
+					</div>
+					{% trans "Female" %}
+				</label>
+				<label class="radio inline">
+					<div class="radio">
+						<span>
+							<input type="radio" id="genderUnknown" name="editGender" value="-1" />
+						</span>
+					</div>
+					{% trans "Unknown" %}
+				</label>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="editIDno">{% trans "ID Card Number" %}</label>
+			<div class="controls">
+				<input type="text" id="editIDno" placeholder="{% trans 'ID Card Number' %}" />
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="editPhone">{% trans "Phone" %}</label>
+			<div class="controls">
+				<input type="text" id="editPhone" placeholder="{% trans 'Phone' %}" />
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="editEmail">{% trans "Email" %}</label>
+			<div class="controls">
+				<input type="text" id="editEmail" placeholder="{% trans 'Email' %}" />
+			</div>
+		</div>
+	</form>
+</div>
+{%endblock%}
+
+{%block morestatic%}
+<!-- <script src="../public/js/jquery.uniform.min.js"></script> -->
+<script src="../public/js/uniform.default.js"></script>
+
+<script type="text/javascript" src="../public/js/specific/profile.js"></script>
+{%endblock%}

@@ -1,0 +1,18 @@
+﻿.well{
+	cursor: pointer;
+}
+.well.selected{
+	border: 2px solid #FF9900;
+}
+.summary{
+	margin-bottom: 16px;
+}
+.summary-title{
+	font-size: 16px;
+}
+.summary-content{
+	border-bottom: 1px dashed #ccc;
+}
+.summary-content dl{
+	margin-bottom: 8px;
+}

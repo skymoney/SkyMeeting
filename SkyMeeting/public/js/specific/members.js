@@ -1,4 +1,6 @@
 $(function() {
+	selectNavItem("members");
+
 	// constants
 	var KEY_SPACE = 32;
 	var KEY_BACKSPACE = 8;

@@ -27,6 +27,8 @@ $.fn.focusEnd = function() {
 
 
 $(function() {
+	selectNavItem("meetings");
+
 	// constants
 	var TEXT_REPLY = gettext("Reply");
 	var TEXT_REPLY_SEPERATOR = ": ";

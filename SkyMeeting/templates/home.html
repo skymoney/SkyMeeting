@@ -1,0 +1,94 @@
+{% extends 'base.html'%}
+{% load i18n %}
+
+{%block title%}SkyMeeting{%endblock%}
+
+{%block cssfile%}
+<link rel="stylesheet" type="text/css" href="../public/css/specific/home.css">
+{%endblock%}
+
+{%block content%}
+<div class="container">
+	<div class="well-wrapper" style="width: 55%; margin-right: auto; margin-left: auto;">
+		<div class="well selected">
+			<h3>xxx company</h3>
+			<div class="summary">
+				<div class="summary-title">
+					Board Summary
+				</div>
+				<div class="summary-content">
+					<dl class="dl-horizontal">
+						<dt>Board owner</dt>
+						<dd>Steve Nash</dd>
+						<dt>Active members</dt>
+						<dd>13</dd>
+					</dl>
+				</div>
+			</div>
+			<div class="summary">
+				<div class="summary-title">
+					Meeting Summary
+				</div>
+				<div class="summary-content">
+					<dl class="dl-horizontal">
+						<dt>All</dt>
+						<dd>3</dd>
+						<dt>Active</dt>
+						<dd>2</dd>
+						<dt>Closed</dt>
+						<dd>1</dd>
+						<dt>Latest meeting</dt>
+						<dd>
+							<span class="meeting-title">xxx meeting</span>
+							<span class="meeting-time">2013/04/06 14:00</span>
+							<span class="meeting-place">xx Building 605</span>
+						</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+		<!-- the same -->
+		<div class="well">
+			<h3>TEST company</h3>
+			<div class="summary">
+				<div class="summary-title">
+					Board Summary
+				</div>
+				<div class="summary-content">
+					<dl class="dl-horizontal">
+						<dt>Board owner</dt>
+						<dd>Steve Nash</dd>
+						<dt>Active members</dt>
+						<dd>13</dd>
+					</dl>
+				</div>
+			</div>
+			<div class="summary">
+				<div class="summary-title">
+					Meeting Summary
+				</div>
+				<div class="summary-content">
+					<dl class="dl-horizontal">
+						<dt>All</dt>
+						<dd>3</dd>
+						<dt>Active</dt>
+						<dd>2</dd>
+						<dt>Closed</dt>
+						<dd>1</dd>
+						<dt>Latest meeting</dt>
+						<dd>
+							<span class="meeting-title">xxx meeting</span>
+							<span class="meeting-time">2013/04/06 14:00</span>
+							<span class="meeting-place">xx Building 605</span>
+						</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{%endblock%}
+
+{%block morestatic%}
+<script type="text/javascript" src="../public/js/specific/home.js"></script>
+{%endblock%}

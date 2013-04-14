@@ -46,11 +46,11 @@
 						<a class="brand" href="">iMeeting</a>
 						<div class="nav-collapse collapse">
 							<!-- common nav -->
-							<ul class="nav">
-								<li class="active">
-									<a href="javascript:void(0);">{% trans "Home" %}</a>
+							<ul class="nav" id="navList">
+								<li data-name="home">
+									<a href="/dashboard/">{% trans "Home" %}</a>
 								</li>
-								<li class="dropdown">
+								<li class="dropdown" data-name="meetings">
 									<a href="/meetings/" class="dropdown-toggle" id="meetingDrop" role="button">
 										{% trans "Meetings" %}
 										<b class="caret"></b>
@@ -64,14 +64,14 @@
 										</li>
 									</ul>
 								</li>
-								<li>
+								<li data-name="documents">
 									<a href="javascript:void(0);">{% trans "Documents" %}</a>
 								</li>
-								<li>
+								<li data-name="members">
 									<a href="/members/">{% trans "Member Statistics" %}</a>
 								</li>
-								<li>
-									<a href="javascript:void(0);">{% trans "Profile" %}</a>
+								<li data-name="profile">
+									<a href="/profile/">{% trans "Profile" %}</a>
 								</li>
 							</ul>
 							<!-- language select -->

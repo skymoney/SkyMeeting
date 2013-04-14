@@ -8,6 +8,7 @@
 	margin-top: 20px;
 }
 .navbar-wrapper .dropdown ul{
+	z-index: 11;
 	margin-top: -1px;
 }
 .navbar-wrapper .dropdown:hover ul{

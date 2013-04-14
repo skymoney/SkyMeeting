@@ -1,4 +1,6 @@
 $(function() {
+	selectNavItem("meetings");
+
 	// ===============================
 	// initialization
 	// ===============================
