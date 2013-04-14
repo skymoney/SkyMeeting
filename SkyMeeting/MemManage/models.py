@@ -18,6 +18,13 @@ class Company(models.Model):
     class Meta:
         db_table="Company"      #set table name as Company
 
+class HeadPhoto(models.Model):
+    hid=models.AutoField(primary_key=True,db_column="headphoto_id")
+    hname=models.CharField(max_length=150,db_column="headphoto_name")
+    hpath=models.CharField(max_length=150,db_column="headphoto_path")
+    
+    class Meta:
+        db_table="Head_Photo"
 
 
 class GroupManager(models.Manager):
@@ -95,6 +102,7 @@ class Role(models.Model):
     email=models.EmailField(max_length=30,db_column="role_email")   #email of Role
     account=models.ForeignKey(Account,db_column="role_account")     #account as Foreign key of Role
     company=models.ForeignKey(Company,db_column="role_company")                              #company as Foreign key of Role
+    head_photo=models.ForeignKey(HeadPhoto,db_column="role_headphoto")
     groups=models.ManyToManyField(Group)                            #Group as many-to-many of Role
     tags=models.ManyToManyField(Tag)                                #Tag as many-to-many of Role
     
