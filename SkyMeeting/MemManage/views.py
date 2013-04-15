@@ -6,22 +6,26 @@ from django.template import Context
 from MemManageHelper import DAOHelper
 from GlobalUtil import RequestUtil
 import simplejson as json
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def members(request):
     #permission check
     #......
-    params = dict()
-    params["cid"] = 1   #default!!!
-    params["pn"] = 1    #default!!! page number
-    
-    if "gid" in request.GET:
-        params["gid"] = request.GET["gid"]
-    if "tid" in request.GET:
-        params["tid"] = request.GET["tid"]
-    
-    result = DAOHelper.members(params)
-    result["langPack"] = RequestUtil.getLangPack(request)
-    return render_to_response('members.html', Context(result))
+    if RequestUtil.checkManagePermission(request):
+        params = dict()
+        params["cid"] = 1   #default!!!
+        params["pn"] = 1    #default!!! page number
+        
+        if "gid" in request.GET:
+            params["gid"] = request.GET["gid"]
+        if "tid" in request.GET:
+            params["tid"] = request.GET["tid"]
+        
+        result = DAOHelper.members(params)
+        result["langPack"] = RequestUtil.getLangPack(request)
+        return render_to_response('members.html', Context(result))
+    return HttpResponse('')
 
 
 
