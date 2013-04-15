@@ -105,6 +105,7 @@ class Role(models.Model):
     head_photo=models.ForeignKey(HeadPhoto,db_column="role_headphoto")
     groups=models.ManyToManyField(Group)                            #Group as many-to-many of Role
     tags=models.ManyToManyField(Tag)                                #Tag as many-to-many of Role
+    permission=models.IntegerField(default=0,db_column="role_permission")   #role can create meeting or can't
     
     class Meta:
         db_table="Role"
@@ -117,7 +118,7 @@ class TempRole(models.Model):
     phone=models.CharField(max_length=15,db_column='TempRolePhone')
     email=models.CharField(max_length=30,db_column='TempRoleEmail')
     company=models.ForeignKey(Company,db_column='TempRoleCompany')
-    
+    permission=models.IntegerField(default=0,db_column="TempRolePermission")
     code=models.CharField(max_length=50,default="",db_column='TempCheckCode')
     
     verifyByName=models.IntegerField(default=0,db_column='VerifyModeName')
