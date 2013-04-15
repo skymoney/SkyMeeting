@@ -662,12 +662,31 @@ $(function() {
 	// ====================================
 	// invite member modal
 	// ====================================
+	// validation patch
+	$("#inputQuestion").change(function(){
+		if($(this).val().trim().length > 0)
+		{
+			$("#inputQuestionError").hide();
+		}
+	});
+	$("#inputAnswer").change(function(){
+		if($(this).val().trim().length > 0)
+		{
+			$("#inputAnswerError").hide();
+		}
+	});
+
 	// toggle
 	$("#checkOther").change(function(){
 		$("#otherQuestionDiv").toggle("fast");
 	});
 
 	$("#inviteModalOk").click(function(){
+		// clear all errors
+		$("#inviteForm").find(".alert-msg").each(function(){
+			$(this).hide();
+		});
+
 		// get form input
 		var name = $("#inputName").val().trim();
 		var idcard = $("#inputIDno").val().trim();
@@ -692,8 +711,20 @@ $(function() {
 		// alert("name:" + name + "; idcard:" + idcard + "; phone:" + phone + "; email:" + email + "; verifyMode:" + verifyMode + "; verifyQuestion:" + verifyQuestion + "; verifyAnswer:" + verifyAnswer);
 
 		// validation
-		// ......
-
+		if($("#checkOther").attr("checked") == "checked")
+		{
+			if(verifyQuestion.length == 0)
+			{
+				$("#inputQuestionError").show();
+				return false;
+			}
+			if(verifyAnswer.length == 0)
+			{
+				$("#inputAnswerError").show();
+				return false;
+			}
+		}
+		
 
 		// ajax flag
 		if(ajaxInviteMemberFlag == AJAX_IDLE)
