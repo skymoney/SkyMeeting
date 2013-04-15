@@ -10,81 +10,45 @@
 {%block content%}
 <div class="container">
 	<div class="well-wrapper" style="width: 55%; margin-right: auto; margin-left: auto;">
-		<div class="well selected">
-			<h3>xxx company</h3>
+		{% for dashboard in dashboards %}
+		<div class="well {% if dashboard.rid == rolePack.curRid %}selected{% endif %}">
+			<h3>{{ dashboard.companyName }}</h3>
 			<div class="summary">
 				<div class="summary-title">
-					Board Summary
+					{% trans "Board Summary" %}
 				</div>
 				<div class="summary-content">
 					<dl class="dl-horizontal">
-						<dt>Board owner</dt>
-						<dd>Steve Nash</dd>
-						<dt>Active members</dt>
-						<dd>13</dd>
+						<dt>{% trans "Board owner" %}</dt>
+						<dd>{{ dashboard.companyAdmin }}</dd>
+						<dt>{% trans "Active members" %}</dt>
+						<dd>{{ dashboard.membersCount }}</dd>
 					</dl>
 				</div>
 			</div>
 			<div class="summary">
 				<div class="summary-title">
-					Meeting Summary
+					{% trans "Meeting Summary" %}
 				</div>
 				<div class="summary-content">
 					<dl class="dl-horizontal">
-						<dt>All</dt>
-						<dd>3</dd>
-						<dt>Active</dt>
-						<dd>2</dd>
-						<dt>Closed</dt>
-						<dd>1</dd>
-						<dt>Latest meeting</dt>
+						<dt>{% trans "All" %}</dt>
+						<dd>{{ dashboard.allMeetingsCount }}</dd>
+						<dt>{% trans "Active" %}</dt>
+						<dd>{{ dashboard.activeMeetingsCount }}</dd>
+						<dt>{% trans "Closed" %}</dt>
+						<dd>{{ dashboard.closedMeetingsCount }}</dd>
+						<dt>{% trans "Latest meeting" %}</dt>
 						<dd>
-							<span class="meeting-title">xxx meeting</span>
-							<span class="meeting-time">2013/04/06 14:00</span>
-							<span class="meeting-place">xx Building 605</span>
+							<span class="meeting-title">{{ dashboard.latestMeeting.mtitle }}</span>
+							<span class="meeting-time">{{ dashboard.latestMeeting.mstart }}</span>
+							<span class="meeting-place">{{ dashboard.latestMeeting.mplace }}</span>
 						</dd>
 					</dl>
 				</div>
 			</div>
 		</div>
-		<!-- the same -->
-		<div class="well">
-			<h3>TEST company</h3>
-			<div class="summary">
-				<div class="summary-title">
-					Board Summary
-				</div>
-				<div class="summary-content">
-					<dl class="dl-horizontal">
-						<dt>Board owner</dt>
-						<dd>Steve Nash</dd>
-						<dt>Active members</dt>
-						<dd>13</dd>
-					</dl>
-				</div>
-			</div>
-			<div class="summary">
-				<div class="summary-title">
-					Meeting Summary
-				</div>
-				<div class="summary-content">
-					<dl class="dl-horizontal">
-						<dt>All</dt>
-						<dd>3</dd>
-						<dt>Active</dt>
-						<dd>2</dd>
-						<dt>Closed</dt>
-						<dd>1</dd>
-						<dt>Latest meeting</dt>
-						<dd>
-							<span class="meeting-title">xxx meeting</span>
-							<span class="meeting-time">2013/04/06 14:00</span>
-							<span class="meeting-place">xx Building 605</span>
-						</dd>
-					</dl>
-				</div>
-			</div>
-		</div>
+		{% endfor %}
 	</div>
 </div>
 {%endblock%}
