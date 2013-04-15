@@ -132,7 +132,7 @@ a.delete-tag:hover,.close:focus{
 }
 .side-nav .active .icon-chevron-right,
 .side-nav .active a:hover .icon-chevron-right {
-  background-image: url(../public/img/glyphicons-halflings-white.png);
+  background-image: url(../img/glyphicons-halflings-white.png);
   opacity: 1;
 }
 .side-nav.affix {
