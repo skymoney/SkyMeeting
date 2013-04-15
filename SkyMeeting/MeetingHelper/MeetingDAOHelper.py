@@ -244,3 +244,36 @@ def newMetingInitial(params):
     finalResult["tagAll"]=tagList
     
     return finalResult
+
+def getDashboard(params):
+    '''
+    get all info given one specified account
+    @param aid: account id
+    '''
+    #corresponding roles of account,at least one
+    dashInfoSet=[]
+    
+    role_set=Role.objects.filter(account_id=params["aid"])
+    for role in role_set:
+        dashInfoSingle=dict()
+        meeting_set=Meeting.objects.filter(meeting_participant__role_id=role.rid)
+        dashInfoSingle["allMeetings"]=len(meeting_set)
+        
+        dashInfoSet.append(dashInfoSingle)
+    
+    return dashInfoSet
+
+def getProfile(params):
+    '''
+    get personal profile given specified id
+    @param rid: role id
+    '''    
+    role=Role.objects.get(rid=params["rid"])
+    profileInfo=dict()
+    profileInfo["name"]=role.name
+    profileInfo["sex"]=role.sex
+    profileInfo["idcard"]=role.idcrad
+    profileInfo["phone"]=role.phone
+    profileInfo["email"]=role.email
+    
+    return profileInfo
