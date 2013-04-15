@@ -1,5 +1,16 @@
 $(function() {
+	// ===============================
+	// initialization
+	// ===============================
 	selectNavItem("members");
+
+    // 表单验证框架 略弱!!!
+    // $.fn.validations.options.validateOn = "";
+    $("#inviteForm").validations();
+    $("#memberForm").validations();
+    // ===============================
+
+
 
 	// constants
 	var KEY_SPACE = 32;

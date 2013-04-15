@@ -14,7 +14,7 @@ tr.delete-alert{
 	border: 1px solid #ccc;
 }
 #newGroupName{
-	width: 180px;
+	width: 176px;
 }
 #addGroupOk, #editGroupOk{
 	margin-bottom: 10px
@@ -78,4 +78,9 @@ tr.delete-alert{
 	border: 1px solid #ccc;
 	background-color: rgb(255,255,235);
 	padding: 4px 6px;
+}
+
+/* patch */
+#inviteForm, #memberForm{
+	margin: 0;
 }

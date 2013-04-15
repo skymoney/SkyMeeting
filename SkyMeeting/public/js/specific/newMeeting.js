@@ -1,9 +1,9 @@
 $(function() {
-	selectNavItem("meetings");
-
 	// ===============================
 	// initialization
 	// ===============================
+	selectNavItem("meetings");
+
 	// init datetime picker
 	$("#startDatetime").datetimepicker({
 		showMonthAfterYear: true,
