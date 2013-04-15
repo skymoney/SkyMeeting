@@ -287,30 +287,42 @@
 		<a href="javascript:void(0);" class="close" role="button" data-dismiss="modal" aria-hidden="true">x</a>
 		<h3 id="inviteModalLabel">{% trans "Invite new member" %}</h3>
 	</div>
-	<div class="modal-body">
-		<form class="form-horizontal">
+	<form class="form-horizontal" id="inviteForm">
+		<div class="modal-body">
 			<div class="control-group">
 				<label class="control-label" for="inputName">{% trans "Name" %}</label>
 				<div class="controls">
-					<input type="text" id="inputName" placeholder="{% trans 'Name' %}" />
+					<input type="text" id="inputName" placeholder="{% trans 'Name' %}" data-validate-presence="true" data-validate-error="#inputNameError" />
+					<div class="alert-msg hide" id="inputNameError">
+						{% trans "Name cannot be blank." %}
+					</div>
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="inputIDno">{% trans "ID Card Number" %}</label>
 				<div class="controls">
-					<input type="text" id="inputIDno" placeholder="{% trans 'ID Card Number' %}" />
+					<input type="text" id="inputIDno" placeholder="{% trans 'ID Card Number' %}" data-validate-presence="true" data-validate-format="/^[0-9]+$/" data-validate-error="#inputIDnoError" />
+					<div class="alert-msg hide" id="inputIDnoError">
+						{% trans "Should be a ID card number." %}
+					</div>
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="inputPhone">{% trans "Phone" %}</label>
 				<div class="controls">
-					<input type="text" id="inputPhone" placeholder="{% trans 'Phone' %}" />
+					<input type="text" id="inputPhone" placeholder="{% trans 'Phone' %}" data-validate-presence="true" data-validate-format="/^[0-9]+$/" data-validate-error="#inputPhoneError" />
+					<div class="alert-msg hide" id="inputPhoneError">
+						{% trans "Should be a phone number." %}
+					</div>
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="inputEmail">{% trans "Email" %}</label>
 				<div class="controls">
-					<input type="text" id="inputEmail" placeholder="{% trans 'Email' %}" />
+					<input type="text" id="inputEmail" placeholder="{% trans 'Email' %}" data-validate-email="true" data-validate-error="#inputEmailError" />
+					<div class="alert-msg hide" id="inputEmailError">
+						{% trans "Should be an email address." %}
+					</div>
 				</div>
 			</div>
 			<div class="control-group">
@@ -348,22 +360,27 @@
 					<label class="control-label" for="inputQuestion">{% trans "Question" %}</label>
 					<div class="controls">
 						<input type="text" id="inputQuestion" placeholder="{% trans 'Question' %}" />
+						<div class="alert-msg hide" id="inputQuestionError">
+							{% trans "Question cannot be blank." %}
+						</div>
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="inputAnswer">{% trans "Answer" %}</label>
 					<div class="controls">
 						<input type="text" id="inputAnswer" placeholder="{% trans 'Answer' %}" />
+						<div class="alert-msg hide" id="inputAnswerError">
+							{% trans "Answer cannot be blank." %}
+						</div>
 					</div>
 				</div>
 			</div>
-			
-		</form>
-	</div>
-	<div class="modal-footer">
-		<input type="button" class="btn btn-primary" id="inviteModalOk" value="{% trans 'Send invitation' %}" />
-		<input type="button" class="btn" data-dismiss="modal" aria-hidden="true" value="{% trans 'Cancel' %}" />
-	</div>
+		</div>
+		<div class="modal-footer">
+			<input type="button" class="btn btn-primary" id="inviteModalOk" value="{% trans 'Send invitation' %}" data-validate="#inviteForm" />
+			<input type="button" class="btn" data-dismiss="modal" aria-hidden="true" value="{% trans 'Cancel' %}" />
+		</div>
+	</form>
 </div>
 
 
@@ -377,13 +394,16 @@
 		<a href="javascript:void(0);" class="close" role="button" data-dismiss="modal" aria-hidden="true">x</a>
 		<h3 id="editModalLabel">{% trans "Edit member" %}</h3>
 	</div>
-	<div class="modal-body">
-		<form class="form-horizontal">
+	<form class="form-horizontal" id="memberForm">
+		<div class="modal-body">
 			<!-- basic -->
 			<div class="control-group">
 				<label class="control-label" for="editName">{% trans "Name" %}</label>
 				<div class="controls">
-					<input type="text" id="editName" placeholder="{% trans 'Name' %}" />
+					<input type="text" id="editName" placeholder="{% trans 'Name' %}" data-validate-presence="true" data-validate-error="#editNameError" />
+					<div class="alert-msg hide" id="editNameError">
+						{% trans "Name cannot be blank." %}
+					</div>
 				</div>
 			</div>
 			<div class="control-group">
@@ -418,19 +438,28 @@
 			<div class="control-group">
 				<label class="control-label" for="editIDno">{% trans "ID Card Number" %}</label>
 				<div class="controls">
-					<input type="text" id="editIDno" placeholder="{% trans 'ID Card Number' %}" />
+					<input type="text" id="editIDno" placeholder="{% trans 'ID Card Number' %}" data-validate-presence="true" data-validate-format="/^[0-9]+$/" data-validate-error="#editIDnoError" />
+					<div class="alert-msg hide" id="editIDnoError">
+						{% trans "Should be a ID card number." %}
+					</div>
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="editPhone">{% trans "Phone" %}</label>
 				<div class="controls">
-					<input type="text" id="editPhone" placeholder="{% trans 'Phone' %}" />
+					<input type="text" id="editPhone" placeholder="{% trans 'Phone' %}" data-validate-presence="true" data-validate-format="/^[0-9]+$/" data-validate-error="#editPhoneError" />
+					<div class="alert-msg hide" id="editPhoneError">
+						{% trans "Should be a phone number." %}
+					</div>
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="editEmail">{% trans "Email" %}</label>
 				<div class="controls">
-					<input type="text" id="editEmail" placeholder="{% trans 'Email' %}" />
+					<input type="text" id="editEmail" placeholder="{% trans 'Email' %}" data-validate-email="true" data-validate-error="#editEmailError" />
+					<div class="alert-msg hide" id="editEmailError">
+						{% trans "Should be an email address." %}
+					</div>
 				</div>
 			</div>
 
@@ -454,7 +483,6 @@
 					<div id="dynGroups">
 						<!-- add dynamically by js -->
 					</div>
-					<!-- groups checkbox ends -->
 
 					<!-- dynamically add groups -->
 					<div class="row-fluid">
@@ -505,12 +533,13 @@
 
 			<input type="hidden" id="editId" />
 			<div class="form-end"></div>
-		</form>
-	</div>
-	<div class="modal-footer">
-		<input type="button" class="btn btn-primary" id="editModalOk" value="{% trans 'Save changes' %}" />
-		<input type="button" class="btn" data-dismiss="modal" aria-hidden="true" value="{% trans 'Cancel' %}" />
-	</div>
+		
+		</div>
+		<div class="modal-footer">
+			<input type="button" class="btn btn-primary" id="editModalOk" value="{% trans 'Save changes' %}" data-validate="#memberForm" />
+			<input type="button" class="btn" data-dismiss="modal" aria-hidden="true" value="{% trans 'Cancel' %}" />
+		</div>
+	</form>
 </div>
 {%endblock%}
 

@@ -18,6 +18,9 @@
 	overflow: visible;
 	height: 22px;
 }
+#topbar .dropdown{
+	z-index: 9;
+}
 #roleDrop{
 	text-decoration: none;
 }
