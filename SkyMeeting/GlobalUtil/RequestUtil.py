@@ -21,12 +21,20 @@ def checkIsLogin(request):
     else:
         return False
 
-def checkPermission(request):
+def checkManagePermission(request):
     #check permission
     #highest 1
     #then 2 ...
     if checkIsLogin(request) and request.user.account_level==1:
         #highest permission
+        return True
+    else:
+        return False
+
+def checkMeetingPermission(role):
+    #check permission of creating meeting
+    #@param role: role to check
+    if role.permission==1:
         return True
     else:
         return False
