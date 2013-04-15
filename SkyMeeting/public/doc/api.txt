@@ -51,12 +51,69 @@ API基本定义：
      3），返回数据：{"success":"true", "tid":"tid for new tag", "errors":""}
 
 
-/////////////////////////////////////////////////////
-Account: 拥有管理成员的权限，最高权限
-1：可以管理成员
-0：无权限
 
-Role:拥有创建会议的权限，但没有管理成员的权限
-1:可以创建会议
-0：无法创建会议
+//==========================================
+// 数据库枚举类型说明
+//==========================================
+Account
+	account_level（default=0）
+		1：管理员权限
+		0：普通用户权限
 
+Role
+	role_permission（default=0）
+		1: 会议发起者权限
+		0: 普通参加者权限
+	sex（default=-1）
+		1: 男
+		0: 女
+		-1: 保密 未知
+		
+TempRole 管理员邀请新成员的临时表（对方还未确认）
+	TempRolePermission
+		0: 普通参加者权限
+		1: 会议发起者权限
+
+Meeting
+	meeting_type（default=0）
+		0: 其他
+		1: 正式会议
+		2: 非正式会议
+	meeting_period 会议时长，单位minutes
+	meeting_status（default=1）
+		1: 还未开始（创建时的默认状态）
+		5: 进行中（系统自动改状态）
+		小于10: 活跃中 active
+		11：已结束 end（会议不可编辑，不可添加评论，但会议主页仍可见）（暂为创建者手动更改）
+		15: 已关闭 closed（关闭会议主页，仅创建者自己可见。其他人可在meetingList中见到，但无法点击进入meeting页面）（创建者手动更改）
+		-1: 已删除（无人可见）
+
+Meeting_Comment
+	comment_status（default=1）
+		-1: 已删除（无人可见）
+		0: private（悄悄话，暂不考虑）
+		1: public（能看到meeting的人都能看到comment）
+		
+File
+	file_size 单位bytes
+	file_status（default=1）
+		-1: 已删除（无人可见）
+		0: restricted（仅上传者自己可见）
+		1: open（对file可见的人可见）
+	注：file的可见性还牵扯到Meeting_File和Meeting_File_Visible，第一版本暂不考虑可见性
+		
+Meeting_File
+	is_all_visible（default=1）
+		0: 只对Meeting_File_Visible表中相应的人可见
+		1: 对meeting可见的人可见
+
+Meeting_File_Visible
+	visible_level（暂不考虑）
+	
+Meeting_Participant
+	participant_status（default=0）
+		1: 确认参加
+		0: 还未反馈（未确认也未拒绝）
+		-1: 拒绝参加
+	注：第一版本暂不考虑participant反馈
+//==========================================
