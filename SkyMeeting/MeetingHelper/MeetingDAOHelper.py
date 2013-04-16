@@ -132,9 +132,12 @@ def getSingleMeeting(params):
 
 def addMeeting(params):
     '''
-    create a new meeting
+    create or updates a new meeting
     '''
-    meeting=Meeting()
+    if "mid" in params:
+        meeting=Meeting.objects.get(meeting_id=params["mid"])
+    else:
+        meeting=Meeting()
     result=dict()
     meeting.meeting_title=params["title"]
     meeting.meeting_type=int(params["type"])
@@ -153,10 +156,12 @@ def addMeeting(params):
         meeting.save()      #save meeting info
         #save participant info
         #currently not include create_user,just users who will participate
+        Meeting_Participant.objects.filter(meeting_id=meeting).delete()
         if "participants" in params:
             roleIdSet=params["participants"].split('+')
             for roleId in roleIdSet:
                 Meeting_Participant(meeting_id=meeting,role_id=Role.objects.get(rid=roleId),participant_status=0).save()
+        Meeting_File.objects.filtter(meeting_id=meeting).delete()
         if "files" in params:
             #store file info
             #currently not done...
