@@ -220,6 +220,8 @@
 	        <input type="button" class="btn btn-primary" id="meetingFormOk" value="{% trans 'Save' %}" data-validate="#meetingForm" />
 	        <input type="button" class="btn" id="meetingFormCancel" value="{% trans 'Cancel' %}" />
 		</div>
+
+		<input type="hidden" id="meetingData" data-mid="{% if meetingData %}{{ meetingData.mid }}{% endif %}" />
 	</form>
 </div>
 

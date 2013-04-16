@@ -350,6 +350,7 @@ $(function() {
 
 		// update global storage
 		removeFromGlobalBindedFiles(fid);
+		// ajax to delete file in server???
 	}
 	$("a.remove-file").click(removeFileFunc);
 
@@ -411,7 +412,7 @@ $(function() {
                             .addClass('alert-error')
                             .html('<i class="icon-exclamation-sign"></i> <span>' + gettext("Error with") + ' “' + fileName + '”</span>');
           		}
-          		
+
           		enableButton($("#meetingFormOk"));
         	}
       	}
@@ -516,10 +517,8 @@ $(function() {
 		disableButton($("#meetingFormOk"));
 		$("#meetingFormOk").val(gettext("Saving..."));
 
-		// ajax submit
-		$.post(
-			"/addmeeting/",
-			{
+		// ajax params
+		var params = {
 				"title": title,
 				"type": type,
 				"startTime": startTime,
@@ -529,7 +528,19 @@ $(function() {
 				"detail": detail,
 				"participants": participants,
 				"files": files
-			},
+			};
+
+		// meeting id not empty when edit-mode
+		var mid = $("#meetingData").attr("data-mid");
+		if(mid.length > 0)
+		{
+			params["mid"] = mid
+		}
+
+		// ajax submit
+		$.post(
+			"/addmeeting/",
+			params,
 			function(data)
 			{
 				var result = eval("(" + data + ")");
