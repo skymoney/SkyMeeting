@@ -33,6 +33,13 @@ $(function() {
 		});
 	});
 
+	// init KindEditor content when edit-mode
+	// lazy load
+	setTimeout(function(){
+		$("#inputDetail").siblings(".ke-container").find("iframe").contents().find("body").html($("#inputDetail").val());
+	}, 1000);
+
+
     // 有问题???阻止点击背景关闭
     /*$("#participantModal").on("show", function(){
     	// alert("a");
@@ -105,6 +112,18 @@ $(function() {
 		}
 	}
 
+	// ************************************
+	// init global storage when edit-mode
+	// ************************************
+	$("#personList").children(".person").each(function(){
+		var dataElem = $(this).find("input[type='hidden']");
+		addToGlobalSelectedPersons(dataElem.attr("data-id"), dataElem.attr("data-name"));
+	});
+	$("#uploadMsg").children(".file").each(function(){
+		var dataElem = $(this).find("input[type='hidden']");
+		addToGlobalBindedFiles(dataElem.attr("data-fid"), dataElem.attr("data-fname"));
+	});
+	// ************************************
 
 
 	/* common util functions */
@@ -265,6 +284,7 @@ $(function() {
 		// update global storage
 		removeFromGlobalSelectedPersons(id);
 	};
+	$("a.remove-person").click(removePersonFunc);
 
 	$("#addParticipantLink").click(function(){
 		// back to default page
@@ -303,7 +323,7 @@ $(function() {
 					"</div>");
 
 				// bind event
-				$("#personList").children(".person").last().find("a.remove-person").click(removePersonFunc);
+				$("#personList").children(".person").last().find("a.remove-person").bind("click", removePersonFunc);
 			}
 		});
 
@@ -324,6 +344,15 @@ $(function() {
 	// ===============================
 	// file upload
 	// ===============================
+	var removeFileFunc = function(){
+		var fid = $(this).attr("data-fid");
+		$(this).parent(".file").remove();
+
+		// update global storage
+		removeFromGlobalBindedFiles(fid);
+	}
+	$("a.remove-file").click(removeFileFunc);
+
     $fub = $('#fineUploader');
     $messages = $('#uploadMsg');
  
@@ -344,39 +373,45 @@ $(function() {
         },*/
       	callbacks: {
         	onSubmit: function(id, fileName) {
-	          	$messages.append('<div id="file-' + id + '" class="alert" style="margin: 20px 0 0"></div>');
+	          	$messages.append('<div id="file-' + id + '" class="file alert"></div>');
 	          	// disable form submit button
 	          	disableButton($("#meetingFormOk"));
 	        },
         	onUpload: function(id, fileName) {
           		$('#file-' + id).addClass('alert-info')
-               		.html('<img src="../public/img/loading.gif" alt=' + gettext("Initializing. Please hold.") + '> ' + gettext("Initializing") + ' “' + fileName + '”');
+               		.html('<img src="../public/img/loading.gif" alt=' + gettext("Initializing. Please hold.") + '/> <span>' + gettext("Initializing") + ' “' + fileName + '”</span>');
        		},
         	onProgress: function(id, fileName, loaded, total) {
           		if (loaded < total) {
             		progress = Math.round(loaded / total * 100) + '% of ' + Math.round(total / 1024) + ' kB';
             		$('#file-' + id).removeClass('alert-info')
-                            .html('<img src="../public/img/loading.gif" alt=' + gettext("In progress. Please hold.") + '> ' + gettext("Uploading") + ' “' + fileName + '” ' + progress);
+                            .html('<img src="../public/img/loading.gif" alt=' + gettext("In progress. Please hold.") + '/> <span>' + gettext("Uploading") + ' “' + fileName + '” ' + progress + '</span>');
           		} else {
             		$('#file-' + id).addClass('alert-info')
-                            .html('<img src="../public/img/loading.gif" alt=' + gettext("Saving. Please hold.") + '> ' + gettext("Saving") + ' “' + fileName + '”');
+                            .html('<img src="../public/img/loading.gif" alt=' + gettext("Saving. Please hold.") + '/> <span>' + gettext("Saving") + ' “' + fileName + '”</span>');
           		}
         	},
         	onComplete: function(id, fileName, responseJSON) {
         		var result = responseJSON[0];
-          		if (result.success == "true") {
+          		if(result.success == "true")
+          		{
             		$('#file-' + id).removeClass('alert-info')
                             .addClass('alert-success')
-                            .html('<i class="icon-ok"></i> ' + gettext("Successfully saved") + ' “' + fileName + '”');
+                            .html('<i class="icon-ok"></i> <span>' + gettext("Successfully saved") + ' “' + fileName + '”</span>' + 
+                            		'<a href="javascript:void(0);" class="remove-file pull-right" data-fid="' + result.fileId + '">' + gettext("Remove") + '</a>');
 
+                	// bind event
+                	$('#file-' + id).find("a.remove-file").bind("click", removeFileFunc);
                		// update global storage
                		addToGlobalBindedFiles(result.fileId, fileName);
-          		} else {
+          		}
+          		else
+          		{
             		$('#file-' + id).removeClass('alert-info')
                             .addClass('alert-error')
-                            .html('<i class="icon-exclamation-sign"></i> ' + gettext("Error with") + ' “' + fileName + '”');
+                            .html('<i class="icon-exclamation-sign"></i> <span>' + gettext("Error with") + ' “' + fileName + '”</span>');
           		}
-
+          		
           		enableButton($("#meetingFormOk"));
         	}
       	}
