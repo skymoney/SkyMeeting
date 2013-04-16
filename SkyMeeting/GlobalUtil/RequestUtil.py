@@ -38,3 +38,17 @@ def checkMeetingPermission(role):
         return True
     else:
         return False
+
+def getRolePack(request):
+    '''
+    '''
+    roleSet=request.user.role_set.all()
+    roleSetInfo=[]
+    for role in roleSet:
+        singleRole=dict()
+        singleRole["rid"]=role.rid
+        singleRole["name"]=role.name
+        singleRole["companyName"]=role.company.cname
+        
+        roleSetInfo.append(singleRole)
+    return roleSetInfo
