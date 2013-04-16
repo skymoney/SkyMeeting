@@ -64,6 +64,7 @@ def inviteUser(request):
                                                                         #  "": without verification
         params["verifyQuestion"] = request.POST["verifyQuestion"]       #string
         params["verifyAnswer"] = request.POST["verifyAnswer"]           #string
+        params["authority"] = request.POST["authority"]                 # 0: as participant; 1: as organizer
         
         return HttpResponse(json.dumps(DAOHelper.inviteUser(params)))
     else:

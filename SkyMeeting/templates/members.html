@@ -326,6 +326,27 @@
 				</div>
 			</div>
 			<div class="control-group">
+				<label class="control-label">{% trans "Authority" %}</label>
+				<div class="controls">
+					<label class="radio inline">
+						<div class="radio">
+							<span class="checked">
+								<input type="radio" id="authParticipant" name="authority" value="0" checked="checked" />
+							</span>
+						</div>
+						{% trans "Participant" %}
+					</label>
+					<label class="radio inline">
+						<div class="radio">
+							<span>
+								<input type="radio" id="authOrganizer" name="authority" value="1" />
+							</span>
+						</div>
+						{% trans "Organizer" %}
+					</label>
+				</div>
+			</div>
+			<div class="control-group">
 				<label class="control-label">{% trans "Verification mode" %}</label>
 				<div class="controls">
 					<label class="checkbox">
