@@ -106,6 +106,41 @@ def addMeeting(request):
     params["files"] = request.POST["files"]                     # file ids, "1+2+3" etc.
     
     return HttpResponse(json.dumps(MeetingDAOHelper.addMeeting(params)))
+
+@login_required
+def editMeeting(request):
+    #permission check
+    #......
+    params = dict()
+    params["cid"] = 1 #default!!!
+    params["mid"] = request.GET["mid"] #GET or POST???
+    
+    tempResult = MeetingDAOHelper.newMetingInitial(params)
+    result = MeetingDAOHelper.getSingleMeeting(params)
+    result["groupAll"] = tempResult["groupAll"]
+    result["tagAll"] = tempResult["tagAll"]
+    result["langPack"] = RequestUtil.getLangPack(request)
+    return render_to_response('newMeeting.html', Context(result))
+
+@login_required
+def updateMeeting(request):
+    #permission check
+    #......
+    params = dict()
+    params["mid"] = request.POST["mid"]
+    params["title"] = request.POST["title"]
+    params["type"] = request.POST["type"]
+    params["startTime"] = request.POST["startTime"]             # yyyy/mm/dd hh:mm
+    params["place"] = request.POST["place"]
+    params["tel"] = request.POST["tel"]
+    params["email"] = request.POST["email"]
+    params["detail"] = request.POST["detail"]                   # HTML code
+    params["participants"] = request.POST["participants"]       # role ids, "1+2+3" etc.
+    params["files"] = request.POST["files"]                     # file ids, "1+2+3" etc.
+    
+    result = dict()
+    result["success"] = "true"
+    return HttpResponse(json.dumps(result))
    
 @login_required 
 def meeting(request):

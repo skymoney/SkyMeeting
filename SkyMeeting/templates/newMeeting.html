@@ -39,7 +39,7 @@
 				<div class="control-group">
 					<label class="control-label" for="inputTitle">Title</label>
 					<div class="controls">
-						<input type="text" id="inputTitle" placeholder="{% trans 'Title' %}" data-validate-presence="true" data-validate-error="#inputTitleError" />
+						<input type="text" id="inputTitle" placeholder="{% trans 'Title' %}" data-validate-presence="true" data-validate-error="#inputTitleError" {% if meetingData %}value="{{ meetingData.mtitle }}"{% endif %} />
 						<span class="alert alert-error hide" id="inputTitleError">
 							{% trans "Meeting title cannot be blank." %}
 						</span>
@@ -52,8 +52,9 @@
 					<div class="controls">
 						<select id="typeSct">
 							<option value="-1">---- {% trans "Please select" %} ----</option>
-							<option value="1">{% trans "Formal meeting" %}</option>
-							<option value="2">{% trans "Informal meeting" %}</option>
+							<option value="1" {% if meetingData and meetingData.mtype == 1 %}selected="selected"{% endif %}>{% trans "Formal meeting" %}</option>
+							<option value="2" {% if meetingData and meetingData.mtype == 2 %}selected="selected"{% endif %}>{% trans "Informal meeting" %}</option>
+							<option value="0" {% if meetingData and meetingData.mtype == 0 %}selected="selected"{% endif %}>{% trans "Others" %}</option>
 						</select>
 						<!-- 验证失效 -->
 						<span class="alert alert-error hide" id="typeSctError">
@@ -65,7 +66,7 @@
 				<div class="control-group">
 					<label class="control-label" for="startDatetime">{% trans "Start time" %}</label>
 					<div class="controls">
-						<input type="text" class="date-input" id="startDatetime" readonly="readonly" data-validate-presence="true" data-validate-error="#startDatetimeError" />
+						<input type="text" class="date-input" id="startDatetime" readonly="readonly" data-validate-presence="true" data-validate-error="#startDatetimeError" {% if meetingData %}value="{{ meetingData.mstart }}"{% endif %} />
 						<span class="alert alert-error hide" id="startDatetimeError">
 							{% trans "Start time cannot be blank." %}
 						</span>
@@ -74,7 +75,7 @@
 				<div class="control-group">
 					<label class="control-label" for="inputPlace">{% trans "Place" %}</label>
 					<div class="controls">
-						<input type="text" id="inputPlace" placeholder="{% trans 'Place' %}" data-validate-presence="true" data-validate-error="#inputPlaceError" />
+						<input type="text" id="inputPlace" placeholder="{% trans 'Place' %}" data-validate-presence="true" data-validate-error="#inputPlaceError" {% if meetingData %}value="{{ meetingData.mplace }}"{% endif %} />
 						<span class="alert alert-error hide" id="inputPlaceError">
 							{% trans "Place cannot be blank." %}
 						</span>
@@ -84,7 +85,7 @@
 				<div class="control-group">
 					<label class="control-label" for="inputTel">{% trans "Contact tel" %}</label>
 					<div class="controls">
-						<input type="text" id="inputTel" placeholder="{% trans 'Contact tel' %}" data-validate-presence="true" data-validate-format="/^[0-9]+$/" data-validate-error="#inputTelError" />
+						<input type="text" id="inputTel" placeholder="{% trans 'Contact tel' %}" data-validate-presence="true" data-validate-format="/^[0-9]+$/" data-validate-error="#inputTelError" {% if meetingData %}value="{{ meetingData.mtel }}"{% endif %} />
 						<span class="alert alert-error hide" id="inputTelError">
 							{% trans "Should be a phone number." %}
 						</span>
@@ -93,7 +94,7 @@
 				<div class="control-group">
 					<label class="control-label" for="inputEmail">{% trans "Contact email" %}</label>
 					<div class="controls">
-						<input type="text" id="inputEmail" placeholder="{% trans 'Contact email' %}" data-validate-email="true" data-validate-error="#inputEmailError" />
+						<input type="text" id="inputEmail" placeholder="{% trans 'Contact email' %}" data-validate-email="true" data-validate-error="#inputEmailError" {% if meetingData %}value="{{ meetingData.memail }}"{% endif %} />
 						<span class="alert alert-error hide" id="inputEmailError">
 							{% trans "Should be an email address." %}
 						</span>
@@ -113,7 +114,7 @@
 				<h4>{% trans "Detail Info" %}</h4>
 			</div>
 			<div class="form-block-content">
-				<textarea class="fulltext-input" id="inputDetail"></textarea>
+				<textarea class="fulltext-input" id="inputDetail" {% if meetingData %}value="{{ meetingData.mdetail|safe }}"{% endif %}></textarea>
 			</div>
 			<!-- 验证框架失效 -->
 			<span class="alert alert-error hide" id="inputDetailError">
@@ -139,6 +140,16 @@
 						<a href="javascript:void(0);" class="remove-person" data-id="1">x</a>
 					</div>
 					 -->
+					{% if meetingData %}
+						{% for person in meetingParticipant %}
+					<div class="person">
+						<span class="person-name">{{ person.name }}</span>
+						<a href="javascript:void(0);" class="remove-person" data-id="{{ person.rid }}">x</a>
+						<!-- only when edit-mode -->
+						<input type="hidden" data-id="{{ person.rid }}" data-name="{{ person.name }}" />
+					</div>
+						{% endfor %}
+					{% endif %}
 				</div>
 				<span class="alert alert-error hide" id="participantsError">
 					{% trans "Participants cannot be none." %}
@@ -166,7 +177,20 @@
 							{% trans "Add file" %}
 						</div>
 					</div>
-					<div id="uploadMsg"></div>
+					<div class="help-inline" id="uploadHelp">{% trans "You can only upload files end with '.jpeg', '.jpg', '.gif', '.png', '.pdf', '.docx', '.doc', '.pptx', '.ppt', '.xlsx', '.xls', '.txt'. File size is limited to 10 MB."%}</div>
+					<div id="uploadMsg">
+						{% if meetingData %}
+							{% for file in meetingFile %}
+								<div class="file alert alert-success">
+									<i class="icon-ok"></i>
+									<span>{% trans "Successfully saved" %}&nbsp;“{{ file.fname }}”</span>
+									<a href="javascript:void(0);" class="remove-file pull-right" data-fid="{{ file.fid }}">{% trans "Remove" %}</a>
+									<!-- only when edit-mode -->
+									<input type="hidden" data-fid="{{ file.fid }}" data-fname="{{ file.fname }}" />
+								</div>
+							{% endfor %}
+						{% endif %}
+					</div>
 				</div>
 			</div>
 		</div>

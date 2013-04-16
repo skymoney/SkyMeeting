@@ -70,8 +70,14 @@ a.remove-person:hover{
 #fineUploader{
 	display: inline-block;
 }
+#uploadHelp{
+	width: 500px;
+}
 #uploadMsg{
 	width: 50%;
+}
+#uploadMsg .alert{
+	margin: 20px 0 0;
 }
 /* patch */
 .checkbox{
