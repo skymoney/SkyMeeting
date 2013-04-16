@@ -25,7 +25,7 @@ def checkManagePermission(request):
     #check permission
     #highest 1
     #then 2 ...
-    if checkIsLogin(request) and request.user.account_level==1:
+    if checkIsLogin(request) and int(request.user.alevel)==1:
         #highest permission
         return True
     else:

@@ -8,6 +8,8 @@ from GlobalUtil import RequestUtil
 import simplejson as json
 from django.contrib.auth.decorators import login_required
 
+
+@login_required
 def dashboard(request):
     params = dict()
     params["rid"] = 1 #default!!!
@@ -50,11 +52,13 @@ def dashboard(request):
     
     return render_to_response('home.html', Context(result))
 
+@login_required
 def profile(request):
     result = dict()
     result["langPack"] = RequestUtil.getLangPack(request)
     return render_to_response('profile.html', Context(result))
 
+@login_required
 def documents(request):
     return render_to_response('404.html')
 
@@ -74,6 +78,7 @@ def meetings(request):
     result["langPack"] = RequestUtil.getLangPack(request)
     return render_to_response('meetingList.html', Context(result))
 
+@login_required
 def newMeeting(request):
     #permission check
     #......
@@ -84,6 +89,7 @@ def newMeeting(request):
     result["langPack"] = RequestUtil.getLangPack(request)
     return render_to_response('newMeeting.html', Context(result))
 
+@login_required
 def addMeeting(request):
     #permission check
     #......
@@ -100,7 +106,8 @@ def addMeeting(request):
     params["files"] = request.POST["files"]                     # file ids, "1+2+3" etc.
     
     return HttpResponse(json.dumps(MeetingDAOHelper.addMeeting(params)))
-    
+   
+@login_required 
 def meeting(request):
     #permission check
     #......
@@ -111,6 +118,7 @@ def meeting(request):
     result["langPack"] = RequestUtil.getLangPack(request)
     return render_to_response('meeting.html', Context(result))
 
+@login_required
 def addComment(request):
     #permission check
     #......
@@ -143,6 +151,7 @@ def addComment(request):
     
     return HttpResponse(json.dumps(MeetingDAOHelper.addComment(params)))
 
+@login_required
 def uploadFile(request):
     fSet=[]
     for f in request.FILES:

@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login as auth_login,logout as auth_logout
+from django.contrib.auth.decorators import login_required
 from MemManage.models import TempRole,Role  
 from Login.models import Account 
 import simplejson
@@ -10,7 +11,6 @@ import simplejson
 
 #just for simple page show
 def welcome(request):
-    print request
     if "next" in request.GET:
         redirectUrl=request.GET['next']
     else:
@@ -50,7 +50,7 @@ def invite(request):
     request.session['code']= invitecode
     return render_to_response('invite.html')
    
-       
+
 def regedit(request):
     if request.method == 'POST':  
         username = request.POST['username']  
