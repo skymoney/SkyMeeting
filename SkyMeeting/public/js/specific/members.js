@@ -707,7 +707,7 @@ $(function() {
 			}
 		});
 
-
+		var authority = $("input[name='authority']:checked").val();
 		// alert("name:" + name + "; idcard:" + idcard + "; phone:" + phone + "; email:" + email + "; verifyMode:" + verifyMode + "; verifyQuestion:" + verifyQuestion + "; verifyAnswer:" + verifyAnswer);
 
 		// validation
@@ -742,7 +742,8 @@ $(function() {
 					"email": email,
 					"verifyMode": verifyMode,
 					"verifyQuestion": verifyQuestion,
-					"verifyAnswer": verifyAnswer
+					"verifyAnswer": verifyAnswer,
+					"authority": authority
 				},
 				function(data)
 				{
@@ -757,9 +758,12 @@ $(function() {
 						$("#inputQuestion").val("");
 						$("#inputAnswer").val("");
 
+						// clear checkbox checked
 						$("input[name='verifyMode']:checked").each(function(){
 							$(this).click();
 						});
+						// default radio checked
+						$("#authParticipant").click();
 
 						$("#inviteModal").modal("hide");
 					}
