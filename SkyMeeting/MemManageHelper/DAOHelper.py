@@ -191,14 +191,12 @@ def inviteUser(params):
             return result
         else:
             tr=TempRole()
-            print "ini temp done"
             tr.name=params["name"]
             tr.idcard=params["idcard"]
             tr.phone=params["phone"]
             tr.email=params["email"]
             tr.company_id=int(params["cid"])
-            tr.permission=int(params["permission"])
-            print params
+            tr.permission=int(params["authority"])
             from hashlib import md5
             import random
             randomcode=md5(str(int(random.uniform(0,1000)))).hexdigest()
@@ -279,10 +277,10 @@ def sendInviteEmail(email,code):
     from django.core.mail import send_mail
     subject="Invite You to Join US"
     content="http://192.168.100.21:8000/invite/?code="+code
-    print content
     try:
         return_code=send_mail(subject,content,"CChain0615@gmail.com",[email],fail_silently=False)
         
+        return return_code
     except:
         return_code=0
     return return_code
