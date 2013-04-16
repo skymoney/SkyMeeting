@@ -16,40 +16,15 @@ def dashboard(request):
     params["cid"] = 1 #default!!!
     
     dashboards = MeetingDAOHelper.getDashboard(request.user)
-    '''
-    for i in range(1, 3):
-        dashboard = {}
-        dashboard["rid"] = i
-        dashboard["companyName"] = "XXX Company " + str(i)
-        dashboard["companyAdmin"] = "Steve Nash"    #建个表 company_admin
-        dashboard["membersCount"] = 13
-        #以下均为rid可见的meetings
-        dashboard["allMeetingsCount"] = 3
-        dashboard["activeMeetingsCount"] = 2
-        dashboard["closedMeetingsCount"] = 1
-        dashboard["latestMeeting"] = (MeetingDAOHelper.getPartMeetings(params))["meetingData"][0]
-        dashboards.append(dashboard)
-     '''   
     result = dict()
     result["dashboards"] = dashboards
     result["langPack"] = RequestUtil.getLangPack(request)
     
-    #以下单独放到通用方法中 session
-    roles = []
-    for i in range(1, 3):
-        role = {}
-        role["rid"] = i
-        role["name"] = "Role " + str(i)
-        role["companyName"] = "Company " + str(i)
-        #role[???]
-        roles.append(role)
-        
     rolePack = dict()
-    rolePack["roles"] = roles
-    rolePack["curRid"] = 1
+    rolePack["roles"] = RequestUtil.getRolePack(request)
+    rolePack["curRid"] = request.session["rid"]if "rid" in request.session else request.user.role_set.all()[0].rid
     
     result["rolePack"] = rolePack
-    #==============================
     
     return render_to_response('home.html', Context(result))
 
