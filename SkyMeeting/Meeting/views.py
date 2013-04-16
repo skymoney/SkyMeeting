@@ -15,7 +15,8 @@ def dashboard(request):
     params["rid"] = 1 #default!!!
     params["cid"] = 1 #default!!!
     
-    dashboards = []
+    dashboards = MeetingDAOHelper.getDashboard(request.user)
+    '''
     for i in range(1, 3):
         dashboard = {}
         dashboard["rid"] = i
@@ -28,7 +29,7 @@ def dashboard(request):
         dashboard["closedMeetingsCount"] = 1
         dashboard["latestMeeting"] = (MeetingDAOHelper.getPartMeetings(params))["meetingData"][0]
         dashboards.append(dashboard)
-        
+     '''   
     result = dict()
     result["dashboards"] = dashboards
     result["langPack"] = RequestUtil.getLangPack(request)
