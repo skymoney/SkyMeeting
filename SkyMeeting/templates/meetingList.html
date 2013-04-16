@@ -17,6 +17,7 @@
 				<option value="-1">{% trans "All" %}</option>
 				<option value="1" {% if type == 1 or type == "1" %}selected="selected"{% endif %}>{% trans "Formal meeting" %}</option>
 				<option value="2" {% if type == 2 or type == "2" %}selected="selected"{% endif %}>{% trans "Informal meeting" %}</option>
+				<option value="0" {% if type == 0 or type == "0" %}selected="selected"{% endif %}>{% trans "Others" %}</option>
 			</select>
 			<!-- static meeting type??? -->
 		</div>
@@ -40,7 +41,10 @@
 				<th class="span2">{% trans "Location" %}</th>
 				<th>{% trans "Created by" %} / {% trans "date" %}</th>
 				<th>{% trans "Status" %}</th>
-				<th>{% trans "Attachment" %}</th>
+				<!-- <th>{% trans "Attachment" %}</th> -->
+				{% if ad == 1 or ad == "1" %}
+				<th>{% trans "OP" %}</th>
+				{% endif %}
 			</tr>
 		</thead>
 		<tbody>
@@ -62,9 +66,20 @@
 				<td>
 					<span class="label label-info">{% trans "Active" %}</span>
 				</td>
-				<td>
+				<!-- <td>
 					<img src="../public/img/attachment_24x24.png" />
+				</td> -->
+				{% if ad == 1 or ad == "1" %}
+				<td>
+					<a href="../editmeeting/?mid={{ meeting.mid }}" class="image-link" title="{% trans 'Edit meeting' %}">
+						<i class="icon-edit"></i>
+					</a>
+					<a href="javascript:void(0);" class="image-link" title="{% trans 'Delete meeting' %}">
+						<i class="icon-trash"></i>
+					</a>
 				</td>
+				<input type="hidden" data-mid="{{ meeting.mid }}" data-title="{{ meeting.mtitle }}" />
+				{% endif %}
 			</tr>
 			{% endfor %}
 		</tbody>
