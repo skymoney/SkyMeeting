@@ -323,4 +323,5 @@ def changeMeetingStatus(params):
         result["success"]="true"
     except:
         result["success"]="false"
+        result["errors"]=""
     return result

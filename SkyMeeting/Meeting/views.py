@@ -109,9 +109,7 @@ def deleteMeeting(request):
     params = dict()
     params["mid"] = request.POST["mid"]
     
-    result = dict()
-    result["success"] = "true"
-    return HttpResponse(json.dumps(result))
+    return HttpResponse(json.dumps(MeetingDAOHelper.deleteMeeting(params)))
 
 @login_required
 def changeStatus(request):
@@ -122,9 +120,7 @@ def changeStatus(request):
     params["mid"] = request.POST["mid"]
     params["status"] = request.POST["status"]
     
-    result = dict()
-    result["success"] = "true"
-    return HttpResponse(json.dumps(result))
+    return HttpResponse(json.dumps(MeetingDAOHelper.changeMeetingStatus(params)))
 
 @login_required 
 def meeting(request):
@@ -149,25 +145,6 @@ def addComment(request):
     params["replyToComment"] = request.POST["replyToComment"]       #reply to comment id
     #comment status
     
-    #hard code!!!
-#    comment = {}
-#    comment["commentId"] = "1234"
-#    comment["meetingId"] = "1"
-#    comment["authorId"] = "1"
-#    comment["authorName"] = "Tony Jiong"
-#    comment["createTime"] = "2013/4/6 15:21"
-#    comment["content"] = request.POST["content"]
-#    comment["replyToUser"] = ""
-#    comment["commentStatus"] = ""
-    
-#    result = dict()
-#    result["success"] = "true"
-#    result["commentId"] = 100
-#    result["authorId"] = 1
-#    result["authorName"] = "Tony Jiong"
-#    result["createTime"] = "2013/4/6 15:21"
-#    result["headUrl"] = "???"
-    
     return HttpResponse(json.dumps(MeetingDAOHelper.addComment(params)))
 
 @login_required
@@ -181,5 +158,4 @@ def uploadFile(request):
     params["rid"]="1" #default!!!
     
     result=MeetingDAOHelper.uploadFile(params)
-    print result
     return HttpResponse(json.dumps(result))
