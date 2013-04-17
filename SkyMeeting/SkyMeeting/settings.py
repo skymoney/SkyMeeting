@@ -152,6 +152,7 @@ INSTALLED_APPS = (
     'Login',
     'MemManage',
     'Meeting',
+    'General',
     'south'
 )
 
