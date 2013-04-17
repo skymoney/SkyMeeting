@@ -50,7 +50,7 @@ class MeetingTest(TestCase):
         result=MeetingDAOHelper.fetchComment(params)
         print result
     
-    def testSaveMeeting(self):
+    def tstSaveMeeting(self):
         params=dict()
         params["mid"]=1
         params["createUser"] = 1 #default!!!                        # create by user id
@@ -67,4 +67,12 @@ class MeetingTest(TestCase):
         
         from MeetingHelper import MeetingDAOHelper
         print MeetingDAOHelper.saveMeeting(params)
+    
+    def testEditStatus(self):
+        params=dict()
+        params["mid"]=1
+        params["status"]="10"
+        
+        from MeetingHelper import MeetingDAOHelper
+        print MeetingDAOHelper.changeMeetingStatus(params)
         
