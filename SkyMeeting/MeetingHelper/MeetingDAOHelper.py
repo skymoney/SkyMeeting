@@ -139,6 +139,8 @@ def saveMeeting(params):
         meeting=Meeting.objects.get(meeting_id=params["mid"])
     else:
         meeting=Meeting()
+        meeting.create_user=Role.objects.get(rid=params["createUser"])
+        meeting.create_time=datetime.now()      #default current time
     result=dict()
     meeting.meeting_title=params["title"]
     meeting.meeting_type=int(params["type"])
@@ -148,21 +150,22 @@ def saveMeeting(params):
     meeting.meeting_place=params["place"]
     meeting.contact_tel=params["tel"]
     meeting.contact_email=params["email"]
-    meeting.detail=params["detail"]
-    meeting.create_user=Role.objects.get(rid=params["createUser"])
-    meeting.create_time=datetime.now()      #default current time
+    meeting.detail=params["detail"]    
     meeting.meeting_status=1        #meeting_status 1 or 0 or more..
     
     try:
         meeting.save()      #save meeting info
         #save participant info
         #currently not include create_user,just users who will participate
+        
         Meeting_Participant.objects.filter(meeting_id=meeting).delete()
         if "participants" in params:
             roleIdSet=params["participants"].split('+')
             for roleId in roleIdSet:
                 Meeting_Participant(meeting_id=meeting,role_id=Role.objects.get(rid=roleId),participant_status=0).save()
-        Meeting_File.objects.filtter(meeting_id=meeting).delete()
+        
+        Meeting_File.objects.filter(meeting_id=meeting).delete()
+        
         if "files" in params:
             #store file info
             #currently not done...
@@ -174,7 +177,7 @@ def saveMeeting(params):
         result["mid"]=meeting.meeting_id
     except:
         result["success"]="false"
-    
+    print result
     return result
 
 def addComment(params):

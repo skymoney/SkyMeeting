@@ -23,7 +23,7 @@ class MeetingTest(TestCase):
         from MeetingHelper import MeetingDAOHelper
         print MeetingDAOHelper.getCreateMeeting(params)
         
-    def testGetSingleMeetingInfo(self):
+    def tstGetSingleMeetingInfo(self):
         params=dict()
         params["mid"]=1
         from MeetingHelper import MeetingDAOHelper
@@ -49,5 +49,22 @@ class MeetingTest(TestCase):
         
         result=MeetingDAOHelper.fetchComment(params)
         print result
+    
+    def testSaveMeeting(self):
+        params=dict()
+        params["mid"]=1
+        params["createUser"] = 1 #default!!!                        # create by user id
+        params["title"] = "test Meeting"
+        params["type"] = 1
+        from datetime import datetime
+        params["startTime"] = "2013/3/4 12:00"            # yyyy/mm/dd hh:mm
+        params["place"] = "Nanjing"
+        params["tel"] = "21243"
+        params["email"] = "dfjk@dlsf.com"
+        params["detail"] = "None"                   # HTML code
+        params["participants"] = "1+2"       # role ids, "1+2+3" etc.
+        params["files"] = "1+2"
         
+        from MeetingHelper import MeetingDAOHelper
+        print MeetingDAOHelper.saveMeeting(params)
         
