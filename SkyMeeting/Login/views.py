@@ -22,7 +22,7 @@ def login(request):
     if user is not None:
         # Redirect to a success page.
         auth_login(request,user)
-        return HttpResponseRedirect('/members'if "next" not in request.GET else request.GET["next"])
+        return HttpResponseRedirect(request.POST['redirectUrl'])
     else:
         # Return an error message.
         return HttpResponse('fuck')
@@ -43,8 +43,7 @@ def invite(request):
         return HttpResponseRedirect('/')
     try :
         #check whether invitecode is legal
-        print invitecode
-        tempRole = TempRole.objects.get(code = invitecode) 
+        tempRole = TempRole.objects.get(code = invitecode)
     except TempRole.DoesNotExist:
         return HttpResponse('Your invite code is not legal!')
     request.session['code']= invitecode
@@ -82,7 +81,7 @@ def memlist(request):
 
 def home(request):
     if request.user.is_authenticated():
-        return HttpResponseRedirect('/meetings')
+        return HttpResponseRedirect('/dashboard')
     else:
         return HttpResponseRedirect('/')
 
