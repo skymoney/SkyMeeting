@@ -36,6 +36,8 @@ def getDashboard(account):
     
     return dashInfoSet
 
+def editCurRid(params):
+    pass
 
 def getProfile(params):
     '''
@@ -51,3 +53,30 @@ def getProfile(params):
     profileInfo["email"]=role.email
     
     return profileInfo
+
+def editProfile(params):
+    '''
+    edit profile and save info
+    @param rid: id of role to edited
+    @param name: name of role
+    @param sex: sex of role
+    @param idcard: idcard of role
+    @param phone: phone number of role
+    @param email: email of role
+    '''
+    result=dict()
+    
+    role=Role.objects.get(rid=params["rid"])
+    role.name=params["name"]
+    role.sex=int(params["sex"])
+    role.idcard=params["idcard"]
+    role.phone=params["phone"]
+    role.email=params["email"]
+    
+    try:
+        role.save()
+        result["success"]="true"
+    except:
+        result["success"]="false"
+        result["errors"]=""
+    return result
