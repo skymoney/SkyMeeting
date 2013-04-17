@@ -325,3 +325,13 @@ def changeMeetingStatus(params):
         result["success"]="false"
         result["errors"]=""
     return result
+
+def checkMeetingRole(params):
+    '''
+    check whether meeting is created by specified user
+    @param mid: meeting id of target meeting
+    @param rid: role id of tsrget role
+    '''
+    if len(Meeting.objects.filter(meeting_id=params["mid"],create_user=Role.objects.get(rid=params["rid"])))>0:
+        return True
+    return False    
