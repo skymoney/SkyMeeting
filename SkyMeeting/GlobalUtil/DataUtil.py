@@ -26,3 +26,9 @@ def getGroupList(g_list):
         singleGroup["cid"]=g.company_id
         groupList.append(singleGroup)
     return groupList
+
+def encrypt(data):
+    '''
+    encrypt date 
+    '''
+    pass
