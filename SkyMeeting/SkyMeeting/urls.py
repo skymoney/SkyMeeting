@@ -33,6 +33,7 @@ urlpatterns += patterns('Meeting.views',
     url(r'^deletemeeting/$','deleteMeeting'),
     url(r'^meeting/$','meeting'),
     url(r'^meeting/addcomment/$','addComment'),
+    url(r'^meeting/changestatus/$','changeStatus'),
 )
 
 urlpatterns += patterns('',

@@ -113,6 +113,19 @@ def deleteMeeting(request):
     result["success"] = "true"
     return HttpResponse(json.dumps(result))
 
+@login_required
+def changeStatus(request):
+    #permission check
+    #Is this meeting created by the user?
+    #......
+    params = dict()
+    params["mid"] = request.POST["mid"]
+    params["status"] = request.POST["status"]
+    
+    result = dict()
+    result["success"] = "true"
+    return HttpResponse(json.dumps(result))
+
 @login_required 
 def meeting(request):
     #permission check

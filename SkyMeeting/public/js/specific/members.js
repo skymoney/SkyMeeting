@@ -374,6 +374,9 @@ $(function() {
 					{
 						// error message
 					}
+
+					// reset ajax flag
+					ajaxDeleteGroupFlag = AJAX_IDLE;
 				}
 			);
 		}
