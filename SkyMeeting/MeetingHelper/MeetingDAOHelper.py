@@ -130,9 +130,10 @@ def getSingleMeeting(params):
     finalResult["meetingFile"]=util.getMeetingFile(file_list)
     return finalResult
 
-def addMeeting(params):
+def saveMeeting(params):
     '''
-    create or updates a new meeting
+    create or update a meeting
+    param "mid" exists when updating
     '''
     if "mid" in params:
         meeting=Meeting.objects.get(meeting_id=params["mid"])

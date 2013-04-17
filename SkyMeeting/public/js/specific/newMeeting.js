@@ -543,7 +543,7 @@ $(function() {
 
 		// ajax submit
 		$.post(
-			"/addmeeting/",
+			"/savemeeting/",
 			params,
 			function(data)
 			{

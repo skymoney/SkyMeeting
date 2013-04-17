@@ -66,7 +66,7 @@ def newMeeting(request):
     return render_to_response('newMeeting.html', Context(result))
 
 @login_required
-def addMeeting(request):
+def saveMeeting(request):
     #permission check
     #......
     params = dict()
@@ -82,16 +82,9 @@ def addMeeting(request):
     params["files"] = request.POST["files"]                     # file ids, "1+2+3" etc.
     
     if "mid" in request.POST:
-        params["mid"] = request.POST["mid"]
-        #update meeting
-        result = dict()
-        result["success"] = "true"
-        result["mid"] = params["mid"]
-        return HttpResponse(json.dumps(result))
-        #return HttpResponse(json.dumps(MeetingDAOHelper.addMeeting(params)))
-    else:
-        #add meeting
-        return HttpResponse(json.dumps(MeetingDAOHelper.addMeeting(params)))
+        params["mid"] = request.POST["mid"]                     # mid exists when updating
+    
+    return HttpResponse(json.dumps(MeetingDAOHelper.saveMeeting(params)))
 
 @login_required
 def editMeeting(request):
@@ -107,6 +100,18 @@ def editMeeting(request):
     result["tagAll"] = tempResult["tagAll"]
     result["langPack"] = RequestUtil.getLangPack(request)
     return render_to_response('newMeeting.html', Context(result))
+
+@login_required
+def deleteMeeting(request):
+    #permission check
+    #Is this meeting created by the user?
+    #......
+    params = dict()
+    params["mid"] = request.POST["mid"]
+    
+    result = dict()
+    result["success"] = "true"
+    return HttpResponse(json.dumps(result))
 
 @login_required 
 def meeting(request):
