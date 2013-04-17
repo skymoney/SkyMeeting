@@ -2,3 +2,15 @@
 	margin-top: 10px;
 	margin-bottom: 15px;
 }
+#meetingTable .status-drop .caret{
+	margin-top: 0;
+	vertical-align: middle;
+	border-top: 4px solid #fff;
+}
+#meetingTable .status-menu{
+	min-width: 0;
+	width: 105px;
+}
+#meetingTable .status-menu li{
+	/*text-align: center;*/
+}

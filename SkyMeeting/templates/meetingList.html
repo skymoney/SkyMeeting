@@ -63,9 +63,56 @@
 				<td>{{ meeting.mstart }}</td>
 				<td>{{ meeting.mplace }}</td>
 				<td>{{ meeting.muser.name }} / {{ meeting.mcreate }}</td>
+				{% if ad == 1 or ad == "1" %}
 				<td>
-					<span class="label label-info">{% trans "Active" %}</span>
+					<div class="dropdown">
+						{% if meeting.mstatus == 1 or meeting.mstatus == 5 %}
+						<a href="javascript:void(0);" class="label label-info dropdown-toggle status-drop" id="statusDrop{{ meeting.mid }}" data-toggle="dropdown" data-cur-status="{{ meeting.mstatus }}">
+							<span>{% trans "Active" %}</span>
+							<b class="caret"></b>
+						</a>
+						{% elif meeting.mstatus == 11 %}
+						<a href="javascript:void(0);" class="label label-inverse dropdown-toggle status-drop" id="statusDrop{{ meeting.mid }}" data-toggle="dropdown">
+							<span>{% trans "End" %}</span>
+							<b class="caret"></b>
+						</a>
+						{% elif meeting.mstatus == 15 %}
+						<a href="javascript:void(0);" class="label dropdown-toggle status-drop" id="statusDrop{{ meeting.mid }}" data-toggle="dropdown">
+							<span>{% trans "Closed" %}</span>
+							<b class="caret"></b>
+						</a>
+						{% else %}
+						<!-- undefined -->
+						<span class="label">{% trans "Unknown" %}</span>
+						{% endif %}
+						
+						<ul class="dropdown-menu status-menu" role="menu" aria-labelledby="statusDrop{{ meeting.mid }}">
+							<li>
+								<a href="javascript:void(0);" class="status" data-mid="{{ meeting.mid }}" data-status="1"><span class="label label-info">{% trans "Active" %}</span></a>
+							</li>
+							<li>
+								<a href="javascript:void(0);" class="status" data-mid="{{ meeting.mid }}" data-status="11"><span class="label label-inverse">{% trans "End" %}</span></a>
+							</li>
+							<li>
+								<a href="javascript:void(0);" class="status" data-mid="{{ meeting.mid }}" data-status="15"><span class="label">{% trans "Closed" %}</span></a>
+							</li>
+						</ul>
+					</div>
 				</td>
+				{% else %}
+				<td>
+					{% if meeting.mstatus == 1 or meeting.mstatus == 5 %}
+					<span class="label label-info">{% trans "Active" %}</span>
+					{% elif meeting.mstatus == 11 %}
+					<span class="label label-inverse">{% trans "End" %}</span>
+					{% elif meeting.mstatus == 15 %}
+					<span class="label">{% trans "Closed" %}</span>
+					{% else %}
+					<!-- undefined -->
+					<span class="label">{% trans "Unknown" %}</span>
+					{% endif %}
+				</td>
+				{% endif %}
 				<!-- <td>
 					<img src="../public/img/attachment_24x24.png" />
 				</td> -->
