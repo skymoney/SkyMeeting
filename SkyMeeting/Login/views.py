@@ -11,17 +11,21 @@ import simplejson
 
 #just for simple page show
 def welcome(request):
-    if "next" in request.GET:
-        redirectUrl=request.GET['next']
+    if "rid" not in request.session:
+        if "next" in request.GET:
+            redirectUrl=request.GET['next']
+        else:
+            redirectUrl="/home"
+        return render_to_response('login.html',{"redirectUrl":redirectUrl})
     else:
-        redirectUrl="/home"
-    return render_to_response('login.html',{"redirectUrl":redirectUrl})
+        return HttpResponseRedirect('/dashboard')
 
 def login(request):
     user = authenticate(username=request.POST['username'], password= request.POST['password']);
     if user is not None:
         # Redirect to a success page.
         auth_login(request,user)
+        request.session["rid"]=user.role_set.all()[0].rid
         return HttpResponseRedirect(request.POST['redirectUrl'])
     else:
         # Return an error message.
