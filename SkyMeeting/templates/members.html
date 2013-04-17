@@ -151,7 +151,7 @@
 								{% elif role.sex == 0 %}
 									{% trans "Female" %}
 								{% else %}
-									{% trans "Unknown" %}
+									{% trans "Secret" %}
 								{% endif %}
 							</td>
 							<td>{{ role.idcard }}</td>
@@ -449,10 +449,10 @@
 					<label class="radio inline">
 						<div class="radio">
 							<span>
-								<input type="radio" id="genderUnknown" name="editGender" value="-1" />
+								<input type="radio" id="genderSecret" name="editGender" value="-1" />
 							</span>
 						</div>
-						{% trans "Unknown" %}
+						{% trans "Secret" %}
 					</label>
 				</div>
 			</div>

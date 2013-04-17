@@ -43,8 +43,10 @@
 						{% trans "Formal meeting" %}
 					{% elif meetingData.mtype == 2 %}
 						{% trans "Informal meeting" %}
+					{% elif meetingData.mtype == 0 %}
+						{% trans "Others" %}
 					{% else %}
-						{% trans "Unknown" %}
+						{% trans "Undefined" %}
 					{% endif %}
 			  	</dd>
 			  	<dt>{% trans "Contact tel" %}</dt>
