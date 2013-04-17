@@ -9,4 +9,13 @@
     $("#profileForm").validations();
     // ===============================
     
+
+    $("#editProfileLink").click(function(){
+    	$("#profileDiv").hide();
+    	$("#profileForm").show();
+    });
+    $("#profileFormCancel").click(function(){
+        $("#profileDiv").show();
+        $("#profileForm").hide();
+    });
 });

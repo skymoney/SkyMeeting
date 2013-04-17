@@ -12,11 +12,34 @@
 {%block content%}
 <div class="container">
 	<h3>{% trans "Profile" %}</h3>
-	<form class="form-horizontal" id="profileForm">
+	<div id="profileDiv">
+		<a href="javascript:void(0);" id="editProfileLink">{% trans "Edit" %}</a>
+		<dl class="dl-horizontal">
+			<dt>{% trans "Name" %}</dt>
+			<dd>{{ name }}</dd>
+			<dt>{% trans "Gender" %}</dt>
+			<dd>
+				{% if sex == 1 %}
+				{% trans "Male" %}
+				{% elif sex == 0 %}
+				{% trans "Female" %}
+				{% else %}
+				{% trans "Secret" %}
+				{% endif %}
+			</dd>
+			<dt>{% trans "ID Card Number" %}</dt>
+			<dd>{{ idcard }}</dd>
+			<dt>{% trans "Phone" %}</dt>
+			<dd>{{ phone }}</dd>
+			<dt>{% trans "Email" %}</dt>
+			<dd>{{ email }}</dd>
+		</dl>
+	</div>
+	<form class="form-horizontal hide" id="profileForm" action="/editprofile/" method="post">
 		<div class="control-group">
 			<label class="control-label" for="editName">{% trans "Name" %}</label>
 			<div class="controls">
-				<input type="text" id="editName" placeholder="{% trans 'Name' %}" data-validate-presence="true" data-validate-error="#editNameError" />
+				<input type="text" id="editName" placeholder="{% trans 'Name' %}" data-validate-presence="true" data-validate-error="#editNameError" name="name" value="{{ name }}" />
 				<span class="alert alert-error hide" id="editNameError">
 					{% trans "Name cannot be blank." %}
 				</span>
@@ -27,34 +50,34 @@
 			<div class="controls">
 				<label class="radio inline">
 					<div class="radio">
-						<span class="checked">
-							<input type="radio" id="genderMale" name="editGender" value="1" />
+						<span {% if sex == 1 %}class="checked"{% endif %}>
+							<input type="radio" name="sex" value="1" {% if sex == 1 %}checked="checked"{% endif %} />
 						</span>
 					</div>
 					{% trans "Male" %}
 				</label>
 				<label class="radio inline">
 					<div class="radio">
-						<span>
-							<input type="radio" id="genderFemale" name="editGender" value="0" />
+						<span {% if sex == 0 %}class="checked"{% endif %}>
+							<input type="radio" name="sex" value="0" {% if sex == 0 %}checked="checked"{% endif %} />
 						</span>
 					</div>
 					{% trans "Female" %}
 				</label>
 				<label class="radio inline">
 					<div class="radio">
-						<span>
-							<input type="radio" id="genderUnknown" name="editGender" value="-1" />
+						<span {% if sex != 1 and sex != 0 %}class="checked"{% endif %}>
+							<input type="radio" name="sex" value="-1" {% if sex != 1 and sex != 0 %}checked="checked"{% endif %} />
 						</span>
 					</div>
-					{% trans "Unknown" %}
+					{% trans "Secret" %}
 				</label>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label" for="editIDno">{% trans "ID Card Number" %}</label>
 			<div class="controls">
-				<input type="text" id="editIDno" placeholder="{% trans 'ID Card Number' %}" data-validate-presence="true" data-validate-format="/^[0-9]+$/" data-validate-error="#editIDnoError" />
+				<input type="text" id="editIDno" placeholder="{% trans 'ID Card Number' %}" data-validate-presence="true" data-validate-format="/^[0-9]+$/" data-validate-error="#editIDnoError" name="idcard" value="{{ idcard }}" />
 				<span class="alert alert-error hide" id="editIDnoError">
 					{% trans "Should be a ID card number." %}
 				</span>
@@ -63,7 +86,7 @@
 		<div class="control-group">
 			<label class="control-label" for="editPhone">{% trans "Phone" %}</label>
 			<div class="controls">
-				<input type="text" id="editPhone" placeholder="{% trans 'Phone' %}" data-validate-presence="true" data-validate-format="/^[0-9]+$/" data-validate-error="#editPhoneError" />
+				<input type="text" id="editPhone" placeholder="{% trans 'Phone' %}" data-validate-presence="true" data-validate-format="/^[0-9]+$/" data-validate-error="#editPhoneError" name="phone" value="{{ phone }}" />
 				<span class="alert alert-error hide" id="editPhoneError">
 					{% trans "Should be a phone number." %}
 				</span>
@@ -72,7 +95,7 @@
 		<div class="control-group">
 			<label class="control-label" for="editEmail">{% trans "Email" %}</label>
 			<div class="controls">
-				<input type="text" id="editEmail" placeholder="{% trans 'Email' %}" data-validate-email="true" data-validate-error="#editEmailError" />
+				<input type="text" id="editEmail" placeholder="{% trans 'Email' %}" data-validate-email="true" data-validate-error="#editEmailError" name="email" value="{{ email }}" />
 				<span class="alert alert-error hide" id="editEmailError">
 					{% trans "Should be an email address." %}
 				</span>
@@ -80,7 +103,7 @@
 		</div>
 		<div class="control-group">
 			<div class="controls">
-				<input type="button" class="btn btn-primary" id="profileFormOk" value="{% trans 'Save' %}" data-validate="#profileForm" />
+				<input type="submit" class="btn btn-primary" id="profileFormOk" value="{% trans 'Save' %}" data-validate="#profileForm" />
         		<input type="button" class="btn" id="profileFormCancel" value="{% trans 'Cancel' %}" />
 			</div>
 		</div>
