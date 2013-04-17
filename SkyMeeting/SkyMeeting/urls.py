@@ -12,6 +12,12 @@ urlpatterns = patterns('Login.views',
     url(r'^invite/$','invite'),
 )
 
+urlpatterns += patterns('General.views',
+    url(r'^dashboard/$','dashboard'),
+    url(r'^profile/$','profile'),
+    url(r'^documents/$','documents'),
+)
+
 urlpatterns += patterns('MemManage.views',
     url(r'^members/$','members'),
     url(r'^members/edituser','editRoleInfo'),
@@ -34,6 +40,7 @@ urlpatterns += patterns('Meeting.views',
     url(r'^meeting/$','meeting'),
     url(r'^meeting/addcomment/$','addComment'),
     url(r'^meeting/changestatus/$','changeStatus'),
+    url(r'^upfile/$','uploadFile'),
 )
 
 urlpatterns += patterns('',
@@ -47,10 +54,6 @@ urlpatterns += patterns('',
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^public/(?P<path>.*)$','django.views.static.serve',{"document_root":settings.STATIC_PATH}), #add static files
-    url(r'^dashboard/$','Meeting.views.dashboard'),
-    url(r'^profile/$','Meeting.views.profile'),
-    url(r'^documents/$','Meeting.views.documents'),
-    url(r'^upfile/$','Meeting.views.uploadFile'),
     url(r'^setlang/$','django.views.i18n.set_language'),
     url(r'^jsi18n/(?P<packages>\S+)/$','django.views.i18n.javascript_catalog'),
 )
