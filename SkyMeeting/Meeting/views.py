@@ -101,6 +101,18 @@ def editMeeting(request):
     result["langPack"] = RequestUtil.getLangPack(request)
     return render_to_response('newMeeting.html', Context(result))
 
+@login_required
+def deleteMeeting(request):
+    #permission check
+    #Is this meeting created by the user?
+    #......
+    params = dict()
+    params["mid"] = request.POST["mid"]
+    
+    result = dict()
+    result["success"] = "true"
+    return HttpResponse(json.dumps(result))
+
 @login_required 
 def meeting(request):
     #permission check

@@ -30,6 +30,7 @@ urlpatterns += patterns('Meeting.views',
     url(r'^newmeeting/$','newMeeting'),
     url(r'^savemeeting/$','saveMeeting'),
     url(r'^editmeeting/$','editMeeting'),
+    url(r'^deletemeeting/$','deleteMeeting'),
     url(r'^meeting/$','meeting'),
     url(r'^meeting/addcomment/$','addComment'),
 )

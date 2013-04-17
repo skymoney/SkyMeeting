@@ -71,10 +71,10 @@
 				</td> -->
 				{% if ad == 1 or ad == "1" %}
 				<td>
-					<a href="../editmeeting/?mid={{ meeting.mid }}" class="image-link" title="{% trans 'Edit meeting' %}">
+					<a href="../editmeeting/?mid={{ meeting.mid }}" class="edit-meeting image-link" title="{% trans 'Edit meeting' %}">
 						<i class="icon-edit"></i>
 					</a>
-					<a href="javascript:void(0);" class="image-link" title="{% trans 'Delete meeting' %}">
+					<a href="javascript:void(0);" class="delete-meeting image-link" title="{% trans 'Delete meeting' %}">
 						<i class="icon-trash"></i>
 					</a>
 				</td>
@@ -101,6 +101,27 @@
 		    <li><a href="javascript:void(0);">5</a></li>
 		    <li class="next"><a href="javascript:void(0);">{% trans "Next" %} → </a></li>
 		  </ul>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- Popup div -->
+<div class="popup-div hide" id="deleteMeetingDiv">
+	<div class="popup-div-header" id="deleteMeetingHeader">
+		<a href="javascript:void(0);" class="close">x</a>
+	</div>
+	<div class="popup-div-inner">
+		<div class="popup-delete-hint alert-msg">
+			{% trans "Are you sure to delete meeting" %}
+			<span class="popup-strong-hint" id="deleteMeetingTitle"></span>
+			{% trans "?" %}
+		</div>
+		<input type="hidden" id="deleteMeetingId" />
+		<div class="popup-action-div">
+			<input type="button" class="btn btn-primary" id="deleteMeetingOk" value="{% trans 'OK' %}" />
+			<input type="button" class="btn" id="deleteMeetingCancel" value="{% trans 'Cancel' %}" />
 		</div>
 	</div>
 </div>
