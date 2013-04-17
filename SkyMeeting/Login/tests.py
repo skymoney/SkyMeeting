@@ -8,9 +8,15 @@ Replace this with more appropriate tests for your application.
 from django.test import TestCase
 
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+class LoginTest(TestCase):
+    def testInsertRole(self):
+        params=dict()
+        params["create"]="true"
+        params["code"]="550a141f12de6341fba65b0ad0433500"
+        params['aname']="tests"
+        params["apass"]="123456"
+        
+        params["verifyName"]="qcc"
+        
+        from LoginHelper import LoginHelper
+        print LoginHelper.confirmRole(params)
