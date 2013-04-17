@@ -22,17 +22,17 @@ def getDashboard(account):
         dashInfoSingle["companyAdmin"]=role.company.role_set.filter(account_id=1)[0].name
         dashInfoSingle["membersCount"]=len(role.company.role_set.all())
         meeting_set=Meeting.objects.filter(meeting_participant__role_id=role.rid)
-                
+        active_set=meeting_set.filter(meeting_status__lt=10)
         dashInfoSingle["allMeetingsCount"]=len(meeting_set)
-        dashInfoSingle["activeMeetingsCount"]=len(meeting_set.filter(meeting_status__lt=10))
+        dashInfoSingle["activeMeetingsCount"]=len(active_set)
         dashInfoSingle["closedMeetingsCount"]=len(meeting_set.filter(meeting_status=15))
-        
-        if len(meeting_set)>0:
-            lastMeeting=meeting_set.order_by("start_time")[0]
-            last=lastMeeting.meeting_title+" "+str(lastMeeting.start_time)
-        else:
-            last=""
-        dashInfoSingle["lastmeeting"]=last
+        latestMeeting=dict()
+        if len(active_set)>0:            
+            lastMeeting=active_set.order_by("start_time")[0]
+            latestMeeting["mtitle"]=lastMeeting.meeting_title
+            latestMeeting["mstart"]=lastMeeting.start_time
+            latestMeeting["mplace"]=lastMeeting.meeting_place
+        dashInfoSingle["latestMeeting"]=latestMeeting
         dashInfoSet.append(dashInfoSingle)
     
     return dashInfoSet

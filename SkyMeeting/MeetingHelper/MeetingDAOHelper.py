@@ -275,7 +275,6 @@ def changeMeetingStatus(params):
     result=dict()
     try:
         Meeting.objects.filter(meeting_id=params["mid"]).update(meeting_status=int(params["status"]))
-        print "done..."
         result["success"]="true"
     except:
         result["success"]="false"
