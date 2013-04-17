@@ -298,3 +298,29 @@ def getProfile(params):
     profileInfo["email"]=role.email
     
     return profileInfo
+
+def deleteMeeting(params):
+    '''
+    delete specified meeting
+    '''
+    result=dict()
+    try:
+        Meeting.objects.filter(meeting_id=params["mid"]).delete()
+        result["success"]="true"
+    except:
+        result['success']="false"
+        result["errors"]=""
+    return result
+
+def changeMeetingStatus(params):
+    '''
+    change meeting status
+    '''
+    result=dict()
+    meeting=Meeting.objects.get(meeting_id=params["mid"])
+    try:
+        meeting.meeting_status=int(params["status"])
+        result["success"]="true"
+    except:
+        result["success"]="false"
+    return result
