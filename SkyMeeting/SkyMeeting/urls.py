@@ -15,6 +15,7 @@ urlpatterns = patterns('Login.views',
 urlpatterns += patterns('General.views',
     url(r'^dashboard/$','dashboard'),
     url(r'^profile/$','profile'),
+    url(r'^editprofile/$','editProfile'),
     url(r'^documents/$','documents'),
 )
 

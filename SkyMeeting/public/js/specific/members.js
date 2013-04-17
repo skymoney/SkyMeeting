@@ -812,7 +812,7 @@ $(function() {
 		// invalid genderVal, element not found
 		if(genderElement.length == 0)
 		{
-			$("#genderUnknown").click();
+			$("#genderSecret").click();
 		}
 		else
 		{

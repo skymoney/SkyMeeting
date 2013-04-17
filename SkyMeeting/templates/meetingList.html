@@ -56,8 +56,10 @@
 						{% trans "Formal meeting" %}
 					{% elif meeting.mtype == 2 %}
 						{% trans "Informal meeting" %}
+					{% elif meeting.mtype == 0 %}
+						{% trans "Others" %}
 					{% else %}
-						{% trans "Unknown" %}
+						{% trans "Undefined" %}
 					{% endif %}
 				</td>
 				<td>{{ meeting.mstart }}</td>
@@ -83,7 +85,7 @@
 						</a>
 						{% else %}
 						<!-- undefined -->
-						<span class="label">{% trans "Unknown" %}</span>
+						<span class="label">{% trans "Undefined" %}</span>
 						{% endif %}
 						
 						<ul class="dropdown-menu status-menu" role="menu" aria-labelledby="statusDrop{{ meeting.mid }}">
@@ -109,7 +111,7 @@
 					<span class="label">{% trans "Closed" %}</span>
 					{% else %}
 					<!-- undefined -->
-					<span class="label">{% trans "Unknown" %}</span>
+					<span class="label">{% trans "Undefined" %}</span>
 					{% endif %}
 				</td>
 				{% endif %}
