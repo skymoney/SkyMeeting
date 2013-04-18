@@ -56,7 +56,8 @@ def getPartMeetings(params):
     finalResult["meetingData"]=util.query2List(pageData.page(int(params["pn"])).object_list)
     finalResult["ad"]="0"
     finalResult["pn"]=int(params["pn"])
-    finalResult["tpn"]=pageData.page_range
+    finalResult["tpn"]=pageData.num_pages
+    finalResult["pnrange"]=pageData.page_range
     return finalResult
 
 def getCreateMeeting(params):
@@ -77,7 +78,8 @@ def getCreateMeeting(params):
     finalResult["meetingData"]=util.query2List(pageData.page(int(params["pn"])).object_list)    
     finalResult["ad"]="1"   #return whether create or participate
     finalResult["pn"]=int(params["pn"]) #current page number
-    finalResult["tpn"]=pageData.page_range      #total page number
+    finalResult["tpn"]=pageData.num_pages      #total page number
+    finalResult["pnrange"]=pageData.page_range
     
     return finalResult
 
