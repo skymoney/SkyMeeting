@@ -61,7 +61,9 @@ def documents(request):
 def changeCurRid(request):
     if request.method=="POST":
         newRid=request.POST["rid"]
+        newCid=request.POST["cid"]
         #from MemManage.models import Role
         #if len(Role.objects.get(request.session["rid"]).account.role_set.filter(rid=newRid)):
         request.session["rid"]=newRid
+        request.session["cid"]=newCid
         return HttpResponseRedirect('/meetings')

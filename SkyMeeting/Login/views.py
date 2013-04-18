@@ -25,7 +25,9 @@ def login(request):
     if user is not None:
         # Redirect to a success page.
         auth_login(request,user)
-        request.session["rid"]=user.role_set.all()[0].rid
+        role=user.role_set.all()[0]
+        request.session["rid"]=role.rid
+        request.session["cid"]=role.company_id
         return HttpResponseRedirect(request.POST['redirectUrl'])
     else:
         # Return an error message.

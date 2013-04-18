@@ -18,6 +18,7 @@ def getDashboard(account):
     for role in role_set:
         dashInfoSingle=dict()
         dashInfoSingle["rid"]=role.rid
+        dashInfoSingle["cid"]=role.company_id
         dashInfoSingle["companyName"]=role.company.cname
         dashInfoSingle["companyAdmin"]=role.company.role_set.filter(account_id=1)[0].name
         dashInfoSingle["membersCount"]=len(role.company.role_set.all())
@@ -36,9 +37,6 @@ def getDashboard(account):
         dashInfoSet.append(dashInfoSingle)
     
     return dashInfoSet
-
-def editCurRid(params):
-    pass
 
 def getProfile(params):
     '''
