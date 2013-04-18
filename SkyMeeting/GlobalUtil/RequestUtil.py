@@ -57,4 +57,27 @@ def checkMeetingPermission(role):
         return True
     else:
         return False
+    
+def checkRoleMeetingPermission(params):
+    '''
+    check permission of specified role to edit specified meeting
+    
+    @param rid: id of role
+    @param mid: id of meeting
+    '''
+    from Meeting.models import Meeting
+    if len(Meeting.objects.filter(meeting_id=params["rid"],create_user_id=params["rid"]))>0:
+        return True
+    return False
 
+def pagingOps(data,order_by,pn):
+    '''
+    '''
+    result=dict()
+    startNumber=(int(pn)-1)*settings.NUMBERPERPAGE
+    newData=data.order_by(order_by)[startNumber:startNumber+settings.NUMBERPERPAGE]
+    
+    result["totalNumber"]=len(data)
+    result["newData"]=newData
+    
+    return result
