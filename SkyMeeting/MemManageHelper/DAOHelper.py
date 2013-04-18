@@ -48,8 +48,11 @@ def members(params):
                 pass
     
     #add paging
-    pageResult=RequestUtil.pagingOps(u_list,'rid',params["pn"])
+    #pageResult=RequestUtil.pagingOps(u_list,'rid',params["pn"])
+    from django.core.paginator import Paginator
+    from django.conf import settings
     
+    pageData=Paginator(u_list,settings.NUMBERPERPAGE)
     g_list=Group.objects.filter(company=params["cid"])
     t_list=Tag.objects.filter(company=params["cid"])
     
@@ -62,14 +65,14 @@ def members(params):
         
     #conf can set more values here
     #return data
-    returnDict["memberAll"]=pageResult["newData"]
+    returnDict["memberAll"]=pageData.page(int(params["pn"])).object_list
     returnDict["groupAll"]=groupList
     returnDict["groupString"]=json.dumps(groupList)
     returnDict["groupAllCount"]=RoleCount    
     returnDict["tagAll"]=t_list
     returnDict["tagString"]=json.dumps(tagList)
     returnDict["conf"]=conf
-    returnDict["tpn"]=pageResult["totalNumber"]
+    returnDict["tpn"]=pageData.page_range
     returnDict["pn"]=int(params["pn"])
     
     return returnDict
