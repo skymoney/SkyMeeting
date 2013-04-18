@@ -18,6 +18,6 @@ def downloadFile(params):
     f.close()
     
     response=HttpResponse(fdata,mimetype='application/octet-stream')
-    response["Content-Disposition"]='attachment;filename=%s'%fobj.file_name
+    response["Content-Disposition"]='attachment;filename=%s'%str(fobj.file_name)
     
     return response
