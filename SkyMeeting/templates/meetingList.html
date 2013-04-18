@@ -142,11 +142,11 @@
 	<div class="row-fluid pagination-row">
 		<div class="pagination">
 		  <ul>
-		    <li class="prev disabled"><a href="javascript:void(0);">← {% trans "Previous" %}</a></li>
+		    <li class="prev {% if pn == 1 %}disabled{% endif %}"><a href="javascript:void(0);" id="prePage">← {% trans "Previous" %}</a></li>
 		    {% for i in tpn %}
-		    <li {% if i == pn %}class="active"{% endif %}><a href="javascript:void(0);">{{ i }}</a></li>
+		    <li {% if i == pn %}class="active"{% endif %}><a href="javascript:void(0);" class="page" data-page="{{ i }}">{{ i }}</a></li>
 		    {% endfor %}
-		    <li class="next"><a href="javascript:void(0);">{% trans "Next" %} → </a></li>
+		    <li class="next"><a href="javascript:void(0);" id="nextPage">{% trans "Next" %} → </a></li>
 		  </ul>
 		</div>
 	</div>
