@@ -7,7 +7,7 @@ Created on 2013-3-23
 from MemManage.models import Role,Tag,Group,Company,TempRole
 import simplejson as json
 import BasicUtil as util
-from GlobalUtil import DataUtil
+from GlobalUtil import DataUtil,RequestUtil
 def members(params):
     '''
     get members given conditions
@@ -46,10 +46,13 @@ def members(params):
                 conf['current_tid']=util.listToInt(params['tid'].split())
             except:
                 pass
-       
+    
+    #add paging
+    pageResult=RequestUtil.pagingOps(u_list,'rid',params["pn"])
+    
     g_list=Group.objects.filter(company=params["cid"])
     t_list=Tag.objects.filter(company=params["cid"])
-    groupList=[]
+    
     tagList=DataUtil.getTagList(t_list)
     #here can optimize by just sql query instead of Model method
     groupList=DataUtil.getGroupList(g_list)
@@ -59,13 +62,15 @@ def members(params):
         
     #conf can set more values here
     #return data
-    returnDict["memberAll"]=u_list
+    returnDict["memberAll"]=pageResult["newData"]
     returnDict["groupAll"]=groupList
     returnDict["groupString"]=json.dumps(groupList)
     returnDict["groupAllCount"]=RoleCount    
     returnDict["tagAll"]=t_list
     returnDict["tagString"]=json.dumps(tagList)
     returnDict["conf"]=conf
+    returnDict["tpn"]=pageResult["totalNumber"]
+    returnDict["pn"]=int(params["pn"])
     
     return returnDict
 
@@ -260,18 +265,30 @@ def queryPerson(params):
         uList=uList.filter(groups__gid=gid)
     
     #tids not in use currently
+    if 'tid' in params and len(params['tid'])>0:
+        if '-1' in params['tid'].split():
+            pass
+        else:
+            try:
+                uList=uList.filter(tags__tid__in=(params['tid'].split())).distinct()
+            except:
+                pass
+    pageResult=RequestUtil.pagingOps(uList,'rid',params["pn"])
+    finalResult=dict()
     
-    uList=uList.order_by("name")[0:10]
     roleList=[]
     #get specified fields of Role
-    for u in uList:
+    for u in pageResult["newData"]:
         role=dict()
         role["id"]=u.rid
         role["name"]=u.name
         role["sex"]=u.sex
         roleList.append(role)
-    
-    return roleList
+        
+    finalResult["roleList"]=roleList
+    finalResult["pn"]=int(params["pn"])
+    finalResult["tpn"]=pageResult["totalNumber"]
+    return finalResult
 
 def sendInviteEmail(email,code):
     from django.core.mail import send_mail

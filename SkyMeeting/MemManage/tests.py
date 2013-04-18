@@ -15,7 +15,7 @@ class MemberTest(TestCase):
         #print response
         self.assertEqual(200,response.status_code,"Get Response Properly")
     
-    def testAddGroup(self):
+    def tstAddGroup(self):
         #response=self.client.get('/members/',{'gid':'1','tid':'1+2'})
         
         #response=self.client.post("/members/addgroup/",{"groupName":"test"})
@@ -51,7 +51,7 @@ class MemberTest(TestCase):
         print result
         self.assertEqual("true",result["success"],"TestTag")
     
-    def testEditGroup(self):
+    def tstEditGroup(self):
         from MemManageHelper import DAOHelper as helper
         param=dict()
         param["cid"]=1
