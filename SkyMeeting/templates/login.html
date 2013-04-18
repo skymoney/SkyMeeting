@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿{% load i18n %}
+<!DOCTYPE html>
 <html>
   <head>
     <title>SkyMeeting</title>
@@ -14,24 +15,24 @@
 	<div class="container">
 		<form class="form-horizontal form-signin" action="login/" method="post">
 			<div class="control-group">
-				<label class="control-label" for="inputEmail">Email</label>
+				<label class="control-label" for="inputEmail">{% trans "Email" %}</label>
 				<div class="controls">
-					<input type="text" id="inputEmail" name="username" placeholder="Email" />
+					<input type="text" id="inputEmail" name="username" placeholder="{% trans 'Email' %}" />
 				</div>
 			  </div>
 			  <div class="control-group">
-				<label class="control-label" for="inputPassword">Password</label>
+				<label class="control-label" for="inputPassword">{% trans "Password" %}</label>
 				<div class="controls">
-					<input type="password" id="inputPassword" name="password" placeholder="Password" />
+					<input type="password" id="inputPassword" name="password" placeholder="{% trans 'Password' %}" />
 				</div>
 			  </div>
 			  <div class="control-group">
 				<div class="controls">
 					<label class="checkbox">
 						<input type="checkbox" />
-						Remember me
+						{% trans "Remember me" %}
 					</label>
-					<input type="submit" class="btn btn-primary" value="Sign in" />
+					<input type="submit" class="btn btn-primary" value="{% trans 'Sign in' %}" />
 				</div>
 			</div>
 			<input type="hidden" name="redirectUrl" value="{{ redirectUrl }}" />

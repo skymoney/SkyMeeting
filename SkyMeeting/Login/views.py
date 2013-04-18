@@ -2,8 +2,10 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
+from django.template import Context
 from django.contrib.auth import authenticate, login as auth_login,logout as auth_logout
 from django.contrib.auth.decorators import login_required
+from LoginHelper import LoginHelper
 from MemManage.models import TempRole,Role  
 from Login.models import Account 
 import simplejson
@@ -52,8 +54,11 @@ def invite(request):
         tempRole = TempRole.objects.get(code = invitecode)
     except TempRole.DoesNotExist:
         return HttpResponse('Your invite code is not legal!')
+    
     request.session['code']= invitecode
-    return render_to_response('invite.html')
+    params = dict()
+    params["code"] = invitecode
+    return render_to_response('invite.html', Context(LoginHelper.fetcheVerifyInfo(params)))
    
 
 def regedit(request):

@@ -1,3 +1,4 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html>
   	<head>
@@ -7,30 +8,7 @@
 	    <!-- Bootstrap -->
 	    <link href="../public/css/bootstrap.min.css" rel="stylesheet" media="screen">
 
-	    <style type="text/css">
-		body {
-			padding-top: 40px;
-			padding-bottom: 40px;
-			background-color: #f5f5f5;
-		}
-		.form-signin, .form-register {
-			max-width: 510px;
-			padding: 19px 29px 0px;
-			margin: 0 auto 20px;
-			background-color: #fff;
-			border: 1px solid #e5e5e5;
-			-webkit-border-radius: 5px;
-			-moz-border-radius: 5px;
-			border-radius: 5px;
-			-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-			-moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-			box-shadow: 0 1px 2px rgba(0,0,0,.05);
-		}
-		.form-signin .checkbox {
-			margin-bottom: 10px;
-		}
-
-		</style>
+	    <link rel="stylesheet" type="text/css" href="../public/css/specific/invite.css">
 	</head>
 	<body>
 
@@ -38,27 +16,27 @@
 			<div class="container-fluid">
 				<div class="row-fluid">
 					<div class="span6">
-						<h3 class="text-center">I have already owned an account</h3>
+						<h3 class="text-center">{% trans "I have already owned an account" %}</h3>
 						<form class="form-horizontal form-signin" action="/login/" method="post">
 							<div class="control-group">
-								<label class="control-label" for="email">Email</label>
+								<label class="control-label" for="email">{% trans "Email" %}</label>
 								<div class="controls">
-									<input type="text" id="email" name="username" placeholder="Email" />
+									<input type="text" id="email" name="username" placeholder="{% trans 'Email' %}" />
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="password">Password</label>
+								<label class="control-label" for="password">{% trans "Password" %}</label>
 								<div class="controls">
-									<input type="password" id="password" name="password" placeholder="Password" />
+									<input type="password" id="password" name="password" placeholder="{% trans 'Password' %}" />
 								</div>
 							</div>
 							<div class="control-group">
 								<div class="controls">
 									<label class="checkbox">
 										<input type="checkbox" id="rememberMe" />
-										Remember me
+										{% trans "Remember me" %}
 									</label>
-									<input type="submit" class="btn btn-primary" value="Sign in" />
+									<input type="submit" class="btn btn-primary" value="{% trans 'Sign in' %}" />
 								</div>
 							</div>						
 						</form>
@@ -66,41 +44,53 @@
 					
 
 					<div class="span6">
-						<h3 class="text-center">This is my first time to be here</h3>
+						<h3 class="text-center">{% trans "This is my first time to be here" %}</h3>
 						<form class="form-horizontal form-register" action="../regedit/" method="post">
 							<div class="control-group">
-								<label class="control-label" for="inputEmail">Email</label>
+								<label class="control-label" for="inputEmail">{% trans "Email" %}</label>
 								<div class="controls">
-									<input type="text" id="inputEmail" name="username" placeholder="Email" />
+									<input type="text" id="inputEmail" name="username" placeholder="{% trans 'Email' %}" />
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="inputPassword">Password</label>
+								<label class="control-label" for="inputPassword">{% trans "Password" %}</label>
 								<div class="controls">
-									<input type="password" id="inputPassword" name="password" placeholder="Password" />
+									<input type="password" id="inputPassword" name="password" placeholder="{% trans 'Password' %}" />
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="repeatPassword">Repeat Password</label>
+								<label class="control-label" for="repeatPassword">{% trans "Repeat Password" %}</label>
 								<div class="controls">
-									<input type="password" id="repeatPassword" name="repeatPassword" placeholder="Repeat Password" />
+									<input type="password" id="repeatPassword" name="repeatPassword" placeholder="{% trans 'Repeat Password' %}" />
 								</div>
 							</div>
+							{% if verifyByName == "true" %}
 							<div class="control-group">
-								<label class="control-label" for="inputTrueName">True Name</label>
+								<label class="control-label" for="inputTrueName">{% trans "True Name" %}</label>
 								<div class="controls">
-									<input type="text" id="inputTrueName" name="trueName" placeholder="True Name" />
+									<input type="text" id="inputTrueName" name="trueName" placeholder="{% trans 'True Name' %}" />
 								</div>
 							</div>
+							{% endif %}
+							{% if verifyByPhone == "true" %}
 							<div class="control-group">
-								<label class="control-label" for="inputIdcard">ID Card Number</label>
+								<label class="control-label" for="inputIdcard">{% trans "ID Card Number" %}</label>
 								<div class="controls">
-									<input type="text" id="inputIdcard" name="idcard" placeholder="ID Card Number" />
+									<input type="text" id="inputIdcard" name="idcard" placeholder="{% trans 'ID Card Number' %}" />
 								</div>
 							</div>
+							{% endif %}
+							{% if verifyByQuest == "true" %}
+							<div class="control-group">
+								<label class="control-label" for="inputAnswer">{{ verifyQuest }}</label>
+								<div class="controls">
+									<input type="text" id="inputAnswer" name="answer" placeholder="{% trans 'Answer' %}" />
+								</div>
+							</div>
+							{% endif %}
 							<div class="control-group">
 								<div class="controls">
-									<input type="submit" class="btn btn-primary" value="Regedit" />
+									<input type="submit" class="btn btn-primary" value="{% trans 'Register' %}" />
 								</div>
 							</div>
 						</form>
@@ -114,9 +104,7 @@
 		<script src="../public/js/jquery-1.9.1.min.js"></script>
 		<script src="../public/js/bootstrap.min.js"></script>
 		
-		<script type="text/javascript">
-		
-		</script>
+		<script type="text/javascript" src="../public/js/specific/invite.js"></script>
 
 	</body>
 </html>

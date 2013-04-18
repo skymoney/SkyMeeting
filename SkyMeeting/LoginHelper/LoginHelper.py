@@ -21,7 +21,8 @@ def fetcheVerifyInfo(params):
     result["verifyByQuest"]="false"
     result["verifyQuest"]=""
     
-    tempRole=TempRole()
+    code=params["code"]
+    tempRole=TempRole.objects.get(code=code)
     if tempRole.verifyByName==1:
         #verify by name activated
         result["verifyByName"]="true"
