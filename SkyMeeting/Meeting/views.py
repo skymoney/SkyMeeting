@@ -129,3 +129,10 @@ def uploadFile(request):
     
     result=MeetingDAOHelper.uploadFile(params)
     return HttpResponse(json.dumps(result))
+
+@login_required
+def downloadFile(request):
+    params=dict()
+    params["fid"] = request.POST["fid"]
+    pass
+#    return BasicUtil.downloadFile(params)

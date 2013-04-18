@@ -7,7 +7,6 @@
 			$(this).removeClass("selected");
 		});
 
-		// ajax submit
-		
+		$(this).children("form").submit();
 	});
 });
