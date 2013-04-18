@@ -21,6 +21,8 @@ def meetings(request):
     if "type" in request.GET:
         params["type"] = request.GET["type"]    # -1 for all meetings, 1 for formal, 2 for informal
     
+    params["pn"] = 1    #default!!! page number
+    
     result = MeetingDAOHelper.meetings(params)
     result["langPack"] = RequestUtil.getLangPack(request)
     result["rolePack"] = RequestUtil.getRolePack(request)
