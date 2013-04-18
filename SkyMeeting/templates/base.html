@@ -31,7 +31,7 @@
 					<ul class="dropdown-menu" id="roleList" role="menu" aria-labelledby="roleDrop">
 						{% for role in rolePack.roles %}
 						<li role="presentataion">
-							<a href="javascript:void(0);" class="role" role="menuitem" data-rid="{{ role.rid }}">{{ role.name }}({{ role.companyName }})</a>
+							<a href="javascript:void(0);" class="role" role="menuitem" data-rid="{{ role.rid }}" data-cid="{{ role.cid }}">{{ role.name }}({{ role.companyName }})</a>
 						</li>
 						{% endfor %}
 						<li role="presentataion">
@@ -40,6 +40,7 @@
 					</ul>
 					<form class="hide" id="roleForm" action="/setrole/" method="post">
 						<input type="hidden" name="rid" value="" />
+						<input type="hidden" name="cid" value="" />
 					</form>
 				</div>
 			</div>

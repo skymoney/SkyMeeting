@@ -12,9 +12,9 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def dashboard(request):
-    params = dict()
-    params["rid"] = 1 #default!!!
-    params["cid"] = 1 #default!!!
+#    params = dict()
+#    params["rid"] = request.session["rid"]
+#    params["cid"] = request.session["cid"]
     
     dashboards = GeneralHelper.getDashboard(request.user)
     result = dict()
@@ -24,7 +24,7 @@ def dashboard(request):
     rolePack = dict()
     rolePack["roles"] = RequestUtil.getRolePack(request)
     rolePack["curRid"] = request.session["rid"]if "rid" in request.session else request.user.role_set.all()[0].rid
-    
+    rolePack["curRid"] = int(rolePack["curRid"])
     result["rolePack"] = rolePack
     
     return render_to_response('home.html', Context(result))
@@ -33,7 +33,7 @@ def dashboard(request):
 @login_required
 def profile(request):
     params = dict()
-    params["rid"] = 1 #default!!!
+    params["rid"] = request.session["rid"]
     
     result = GeneralHelper.getProfile(params)
     result["langPack"] = RequestUtil.getLangPack(request)
@@ -42,7 +42,7 @@ def profile(request):
 @login_required
 def editProfile(request):
     params = dict()
-    params["rid"] = 1 #default!!!
+    params["rid"] = request.session["rid"]
     params["name"] = request.POST["name"]
     params["sex"] = request.POST["sex"]
     params["idcard"] = request.POST["idcard"]

@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.template import Context
 from MeetingHelper import MeetingDAOHelper
 from GlobalUtil import RequestUtil
+from FileUtil import BasicUtil
 import simplejson as json
 from django.contrib.auth.decorators import login_required
 
@@ -14,7 +15,7 @@ def meetings(request):
     #permission check
     #......
     params = dict()
-    params["rid"] = 1 #default!!!
+    params["rid"] = request.session["rid"]
     if "ad" in request.GET:
         params["ad"] = request.GET["ad"]        # 1 for my created meetings, 0 for my attended meetings
     if "type" in request.GET:
@@ -40,7 +41,7 @@ def saveMeeting(request):
     #permission check
     #......
     params = dict()
-    params["createUser"] = 1 #default!!!                        # create by user id
+    params["createUser"] = request.session["rid"]               # create by user id
     params["title"] = request.POST["title"]
     params["type"] = request.POST["type"]
     params["startTime"] = request.POST["startTime"]             # yyyy/mm/dd hh:mm
@@ -61,7 +62,7 @@ def editMeeting(request):
     #permission check
     #......
     params = dict()
-    params["cid"] = 1 #default!!!
+    params["cid"] = 1
     params["mid"] = request.GET["mid"] #GET or POST???
     
     tempResult = MeetingDAOHelper.newMetingInitial(params)
@@ -109,7 +110,7 @@ def addComment(request):
     #......
     params = dict()
     params["meetingId"] = request.POST["meetingId"]
-    params["userId"] = 1                                            #get from session
+    params["userId"] = request.session["rid"]
     params["content"] = request.POST["content"]                     #simple text
     params["replyToUser"] = request.POST["replyToUser"]             #reply to user id
     params["replyToComment"] = request.POST["replyToComment"]       #reply to comment id
@@ -134,5 +135,4 @@ def uploadFile(request):
 def downloadFile(request):
     params=dict()
     params["fid"] = request.POST["fid"]
-    pass
-#    return BasicUtil.downloadFile(params)
+    return BasicUtil.downloadFile(params)

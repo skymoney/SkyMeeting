@@ -21,8 +21,10 @@ $(function(){
 	// role change
 	$("#roleList").find("a.role").click(function(){
 		var rid = $(this).attr("data-rid");
+		var cid = $(this).attr("data-cid");
 		var form = $("#roleForm")
 		form.find("input[name='rid']").val(rid);
+		form.find("input[name='cid']").val(cid);
 		form.submit();
 	});
 });
