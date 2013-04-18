@@ -9,7 +9,7 @@ from django.test import TestCase
 import simplejson as json
 
 class MemberTest(TestCase):
-    def testAllMembers(self):
+    def tstAllMembers(self):
         response=self.client.get("/members/")
         
         #print response
@@ -60,4 +60,13 @@ class MemberTest(TestCase):
         result=helper.editGroup(param)
         print result
         self.assertEqual("true",result["success"],"Test Edit Group")
+    
+    def testqueryPerson(self):
+        params=dict()
+        params["gid"]="1"
+        params["cid"]="1"
+        #params['tid']="1+2"
+        params["pn"]=1
+        from MemManageHelper import DAOHelper as helper
+        print helper.queryPerson(params)
     

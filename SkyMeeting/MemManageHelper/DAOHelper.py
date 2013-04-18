@@ -261,7 +261,6 @@ def queryPerson(params):
     '''
     gid=params["gid"]
     cid=params["cid"]
-    tids=params["tid"]
     
     uList=Role.objects.filter(company_id=cid)
     if gid!="-1":
@@ -284,6 +283,7 @@ def queryPerson(params):
     
     roleList=[]
     currentPageData=pageData.page(int(params["pn"])).object_list
+    print currentPageData
     #get specified fields of Role
     for u in currentPageData:
         role=dict()
