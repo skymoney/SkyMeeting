@@ -30,7 +30,7 @@ def getDashboard(account):
         if len(active_set)>0:            
             lastMeeting=active_set.order_by("start_time")[0]
             latestMeeting["mtitle"]=lastMeeting.meeting_title
-            latestMeeting["mstart"]=lastMeeting.start_time
+            latestMeeting["mstart"]=lastMeeting.start_time.strftime("%Y/%m/%d %H:%M")
             latestMeeting["mplace"]=lastMeeting.meeting_place
         dashInfoSingle["latestMeeting"]=latestMeeting
         dashInfoSet.append(dashInfoSingle)

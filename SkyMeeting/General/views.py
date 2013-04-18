@@ -59,8 +59,9 @@ def documents(request):
 
 @login_required
 def changeCurRid(request):
-    newRid=request.GET["rid"]       #GET or POST
-    #verification?
-    request.session["rid"]=newRid
-    
-    return HttpResponseRedirect('/meetings')
+    if request.method=="POST":
+        newRid=request.POST["rid"]
+        #from MemManage.models import Role
+        #if len(Role.objects.get(request.session["rid"]).account.role_set.filter(rid=newRid)):
+        request.session["rid"]=newRid
+        return HttpResponseRedirect('/meetings')
