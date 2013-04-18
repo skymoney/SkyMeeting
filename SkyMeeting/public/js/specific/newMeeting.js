@@ -36,12 +36,13 @@ $(function() {
 	// init KindEditor content when edit-mode
 	// lazy load
 	setTimeout(function(){
-		var target = $("#inputDetail").siblings(".ke-container").find("iframe").contents().find("body");
-		if(target.html().length == 0)
+		var dataElem = $("#detailDiv");
+		// if in edit-mode
+		if(dataElem.length != 0)
 		{
-			target.html($("#inputDetail").attr("data-value"));
+			$("#inputDetail").siblings(".ke-container").find("iframe").contents().find("body").html(dataElem.html());
 		}
-	}, 1500);
+	}, 500);
 
 
     // 有问题???阻止点击背景关闭

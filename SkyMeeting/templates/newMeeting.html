@@ -114,12 +114,15 @@
 				<h4>{% trans "Detail Info" %}</h4>
 			</div>
 			<div class="form-block-content">
-				<textarea class="fulltext-input" id="inputDetail" {% if meetingData %}value="{{ meetingData.mdetail|safe }}" data-value="{{ meetingData.mdetail|safe }}"{% endif %}></textarea>
+				<textarea class="fulltext-input" id="inputDetail"></textarea>
 			</div>
 			<!-- 验证框架失效 -->
 			<span class="alert alert-error hide" id="inputDetailError">
 				{% trans "Detail info cannot be blank." %}
 			</span>
+			{% if meetingData %}
+			<div class="hide" id="detailDiv">{{ meetingData.mdetail|safe }}</div>
+			{% endif %}
 		</div>
 
 
