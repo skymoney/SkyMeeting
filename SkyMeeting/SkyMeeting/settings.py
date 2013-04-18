@@ -43,8 +43,6 @@ SITE_ID = 1
 # to load the internationalization machinery.
 USE_I18N = True
 
-ugettext = lambda s:s
-
 LANGUAGES = (
     ("zh","中文"),
     ("en","English"),
