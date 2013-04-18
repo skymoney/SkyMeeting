@@ -12,21 +12,10 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def dashboard(request):
-#    params = dict()
-#    params["rid"] = request.session["rid"]
-#    params["cid"] = request.session["cid"]
-    
-    dashboards = GeneralHelper.getDashboard(request.user)
     result = dict()
-    result["dashboards"] = dashboards
+    result["dashboards"] = GeneralHelper.getDashboard(request.user)
     result["langPack"] = RequestUtil.getLangPack(request)
-    
-    rolePack = dict()
-    rolePack["roles"] = RequestUtil.getRolePack(request)
-    rolePack["curRid"] = request.session["rid"]if "rid" in request.session else request.user.role_set.all()[0].rid
-    rolePack["curRid"] = int(rolePack["curRid"])
-    result["rolePack"] = rolePack
-    
+    result["rolePack"] = RequestUtil.getRolePack(request)
     return render_to_response('home.html', Context(result))
 
 
@@ -37,6 +26,7 @@ def profile(request):
     
     result = GeneralHelper.getProfile(params)
     result["langPack"] = RequestUtil.getLangPack(request)
+    result["rolePack"] = RequestUtil.getRolePack(request)
     return render_to_response('profile.html', Context(result))
 
 @login_required
@@ -66,4 +56,5 @@ def changeCurRid(request):
         #if len(Role.objects.get(request.session["rid"]).account.role_set.filter(rid=newRid)):
         request.session["rid"]=newRid
         request.session["cid"]=newCid
+        print request.session["rid"] + " " + request.session["cid"]
         return HttpResponseRedirect('/meetings')

@@ -14,6 +14,25 @@ def getLangPack(request):
     
     return langPack
 
+def getRolePack(request):
+    roleSet=request.user.role_set.all()
+    roleSetInfo=[]
+    for role in roleSet:
+        singleRole=dict()
+        singleRole["rid"]=role.rid
+        singleRole["name"]=role.name
+        singleRole["cid"]=role.company_id
+        singleRole["companyName"]=role.company.cname
+        roleSetInfo.append(singleRole)
+    
+    rolePack = dict()
+    rolePack["roles"] = roleSetInfo
+    rolePack["curRid"] = request.session["rid"] if "rid" in request.session else request.user.role_set.all()[0].rid
+    rolePack["curRid"] = int(rolePack["curRid"])    #request.session["rid"] is a string
+    return rolePack
+
+
+
 def checkIsLogin(request):
     #check user whether login
     if request.user.is_authenticated():
@@ -39,16 +58,3 @@ def checkMeetingPermission(role):
     else:
         return False
 
-def getRolePack(request):
-    '''
-    '''
-    roleSet=request.user.role_set.all()
-    roleSetInfo=[]
-    for role in roleSet:
-        singleRole=dict()
-        singleRole["rid"]=role.rid
-        singleRole["name"]=role.name
-        singleRole["companyName"]=role.company.cname
-        
-        roleSetInfo.append(singleRole)
-    return roleSetInfo

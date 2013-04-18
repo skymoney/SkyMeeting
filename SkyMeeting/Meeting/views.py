@@ -23,6 +23,7 @@ def meetings(request):
     
     result = MeetingDAOHelper.meetings(params)
     result["langPack"] = RequestUtil.getLangPack(request)
+    result["rolePack"] = RequestUtil.getRolePack(request)
     return render_to_response('meetingList.html', Context(result))
 
 @login_required
@@ -30,10 +31,11 @@ def newMeeting(request):
     #permission check
     #......
     params = dict()
-    params["cid"] = 1 #default!!!
+    params["cid"] = request.session["cid"]
     
     result = MeetingDAOHelper.newMetingInitial(params)
     result["langPack"] = RequestUtil.getLangPack(request)
+    result["rolePack"] = RequestUtil.getRolePack(request)
     return render_to_response('newMeeting.html', Context(result))
 
 @login_required
@@ -62,7 +64,7 @@ def editMeeting(request):
     #permission check
     #......
     params = dict()
-    params["cid"] = 1
+    params["cid"] = request.session["cid"]
     params["mid"] = request.GET["mid"] #GET or POST???
     
     tempResult = MeetingDAOHelper.newMetingInitial(params)
@@ -70,6 +72,7 @@ def editMeeting(request):
     result["groupAll"] = tempResult["groupAll"]
     result["tagAll"] = tempResult["tagAll"]
     result["langPack"] = RequestUtil.getLangPack(request)
+    result["rolePack"] = RequestUtil.getRolePack(request)
     return render_to_response('newMeeting.html', Context(result))
 
 @login_required
@@ -102,6 +105,7 @@ def meeting(request):
     
     result = MeetingDAOHelper.getSingleMeeting(params)
     result["langPack"] = RequestUtil.getLangPack(request)
+    result["rolePack"] = RequestUtil.getRolePack(request)
     return render_to_response('meeting.html', Context(result))
 
 @login_required
@@ -126,7 +130,7 @@ def uploadFile(request):
     
     params=dict()
     params["file"]=fSet
-    params["rid"]="1" #default!!!
+    params["rid"]=request.session["rid"]
     
     result=MeetingDAOHelper.uploadFile(params)
     return HttpResponse(json.dumps(result))

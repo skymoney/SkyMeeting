@@ -14,7 +14,7 @@ def members(request):
     #......
     if RequestUtil.checkManagePermission(request):
         params = dict()
-        params["cid"] = 1   #default!!!
+        params["cid"] = request.session["cid"]
         params["pn"] = 1    #default!!! page number
         
         if "gid" in request.GET:
@@ -24,8 +24,10 @@ def members(request):
         
         result = DAOHelper.members(params)
         result["langPack"] = RequestUtil.getLangPack(request)
+        result["rolePack"] = RequestUtil.getRolePack(request)
         return render_to_response('members.html', Context(result))
-    return HttpResponseRedirect('/home')
+    else:
+        return HttpResponseRedirect('/home')
 
 
 @login_required
@@ -54,7 +56,7 @@ def inviteUser(request):
     #......
     if RequestUtil.checkManagePermission(request):
         params = dict()
-        params["cid"] = 1   #default!!!
+        params["cid"] = request.session["cid"]
         params["name"] = request.POST["name"]                           #string
         params["idcard"] = request.POST["idcard"]                       #string
         params["phone"] = request.POST["phone"]                         #string
@@ -76,7 +78,7 @@ def deleteUser(request):
     #......
     if RequestUtil.checkManagePermission(request):
         params = dict()
-        params["cid"] = 1   #default!!!
+        params["cid"] = request.session["cid"]
         params["id"] = request.POST["id"]                               #delete user id
         
         return HttpResponse(json.dumps(DAOHelper.deleteRole(params))) 
@@ -90,7 +92,7 @@ def addGroup(request):
     #......
     if RequestUtil.checkManagePermission(request):
         params = dict()
-        params["cid"] = 1   #default!!!
+        params["cid"] = request.session["cid"]
         params["groupName"] = request.POST["groupName"]
         
         return HttpResponse(json.dumps(DAOHelper.addGroup(params)))
@@ -103,7 +105,7 @@ def editGroup(request):
     #......
     if RequestUtil.checkManagePermission(request):
         params = dict()
-        params["cid"] = 1   #default!!!
+        params["cid"] = request.session["cid"]
         params["gid"] = request.POST["gid"]
         params["gname"] = request.POST["gname"]
         
@@ -117,7 +119,7 @@ def deleteGroup(request):
     #......
     if RequestUtil.checkManagePermission(request):
         params = dict()
-        params["cid"] = 1   #default!!!
+        params["cid"] = request.session["cid"]
         params["gid"] = request.POST["gid"]
         
         return HttpResponse(json.dumps(DAOHelper.deleteGroup(params)))
@@ -131,7 +133,7 @@ def addTag(request):
     #......
     if RequestUtil.checkManagePermission(request):
         params = dict()
-        params["cid"] = 1   #default!!!
+        params["cid"] = request.session["cid"]
         params["tagName"] = request.POST["tagName"]
         
         return HttpResponse(json.dumps(DAOHelper.addTag(params)))
@@ -144,7 +146,7 @@ def deleteTag(request):
     #......
     if RequestUtil.checkManagePermission(request):
         params = dict()
-        params["cid"] = 1   #default!!!
+        params["cid"] = request.session["cid"]
         params["tid"] = request.POST["tid"]                            #delete tag id
         
         return HttpResponse(json.dumps(DAOHelper.deleteTag(params)))
@@ -158,7 +160,7 @@ def queryPerson(request):
     #......
     if RequestUtil.checkManagePermission(request):
         params = dict()
-        params["cid"] = 1   #default!!!
+        params["cid"] = request.session["cid"]
         params["gid"] = request.GET["gid"]
         params["tid"] = request.GET["tid"]
         
