@@ -279,7 +279,7 @@ def queryPerson(params):
     from django.core.paginator import Paginator
     from django.conf import settings
     #pageResult=RequestUtil.pagingOps(uList,'rid',params["pn"])
-    pageData=Paginator(uList,settings.NUMPERPAGE)
+    pageData=Paginator(uList,settings.NUMBERPERPAGE)
     finalResult=dict()
     
     roleList=[]

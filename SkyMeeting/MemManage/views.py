@@ -163,6 +163,7 @@ def queryPerson(request):
         params["cid"] = request.session["cid"]
         params["gid"] = request.GET["gid"]
         params["tid"] = request.GET["tid"]
+        params["pn"] = 1    #default!!! page number
         
         return HttpResponse(json.dumps(DAOHelper.queryPerson(params)))
     else:

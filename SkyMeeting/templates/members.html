@@ -192,12 +192,10 @@
 				<div class="row-fluid pagination-row">
 					<div class="pagination">
 					  <ul>
-					    <li class="prev disabled"><a href="javascript:void(0);">← {% trans "Previous" %}</a></li>
-					    <li class="active"><a href="javascript:void(0);">1</a></li>
-					    <li><a href="javascript:void(0);">2</a></li>
-					    <li><a href="javascript:void(0);">3</a></li>
-					    <li><a href="javascript:void(0);">4</a></li>
-					    <li><a href="javascript:void(0);">5</a></li>
+					    <li class="prev {% if pn == 1 %}disabled{% endif %}"><a href="javascript:void(0);">← {% trans "Previous" %}</a></li>
+					    {% for i in tpn %}
+					    <li {% if i == pn %}class="active"{% endif %}><a href="javascript:void(0);">{{ i }}</a></li>
+					    {% endfor %}
 					    <li class="next"><a href="javascript:void(0);">{% trans "Next" %} → </a></li>
 					  </ul>
 					</div>

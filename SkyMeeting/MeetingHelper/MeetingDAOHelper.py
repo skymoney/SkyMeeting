@@ -73,7 +73,7 @@ def getCreateMeeting(params):
         finalResult['type']=params['type']    
     #pageResult=RequestUtil.pagingOps(meetingData,'meeting_id',params["pn"])
     #more return values can be put here
-    pageData=Paginator(meetingData,settings.NUMPERPAGE)
+    pageData=Paginator(meetingData,settings.NUMBERPERPAGE)
     finalResult["meetingData"]=util.query2List(pageData.page(int(params["pn"])).object_list)    
     finalResult["ad"]="1"   #return whether create or participate
     finalResult["pn"]=int(params["pn"]) #current page number
