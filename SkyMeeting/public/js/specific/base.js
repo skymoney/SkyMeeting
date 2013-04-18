@@ -17,4 +17,12 @@ $(function(){
 		form.find("input[name='language']").val(langCode);
 		form.submit();
 	});
+
+	// role change
+	$("#roleList").find("a.role").click(function(){
+		var rid = $(this).attr("data-rid");
+		var form = $("#roleForm")
+		form.find("input[name='rid']").val(rid);
+		form.submit();
+	});
 });

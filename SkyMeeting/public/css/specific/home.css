@@ -1,4 +1,9 @@
-﻿.well{
+﻿.well-wrapper{
+	width: 55%;
+	margin-right: auto;
+	margin-left: auto;
+}
+.well{
 	cursor: pointer;
 }
 .well.selected{

@@ -9,7 +9,7 @@
 
 {%block content%}
 <div class="container">
-	<div class="well-wrapper" style="width: 55%; margin-right: auto; margin-left: auto;">
+	<div class="well-wrapper">
 		{% for dashboard in dashboards %}
 		<div class="well {% if dashboard.rid == rolePack.curRid %}selected{% endif %}">
 			<h3>{{ dashboard.companyName }}</h3>
@@ -47,6 +47,9 @@
 					</dl>
 				</div>
 			</div>
+			<form class="hide" action="/setrole/" method="post">
+				<input type="hidden" name="rid" value="{{ dashboard.rid }}" />
+			</form>
 		</div>
 		{% endfor %}
 	</div>

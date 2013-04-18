@@ -14,6 +14,7 @@ urlpatterns = patterns('Login.views',
 
 urlpatterns += patterns('General.views',
     url(r'^dashboard/$','dashboard'),
+    url(r'^setrole/$','changeCurRid'),
     url(r'^profile/$','profile'),
     url(r'^editprofile/$','editProfile'),
     url(r'^documents/$','documents'),
@@ -42,6 +43,7 @@ urlpatterns += patterns('Meeting.views',
     url(r'^meeting/addcomment/$','addComment'),
     url(r'^meeting/changestatus/$','changeStatus'),
     url(r'^upfile/$','uploadFile'),
+    url(r'^downfile/$','downloadFile'),
 )
 
 urlpatterns += patterns('',
