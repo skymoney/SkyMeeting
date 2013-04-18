@@ -56,3 +56,11 @@ def editProfile(request):
 @login_required
 def documents(request):
     return render_to_response('404.html')
+
+@login_required
+def changeCurRid(request):
+    newRid=request.GET["rid"]       #GET or POST
+    #verification?
+    request.session["rid"]=newRid
+    
+    return HttpResponseRedirect('/meetings')
