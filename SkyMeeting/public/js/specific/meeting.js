@@ -41,6 +41,9 @@ $(function() {
 
 
 
+	// ===============================
+	// comments
+	// ===============================
 	var replyClickFunc = function(){
 		var dataElement = $(this).parents("li.comment").find("input[type='hidden']");
 		var commentId = dataElement.attr("data-comment-id");
@@ -167,5 +170,15 @@ $(function() {
 		}
 
 	});
+	// ===============================
 
+
+
+	// ===============================
+	// files
+	// ===============================
+	$("#fileList").find("a.file").click(function(){
+		$(this).parents("li").children("form").submit();
+	});
+	// ===============================
 });

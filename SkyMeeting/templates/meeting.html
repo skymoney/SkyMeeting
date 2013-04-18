@@ -113,14 +113,17 @@
 				{% for file in meetingFile %}
 				<li>
 					<div class="thumbnail">
-						<a href="javascript:void(0);" class="image-link">
+						<a href="javascript:void(0);" class="file image-link">
 							<img class="file-image" src="../public/img/file_{{ file.fextname }}_48x48.png" />
 						</a>
-						<a href="javascript:void(0);" class="default-link">
+						<a href="javascript:void(0);" class="file default-link">
 							<div class="file-name">{{ file.fname }}</div>
 						</a>
 					</div>
 					<input type="hidden" data-fid="{{ file.fid }}" data-fname="{{ file.fname }}" data-fsize="{{ file.fsize }}" data-fextname="{{ file.fextname }}" data-fstatus="" />
+					<form class="hide" action="/downfile/" method="post">
+						<input type="hidden" name="fid" value="{{ file.fid }}" />
+					</form>
 				</li>
 				{% endfor %}
 			</ul>

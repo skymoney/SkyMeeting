@@ -12,7 +12,7 @@ def downloadFile(params):
     download select file,currently very big file not considered
     @param fid: id of file to be downloaded 
     '''
-    fobj=File.objects.get(file_id=1)
+    fobj=File.objects.get(file_id=params["fid"])
     f=open(fobj.file_path,'rb')
     fdata=f.read()
     f.close()
