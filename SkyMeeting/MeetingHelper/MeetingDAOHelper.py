@@ -11,8 +11,8 @@ from MemManage.models import *
 from Meeting.models import *
 from datetime import datetime,timedelta
 import BasicUtil as util
-from GlobalUtil import DataUtil
-
+from GlobalUtil import DataUtil,RequestUtil
+from django.conf import settings
 def meetings(params):
     '''
     get meetings
@@ -32,7 +32,7 @@ def getPartMeetings(params):
         permission: user permission
         rid: role id to specify meeting
         type: specified meeting type
-    
+        pn: page number of meetings
     @return: result=dict()
     
     '''
@@ -49,12 +49,12 @@ def getPartMeetings(params):
         typeNum=params["type"]
         meetingData=meetingData.filter(meeting_type=typeNum)
         finalResult["type"]=params["type"]    
-    
+    pageResult=RequestUtil.pagingOps(meetingData,'meeting_id',params["pn"])
     #query for file attachment
-    
-    finalResult["meetingData"]=util.query2List(meetingData)
+    finalResult["meetingData"]=util.query2List(pageResult["newData"])
     finalResult["ad"]="0"
-    
+    finalResult["pn"]=params["pn"]
+    finalResult["tpn"]=pageResult["totalNumber"]
     return finalResult
 
 def getCreateMeeting(params):
@@ -69,10 +69,12 @@ def getCreateMeeting(params):
         #if type specified, filter specified meetings
         meetingData=meetingData.filter(meeting_type=params["type"])
         finalResult['type']=params['type']    
-    
+    pageResult=RequestUtil.pagingOps(meetingData,'meeting_id',params["pn"])
     #more return values can be put here
-    finalResult["meetingData"]=util.query2List(meetingData)    
-    finalResult['ad']="1"   #return whether create or participate
+    finalResult["meetingData"]=util.query2List(pageResult["newData"])    
+    finalResult["ad"]="1"   #return whether create or participate
+    finalResult["pn"]=int(params["pn"]) #current page number
+    finalResult["tpn"]=pageResult["totalNumber"]      #total page number
     
     return finalResult
 

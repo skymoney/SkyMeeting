@@ -10,9 +10,10 @@ from django.test import TestCase
 
 
 class MeetingTest(TestCase):
-    def tstMeetings(self):
+    def testMeetings(self):
         params=dict()
         params['rid']=1
+        params["pn"]=1
         #params['type']=1
         from MeetingHelper import MeetingDAOHelper
         print MeetingDAOHelper.getPartMeetings(params)
@@ -68,7 +69,7 @@ class MeetingTest(TestCase):
         from MeetingHelper import MeetingDAOHelper
         print MeetingDAOHelper.saveMeeting(params)
     
-    def testEditStatus(self):
+    def tstEditStatus(self):
         params=dict()
         params["mid"]=1
         params["status"]="10"
