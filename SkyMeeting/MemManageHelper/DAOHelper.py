@@ -273,12 +273,16 @@ def queryPerson(params):
                 uList=uList.filter(tags__tid__in=(params['tid'].split())).distinct()
             except:
                 pass
-    pageResult=RequestUtil.pagingOps(uList,'rid',params["pn"])
+    from django.core.paginator import Paginator
+    from django.conf import settings
+    #pageResult=RequestUtil.pagingOps(uList,'rid',params["pn"])
+    pageData=Paginator(uList,settings.NUMPERPAGE)
     finalResult=dict()
     
     roleList=[]
+    currentPageData=pageData.page(int(params["pn"])).object_list
     #get specified fields of Role
-    for u in pageResult["newData"]:
+    for u in currentPageData:
         role=dict()
         role["id"]=u.rid
         role["name"]=u.name
@@ -287,7 +291,7 @@ def queryPerson(params):
         
     finalResult["roleList"]=roleList
     finalResult["pn"]=int(params["pn"])
-    finalResult["tpn"]=pageResult["totalNumber"]
+    finalResult["tpn"]=pageData.page_range
     return finalResult
 
 def sendInviteEmail(email,code):
