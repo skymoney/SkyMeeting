@@ -15,13 +15,15 @@ def meetings(request):
     #permission check
     #......
     params = dict()
+    params["pn"] = 1 #page number
     params["rid"] = request.session["rid"]
+    
     if "ad" in request.GET:
         params["ad"] = request.GET["ad"]        # 1 for my created meetings, 0 for my attended meetings
     if "type" in request.GET:
         params["type"] = request.GET["type"]    # -1 for all meetings, 1 for formal, 2 for informal
-    
-    params["pn"] = 1    #default!!! page number
+    if "pn" in request.GET:
+        params["pn"] = request.GET["pn"]
     
     result = MeetingDAOHelper.meetings(params)
     result["langPack"] = RequestUtil.getLangPack(request)

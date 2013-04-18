@@ -162,4 +162,23 @@ $(function() {
 		}
 	});
 	// ===============================
+
+
+
+	// ===============================
+	// pagination
+	// ===============================
+	$(".pagination").find("a.page").click(function(){
+		var type = $("#meetingTypeSct").find("option:selected").val();
+		var ad = $("#meetingAdSct").find("option:selected").val();
+		var page = $(this).attr("data-page");
+		location.href = "/meetings/?type=" + type + "&ad=" + ad + "&pn=" + page;
+	});
+	$("#prePage").click(function(){
+		$(".pagination").find("li.active").prev().find("a.page").click();
+	});
+	$("#nextPage").click(function(){
+		$(".pagination").find("li.active").next().find("a.page").click();
+	});
+	// ===============================
 });
