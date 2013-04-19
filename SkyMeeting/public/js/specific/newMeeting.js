@@ -169,10 +169,9 @@ $(function() {
 	};
 
 	/*
-		query persons with group and tags
-		NOTE: page is not included now!!!
+		query persons with group, tags and page number
 	*/
-	var queryPersonList = function(gid, tid){
+	var queryPersonList = function(gid, tid, page){
 		// alert(gid + " " + tid);
 		// ajax flag
 		if(ajaxQueryPersonFlag == AJAX_IDLE)
@@ -185,13 +184,17 @@ $(function() {
 				"/members/queryperson/",
 				{
 					"gid": gid,
-					"tid": tid
+					"tid": tid,
+					"pn": page
 				},
 				function(data)
 				{
-					var persons = eval(data);
-					var target = $("#personAjaxDiv");
-					target.empty();
+					var result = eval("(" + data + ")");
+
+					// deal with persons
+					var persons = result.roleList;
+					var personsTarget = $("#personAjaxDiv");
+					personsTarget.empty();
 
 					for(var i=0; i<persons.length; i++)
 					{
@@ -202,13 +205,86 @@ $(function() {
 						code += "</span></div>";
 						code += persons[i].name;
 						code += "</label>";
-						target.append(code);
+						personsTarget.append(code);
 					}
 
 					// bind checkbox event
-					target.find("div.checker input").bind("click", checkerClickFunc);
-					target.find("div.checker input").bind("click", notAllClickFunc);
+					personsTarget.find("div.checker input").bind("click", checkerClickFunc);
+					personsTarget.find("div.checker input").bind("click", notAllClickFunc);
 
+
+
+					// deal with pagination
+					var pn = result.pn;
+					var tpn = result.tpn;
+					var paginationTarget = $(".pagination").find("ul");
+					paginationTarget.empty();
+					
+				    // previous page
+				    var code = "";
+				    if(pn == 1)
+				    {
+				    	code += "<li class=\"disabled\">";
+				    }
+				    else
+				    {
+				    	code += "<li>";
+				    }
+				    code += "<a href=\"javascript:void(0);\" id=\"prePage\">←&nbsp;" + gettext("Previous") + "</a>";
+				    code += "</li>";
+				    paginationTarget.append(code);
+
+				    // page number list
+				    for(var i=1; i<=tpn; i++)
+				    {
+				    	code = "";
+				    	if(i == pn)
+				    	{
+				    		code += "<li class=\"active\">";
+				    	}
+				    	else
+				    	{
+				    		code += "<li>";
+				    	}
+				    	code += "<a href=\"javascript:void(0);\" class=\"page\" data-page=\"" + i + "\">" + i + "</a>";
+				    	code += "</li>";
+				    	paginationTarget.append(code);
+				    }
+
+				    // next page
+				    code = "";
+				    if(pn == tpn)
+				    {
+				    	code += "<li class=\"disabled\">";
+				    }
+				    else
+				    {
+				    	code += "<li>";
+				    }
+				    code += "<a href=\"javascript:void(0);\" id=\"nextPage\">" + gettext("Next") + "&nbsp;→</a>";
+				    code += "</li>";
+				    paginationTarget.append(code);
+
+				    // bind pagination event
+				    // NOTE: 代码不够好，有递归嫌疑!!!
+				    $(".pagination").find("a.page").click(function(){
+		    			// only when page changed
+						if($(this).parent("li").hasClass("active") == false)
+						{
+							var thisPage = $(this).attr("data-page");
+							queryPersonList(gid, tid, thisPage);
+						}
+				    });
+			    	$("#prePage").click(function(){
+						$(".pagination").find("li.active").prev().find("a.page").click();
+					});
+					$("#nextPage").click(function(){
+						$(".pagination").find("li.active").next().find("a.page").click();
+					});
+
+
+
+				    // all done
 					// reset ajax flag
 					ajaxQueryPersonFlag = AJAX_IDLE;
 				}
@@ -233,7 +309,7 @@ $(function() {
 		var gid = $(this).attr("data-gid");
 		var tagIds = getSelectedTagIds();
 
-		queryPersonList(gid, tagIds);
+		queryPersonList(gid, tagIds, 1);
 	});
 
 	$("a.tag").click(function(){
@@ -251,7 +327,7 @@ $(function() {
 		var gid = $("#groupList").find("li.active").find("a.group").attr("data-gid");
 		var tagIds = getSelectedTagIds();
 
-		queryPersonList(gid, tagIds);
+		queryPersonList(gid, tagIds, 1);
 	});
 
 

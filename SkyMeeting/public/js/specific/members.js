@@ -11,6 +11,41 @@ $(function() {
     // ===============================
 
 
+	/* 
+		Redirect Util 
+		without page number, format: gid=$&tid=$
+	*/
+	var getUrlParams = function(){
+		var gid = $("#curGroupId").attr("data-value");
+		var tid = $("#curTagId").attr("data-value");
+
+		// if multiple tags, remove square brackets
+		if(tid.indexOf("[") > -1)
+		{
+			tid = tid.substr(1, tid.length);
+		}
+		if(tid.indexOf("]") > -1)
+		{
+			tid = tid.substr(0, tid.length-1);
+		}
+
+		// replace sperator
+		if(tid.indexOf(",") > -1)
+		{
+			var reg = new RegExp(", ", "g");
+			tid = tid.replace(reg, "+");
+		}
+
+		var params = {
+			"gid": gid,
+			"tid": tid
+		};
+		return params;
+	};
+
+
+
+
 
 	// constants
 	var KEY_SPACE = 32;
@@ -427,6 +462,7 @@ $(function() {
 			}
 		});
 
+		// getUrlParams(); ???
 		var groupId = $("#curGroupId").attr("data-value");
 		location.href = "/members/?gid=" + groupId + "&tid=" + tagIds;
 	};
@@ -455,29 +491,9 @@ $(function() {
 
 		$("#editNewTag").val("");
 
-		// refresh???
-		var gid = $("#curGroupId").attr("data-value");
-		var tid = $("#curTagId").attr("data-value");
-
-		// if multiple tags, remove square brackets
-		if(tid.indexOf("[") > -1)
-		{
-			tid = tid.substr(1, tid.length);
-		}
-		if(tid.indexOf("]") > -1)
-		{
-			tid = tid.substr(0, tid.length-1);
-		}
-
-		// replace sperator
-		if(tid.indexOf(",") > -1)
-		{
-			var reg = new RegExp(", ", "g");
-			tid = tid.replace(reg, "+");
-		}
-		
-		// redirect
-		location.href = "/members/?gid=" + gid + "&tid=" + tid;
+		// redirect???
+		var params = getUrlParams();
+		location.href = "/members/?gid=" + params.gid + "&tid=" + params.tid;
 	});
 
 
@@ -681,7 +697,10 @@ $(function() {
 
 	// toggle
 	$("#checkOther").change(function(){
-		$("#otherQuestionDiv").toggle("fast");
+		$("#otherQuestionDiv").toggle("fast", function(){
+			// my scroll patch
+			$(this).parents(".modal-body").scrollTo(".form-end");
+		});
 	});
 
 	$("#inviteModalOk").click(function(){
@@ -1311,4 +1330,27 @@ $(function() {
 	});
 	// ====================================
 
+
+
+
+
+	// ===============================
+	// pagination
+	// ===============================
+	$(".pagination").find("a.page").click(function(){
+		// only when page changed
+		if($(this).parent("li").hasClass("active") == false)
+		{
+			var params = getUrlParams();
+			var page = $(this).attr("data-page");
+			location.href = "/members/?gid=" + params.gid + "&tid=" + params.tid + "&pn=" + page;
+		}
+	});
+	$("#prePage").click(function(){
+		$(".pagination").find("li.active").prev().find("a.page").click();
+	});
+	$("#nextPage").click(function(){
+		$(".pagination").find("li.active").next().find("a.page").click();
+	});
+	// ===============================
 });

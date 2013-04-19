@@ -15,12 +15,14 @@ def members(request):
     if RequestUtil.checkManagePermission(request):
         params = dict()
         params["cid"] = request.session["cid"]
-        params["pn"] = 1    #default!!! page number
+        params["pn"] = 1    #page number
         
         if "gid" in request.GET:
             params["gid"] = request.GET["gid"]
         if "tid" in request.GET:
             params["tid"] = request.GET["tid"]
+        if "pn" in request.GET:
+            params["pn"] = request.GET["pn"]
         
         result = DAOHelper.members(params)
         result["langPack"] = RequestUtil.getLangPack(request)
@@ -163,7 +165,10 @@ def queryPerson(request):
         params["cid"] = request.session["cid"]
         params["gid"] = request.GET["gid"]
         params["tid"] = request.GET["tid"]
-        params["pn"] = 1    #default!!! page number
+        params["pn"] = 1    #page number
+        
+        if "pn" in request.GET:
+            params["pn"] = request.GET["pn"]
         
         return HttpResponse(json.dumps(DAOHelper.queryPerson(params)))
     else:

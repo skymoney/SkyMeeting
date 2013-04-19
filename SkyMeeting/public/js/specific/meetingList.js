@@ -2,11 +2,24 @@ $(function() {
 	selectNavItem("meetings");
 
 
-	// redirect by select
-	var redirectFunc = function(){
+	/* 
+		Redirect Util 
+		without page number, format: type=$&ad=$
+	*/
+	var getUrlParams = function(){
 		var type = $("#meetingTypeSct").find("option:selected").val();
 		var ad = $("#meetingAdSct").find("option:selected").val();
-		location.href = "/meetings/?type=" + type + "&ad=" + ad;
+		var params = {
+			"type": type,
+			"ad": ad
+		};
+		return params;
+	};
+
+	// redirect by select
+	var redirectFunc = function(){
+		var params = getUrlParams();
+		location.href = "/meetings/?type=" + params.type + "&ad=" + params.ad;
 	};
 	$("#meetingTypeSct").change(redirectFunc);
 	$("#meetingAdSct").change(redirectFunc);
@@ -169,10 +182,13 @@ $(function() {
 	// pagination
 	// ===============================
 	$(".pagination").find("a.page").click(function(){
-		var type = $("#meetingTypeSct").find("option:selected").val();
-		var ad = $("#meetingAdSct").find("option:selected").val();
-		var page = $(this).attr("data-page");
-		location.href = "/meetings/?type=" + type + "&ad=" + ad + "&pn=" + page;
+		// only when page changed
+		if($(this).parent("li").hasClass("active") == false)
+		{
+			var params = getUrlParams();
+			var page = $(this).attr("data-page");
+			location.href = "/meetings/?type=" + params.type + "&ad=" + params.ad + "&pn=" + page;
+		}
 	});
 	$("#prePage").click(function(){
 		$(".pagination").find("li.active").prev().find("a.page").click();
