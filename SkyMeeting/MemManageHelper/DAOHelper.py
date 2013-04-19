@@ -284,7 +284,6 @@ def queryPerson(params):
     
     roleList=[]
     currentPageData=pageData.page(int(params["pn"])).object_list
-    print currentPageData
     #get specified fields of Role
     for u in currentPageData:
         role=dict()
