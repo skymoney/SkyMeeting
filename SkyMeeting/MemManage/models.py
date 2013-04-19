@@ -122,7 +122,7 @@ class TempRole(models.Model):
     code=models.CharField(max_length=50,default="",db_column='TempCheckCode')
     
     verifyByName=models.IntegerField(default=0,db_column='VerifyModeName')
-    verifyByPhone=models.IntegerField(default=0,db_column='VerifyModePhone')
+    verifyByIdCard=models.IntegerField(default=0,db_column='VerifyModeIdCard')
     verifyByQuest=models.IntegerField(default=0,db_column='VerifyModeQuest')
     verifyQuest=models.CharField(max_length=100,default="",db_column='VerifyQuest')
     verifyAnswer=models.CharField(max_length=100,default="",db_column='VerifyAnswer')

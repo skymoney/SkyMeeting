@@ -33,7 +33,7 @@ def login(request):
         return HttpResponseRedirect(request.POST['redirectUrl'])
     else:
         # Return an error message.
-        return HttpResponse('fuck')
+        return HttpResponseRedirect('/')
 
 def logout(request):
     '''
