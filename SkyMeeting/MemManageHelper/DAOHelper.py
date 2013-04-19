@@ -269,11 +269,11 @@ def queryPerson(params):
     
     #tids not in use currently
     if 'tid' in params and len(params['tid'])>0:
-        if '-1' in params['tid'].split():
+        if '-1' in params['tid'].split('+'):
             pass
         else:
             try:
-                uList=uList.filter(tags__tid__in=(params['tid'].split())).distinct()
+                uList=uList.filter(tags__tid__in=(params['tid'].split('+'))).distinct()
             except:
                 pass
     from django.core.paginator import Paginator
