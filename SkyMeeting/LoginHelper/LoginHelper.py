@@ -17,7 +17,7 @@ def fetcheVerifyInfo(params):
     result=dict()
     #dafault none verify
     result["verifyByName"]="false"
-    result["verifyByPhone"]="false"
+    result["verifyByIdcard"]="false"
     result["verifyByQuest"]="false"
     result["verifyQuest"]=""
     
@@ -26,8 +26,8 @@ def fetcheVerifyInfo(params):
     if tempRole.verifyByName==1:
         #verify by name activated
         result["verifyByName"]="true"
-    if tempRole.verifyByPhone==1:
-        result["verifyByPhone"]="true"
+    if tempRole.verifyByIdcard==1:
+        result["verifyByIdcard"]="true"
     if tempRole.verifyByQuest==1:
         result["verifyByQuest"]="true"
         result["verifyQuest"]=tempRole.verifyQuest
@@ -40,7 +40,7 @@ def verify(params,tempRole):
     '''
     if "verifyName" in params and tempRole.name<>params["verifyName"]:
         return False
-    if "verifyPhone" in params and tempRole.phone<>params["verifyPhone"]:
+    if "verifyIdcard" in params and tempRole.idcard<>params["verifyIdcard"]:
         return False
     if "verifyAnswer" in params and tempRole.verifyAnswer<>params["verifyAnswer"]:
         return False
@@ -50,13 +50,13 @@ def confirmRole(params):
     '''
     confirm role info and to normal page
     @param create: whether create or login of account
-    @param aname: accout name
+    @param aname: account name
     @param apassword: account password
     @param code: invite code
     
     Optional:
     @param verifyName: name to be verified
-    @param verifyPhone: phone to be verified
+    @param verifyIdcard: idcard to be verified
     @param verifyAnswer: answer to be verified
     '''
     result=dict()
