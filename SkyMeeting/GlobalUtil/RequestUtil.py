@@ -50,10 +50,11 @@ def checkManagePermission(request):
     else:
         return False
 
-def checkMeetingPermission(role):
+def checkMeetingPermission(rid):
     #check permission of creating meeting
-    #@param role: role to check
-    if role.permission==1:
+    #@param rid: role to check
+    from MemManage.models import Role
+    if Role.objects.get(rid=rid).permission==1:
         return True
     else:
         return False
@@ -66,7 +67,7 @@ def checkRoleMeetingPermission(params):
     @param mid: id of meeting
     '''
     from Meeting.models import Meeting
-    if len(Meeting.objects.filter(meeting_id=params["rid"],create_user_id=params["rid"]))>0:
+    if len(Meeting.objects.filter(meeting_id=params["mid"],create_user_id=params["rid"]))>0:
         return True
     return False
 
