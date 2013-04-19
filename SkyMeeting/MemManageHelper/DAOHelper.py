@@ -72,7 +72,7 @@ def members(params):
     returnDict["tagAll"]=t_list
     returnDict["tagString"]=json.dumps(tagList)
     returnDict["conf"]=conf
-    returnDict["pnrange"]=pageData.page_range
+    returnDict["pnRange"]=pageData.page_range
     returnDict["pn"]=int(params["pn"])
     returnDict["tpn"]=pageData.num_pages
     
@@ -295,7 +295,7 @@ def queryPerson(params):
         
     finalResult["roleList"]=roleList
     finalResult["pn"]=int(params["pn"])
-    finalResult['pnrange']=pageData.page_range
+    finalResult['pnRange']=pageData.page_range
     finalResult["tpn"]=pageData.num_pages
     return finalResult
 
