@@ -31,7 +31,11 @@ def getRolePack(request):
     rolePack["curRid"] = int(rolePack["curRid"])    #request.session["rid"] is a string
     return rolePack
 
-
+def getAuthPack(request):
+    authPack = dict()
+    authPack["alevel"] = int(request.user.alevel)
+    authPack["rlevel"] = int(request.session["rlevel"])
+    return authPack
 
 def checkIsLogin(request):
     #check user whether login

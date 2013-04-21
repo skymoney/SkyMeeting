@@ -21,6 +21,7 @@
 			</select>
 			<!-- static meeting type??? -->
 		</div>
+		{% if authPack.rlevel == 1 %}
 		<div class="pull-right">
 			<label for="meetingAdSct">{% trans "Choose" %}...</label>
 			<select id="meetingAdSct" size="1">
@@ -28,6 +29,7 @@
 				<option value="1" {% if ad == 1 or ad == "1" %}selected="selected"{% endif %}>{% trans "Meetings I created" %}</option>
 			</select>
 		</div>
+		{% endif %}
 	</div>
 
 
@@ -136,9 +138,11 @@
 
 
 
+	{% if authPack.rlevel == 1 %}
 	<div class="row-fluid new-item-row">
 		<a href="../newmeeting/">+&nbsp;{% trans "Create new meeting" %}</a>
 	</div>
+	{% endif %}
 	<div class="row-fluid pagination-row">
 		<div class="pagination">
 			<ul>

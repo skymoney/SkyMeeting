@@ -31,6 +31,7 @@ def meetings(request):
     result = MeetingDAOHelper.meetings(params)
     result["langPack"] = RequestUtil.getLangPack(request)
     result["rolePack"] = RequestUtil.getRolePack(request)
+    result["authPack"] = RequestUtil.getAuthPack(request)
     return render_to_response('meetingList.html', Context(result))
 
 @login_required
@@ -42,6 +43,7 @@ def newMeeting(request):
         result = MeetingDAOHelper.newMetingInitial(params)
         result["langPack"] = RequestUtil.getLangPack(request)
         result["rolePack"] = RequestUtil.getRolePack(request)
+        result["authPack"] = RequestUtil.getAuthPack(request)
         return render_to_response('newMeeting.html', Context(result))
     else:
         return HttpResponseRedirect('/home')
@@ -86,6 +88,7 @@ def editMeeting(request):
             result["tagAll"] = tempResult["tagAll"]
             result["langPack"] = RequestUtil.getLangPack(request)
             result["rolePack"] = RequestUtil.getRolePack(request)
+            result["authPack"] = RequestUtil.getAuthPack(request)
             return render_to_response('newMeeting.html', Context(result))
     
     return render_to_response("404.html")
@@ -129,6 +132,7 @@ def meeting(request):
     result = MeetingDAOHelper.getSingleMeeting(params)
     result["langPack"] = RequestUtil.getLangPack(request)
     result["rolePack"] = RequestUtil.getRolePack(request)
+    result["authPack"] = RequestUtil.getAuthPack(request)
     return render_to_response('meeting.html', Context(result))
 
 @login_required

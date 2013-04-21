@@ -59,6 +59,7 @@
 								<li data-name="home">
 									<a href="/dashboard/">{% trans "Home" %}</a>
 								</li>
+								{% if authPack.rlevel == 1 %}
 								<li class="dropdown" data-name="meetings">
 									<a href="/meetings/" class="dropdown-toggle" id="meetingDrop" role="button">
 										{% trans "Meetings" %}
@@ -73,12 +74,21 @@
 										</li>
 									</ul>
 								</li>
+								{% else %}
+								<li data-name="meetings">
+									<a href="/meetings/">{% trans "Meetings" %}</a>
+								</li>
+								{% endif %}
+								<!-- 
 								<li data-name="documents">
 									<a href="javascript:void(0);">{% trans "Documents" %}</a>
 								</li>
+								 -->
+								{% if authPack.alevel == 1 %}
 								<li data-name="members">
 									<a href="/members/">{% trans "Member Statistics" %}</a>
 								</li>
+								{% endif %}
 								<li data-name="profile">
 									<a href="/profile/">{% trans "Profile" %}</a>
 								</li>

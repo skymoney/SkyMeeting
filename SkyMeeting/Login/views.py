@@ -30,6 +30,7 @@ def login(request):
         role=user.role_set.all()[0]
         request.session["rid"]=role.rid
         request.session["cid"]=role.company_id
+        request.session["rlevel"]=role.permission
         return HttpResponseRedirect(request.POST['redirectUrl'])
     else:
         # Return an error message.

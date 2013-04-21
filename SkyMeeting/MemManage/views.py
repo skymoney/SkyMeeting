@@ -27,6 +27,7 @@ def members(request):
         result = DAOHelper.members(params)
         result["langPack"] = RequestUtil.getLangPack(request)
         result["rolePack"] = RequestUtil.getRolePack(request)
+        result["authPack"] = RequestUtil.getAuthPack(request)
         return render_to_response('members.html', Context(result))
     else:
         return HttpResponseRedirect('/home')

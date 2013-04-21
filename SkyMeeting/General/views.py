@@ -16,6 +16,7 @@ def dashboard(request):
     result["dashboards"] = GeneralHelper.getDashboard(request.user)
     result["langPack"] = RequestUtil.getLangPack(request)
     result["rolePack"] = RequestUtil.getRolePack(request)
+    result["authPack"] = RequestUtil.getAuthPack(request)
     return render_to_response('home.html', Context(result))
 
 
@@ -27,6 +28,7 @@ def profile(request):
     result = GeneralHelper.getProfile(params)
     result["langPack"] = RequestUtil.getLangPack(request)
     result["rolePack"] = RequestUtil.getRolePack(request)
+    result["authPack"] = RequestUtil.getAuthPack(request)
     return render_to_response('profile.html', Context(result))
 
 @login_required
@@ -52,9 +54,9 @@ def changeCurRid(request):
     if request.method=="POST":
         newRid=request.POST["rid"]
         newCid=request.POST["cid"]
-        #from MemManage.models import Role
-        #if len(Role.objects.get(request.session["rid"]).account.role_set.filter(rid=newRid)):
         request.session["rid"]=newRid
         request.session["cid"]=newCid
-        print request.session["rid"] + " " + request.session["cid"]
+        
+        from MemManage.models import Role
+        request.session["rlevel"] = Role.objects.get(rid=newRid).permission
         return HttpResponseRedirect('/meetings')
