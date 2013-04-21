@@ -12,22 +12,15 @@ from django.contrib.auth.decorators import login_required
 
 @login_required()
 def meetings(request):
-    #permission check
-    #......
     params = dict()
-    params["pn"] = 1 #page number
+    params["pn"] = RequestUtil.getPageParam(request)
     params["rid"] = request.session["rid"]
     
-    if "ad" in request.GET:
+    if "ad" in request.GET and RequestUtil.checkMeetingPermission(request):
         params["ad"] = request.GET["ad"]        # 1 for my created meetings, 0 for my attended meetings
     if "type" in request.GET:
         params["type"] = request.GET["type"]    # -1 for all meetings, 1 for formal, 2 for informal
-    if "pn" in request.GET:
-        params["pn"] = request.GET["pn"]
         
-    if RequestUtil.checkMeetingPermission(request.session["rid"]) == False:
-        params["ad"] = 0
-    
     result = MeetingDAOHelper.meetings(params)
     result["langPack"] = RequestUtil.getLangPack(request)
     result["rolePack"] = RequestUtil.getRolePack(request)
@@ -36,7 +29,7 @@ def meetings(request):
 
 @login_required
 def newMeeting(request):
-    if RequestUtil.checkMeetingPermission(request.session["rid"]):
+    if RequestUtil.checkMeetingPermission(request):
         params = dict()
         params["cid"] = request.session["cid"]
         
@@ -50,7 +43,7 @@ def newMeeting(request):
 
 @login_required
 def saveMeeting(request):
-    if RequestUtil.checkMeetingPermission(request.session["rid"]):
+    if RequestUtil.checkMeetingPermission(request):
         params = dict()
         params["createUser"] = request.session["rid"]               # create by user id
         params["title"] = request.POST["title"]
@@ -65,14 +58,20 @@ def saveMeeting(request):
         
         if "mid" in request.POST:
             params["mid"] = request.POST["mid"]                     # mid exists when updating
+            checkParams = dict()
+            checkParams["rid"] = request.session["rid"]
+            checkParams["mid"] = request.POST["mid"]
+            
+            if(RequestUtil.checkRoleMeetingPermission(checkParams) == False):
+                return HttpResponseRedirect('/home')
         
         return HttpResponse(json.dumps(MeetingDAOHelper.saveMeeting(params)))
     else:
-        pass
+        return HttpResponseRedirect('/home')
 
 @login_required
 def editMeeting(request):
-    if RequestUtil.checkMeetingPermission(request.session["rid"]):
+    if RequestUtil.checkMeetingPermission(request):
         checkParams = dict()
         checkParams["rid"] = request.session["rid"]
         checkParams["mid"] = request.GET["mid"]
@@ -95,24 +94,24 @@ def editMeeting(request):
 
 @login_required
 def deleteMeeting(request):
-    if RequestUtil.checkMeetingPermission(request.session["rid"]):
+    if RequestUtil.checkMeetingPermission(request):
         checkParams = dict()
         checkParams["rid"] = request.session["rid"]
-        checkParams["mid"] = request.GET["mid"]
+        checkParams["mid"] = request.POST["mid"]
         
         if(RequestUtil.checkRoleMeetingPermission(checkParams)):
             params = dict()
             params["mid"] = request.POST["mid"]
             return HttpResponse(json.dumps(MeetingDAOHelper.deleteMeeting(params)))
         
-    pass
+    return HttpResponseRedirect('/home')
 
 @login_required
 def changeStatus(request):
-    if RequestUtil.checkMeetingPermission(request.session["rid"]):
+    if RequestUtil.checkMeetingPermission(request):
         checkParams = dict()
         checkParams["rid"] = request.session["rid"]
-        checkParams["mid"] = request.GET["mid"]
+        checkParams["mid"] = request.POST["mid"]
         
         if(RequestUtil.checkRoleMeetingPermission(checkParams)):
             params = dict()
@@ -120,12 +119,11 @@ def changeStatus(request):
             params["status"] = request.POST["status"]
             return HttpResponse(json.dumps(MeetingDAOHelper.changeMeetingStatus(params)))
     
-    pass
+    return HttpResponseRedirect('/home')
 
-@login_required 
+@login_required
 def meeting(request):
-    #permission check
-    #......
+    #permission check???
     params = dict()
     params["mid"] = request.GET["mid"]
     
@@ -137,21 +135,19 @@ def meeting(request):
 
 @login_required
 def addComment(request):
-    #permission check
-    #......
+    #permission check???
     params = dict()
     params["meetingId"] = request.POST["meetingId"]
     params["userId"] = request.session["rid"]
     params["content"] = request.POST["content"]                     #simple text
     params["replyToUser"] = request.POST["replyToUser"]             #reply to user id
     params["replyToComment"] = request.POST["replyToComment"]       #reply to comment id
-    #comment status
-    
+    #comment status...
     return HttpResponse(json.dumps(MeetingDAOHelper.addComment(params)))
 
 @login_required
 def uploadFile(request):
-    if RequestUtil.checkMeetingPermission(request.session["rid"]):
+    if RequestUtil.checkMeetingPermission(request):
         fSet=[]
         for f in request.FILES:
             fSet.append(request.FILES[str(f)])
@@ -162,11 +158,13 @@ def uploadFile(request):
         
         result=MeetingDAOHelper.uploadFile(params)
         return HttpResponse(json.dumps(result))
-    
-    pass
+    else:
+        return HttpResponseRedirect('/home')
 
 @login_required
 def downloadFile(request):
+    #permission check???
     params=dict()
     params["fid"] = request.POST["fid"]
     return BasicUtil.downloadFile(params)
+

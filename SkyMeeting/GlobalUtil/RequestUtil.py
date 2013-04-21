@@ -27,7 +27,7 @@ def getRolePack(request):
     
     rolePack = dict()
     rolePack["roles"] = roleSetInfo
-    rolePack["curRid"] = request.session["rid"] if "rid" in request.session else request.user.role_set.all()[0].rid
+    rolePack["curRid"] = request.session["rid"]
     rolePack["curRid"] = int(rolePack["curRid"])    #request.session["rid"] is a string
     return rolePack
 
@@ -36,6 +36,17 @@ def getAuthPack(request):
     authPack["alevel"] = int(request.user.alevel)
     authPack["rlevel"] = int(request.session["rlevel"])
     return authPack
+
+def getPageParam(request):
+    pn = 1
+    if "pn" in request.GET:
+        try:
+            pn = int(request.GET["pn"])
+            if(pn <= 0):
+                pn = 1
+        except:
+            pn = 1
+    return pn
 
 def checkIsLogin(request):
     #check user whether login
@@ -54,11 +65,9 @@ def checkManagePermission(request):
     else:
         return False
 
-def checkMeetingPermission(rid):
+def checkMeetingPermission(request):
     #check permission of creating meeting
-    #@param rid: role to check
-    from MemManage.models import Role
-    if Role.objects.get(rid=rid).permission==1:
+    if request.session["rlevel"]==1:
         return True
     else:
         return False
@@ -75,14 +84,3 @@ def checkRoleMeetingPermission(params):
         return True
     return False
 
-def pagingOps(data,order_by,pn):
-    '''
-    '''
-    result=dict()
-    startNumber=(int(pn)-1)*settings.NUMBERPERPAGE
-    newData=data.order_by(order_by)[startNumber:startNumber+settings.NUMBERPERPAGE]
-    
-    result["totalNumber"]=len(data)
-    result["newData"]=newData
-    
-    return result

@@ -10,19 +10,15 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def members(request):
-    #permission check
-    #......
     if RequestUtil.checkManagePermission(request):
         params = dict()
+        params["pn"] = RequestUtil.getPageParam(request)
         params["cid"] = request.session["cid"]
-        params["pn"] = 1    #page number
         
         if "gid" in request.GET:
             params["gid"] = request.GET["gid"]
         if "tid" in request.GET:
             params["tid"] = request.GET["tid"]
-        if "pn" in request.GET:
-            params["pn"] = request.GET["pn"]
         
         result = DAOHelper.members(params)
         result["langPack"] = RequestUtil.getLangPack(request)
@@ -35,8 +31,6 @@ def members(request):
 
 @login_required
 def editRoleInfo(request):
-    #permission check
-    #......
     if RequestUtil.checkManagePermission(request):
         params = dict()
         params["id"] = request.POST["id"]                               #edit user id
@@ -55,8 +49,6 @@ def editRoleInfo(request):
 
 @login_required
 def inviteUser(request):
-    #permission check
-    #......
     if RequestUtil.checkManagePermission(request):
         params = dict()
         params["cid"] = request.session["cid"]
@@ -77,8 +69,6 @@ def inviteUser(request):
 
 @login_required
 def deleteUser(request):
-    #permission check
-    #......
     if RequestUtil.checkManagePermission(request):
         params = dict()
         params["cid"] = request.session["cid"]
@@ -91,8 +81,6 @@ def deleteUser(request):
 
 @login_required
 def addGroup(request):
-    #permission check
-    #......
     if RequestUtil.checkManagePermission(request):
         params = dict()
         params["cid"] = request.session["cid"]
@@ -104,8 +92,6 @@ def addGroup(request):
 
 @login_required
 def editGroup(request):
-    #permission check
-    #......
     if RequestUtil.checkManagePermission(request):
         params = dict()
         params["cid"] = request.session["cid"]
@@ -118,8 +104,6 @@ def editGroup(request):
 
 @login_required
 def deleteGroup(request):
-    #permission check
-    #......
     if RequestUtil.checkManagePermission(request):
         params = dict()
         params["cid"] = request.session["cid"]
@@ -132,8 +116,6 @@ def deleteGroup(request):
 
 @login_required
 def addTag(request):
-    #permission check
-    #......
     if RequestUtil.checkManagePermission(request):
         params = dict()
         params["cid"] = request.session["cid"]
@@ -145,8 +127,6 @@ def addTag(request):
 
 @login_required
 def deleteTag(request):
-    #permission check
-    #......
     if RequestUtil.checkManagePermission(request):
         params = dict()
         params["cid"] = request.session["cid"]
@@ -159,17 +139,12 @@ def deleteTag(request):
 
 @login_required
 def queryPerson(request):
-    #permission check
-    #......
     if RequestUtil.checkManagePermission(request):
         params = dict()
+        params["pn"] = RequestUtil.getPageParam(request)
         params["cid"] = request.session["cid"]
         params["gid"] = request.GET["gid"]
         params["tid"] = request.GET["tid"]
-        params["pn"] = 1    #page number
-        
-        if "pn" in request.GET:
-            params["pn"] = request.GET["pn"]
         
         return HttpResponse(json.dumps(DAOHelper.queryPerson(params)))
     else:

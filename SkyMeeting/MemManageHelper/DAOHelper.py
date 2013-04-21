@@ -48,7 +48,6 @@ def members(params):
                 pass
     
     #add paging
-    #pageResult=RequestUtil.pagingOps(u_list,'rid',params["pn"])
     from django.core.paginator import Paginator
     from django.conf import settings
     
@@ -278,7 +277,6 @@ def queryPerson(params):
                 pass
     from django.core.paginator import Paginator
     from django.conf import settings
-    #pageResult=RequestUtil.pagingOps(uList,'rid',params["pn"])
     pageData=Paginator(uList,settings.NUMBERPERPAGE)
     finalResult=dict()
     

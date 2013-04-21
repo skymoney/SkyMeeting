@@ -49,8 +49,8 @@ def getPartMeetings(params):
     if "type" in params and params["type"]!="-1":
         typeNum=params["type"]
         meetingData=meetingData.filter(meeting_type=typeNum)
-        finalResult["type"]=params["type"]    
-    #pageResult=RequestUtil.pagingOps(meetingData,'meeting_id',params["pn"])
+        finalResult["type"]=params["type"]
+    
     #query for file attachment
     pageData=Paginator(meetingData,settings.NUMBERPERPAGE)
     finalResult["meetingData"]=util.query2List(pageData.page(int(params["pn"])).object_list)
@@ -71,8 +71,8 @@ def getCreateMeeting(params):
     if "type" in params and params["type"]!="-1":
         #if type specified, filter specified meetings
         meetingData=meetingData.filter(meeting_type=params["type"])
-        finalResult['type']=params['type']    
-    #pageResult=RequestUtil.pagingOps(meetingData,'meeting_id',params["pn"])
+        finalResult['type']=params['type']
+    
     #more return values can be put here
     pageData=Paginator(meetingData,settings.NUMBERPERPAGE)
     finalResult["meetingData"]=util.query2List(pageData.page(int(params["pn"])).object_list)    
