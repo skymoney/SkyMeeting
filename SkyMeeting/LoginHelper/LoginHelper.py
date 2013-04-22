@@ -86,11 +86,13 @@ def confirmRole(params):
         #authentication
         account=authenticate(username=aname,password=apass)
         if account is None:
+            accountNoneResult=dict()
             accountNone=dict()
             accountNone["eid"]="20001"
             accountNone["msg"]=_("Account Login Error")
             result["success"]="false"
-            result["errors"]=accountNone
+            accountNoneResult["accountError"]=accountNone
+            result["errors"]=accountNoneResult
             return result
     else:
         flag,errors=verify(params,tempRole)
