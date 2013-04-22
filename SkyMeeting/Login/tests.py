@@ -12,7 +12,7 @@ class LoginTest(TestCase):
     def testInsertRole(self):
         params=dict()
         params["create"]="true"
-        params["code"]="550a141f12de6341fba65b0ad0433500"
+        params["code"]="ab88b15733f543179858600245108dd8"
         params['aname']="tests"
         params["apass"]="123456"
         
