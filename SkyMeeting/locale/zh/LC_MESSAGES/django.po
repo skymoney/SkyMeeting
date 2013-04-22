@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-12 16:54+0800\n"
+"POT-Creation-Date: 2013-04-22 17:00+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,391 +17,611 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: SkyMeeting/settings.py:48
-msgid "Chinese"
-msgstr "中文"
+#: LoginHelper/LoginHelper.py:47
+msgid "Verify Name Incorrect"
+msgstr "验证姓名不一致"
 
-#: SkyMeeting/settings.py:49
-msgid "English"
-msgstr "英文"
+#: LoginHelper/LoginHelper.py:53
+msgid "Verify IdCard Incorrect"
+msgstr "验证身份证号不一致"
 
-#: templates/base.html:44
+#: LoginHelper/LoginHelper.py:59
+msgid "Verify Question&Answer Incorrect"
+msgstr "验证自定义问题答案不一致"
+
+#: LoginHelper/LoginHelper.py:88
+msgid "Account Login Error"
+msgstr "账户登陆错误"
+
+#: LoginHelper/LoginHelper.py:99
+msgid "Account Name has been registered"
+msgstr "账户名已被注册"
+
+#: templates/base.html:20
+msgid "Welcome"
+msgstr "欢迎您 "
+
+#: templates/base.html:38
+msgid "Logout"
+msgstr "注销"
+
+#: templates/base.html:60
 msgid "Home"
 msgstr "主页"
 
-#: templates/base.html:47
-msgid "Boards"
-msgstr "董事会"
-
-#: templates/base.html:50
+#: templates/base.html:65 templates/base.html.py:79
 msgid "Meetings"
 msgstr "会议"
 
-#: templates/base.html:53
+#: templates/base.html:70
+#, fuzzy
+msgid "I attended"
+msgstr "我参加的会议"
+
+#: templates/base.html:73
+#, fuzzy
+msgid "I created"
+msgstr "我创建的会议"
+
+#: templates/base.html:84
 msgid "Documents"
 msgstr "文档"
 
-#: templates/base.html:56
+#: templates/base.html:89
 msgid "Member Statistics"
 msgstr "成员统计"
 
-#: templates/base.html:82
+#: templates/base.html:93 templates/profile.html:14
+msgid "Profile"
+msgstr ""
+
+#: templates/base.html:120
 msgid "Search"
 msgstr "搜索"
 
-#: templates/meeting.html:176 templates/newMeeting.html:118
-msgid "Basic Info"
-msgstr "基本信息"
+#: templates/home.html:18
+msgid "Board Summary"
+msgstr ""
 
-#: templates/meeting.html:180
-msgid "Organizer"
-msgstr "发起者"
+#: templates/home.html:22
+msgid "Board owner"
+msgstr ""
 
-#: templates/meeting.html:185 templates/meetingList.html:43
-#: templates/newMeeting.html:133
-msgid "Meeting type"
+#: templates/home.html:24
+#, fuzzy
+msgid "Active members"
+msgstr "编辑成员"
+
+#: templates/home.html:31
+#, fuzzy
+msgid "Meeting Summary"
 msgstr "会议类型"
 
-#: templates/meeting.html:188 templates/meetingList.html:23
-#: templates/meetingList.html.py:57 templates/newMeeting.html:137
-msgid "Formal meeting"
-msgstr "正式会议"
-
-#: templates/meeting.html:190 templates/meetingList.html:24
-#: templates/meetingList.html.py:59 templates/newMeeting.html:138
-msgid "Informal meeting"
-msgstr "非正式会议"
-
-#: templates/meeting.html:192 templates/meetingList.html:61
-#: templates/members.html:236 templates/members.html.py:496
-msgid "Unknown"
-msgstr "未知"
-
-#: templates/meeting.html:195 templates/newMeeting.html:167
-msgid "Contact tel"
-msgstr "联系电话"
-
-#: templates/meeting.html:197
-msgid "Contact mail"
-msgstr "联系邮箱"
-
-#: templates/meeting.html:210 templates/newMeeting.html:195
-msgid "Detail Info"
-msgstr "详细信息"
-
-#: templates/meeting.html:225 templates/newMeeting.html:213
-#: templates/newMeeting.html.py:293
-msgid "Participants"
-msgstr "参加者"
-
-#: templates/meeting.html:252 templates/newMeeting.html:241
-msgid "Attachments"
-msgstr "附件"
-
-#: templates/meeting.html:280
-msgid "Comments"
-msgstr "评论"
-
-#: templates/meeting.html:305
-msgid "Reply"
-msgstr "回复"
-
-#: templates/meeting.html:332
-msgid "Comment cannot be blank."
-msgstr "评论不能为空"
-
-#: templates/meeting.html:335
-msgid "Post"
-msgstr "提交"
-
-#: templates/meetingList.html:17
-msgid "My Meetings"
-msgstr "我的会议"
-
-#: templates/meetingList.html:20
-msgid "Choose your meeting type"
-msgstr "选择会议类型"
-
-#: templates/meetingList.html:22 templates/members.html:111
-#: templates/newMeeting.html:303 templates/newMeeting.html.py:352
+#: templates/home.html:35 templates/meetingList.html:17
+#: templates/members.html:29 templates/newMeeting.html:250
+#: templates/newMeeting.html.py:299
 msgid "All"
 msgstr "所有"
 
-#: templates/meetingList.html:29
-msgid "Choose"
-msgstr "选择"
-
-#: templates/meetingList.html:31
-msgid "Meetings I attended"
-msgstr "我参加的会议"
-
-#: templates/meetingList.html:32
-msgid "Meetings I created"
-msgstr "我创建的会议"
-
-#: templates/meetingList.html:42
-msgid "Meeting name"
-msgstr "会议名称"
-
-#: templates/meetingList.html:44 templates/newMeeting.html:148
-msgid "Start time"
-msgstr "开始时间"
-
-#: templates/meetingList.html:45
-msgid "Location"
-msgstr "地点"
-
-#: templates/meetingList.html:46
-msgid "Created by"
-msgstr "创建者"
-
-#: templates/meetingList.html:46
-msgid "date"
-msgstr "日期"
-
-#: templates/meetingList.html:47
-msgid "Status"
-msgstr "状态"
-
-#: templates/meetingList.html:48
-msgid "Attachment"
-msgstr "附件"
-
-#: templates/meetingList.html:68
+#: templates/home.html:37 templates/meetingList.html:75
+#: templates/meetingList.html.py:95 templates/meetingList.html:109
 msgid "Active"
 msgstr "活跃"
 
-#: templates/meetingList.html:81
-msgid "Create new meeting"
+#: templates/home.html:39 templates/meetingList.html:85
+#: templates/meetingList.html.py:101 templates/meetingList.html:113
+msgid "Closed"
+msgstr ""
+
+#: templates/home.html:41
+#, fuzzy
+msgid "Latest meeting"
 msgstr "新建会议"
 
-#: templates/meetingList.html:86 templates/members.html:277
-#: templates/newMeeting.html:361
-msgid "Previous"
-msgstr "上一页"
+#: templates/invite.html:15
+msgid "I have already owned an account"
+msgstr ""
 
-#: templates/meetingList.html:92 templates/members.html:283
-#: templates/newMeeting.html:367
-msgid "Next"
-msgstr "下一页"
-
-#: templates/members.html:98
-msgid "Members"
-msgstr "成员"
-
-#: templates/members.html:129
-msgid "Edit group"
-msgstr "编辑分组"
-
-#: templates/members.html:130
-msgid "Delete group"
-msgstr "删除分组"
-
-#: templates/members.html:142
-msgid "Create new group"
-msgstr "创建分组"
-
-#: templates/members.html:151
-msgid "Group name"
+#: templates/invite.html:18 templates/invite.html.py:20
+#: templates/invite.html:48 templates/invite.html.py:50
+#: templates/login.html:14 templates/login.html.py:16
+#, fuzzy
+msgid "Account name"
 msgstr "分组名称"
 
-#: templates/members.html:153 templates/members.html.py:183
-#: templates/members.html:309 templates/members.html.py:332
-#: templates/members.html:352
-msgid "OK"
-msgstr "确定"
+#: templates/invite.html:24 templates/invite.html.py:26
+#: templates/invite.html:54 templates/invite.html.py:56
+#: templates/login.html:20 templates/login.html.py:22
+msgid "Password"
+msgstr ""
 
-#: templates/members.html:170 templates/members.html.py:222
-#: templates/members.html:562 templates/newMeeting.html:321
-msgid "Tags"
-msgstr "标签"
+#: templates/invite.html:34 templates/login.html:30
+msgid "Remember me"
+msgstr ""
 
-#: templates/members.html:182
-msgid "Edit"
-msgstr "编辑"
+#: templates/invite.html:37 templates/login.html:33
+msgid "Sign in"
+msgstr ""
 
-#: templates/members.html:208
-msgid "10 characters limited, separated by space"
-msgstr "限10个字，空格隔开"
+#: templates/invite.html:45
+msgid "This is my first time to be here"
+msgstr ""
 
-#: templates/members.html:217 templates/members.html.py:375
-#: templates/members.html:377 templates/members.html.py:407
-#: templates/members.html:466 templates/members.html.py:468
-msgid "Name"
+#: templates/invite.html:60 templates/invite.html.py:62
+msgid "Repeat Password"
+msgstr ""
+
+#: templates/invite.html:64
+msgid "Two passwords don't match."
+msgstr ""
+
+#: templates/invite.html:70 templates/invite.html.py:72
+#, fuzzy
+msgid "True Name"
 msgstr "姓名"
 
-#: templates/members.html:218 templates/members.html.py:472
-msgid "Gender"
-msgstr "性别"
-
-#: templates/members.html:219
-msgid "ID Card"
-msgstr "身份证"
-
-#: templates/members.html:220 templates/members.html.py:387
-#: templates/members.html:389 templates/members.html.py:507
-#: templates/members.html:509
-msgid "Phone"
-msgstr "电话"
-
-#: templates/members.html:221 templates/members.html.py:393
-#: templates/members.html:395 templates/members.html.py:513
-#: templates/members.html:515
-msgid "Email"
-msgstr "邮箱"
-
-#: templates/members.html:223
-msgid "OP"
-msgstr "操作"
-
-#: templates/members.html:232 templates/members.html.py:480
-msgid "Male"
-msgstr "男"
-
-#: templates/members.html:234 templates/members.html.py:488
-msgid "Female"
-msgstr "女"
-
-#: templates/members.html:256 templates/members.html.py:460
-msgid "Edit member"
-msgstr "编辑成员"
-
-#: templates/members.html:272 templates/members.html.py:370
-msgid "Invite new member"
-msgstr "邀请新成员"
-
-#: templates/members.html:307
-msgid "Edit group name"
-msgstr "编辑分组名称"
-
-#: templates/members.html:326
-msgid "Are you sure to delete group"
-msgstr "确定要从你的公司中删除"
-
-#: templates/members.html:328
-msgid "from your company?"
-msgstr "分组吗?"
-
-#: templates/members.html:333 templates/members.html.py:353
-#: templates/members.html:447 templates/members.html.py:594
-#: templates/newMeeting.html:279 templates/newMeeting.html.py:378
-msgid "Cancel"
-msgstr "取消"
-
-#: templates/members.html:346
-msgid "Are you sure to delete user"
-msgstr "确定要从你的公司中删除"
-
-#: templates/members.html:348
-msgid " from your company?"
-msgstr "用户吗?"
-
-#: templates/members.html:381 templates/members.html.py:383
-#: templates/members.html:415 templates/members.html.py:501
-#: templates/members.html:503
+#: templates/invite.html:78 templates/invite.html.py:80
+#: templates/members.html:300 templates/members.html.py:302
+#: templates/members.html:364 templates/members.html.py:460
+#: templates/members.html:462 templates/profile.html:30
+#: templates/profile.html.py:78 templates/profile.html:80
 msgid "ID Card Number"
 msgstr "身份证号"
 
-#: templates/members.html:399
-msgid "Verification mode"
-msgstr "验证方式"
-
-#: templates/members.html:423
-msgid "Other question"
-msgstr "自定义问题"
-
-#: templates/members.html:430 templates/members.html.py:432
-msgid "Question"
-msgstr "问题"
-
-#: templates/members.html:436 templates/members.html.py:438
+#: templates/invite.html:88 templates/members.html:388
+#: templates/members.html.py:390
 msgid "Answer"
 msgstr "答案"
 
-#: templates/members.html:446
-msgid "Send invitation"
-msgstr "发送邀请"
+#: templates/invite.html:94
+msgid "Register"
+msgstr ""
 
-#: templates/members.html:522
-msgid "Groups Belonged To"
-msgstr "所在分组"
+#: templates/meeting.html:31 templates/newMeeting.html:36
+msgid "Basic Info"
+msgstr "基本信息"
 
-#: templates/members.html:543
-msgid "Add new group"
-msgstr "添加分组"
+#: templates/meeting.html:35 templates/members.html:343
+msgid "Organizer"
+msgstr "发起者"
 
-#: templates/members.html:572
-msgid "Add new tag"
-msgstr "添加标签"
+#: templates/meeting.html:40 templates/meetingList.html:41
+#: templates/newMeeting.html:51
+msgid "Meeting type"
+msgstr "会议类型"
 
-#: templates/members.html:593 templates/newMeeting.html:377
-msgid "Save changes"
-msgstr "保存更改"
+#: templates/meeting.html:43 templates/meetingList.html:18
+#: templates/meetingList.html.py:58 templates/newMeeting.html:55
+msgid "Formal meeting"
+msgstr "正式会议"
 
-#: templates/newMeeting.html:101
-msgid "New Meeting"
-msgstr "新建会议"
+#: templates/meeting.html:45 templates/meetingList.html:19
+#: templates/meetingList.html.py:60 templates/newMeeting.html:56
+msgid "Informal meeting"
+msgstr "非正式会议"
 
-#: templates/newMeeting.html:126
-msgid "Meeting title cannot be blank."
-msgstr "会议标题不能为空"
+#: templates/meeting.html:47 templates/meetingList.html:20
+#: templates/meetingList.html.py:62 templates/newMeeting.html:57
+#, fuzzy
+msgid "Others"
+msgstr "自定义问题"
 
-#: templates/newMeeting.html:128
-msgid "Should be less than 100 characters."
-msgstr "应少于100字"
+#: templates/meeting.html:49 templates/meetingList.html:64
+#: templates/meetingList.html.py:90 templates/meetingList.html:116
+msgid "Undefined"
+msgstr ""
 
-#: templates/newMeeting.html:136
-msgid "Please select"
-msgstr "请选择"
+#: templates/meeting.html:52 templates/newMeeting.html:86
+#: templates/newMeeting.html.py:88
+msgid "Contact tel"
+msgstr "联系电话"
 
-#: templates/newMeeting.html:142
-msgid "Please select meeting type."
-msgstr "请选择会议类型"
+#: templates/meeting.html:54
+msgid "Contact mail"
+msgstr "联系邮箱"
 
-#: templates/newMeeting.html:152
-msgid "Start time cannot be blank."
-msgstr "开始时间不能为空"
+#: templates/meeting.html:67 templates/newMeeting.html:114
+msgid "Detail Info"
+msgstr "详细信息"
 
-#: templates/newMeeting.html:157
-msgid "Place"
+#: templates/meeting.html:82 templates/newMeeting.html:135
+#: templates/newMeeting.html.py:240
+msgid "Participants"
+msgstr "参加者"
+
+#: templates/meeting.html:109 templates/newMeeting.html:173
+msgid "Attachments"
+msgstr "附件"
+
+#: templates/meeting.html:140
+msgid "Comments"
+msgstr "评论"
+
+#: templates/meeting.html:165
+msgid "Reply"
+msgstr "回复"
+
+#: templates/meeting.html:187
+#, fuzzy
+msgid "Add comment"
+msgstr "评论"
+
+#: templates/meeting.html:192
+msgid "Comment cannot be blank."
+msgstr "评论不能为空"
+
+#: templates/meeting.html:195
+msgid "Post"
+msgstr "提交"
+
+#: templates/meetingList.html:12
+msgid "My Meetings"
+msgstr "我的会议"
+
+#: templates/meetingList.html:15
+msgid "Choose your meeting type"
+msgstr "选择会议类型"
+
+#: templates/meetingList.html:26
+msgid "Choose"
+msgstr "选择"
+
+#: templates/meetingList.html:28
+msgid "Meetings I attended"
+msgstr "我参加的会议"
+
+#: templates/meetingList.html:29
+msgid "Meetings I created"
+msgstr "我创建的会议"
+
+#: templates/meetingList.html:40
+msgid "Meeting name"
+msgstr "会议名称"
+
+#: templates/meetingList.html:42 templates/newMeeting.html:67
+msgid "Start time"
+msgstr "开始时间"
+
+#: templates/meetingList.html:43
+msgid "Location"
 msgstr "地点"
 
-#: templates/newMeeting.html:161
-msgid "Place cannot be blank."
+#: templates/meetingList.html:44
+msgid "Created by"
+msgstr "创建者"
+
+#: templates/meetingList.html:44
+msgid "date"
+msgstr "日期"
+
+#: templates/meetingList.html:45
+msgid "Status"
+msgstr "状态"
+
+#: templates/meetingList.html:46
+msgid "Attachment"
+msgstr "附件"
+
+#: templates/meetingList.html:48 templates/members.html:141
+msgid "OP"
+msgstr "操作"
+
+#: templates/meetingList.html:80 templates/meetingList.html.py:98
+#: templates/meetingList.html:111
+msgid "End"
+msgstr ""
+
+#: templates/meetingList.html:125
+#, fuzzy
+msgid "Edit meeting"
+msgstr "编辑成员"
+
+#: templates/meetingList.html:128
+#, fuzzy
+msgid "Delete meeting"
+msgstr "新建会议"
+
+#: templates/meetingList.html:143
+msgid "Create new meeting"
+msgstr "新建会议"
+
+#: templates/meetingList.html:149 templates/members.html:195
+msgid "Previous"
+msgstr "上一页"
+
+#: templates/meetingList.html:153 templates/members.html:199
+msgid "Next"
+msgstr "下一页"
+
+#: templates/meetingList.html:168
+#, fuzzy
+msgid "Are you sure to delete meeting"
+msgstr "确定要从你的公司中删除"
+
+#: templates/meetingList.html:170
+msgid "?"
+msgstr ""
+
+#: templates/meetingList.html:174 templates/members.html:71
+#: templates/members.html.py:101 templates/members.html:225
+#: templates/members.html.py:248 templates/members.html:268
+msgid "OK"
+msgstr "确定"
+
+#: templates/meetingList.html:175 templates/members.html:249
+#: templates/members.html.py:269 templates/members.html:402
+#: templates/members.html.py:561 templates/newMeeting.html:224
+#: templates/newMeeting.html.py:319 templates/profile.html:107
+msgid "Cancel"
+msgstr "取消"
+
+#: templates/members.html:16
+msgid "Members"
+msgstr "成员"
+
+#: templates/members.html:47
+msgid "Edit group"
+msgstr "编辑分组"
+
+#: templates/members.html:48
+msgid "Delete group"
+msgstr "删除分组"
+
+#: templates/members.html:60
+msgid "Create new group"
+msgstr "创建分组"
+
+#: templates/members.html:69
+msgid "Group name"
+msgstr "分组名称"
+
+#: templates/members.html:88 templates/members.html.py:140
+#: templates/members.html:529 templates/newMeeting.html:268
+msgid "Tags"
+msgstr "标签"
+
+#: templates/members.html:100 templates/profile.html:16
+msgid "Edit"
+msgstr "编辑"
+
+#: templates/members.html:126
+msgid "10 characters limited, separated by space"
+msgstr "限10个字，空格隔开"
+
+#: templates/members.html:135 templates/members.html.py:291
+#: templates/members.html:293 templates/members.html.py:356
+#: templates/members.html:422 templates/members.html.py:424
+#: templates/profile.html:18 templates/profile.html.py:40
+#: templates/profile.html:42
+msgid "Name"
+msgstr "姓名"
+
+#: templates/members.html:136 templates/members.html.py:431
+#: templates/profile.html:20 templates/profile.html.py:49
+msgid "Gender"
+msgstr "性别"
+
+#: templates/members.html:137
+msgid "ID Card"
+msgstr "身份证"
+
+#: templates/members.html:138 templates/members.html.py:309
+#: templates/members.html:311 templates/members.html.py:469
+#: templates/members.html:471 templates/profile.html:32
+#: templates/profile.html.py:87 templates/profile.html:89
+msgid "Phone"
+msgstr "电话"
+
+#: templates/members.html:139 templates/members.html.py:318
+#: templates/members.html:320 templates/members.html.py:478
+#: templates/members.html:480 templates/profile.html:34
+#: templates/profile.html.py:96 templates/profile.html:98
+msgid "Email"
+msgstr "邮箱"
+
+#: templates/members.html:150 templates/members.html.py:439
+#: templates/profile.html:23 templates/profile.html.py:57
+msgid "Male"
+msgstr "男"
+
+#: templates/members.html:152 templates/members.html.py:447
+#: templates/profile.html:25 templates/profile.html.py:65
+msgid "Female"
+msgstr "女"
+
+#: templates/members.html:154 templates/members.html.py:455
+#: templates/profile.html:27 templates/profile.html.py:73
+msgid "Secret"
+msgstr ""
+
+#: templates/members.html:174 templates/members.html.py:416
+msgid "Edit member"
+msgstr "编辑成员"
+
+#: templates/members.html:190 templates/members.html.py:286
+msgid "Invite new member"
+msgstr "邀请新成员"
+
+#: templates/members.html:223
+msgid "Edit group name"
+msgstr "编辑分组名称"
+
+#: templates/members.html:242
+msgid "Are you sure to delete group"
+msgstr "确定要从你的公司中删除"
+
+#: templates/members.html:244
+msgid "from your company?"
+msgstr "分组吗?"
+
+#: templates/members.html:262
+msgid "Are you sure to delete user"
+msgstr "确定要从你的公司中删除"
+
+#: templates/members.html:264
+msgid " from your company?"
+msgstr "用户吗?"
+
+#: templates/members.html:295 templates/members.html.py:426
+#: templates/profile.html:44
+#, fuzzy
+msgid "Name cannot be blank."
 msgstr "地点不能为空"
 
-#: templates/newMeeting.html:163
-msgid "Should be less than 50 characters."
-msgstr "应少于50字"
+#: templates/members.html:304 templates/members.html.py:464
+#: templates/profile.html:82
+#, fuzzy
+msgid "Should be a ID card number."
+msgstr "应填一个电话号码"
 
-#: templates/newMeeting.html:171
+#: templates/members.html:313 templates/members.html.py:473
+#: templates/newMeeting.html:90 templates/profile.html:91
 msgid "Should be a phone number."
 msgstr "应填一个电话号码"
 
-#: templates/newMeeting.html:176
-msgid "Contact email"
-msgstr "联系邮箱"
-
-#: templates/newMeeting.html:180
+#: templates/members.html:322 templates/members.html.py:482
+#: templates/newMeeting.html:99 templates/profile.html:100
 msgid "Should be an email address."
 msgstr "应填一个邮箱地址"
 
-#: templates/newMeeting.html:202
+#: templates/members.html:327
+msgid "Authority"
+msgstr ""
+
+#: templates/members.html:335
+#, fuzzy
+msgid "Participant"
+msgstr "参加者"
+
+#: templates/members.html:348
+msgid "Verification mode"
+msgstr "验证方式"
+
+#: templates/members.html:372
+msgid "Other question"
+msgstr "自定义问题"
+
+#: templates/members.html:379 templates/members.html.py:381
+msgid "Question"
+msgstr "问题"
+
+#: templates/members.html:383
+#, fuzzy
+msgid "Question cannot be blank."
+msgstr "详细信息不能为空"
+
+#: templates/members.html:392
+#, fuzzy
+msgid "Answer cannot be blank."
+msgstr "地点不能为空"
+
+#: templates/members.html:401
+msgid "Send invitation"
+msgstr "发送邀请"
+
+#: templates/members.html:490
+msgid "Groups Belonged To"
+msgstr "所在分组"
+
+#: templates/members.html:510
+msgid "Add new group"
+msgstr "添加分组"
+
+#: templates/members.html:539
+msgid "Add new tag"
+msgstr "添加标签"
+
+#: templates/members.html:560 templates/newMeeting.html:318
+msgid "Save changes"
+msgstr "保存更改"
+
+#: templates/newMeeting.html:19
+msgid "New Meeting"
+msgstr "新建会议"
+
+#: templates/newMeeting.html:42
+msgid "Title"
+msgstr ""
+
+#: templates/newMeeting.html:44
+msgid "Meeting title cannot be blank."
+msgstr "会议标题不能为空"
+
+#: templates/newMeeting.html:46
+msgid "Should be less than 100 characters."
+msgstr "应少于100字"
+
+#: templates/newMeeting.html:54
+msgid "Please select"
+msgstr "请选择"
+
+#: templates/newMeeting.html:61
+msgid "Please select meeting type."
+msgstr "请选择会议类型"
+
+#: templates/newMeeting.html:71
+msgid "Start time cannot be blank."
+msgstr "开始时间不能为空"
+
+#: templates/newMeeting.html:76 templates/newMeeting.html.py:78
+msgid "Place"
+msgstr "地点"
+
+#: templates/newMeeting.html:80
+msgid "Place cannot be blank."
+msgstr "地点不能为空"
+
+#: templates/newMeeting.html:82
+msgid "Should be less than 50 characters."
+msgstr "应少于50字"
+
+#: templates/newMeeting.html:95 templates/newMeeting.html.py:97
+msgid "Contact email"
+msgstr "联系邮箱"
+
+#: templates/newMeeting.html:121
 msgid "Detail info cannot be blank."
 msgstr "详细信息不能为空"
 
-#: templates/newMeeting.html:226
+#: templates/newMeeting.html:158
 msgid "Participants cannot be none."
 msgstr "参加者不能为空"
 
-#: templates/newMeeting.html:229
+#: templates/newMeeting.html:161
 msgid "Add participant"
 msgstr "添加参加者"
 
-#: templates/newMeeting.html:248
+#: templates/newMeeting.html:180
 msgid "Add file"
 msgstr "添加文件"
 
-#: templates/newMeeting.html:278
+#: templates/newMeeting.html:183
+msgid ""
+"You can only upload files end with '.jpeg', '.jpg', '.gif', '.png', '.pdf', "
+"'.docx', '.doc', '.pptx', '.ppt', '.xlsx', '.xls', '.txt'. File size is "
+"limited to 10 MB."
+msgstr ""
+
+#: templates/newMeeting.html:189
+msgid "Successfully saved"
+msgstr ""
+
+#: templates/newMeeting.html:190
+msgid "Remove"
+msgstr ""
+
+#: templates/newMeeting.html:223 templates/profile.html:106
 msgid "Save"
 msgstr "保存"
+
+#~ msgid "Chinese"
+#~ msgstr "中文"
+
+#~ msgid "English"
+#~ msgstr "英文"
+
+#~ msgid "Boards"
+#~ msgstr "董事会"
+
+#~ msgid "Unknown"
+#~ msgstr "未知"

@@ -7,6 +7,7 @@ Created on 2013-4-17
 from django.contrib.auth import authenticate
 from Login.models import Account
 from MemManage.models import TempRole,Role,HeadPhoto
+from django.utils.translation import ugettext as _
 
 def fetcheVerifyInfo(params):
     '''
@@ -38,13 +39,27 @@ def verify(params,tempRole):
     '''
     verify role to permit
     '''
+    errors=[]
+    flag=True
     if "verifyName" in params and tempRole.name<>params["verifyName"]:
-        return False
+        singleError=dict()
+        singleError["eid"]="21041"
+        singleError["msg"]=_("Verify Name Incorrect")
+        errors.append(singleError)
+        flag=False
     if "verifyIdcard" in params and tempRole.idcard<>params["verifyIdcard"]:
-        return False
+        singleError=dict()
+        singleError["eid"]="21051"
+        singleError["msg"]=_("Verify IdCard Incorrect")
+        errors.append(singleError)
+        flag=False
     if "verifyAnswer" in params and tempRole.verifyAnswer<>params["verifyAnswer"]:
-        return False
-    return True
+        singleError=dict()
+        singleError["eid"]="21121"
+        singleError["msg"]=_("Verify Question&Answer Incorrect")
+        errors.append(singleError)
+        flag=False
+    return flag,errors
 
 def confirmRole(params):
     '''
@@ -67,16 +82,27 @@ def confirmRole(params):
         apass=params["apass"]        
         #authentication
         account=authenticate(username=aname,password=apass)
+        if account is None:
+            accountNone=dict()
+            accountNone["eid"]="20001"
+            accountNone["msg"]=_("Account Login Error")
+            result["success"]="false"
+            result["errors"]=accountNone
+            return result
     else:
-        if verify(params,tempRole):
+        flag,errors=verify(params,tempRole)
+        if flag:
             if len(Account.objects.filter(aname=params["aname"]))>0:
                 result["success"]="false"
-                result["errors"]="already have account name"
+                accountDupError=dict()
+                accountDupError["eid"]="21012"
+                accountDupError["msg"]=_("Account Name has been registered")
+                result["errors"]=accountDupError
                 return result     
             account=Account.objects.create_user(username=params["aname"], password=params["apass"])
         else:
             result["success"]="false"
-            result["errors"]="verify not passed"
+            result["errors"]=errors
             return result
     #insert info to Role from TempRole and delete TempRole info
     
