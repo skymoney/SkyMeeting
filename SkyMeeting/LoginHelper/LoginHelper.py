@@ -26,7 +26,7 @@ def fetcheVerifyInfo(params):
     if tempRole.verifyByName==1:
         #verify by name activated
         result["verifyByName"]="true"
-    if tempRole.verifyByIdcard==1:
+    if tempRole.verifyByIdCard==1:
         result["verifyByIdcard"]="true"
     if tempRole.verifyByQuest==1:
         result["verifyByQuest"]="true"
