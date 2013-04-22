@@ -39,27 +39,30 @@ def verify(params,tempRole):
     '''
     verify role to permit
     '''
-    errors=[]
+    errorSet=dict()
+    errorSet["verifyName"]=""
+    errorSet["verifyIdcard"]=""
+    errorSet["verifyAnswer"]=""
     flag=True
     if "verifyName" in params and tempRole.name<>params["verifyName"]:
         singleError=dict()
         singleError["eid"]="21041"
         singleError["msg"]=_("Verify Name Incorrect")
-        errors.append(singleError)
+        errorSet["verifyName"]=singleError
         flag=False
     if "verifyIdcard" in params and tempRole.idcard<>params["verifyIdcard"]:
         singleError=dict()
         singleError["eid"]="21051"
         singleError["msg"]=_("Verify ID Card Number Incorrect")
-        errors.append(singleError)
+        errorSet["verifyIdcard"]=singleError
         flag=False
     if "verifyAnswer" in params and tempRole.verifyAnswer<>params["verifyAnswer"]:
         singleError=dict()
         singleError["eid"]="21121"
         singleError["msg"]=_("Verify Answer Incorrect")
-        errors.append(singleError)
+        errorSet["verifyAnswer"]=singleError
         flag=False
-    return flag,errors
+    return flag,errorSet
 
 def confirmRole(params):
     '''
