@@ -94,18 +94,16 @@ def confirmRole(params):
             return result
     else:
         flag,errors=verify(params,tempRole)
-        if flag:
-            if len(Account.objects.filter(aname=params["aname"]))>0:
+        accountFlag,accountResult=accountExist(params["aname"])
+        if flag:            
+            if accountFlag:
                 result["success"]="false"
-                accountError=dict()
-                accountDupError=dict()
-                accountDupError["eid"]="21012"
-                accountDupError["msg"]=_("Account Name has been already registered")
-                accountError["verifyAccount"]=accountError
-                result["errors"]=accountError
-                return result     
+                result["errors"]=accountResult
+                return result    
             account=Account.objects.create_user(username=params["aname"], password=params["apass"])
         else:
+            if accountFlag:
+                errors["verifyAccount"]=accountResult["verifyAccount"]
             result["success"]="false"
             result["errors"]=errors
             return result
@@ -138,3 +136,14 @@ def confirmRole(params):
         result["errors"]=""        
     print result    
     return result
+
+def accountExist(aname):
+    accountError=dict()
+    flag=False
+    if len(Account.objects.filter(aname=aname))>0:        
+        accountDupError=dict()
+        accountDupError["eid"]="21012"
+        accountDupError["msg"]=_("Account Name has been already registered")
+        accountError["verifyAccount"]=accountDupError
+        flag=True        
+    return flag,accountError
