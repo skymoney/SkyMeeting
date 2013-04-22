@@ -51,7 +51,7 @@ def confirmRole(params):
     confirm role info and to normal page
     @param create: whether create or login of account
     @param aname: account name
-    @param apassword: account password
+    @param apass: account password
     @param code: invite code
     
     Optional:
@@ -100,6 +100,8 @@ def confirmRole(params):
         #delete session of code
         result["success"]="true"
         result["rid"]=role.rid
+        result["cid"]=role.company_id
+        result["rlevel"]=role.permission
     except:
         result["success"]="false"
         result["errors"]=""        

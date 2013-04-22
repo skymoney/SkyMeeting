@@ -1,10 +1,10 @@
+#-*- coding:utf-8 -*-
 # Create your views here.
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.template import Context
 from django.contrib.auth import authenticate, login as auth_login,logout as auth_logout
-from django.contrib.auth.decorators import login_required
 from LoginHelper import LoginHelper
 from MemManage.models import TempRole,Role  
 from Login.models import Account 
@@ -23,7 +23,7 @@ def welcome(request):
         return HttpResponseRedirect('/dashboard')
 
 def login(request):
-    user = authenticate(username=request.POST['username'], password= request.POST['password']);
+    user = authenticate(username=request.POST['accountname'], password=request.POST['password']);
     if user is not None:
         # Redirect to a success page.
         auth_login(request,user)
@@ -44,6 +44,14 @@ def logout(request):
     auth_logout(request)
     return HttpResponseRedirect('/')
 
+def home(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect('/dashboard')
+    else:
+        return HttpResponseRedirect('/')
+
+
+
 def invite(request):
     try :
         #get the invite code
@@ -56,15 +64,74 @@ def invite(request):
     except TempRole.DoesNotExist:
         return HttpResponse('Your invite code is not legal!')
     
-    request.session['code']= invitecode
+    request.session['code'] = invitecode
     params = dict()
     params["code"] = invitecode
     return render_to_response('invite.html', Context(LoginHelper.fetcheVerifyInfo(params)))
-   
+
+def register(request):
+    '''
+    register with an already existed account
+    '''
+    params = dict()
+    params["create"] = "false"
+    params["code"] = request.session['code']
+    params["aname"] = request.POST["accountname"]
+    params["apass"] = request.POST["password"]
+    
+    result = LoginHelper.confirmRole(params)
+    if result["success"] == "true":
+        del request.session["code"]
+        #以下代码同login
+        user = authenticate(username=params["aname"], password=params["apass"]);
+        if user is not None:
+            auth_login(request,user)
+            request.session["rid"]=result["rid"]
+            request.session["cid"]=result["cid"]
+            request.session["rlevel"]=result["rlevel"]
+            return HttpResponseRedirect('/profile')
+        
+    # Return an error message.
+    return HttpResponseRedirect('/')
+
+def registerNewAccount(request):
+    '''
+    register and create a new account
+    '''
+    params = dict()
+    params["create"] = "true"
+    params["code"] = request.session['code']
+    params["aname"] = request.POST["accountname"]
+    params["apass"] = request.POST["password"]
+    
+    if "name" in request.POST:
+        params["verifyName"] = request.POST["name"]
+    if "idcard" in request.POST:
+        params["verifyIdcard"] = request.POST["idcard"]
+    if "answer" in request.POST:
+        params["verifyAnswer"] = request.POST["answer"]
+    
+    result = LoginHelper.confirmRole(params)
+    if result["success"] == "true":
+        print "confirm success"
+        del request.session["code"]
+        #以下代码同login
+        user = authenticate(username=params["aname"], password=params["apass"]);
+        if user is not None:
+            auth_login(request,user)
+            request.session["rid"]=result["rid"]
+            request.session["cid"]=result["cid"]
+            request.session["rlevel"]=result["rlevel"]
+            return HttpResponseRedirect('/profile')
+        
+    # Return an error message.
+    return HttpResponseRedirect('/')
+
+
 
 def regedit(request):
     if request.method == 'POST':  
-        username = request.POST['username']  
+        username = request.POST['accountname']  
         password = request.POST['password']  
         #email = request.POST['email']
         trueName = request.POST['trueName']
@@ -91,14 +158,3 @@ def regedit(request):
 def memlist(request):
     return render_to_response('meetingList.html')
 
-def home(request):
-    if request.user.is_authenticated():
-        return HttpResponseRedirect('/dashboard')
-    else:
-        return HttpResponseRedirect('/')
-
-def register(request):
-    '''
-    user register
-    '''
-    pass
