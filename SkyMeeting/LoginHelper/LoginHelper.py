@@ -44,19 +44,19 @@ def verify(params,tempRole):
     if "verifyName" in params and tempRole.name<>params["verifyName"]:
         singleError=dict()
         singleError["eid"]="21041"
-        singleError["msg"]=_("验证姓名不一致")
+        singleError["msg"]=_("Verify Name Incorrect")
         errors.append(singleError)
         flag=False
     if "verifyIdcard" in params and tempRole.idcard<>params["verifyIdcard"]:
         singleError=dict()
         singleError["eid"]="21051"
-        singleError["msg"]=_("验证身份证号不一致")
+        singleError["msg"]=_("Verify IdCard Incorrect")
         errors.append(singleError)
         flag=False
     if "verifyAnswer" in params and tempRole.verifyAnswer<>params["verifyAnswer"]:
         singleError=dict()
         singleError["eid"]="21121"
-        singleError["msg"]=_("验证自定义问题答案不一致")
+        singleError["msg"]=_("Verify Question&Answer Incorrect")
         errors.append(singleError)
         flag=False
     return flag,errors
@@ -85,7 +85,7 @@ def confirmRole(params):
         if account is None:
             accountNone=dict()
             accountNone["eid"]="20001"
-            accountNone["msg"]=_("账户登陆错误")
+            accountNone["msg"]=_("Account Login Error")
             result["success"]="false"
             result["errors"]=accountNone
             return result
@@ -96,7 +96,7 @@ def confirmRole(params):
                 result["success"]="false"
                 accountDupError=dict()
                 accountDupError["eid"]="21012"
-                accountDupError["msg"]=_("帐号名已被注册")
+                accountDupError["msg"]=_("Account Name has been registered")
                 result["errors"]=accountDupError
                 return result     
             account=Account.objects.create_user(username=params["aname"], password=params["apass"])
