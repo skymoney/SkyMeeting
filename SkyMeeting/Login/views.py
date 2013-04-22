@@ -123,8 +123,9 @@ def registerNewAccount(request):
             request.session["cid"]=result["cid"]
             request.session["rlevel"]=result["rlevel"]
             return HttpResponseRedirect('/profile')
-        
+    
     # Return an error message.
+    print result["errors"]
     return HttpResponseRedirect('/')
 
 

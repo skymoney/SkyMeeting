@@ -11,7 +11,7 @@ class AccountManager(models.Manager):
             if not username:
                 raise ValueError('The given username must be set')
             account = self.model(aname=username,
-                              last_login=now, date_joined=now)
+                              last_login=now, date_joined=now,alevel="0")
 
             account.set_password(password)
             account.save(using=self._db)
@@ -25,7 +25,7 @@ class Account(models.Model):
     apassword=models.CharField(max_length=50,db_column="account_password")
     last_login=models.DateTimeField(db_column="account_createtime")        #create time
     date_joined=models.DateTimeField(db_column="account_lastlogin")   #last login time
-    alevel=models.CharField(max_length=20,db_column="account_level")
+    alevel=models.CharField(max_length=20,db_column="account_level")  #should change CharField to Int
     
     objects = AccountManager()
   
