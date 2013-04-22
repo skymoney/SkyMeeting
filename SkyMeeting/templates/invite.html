@@ -36,7 +36,7 @@
 							 -->
 							<input type="submit" class="btn btn-primary" value="{% trans 'Sign in' %}" />
 						</div>
-					</div>						
+					</div>
 				</form>
 			</div>
 			
@@ -47,10 +47,16 @@
 					<div class="control-group">
 						<label class="control-label" for="inputAccount">{% trans "Account name" %}</label>
 						<div class="controls">
-							<input type="text" id="inputAccount" name="accountname" placeholder="{% trans 'Account Name' %}" data-validate-presence="true" data-validate-error="#inputAccountError" {% if lastInput %}value="{{ lastInput.newAccountName }}"{% endif %} />
+							<input type="text" id="inputAccount" name="accountname" placeholder="{% trans 'Account Name' %}" data-validate-presence="true" data-validate-format="/^[a-z]([a-z]|[0-9])*$/" data-validate-error="#inputAccountError" {% if lastInput %}value="{{ lastInput.newAccountName }}"{% endif %} />
+							{% if errors.verifyAccount %}
 							<div class="alert-msg" id="inputAccountError">
-								{% trans "Account name cannot be blank." %}
+								{{ errors.verifyAccount.msg }}
 							</div>
+							{% else %}
+							<div class="alert-msg hide" id="inputAccountError">
+								{% trans "Should begin with a character, and cannot contain punctuations." %}
+							</div>
+							{% endif %}
 						</div>
 					</div>
 					<div class="control-group">
@@ -79,9 +85,15 @@
 						<label class="control-label" for="inputName">{% trans "True Name" %}</label>
 						<div class="controls">
 							<input type="text" id="inputName" name="name" placeholder="{% trans 'True Name' %}" data-validate-presence="true" data-validate-error="#inputNameError" {% if lastInput %}value="{{ lastInput.verifyName }}"{% endif %} />
+							{% if errors.verifyName %}
+							<div class="alert-msg" id="inputNameError">
+								{{ errors.verifyName.msg }}
+							</div>
+							{% else %}
 							<div class="alert-msg hide" id="inputNameError">
 								{% trans "True Name cannot be blank." %}
 							</div>
+							{% endif %}
 						</div>
 					</div>
 					{% endif %}
@@ -90,9 +102,15 @@
 						<label class="control-label" for="inputIdcard">{% trans "ID Card Number" %}</label>
 						<div class="controls">
 							<input type="text" id="inputIdcard" name="idcard" placeholder="{% trans 'ID Card Number' %}" data-validate-presence="true" data-validate-error="#inputIdcardError" {% if lastInput %}value="{{ lastInput.verifyIdcard }}"{% endif %} />
+							{% if errors.verifyIdcard %}
+							<div class="alert-msg" id="inputIdcardError">
+								{{ errors.verifyIdcard.msg }}
+							</div>
+							{% else %}
 							<div class="alert-msg hide" id="inputIdcardError">
 								{% trans "ID Card Number cannot be blank." %}
 							</div>
+							{% endif %}
 						</div>
 					</div>
 					{% endif %}
@@ -101,15 +119,21 @@
 						<label class="control-label" for="inputAnswer">{{ verifyInfo.verifyQuest }}</label>
 						<div class="controls">
 							<input type="text" id="inputAnswer" name="answer" placeholder="{% trans 'Answer' %}" data-validate-presence="true" data-validate-error="#inputAnswerError" {% if lastInput %}value="{{ lastInput.verifyAnswer }}"{% endif %} />
+							{% if errors.verifyAnswer %}
+							<div class="alert-msg" id="inputAnswerError">
+								{{ errors.verifyAnswer.msg }}
+							</div>
+							{% else %}
 							<div class="alert-msg hide" id="inputAnswerError">
 								{% trans "Answer cannot be blank." %}
 							</div>
+							{% endif %}
 						</div>
 					</div>
 					{% endif %}
 					<div class="control-group">
 						<div class="controls">
-							<input type="submit" class="btn btn-primary" value="{% trans 'Register' %}" data-validate="#newAccountForm" />
+							<input type="button" class="btn btn-primary" id="newAccountFormOk" value="{% trans 'Register' %}" data-validate="#newAccountForm" />
 						</div>
 					</div>
 				</form>

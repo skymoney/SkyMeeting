@@ -4,7 +4,28 @@
     // $("#signinForm").validations();
     $("#newAccountForm").validations();
 
-	// register error message feedback
+    // validation patch
+    var checkRepeatPassword = function(){
+    	if($("#repeatPassword").val() != $("#inputPassword").val())
+    	{
+    		$("#repeatPasswordError").show();
+    		return false;
+    	}
+    	else
+    	{
+    		$("#repeatPasswordError").hide();
+    		return true;
+    	}
+    };
+    $("#repeatPassword").blur(checkRepeatPassword);
+
+    $("#newAccountFormOk").click(function(){
+    	if(checkRepeatPassword() == false)
+    	{
+    		return false;
+    	}
+    	$("#newAccountForm").submit();
+    });
 
 
 });
