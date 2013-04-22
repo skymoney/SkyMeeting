@@ -299,9 +299,9 @@ def queryPerson(params):
 def sendInviteEmail(email,code):
     from django.core.mail import send_mail
     subject="Invite You to Join US"
-    content="http://192.168.100.21:8000/invite/?code="+code
+    content="http://192.168.100.21/invite/?code="+code
     try:
-        return_code=send_mail(subject,content,"CChain0615@gmail.com",[email],fail_silently=False)
+        return_code=send_mail(subject,content,"notice_noreply@126.com",[email],fail_silently=False)
         
         return return_code
     except:

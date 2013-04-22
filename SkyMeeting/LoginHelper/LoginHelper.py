@@ -97,10 +97,12 @@ def confirmRole(params):
         if flag:
             if len(Account.objects.filter(aname=params["aname"]))>0:
                 result["success"]="false"
+                accountError=dict()
                 accountDupError=dict()
                 accountDupError["eid"]="21012"
                 accountDupError["msg"]=_("Account Name has been already registered")
-                result["errors"]=accountDupError
+                accountError["verifyAccount"]=accountError
+                result["errors"]=accountError
                 return result     
             account=Account.objects.create_user(username=params["aname"], password=params["apass"])
         else:
