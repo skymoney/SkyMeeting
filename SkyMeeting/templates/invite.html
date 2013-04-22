@@ -24,6 +24,11 @@
 						<label class="control-label" for="password">{% trans "Password" %}</label>
 						<div class="controls">
 							<input type="password" id="password" name="password" placeholder="{% trans 'Password' %}" />
+							{% if errors.accountError %}
+							<div class="alert-msg">
+								{{ errors.accountError.msg }}
+							</div>
+							{% endif %}
 						</div>
 					</div>
 					<div class="control-group">

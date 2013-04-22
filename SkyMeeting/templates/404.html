@@ -1,3 +1,4 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html>
 	<head>
@@ -18,13 +19,12 @@
 					<h3>Lost? We suggest...</h3>
 					
 					<ul>
-						<li><a href="#">&raquo; Home</a></li>
-						<li><a href="#">&raquo; Portfolio</a></li>
-						<li><a href="#">&raquo; About</a></li>
-						<li><a href="#">&raquo; Contact</a></li>
+						<li><a href="/dashboard/">&raquo;&nbsp;{% trans "Home" %}</a></li>
+						<li><a href="/meetings/">&raquo;&nbsp;{% trans "Meetings" %}</a></li>
+						<li><a href="/profile/">&raquo;&nbsp;{% trans "Profile" %}</a></li>
 					</ul>
 				</div>
-				<img id="book" src="../public/img/404.png" alt="Book iCon" />
+				<img id="book" src="../public/img/404.png" alt="404 icon" />
 				<div style="clear:both;"></div>
 			</div>
 			<div id="footer">
