@@ -50,13 +50,13 @@ def verify(params,tempRole):
     if "verifyIdcard" in params and tempRole.idcard<>params["verifyIdcard"]:
         singleError=dict()
         singleError["eid"]="21051"
-        singleError["msg"]=_("Verify IdCard Incorrect")
+        singleError["msg"]=_("Verify ID Card Number Incorrect")
         errors.append(singleError)
         flag=False
     if "verifyAnswer" in params and tempRole.verifyAnswer<>params["verifyAnswer"]:
         singleError=dict()
         singleError["eid"]="21121"
-        singleError["msg"]=_("Verify Question&Answer Incorrect")
+        singleError["msg"]=_("Verify Answer Incorrect")
         errors.append(singleError)
         flag=False
     return flag,errors
@@ -96,7 +96,7 @@ def confirmRole(params):
                 result["success"]="false"
                 accountDupError=dict()
                 accountDupError["eid"]="21012"
-                accountDupError["msg"]=_("Account Name has been registered")
+                accountDupError["msg"]=_("Account Name has been already registered")
                 result["errors"]=accountDupError
                 return result     
             account=Account.objects.create_user(username=params["aname"], password=params["apass"])

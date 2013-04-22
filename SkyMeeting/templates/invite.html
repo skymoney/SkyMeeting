@@ -13,11 +13,11 @@
 		<div class="row-fluid">
 			<div class="span6">
 				<h3 class="text-center">{% trans "I have already owned an account" %}</h3>
-				<form class="form-horizontal form-signin" action="/register/" method="post">
+				<form class="form-horizontal form-signin" id="signinForm" action="/register/" method="post">
 					<div class="control-group">
 						<label class="control-label" for="accountName">{% trans "Account name" %}</label>
 						<div class="controls">
-							<input type="text" id="accountName" name="accountname" placeholder="{% trans 'Account name' %}" />
+							<input type="text" id="accountName" name="accountname" placeholder="{% trans 'Account Name' %}" />
 						</div>
 					</div>
 					<div class="control-group">
@@ -43,17 +43,23 @@
 
 			<div class="span6">
 				<h3 class="text-center">{% trans "This is my first time to be here" %}</h3>
-				<form class="form-horizontal form-register" action="/registernewaccount/" method="post">
+				<form class="form-horizontal form-register" id="newAccountForm" action="/registernewaccount/" method="post">
 					<div class="control-group">
 						<label class="control-label" for="inputAccount">{% trans "Account name" %}</label>
 						<div class="controls">
-							<input type="text" id="inputAccount" name="accountname" placeholder="{% trans 'Account name' %}" />
+							<input type="text" id="inputAccount" name="accountname" placeholder="{% trans 'Account Name' %}" data-validate-presence="true" data-validate-error="#inputAccountError" {% if lastInput %}value="{{ lastInput.newAccountName }}"{% endif %} />
+							<div class="alert-msg" id="inputAccountError">
+								{% trans "Account name cannot be blank." %}
+							</div>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="inputPassword">{% trans "Password" %}</label>
 						<div class="controls">
-							<input type="password" id="inputPassword" name="password" placeholder="{% trans 'Password' %}" />
+							<input type="password" id="inputPassword" name="password" placeholder="{% trans 'Password' %}" data-validate-presence="true" data-validate-error="#inputPasswordError" />
+							<div class="alert-msg hide" id="inputPasswordError">
+								{% trans "Password cannot be blank." %}
+							</div>
 						</div>
 					</div>
 					<div class="control-group">
@@ -65,33 +71,45 @@
 							</div>
 						</div>
 					</div>
-					{% if verifyByName == "true" %}
+					{% if verifyInfo.verifyByName == "true" or verifyInfo.verifyByIdcard == "true" or verifyInfo.verifyByQuest == "true" %}
+					<div class="text-center muted" id="verificationHint">----------{% trans "The following content is for identity verification." %}----------</div>
+					{% endif %}
+					{% if verifyInfo.verifyByName == "true" %}
 					<div class="control-group">
 						<label class="control-label" for="inputName">{% trans "True Name" %}</label>
 						<div class="controls">
-							<input type="text" id="inputName" name="name" placeholder="{% trans 'True Name' %}" />
+							<input type="text" id="inputName" name="name" placeholder="{% trans 'True Name' %}" data-validate-presence="true" data-validate-error="#inputNameError" {% if lastInput %}value="{{ lastInput.verifyName }}"{% endif %} />
+							<div class="alert-msg hide" id="inputNameError">
+								{% trans "True Name cannot be blank." %}
+							</div>
 						</div>
 					</div>
 					{% endif %}
-					{% if verifyByIdcard == "true" %}
+					{% if verifyInfo.verifyByIdcard == "true" %}
 					<div class="control-group">
 						<label class="control-label" for="inputIdcard">{% trans "ID Card Number" %}</label>
 						<div class="controls">
-							<input type="text" id="inputIdcard" name="idcard" placeholder="{% trans 'ID Card Number' %}" />
+							<input type="text" id="inputIdcard" name="idcard" placeholder="{% trans 'ID Card Number' %}" data-validate-presence="true" data-validate-error="#inputIdcardError" {% if lastInput %}value="{{ lastInput.verifyIdcard }}"{% endif %} />
+							<div class="alert-msg hide" id="inputIdcardError">
+								{% trans "ID Card Number cannot be blank." %}
+							</div>
 						</div>
 					</div>
 					{% endif %}
-					{% if verifyByQuest == "true" %}
+					{% if verifyInfo.verifyByQuest == "true" %}
 					<div class="control-group">
-						<label class="control-label" for="inputAnswer">{{ verifyQuest }}</label>
+						<label class="control-label" for="inputAnswer">{{ verifyInfo.verifyQuest }}</label>
 						<div class="controls">
-							<input type="text" id="inputAnswer" name="answer" placeholder="{% trans 'Answer' %}" />
+							<input type="text" id="inputAnswer" name="answer" placeholder="{% trans 'Answer' %}" data-validate-presence="true" data-validate-error="#inputAnswerError" {% if lastInput %}value="{{ lastInput.verifyAnswer }}"{% endif %} />
+							<div class="alert-msg hide" id="inputAnswerError">
+								{% trans "Answer cannot be blank." %}
+							</div>
 						</div>
 					</div>
 					{% endif %}
 					<div class="control-group">
 						<div class="controls">
-							<input type="submit" class="btn btn-primary" value="{% trans 'Register' %}" />
+							<input type="submit" class="btn btn-primary" value="{% trans 'Register' %}" data-validate="#newAccountForm" />
 						</div>
 					</div>
 				</form>

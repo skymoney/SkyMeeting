@@ -67,7 +67,9 @@ def invite(request):
     request.session['code'] = invitecode
     params = dict()
     params["code"] = invitecode
-    return render_to_response('invite.html', Context(LoginHelper.fetcheVerifyInfo(params)))
+    result = dict()
+    result["verifyInfo"] = LoginHelper.fetcheVerifyInfo(params)
+    return render_to_response('invite.html', Context(result))
 
 def register(request):
     '''
@@ -79,20 +81,23 @@ def register(request):
     params["aname"] = request.POST["accountname"]
     params["apass"] = request.POST["password"]
     
-    result = LoginHelper.confirmRole(params)
-    if result["success"] == "true":
+    confirmResult = LoginHelper.confirmRole(params)
+    if confirmResult["success"] == "true":
         del request.session["code"]
         #以下代码同login
         user = authenticate(username=params["aname"], password=params["apass"]);
         if user is not None:
             auth_login(request,user)
-            request.session["rid"]=result["rid"]
-            request.session["cid"]=result["cid"]
-            request.session["rlevel"]=result["rlevel"]
+            request.session["rid"]=confirmResult["rid"]
+            request.session["cid"]=confirmResult["cid"]
+            request.session["rlevel"]=confirmResult["rlevel"]
             return HttpResponseRedirect('/profile')
         
     # Return an error message.
-    return HttpResponseRedirect('/')
+    print confirmResult["errors"]
+    result = dict()
+    result["errors"] = confirmResult["errors"]
+    return render_to_response('invite.html', Context(result))
 
 def registerNewAccount(request):
     '''
@@ -111,22 +116,36 @@ def registerNewAccount(request):
     if "answer" in request.POST:
         params["verifyAnswer"] = request.POST["answer"]
     
-    result = LoginHelper.confirmRole(params)
-    if result["success"] == "true":
+    confirmResult = LoginHelper.confirmRole(params)
+    if confirmResult["success"] == "true":
         print "confirm success"
         del request.session["code"]
         #以下代码同login
         user = authenticate(username=params["aname"], password=params["apass"]);
         if user is not None:
             auth_login(request,user)
-            request.session["rid"]=result["rid"]
-            request.session["cid"]=result["cid"]
-            request.session["rlevel"]=result["rlevel"]
+            request.session["rid"]=confirmResult["rid"]
+            request.session["cid"]=confirmResult["cid"]
+            request.session["rlevel"]=confirmResult["rlevel"]
             return HttpResponseRedirect('/profile')
     
     # Return an error message.
-    print result["errors"]
-    return HttpResponseRedirect('/')
+    print confirmResult["errors"]
+    result = dict()
+    result["verifyInfo"] = LoginHelper.fetcheVerifyInfo(params)
+    result["errors"] = confirmResult["errors"]
+    
+    lastInput = dict()
+    lastInput["newAccountName"] = params["aname"]
+    if "verifyName" in params:
+        lastInput["verifyName"] = params["verifyName"]
+    if "verifyIdcard" in params:
+        lastInput["verifyIdcard"] = params["verifyIdcard"]
+    if "verifyAnswer" in params:
+        lastInput["verifyAnswer"] = params["verifyAnswer"]
+    result["lastInput"] = lastInput
+    
+    return render_to_response('invite.html', Context(result))
 
 
 
