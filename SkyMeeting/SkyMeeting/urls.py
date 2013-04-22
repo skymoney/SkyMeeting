@@ -10,6 +10,8 @@ urlpatterns = patterns('Login.views',
     url(r'^logout/$','logout'),
     url(r'^home/$','home'),
     url(r'^invite/$','invite'),
+    url(r'^register/$','register'),
+    url(r'^registernewaccount/$','registerNewAccount'),
 )
 
 urlpatterns += patterns('General.views',

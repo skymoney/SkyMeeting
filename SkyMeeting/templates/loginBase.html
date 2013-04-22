@@ -1,0 +1,26 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+  <head>
+   <title>{%block title%}{%endblock%}</title>
+    <link href="../public/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="../public/css/skymeeting.common.css" rel="stylesheet" media="screen">
+    
+    {% block cssfile%}{%endblock%}
+  </head>
+  <body>
+	{%block content%}{%endblock%}
+	
+	<script src="../public/js/jquery-1.9.1.min.js"></script>
+	<script src="../public/js/bootstrap.min.js"></script>
+
+    <!-- lib for language gettext -->
+	<script src="/jsi18n/Login"></script>
+	
+	<!-- lib for js validation -->
+	<script src="../public/js/jquery.validation-1.0.1.min.js"></script>
+
+	{%block morestatic%}{%endblock%}
+  </body>
+  {%block footer%}{%endblock%}
+</html>
