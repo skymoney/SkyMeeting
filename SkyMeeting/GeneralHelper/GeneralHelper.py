@@ -151,8 +151,8 @@ def changePwdVerify(params):
     result=dict()
     if len(tempAccount)>0:
         result["success"]="true"
-        result["aid"]=tempAccount[0].aid
-        result["aname"]=tempAccount[0].aname
+        result["aid"]=tempAccount[0].tapAid.aid
+        result["aname"]=tempAccount[0].tapAid.aname
     else:
         result["success"]="false"
         result["errors"]=_("Code Does Not Exist")
