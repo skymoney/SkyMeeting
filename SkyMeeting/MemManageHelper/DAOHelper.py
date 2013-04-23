@@ -303,7 +303,7 @@ def sendInviteEmail(email,code):
     content="http://192.168.100.21/invite/?code="+code
     
     try:
-        return_code=send_mail(subject,content,settings.EMAIL_HOST,[email],fail_silently=False)
+        return_code=send_mail(subject,content,settings.EMAIL_HOST_USER,[email],fail_silently=False)
         
         return return_code
     except:

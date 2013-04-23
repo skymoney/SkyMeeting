@@ -1,3 +1,4 @@
+#-*-coding:utf-8 -*-
 '''
 Created on 2013-4-17
 
@@ -79,3 +80,67 @@ def editProfile(params):
         result["success"]="false"
         result["errors"]=""
     return result
+
+def changePwdViaEmail(params):
+    '''
+    user change pwd via email
+    @param email: email to be sended 
+    '''
+    from hashlib import md5
+    from django.conf import settings
+    email=params["email"]
+    result=dict()
+    if checkEmail(email):
+        #add more ops here
+        pass
+    else:
+        result["success"]="false"
+        result["errors"]="Email Does Not Exist"
+
+def askChangePwd(params):
+    '''
+    change password via admin
+    @param email: email of target user
+    @param rid: role id of target user
+    '''
+    from django.core.mail import send_mail
+    from django.conf import settings
+    from hashlib import md5
+    from datetime import datetime
+    from Login.models import TempAccountPwd
+    result=dict()
+    email=params["email"]
+    aid=Role.objects.get(rid=params["rid"]).account
+    code=md5(email+str(aid.aid)+str(datetime.now())).hexdigest()
+    
+    tmp=TempAccountPwd()
+    tmp.tapAid=aid
+    tmp.tapCode=code
+    tmp.tapDate=datetime.now()
+    
+    try:
+        tmp.save()
+        content="点击以下链接修改您的密码 \n"+"http://192.168.100.21/"      #here needs to be conf to proper url
+        resultCode=send_mail("修改您的账户密码",content,settings.EMAIL_HOST_USER,[email],fail_silently=False)
+        
+        if resultCode==1:
+            result["success"]="true"
+        else:
+            result["success"]="false"
+            result["errors"]="send fail"
+    except:
+        result["success"]="false"
+        result["errors"]="save fail"
+    return result
+
+def checkEmail(email):
+    '''
+    check email exist in db
+    '''
+    flag=False
+    r_set=Role.objects.filter(email=email)
+    if len(r_set)>0:
+        flag=True
+    
+    #add validation here
+    return flag
