@@ -54,12 +54,9 @@ def editProfile(request):
 def editAccount(request):
     params = dict()
     params["aid"] = request.user.aid
-    params["oldPassword"] = request.POST["oldPassword"]
-    params["newPassword"] = request.POST["newPassword"]
-    
-    print str(request.user.aid) + " " + str(params["newPassword"])
-#    GeneralHelper.editProfile(params)
-    return HttpResponseRedirect('/profile')
+    params["oldPwd"] = request.POST["oldPassword"]
+    params["newPwd"] = request.POST["newPassword"]
+    return HttpResponse(json.dumps(GeneralHelper.changePwdInner(params)))
 
 
 
@@ -83,3 +80,11 @@ def documents(request):
 
 def error(request):
     return render_to_response('500.html')
+
+
+
+def forgetPassword(request):
+    params = dict()
+    params["email"] = request.POST["email"]
+    return HttpResponse(json.dumps(GeneralHelper.changePwdViaEmail(params)))
+    

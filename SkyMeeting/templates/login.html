@@ -60,12 +60,14 @@
 					<div class="alert-msg hide" id="inputEmailError">
 						{% trans "Should be an email address." %}
 					</div>
+					<div class="alert-msg hide" id="sendEmailError">
+						<!-- add by js -->
+					</div>
 				</div>
 			</div>
-			
 		</div>
 		<div class="modal-footer">
-			<input type="button" class="btn btn-primary" id="forgetModalOk" value="{% trans 'Send' %}" data-validate="#forgetForm" />
+			<input type="button" class="btn btn-primary" id="forgetFormOk" value="{% trans 'Send' %}" data-validate="#forgetForm" />
 			<input type="button" class="btn" data-dismiss="modal" aria-hidden="true" value="{% trans 'Cancel' %}" />
 		</div>
 	</form>

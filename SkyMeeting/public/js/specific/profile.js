@@ -35,9 +35,16 @@
     $("#passwordFormCancel").click(function(){
         $("#accountDiv").show();
         $("#passwordForm").hide();
+
         // clear password input
+        $("#oldPassword").val("");
         $("#newPassword").val("");
         $("#repeatPassword").val("");
+
+        // clear errors
+        $("#passwordForm").find(".alert-msg").each(function(){
+            $(this).hide();
+        });
     });
 
     // validation patch
@@ -60,7 +67,34 @@
         {
             return false;
         }
-        $("#passwordForm").submit();
+        
+        // ajax flag!!! disable button
+        disableButton($("#passwordFormOk"));
+
+        $.post(
+            "/editaccount/",
+            {
+                "oldPassword": $("#oldPassword").val(),
+                "newPassword": $("#newPassword").val()
+            },
+            function(data)
+            {
+                var result = eval("(" + data + ")");
+                if(result.success == "true")
+                {
+                    // success, and close form
+                    $("#passwordFormCancel").click();
+                }
+                else
+                {
+                    // error message
+                    $("#changePasswordError").text(result.errors).show();
+                }
+
+                // reset ajax flag!!! enable button
+                enableButton($("#passwordFormOk"));
+            }
+        );
     });
 
 });

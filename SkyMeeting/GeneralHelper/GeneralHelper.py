@@ -188,10 +188,10 @@ def changePwdInner(params):
             result["success"]="true"
         except:
             result["success"]="false"
-            result["errors"]="Can't change pwd"
+            result["errors"]="Cannot change password."
     else:
         result["success"]="false"
-        result["errors"]="password not correct"
+        result["errors"]="Old password is not correct."
     return result
 
 def checkEmail(email):

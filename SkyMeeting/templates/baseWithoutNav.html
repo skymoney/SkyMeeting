@@ -9,18 +9,19 @@
     {% block cssfile%}{%endblock%}
   </head>
   <body>
-	{%block content%}{%endblock%}
+    {%block content%}{%endblock%}
 	
-	<script src="../public/js/jquery-1.9.1.min.js"></script>
-	<script src="../public/js/bootstrap.min.js"></script>
+    <script src="../public/js/jquery-1.9.1.min.js"></script>
+    <script src="../public/js/bootstrap.min.js"></script>
 
     <!-- lib for language gettext -->
-	<script src="/jsi18n/Login"></script>
+    <script src="/jsi18n/Login"></script>
 	
-	<!-- lib for js validation -->
-	<script src="../public/js/jquery.validation-1.0.1.min.js"></script>
+    <!-- lib for js validation -->
+    <script src="../public/js/jquery.validation-1.0.1.min.js"></script>
 
-	{%block morestatic%}{%endblock%}
+    <script type="text/javascript" src="../public/js/skymeeting.common.js"></script>
+    {%block morestatic%}{%endblock%}
   </body>
   {%block footer%}{%endblock%}
 </html>
