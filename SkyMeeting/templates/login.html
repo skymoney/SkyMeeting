@@ -1,4 +1,4 @@
-﻿{% extends 'loginBase.html'%}
+﻿{% extends 'baseWithoutNav.html'%}
 {% load i18n %}
 
 {%block title%}SkyMeeting{%endblock%}
@@ -30,10 +30,44 @@
 					{% trans "Remember me" %}
 				</label>
 				 -->
-				<input type="submit" class="btn btn-primary" value="{% trans 'Sign in' %}" />
+				<input type="submit" class="btn btn-primary" value="{% trans 'Sign In' %}" />
+
+				<!-- forget password -->
+				<a href="#forgetModal" id="forgetPasswordLink" data-toggle="modal">{% trans "Forget Password" %}</a>
 			</div>
 		</div>
 		<input type="hidden" name="redirectUrl" value="{{ redirectUrl }}" />
+	</form>
+</div>
+
+
+
+<div class="modal hide fade" id="forgetModal" role="dialog" aria-labelledby="forgetModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<!-- <input type="button" class="close" data-dismiss="modal" aria-hidden="true" value="x" /> -->
+		<a href="javascript:void(0);" class="close" role="button" data-dismiss="modal" aria-hidden="true">x</a>
+		<h3 id="forgetModalLabel">{% trans "Forget Password" %}</h3>
+	</div>
+	<form class="form-horizontal" id="forgetForm">
+		<div class="modal-body">
+			<div class="control-group">
+				<label class="control-label" for="inputEmail">{% trans "Email" %}</label>
+				<div class="controls">
+					<input type="text" id="inputEmail" placeholder="{% trans 'Email' %}" data-validate-email="true" data-validate-error="#inputEmailError" />
+					<div class="help-block">
+						{% trans "Input your email in your account. An email with a special link will be sended to you soon." %}
+					</div>
+					<div class="alert-msg hide" id="inputEmailError">
+						{% trans "Should be an email address." %}
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		<div class="modal-footer">
+			<input type="button" class="btn btn-primary" id="forgetModalOk" value="{% trans 'Send' %}" data-validate="#forgetForm" />
+			<input type="button" class="btn" data-dismiss="modal" aria-hidden="true" value="{% trans 'Cancel' %}" />
+		</div>
 	</form>
 </div>
 {%endblock%}

@@ -54,6 +54,7 @@ def editProfile(request):
 def editAccount(request):
     params = dict()
     params["aid"] = request.user.aid
+    params["oldPassword"] = request.POST["oldPassword"]
     params["newPassword"] = request.POST["newPassword"]
     
     print str(request.user.aid) + " " + str(params["newPassword"])

@@ -140,7 +140,7 @@ msgid "Remember me"
 msgstr ""
 
 #: templates/invite.html:37 templates/login.html:33
-msgid "Sign in"
+msgid "Sign In"
 msgstr ""
 
 #: templates/invite.html:45
