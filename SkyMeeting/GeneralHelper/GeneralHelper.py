@@ -173,6 +173,7 @@ def changePwdEdit(params):
     except:
         result["success"]="false"
         result["errors"]=_("Edit fail")
+    return result
 
 def changePwdInner(params):
     '''
