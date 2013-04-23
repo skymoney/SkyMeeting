@@ -171,6 +171,29 @@ def changePwdEdit(params):
         result["success"]="false"
         result["errors"]="edit fail"
 
+def changePwdInner(params):
+    '''
+    change password from profile
+    @param aid: account id
+    @param oldPwd: old password
+    @param newPwd: new password
+    '''
+    from Login.models import Account
+    result=dict()
+    account=Account.objects.get(aid=params["aid"])
+    if account.apassword==params["oldPwd"]:
+        account.apassword=params["newPwd"]
+        try:
+            account.save()
+            result["success"]="true"
+        except:
+            result["success"]="false"
+            result["errors"]="Can't change pwd"
+    else:
+        result["success"]="false"
+        result["errors"]="password not correct"
+    return result
+
 def checkEmail(email):
     '''
     check email exist in db

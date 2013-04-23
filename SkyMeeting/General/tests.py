@@ -22,10 +22,17 @@ class GeneralTest(TestCase):
         from GeneralHelper.GeneralHelper import editProfile
         print editProfile(params)
         
-    def testChangePwd(self):
+    def tetChangePwd(self):
         params=dict()
         params["email"]="qc09@software.nju.edu.cn"
         params["rid"]="2"
         
-        from GeneralHelper.GeneralHelper import askChangePwd
-        print askChangePwd(params)
+    
+    def testChangePwdInner(self):
+        params=dict()
+        params["aid"]=1
+        params["oldPwd"]="123456"
+        params["newPwd"]="123456"
+        
+        from GeneralHelper import GeneralHelper
+        print GeneralHelper.changePwdInner(params)
