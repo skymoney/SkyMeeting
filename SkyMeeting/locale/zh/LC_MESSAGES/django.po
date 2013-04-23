@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-23 06:13-0500\n"
+"POT-Creation-Date: 2013-04-23 07:19-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,16 +33,16 @@ msgstr "操作失败"
 msgid "Code Does Not Exist"
 msgstr "验证码不存在"
 
-#: GeneralHelper/GeneralHelper.py:174
+#: GeneralHelper/GeneralHelper.py:175
 #, fuzzy
 msgid "Edit fail"
 msgstr "修改密码失败"
 
-#: GeneralHelper/GeneralHelper.py:193
+#: GeneralHelper/GeneralHelper.py:195
 msgid "Cannot change password."
 msgstr "无法修改密码"
 
-#: GeneralHelper/GeneralHelper.py:196
+#: GeneralHelper/GeneralHelper.py:198
 msgid "Old password is not correct."
 msgstr "旧密码不正确"
 
