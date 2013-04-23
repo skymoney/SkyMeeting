@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-22 17:00+0800\n"
+"POT-Creation-Date: 2013-04-23 06:13-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,25 +17,96 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: LoginHelper/LoginHelper.py:47
+#: GeneralHelper/GeneralHelper.py:103
+msgid "Email Does Not Exist"
+msgstr "邮箱不存在"
+
+#: GeneralHelper/GeneralHelper.py:136
+msgid "Send email fail"
+msgstr "发送邮件失败"
+
+#: GeneralHelper/GeneralHelper.py:139
+msgid "Operation fail"
+msgstr "操作失败"
+
+#: GeneralHelper/GeneralHelper.py:158
+msgid "Code Does Not Exist"
+msgstr "验证码不存在"
+
+#: GeneralHelper/GeneralHelper.py:174
+#, fuzzy
+msgid "Edit fail"
+msgstr "修改密码失败"
+
+#: GeneralHelper/GeneralHelper.py:193
+msgid "Cannot change password."
+msgstr "无法修改密码"
+
+#: GeneralHelper/GeneralHelper.py:196
+msgid "Old password is not correct."
+msgstr "旧密码不正确"
+
+#: LoginHelper/LoginHelper.py:50
 msgid "Verify Name Incorrect"
 msgstr "验证姓名不一致"
 
-#: LoginHelper/LoginHelper.py:53
-msgid "Verify IdCard Incorrect"
+#: LoginHelper/LoginHelper.py:56
+#, fuzzy
+msgid "Verify ID Card Number Incorrect"
 msgstr "验证身份证号不一致"
 
-#: LoginHelper/LoginHelper.py:59
-msgid "Verify Question&Answer Incorrect"
+#: LoginHelper/LoginHelper.py:62
+#, fuzzy
+msgid "Verify Answer Incorrect"
 msgstr "验证自定义问题答案不一致"
 
-#: LoginHelper/LoginHelper.py:88
+#: LoginHelper/LoginHelper.py:92
 msgid "Account Login Error"
 msgstr "账户登陆错误"
 
-#: LoginHelper/LoginHelper.py:99
-msgid "Account Name has been registered"
+#: LoginHelper/LoginHelper.py:148
+#, fuzzy
+msgid "Account Name has been already registered"
 msgstr "账户名已被注册"
+
+#: templates/404.html:12
+msgid "Oops, page not found"
+msgstr ""
+
+#: templates/404.html:13
+msgid "Somebody really liked this page, or maybe your mis-typed the URL."
+msgstr ""
+
+#: templates/404.html:17
+msgid ""
+"Sorry, Evidently the document you were looking for has either been moved or "
+"no longer exists. Please use the navigational links to the right to locate "
+"additional resources and information."
+msgstr ""
+
+#: templates/404.html:19
+msgid "Lost? We suggest"
+msgstr ""
+
+#: templates/404.html:22 templates/base.html:60
+msgid "Home"
+msgstr "主页"
+
+#: templates/404.html:23 templates/base.html:65 templates/base.html.py:79
+msgid "Meetings"
+msgstr "会议"
+
+#: templates/404.html:24 templates/base.html:93 templates/profile.html:17
+msgid "Profile"
+msgstr ""
+
+#: templates/500.html:11
+msgid "Oops! Server Error"
+msgstr ""
+
+#: templates/500.html:12
+msgid "Go Back"
+msgstr ""
 
 #: templates/base.html:20
 msgid "Welcome"
@@ -44,14 +115,6 @@ msgstr "欢迎您 "
 #: templates/base.html:38
 msgid "Logout"
 msgstr "注销"
-
-#: templates/base.html:60
-msgid "Home"
-msgstr "主页"
-
-#: templates/base.html:65 templates/base.html.py:79
-msgid "Meetings"
-msgstr "会议"
 
 #: templates/base.html:70
 #, fuzzy
@@ -70,10 +133,6 @@ msgstr "文档"
 #: templates/base.html:89
 msgid "Member Statistics"
 msgstr "成员统计"
-
-#: templates/base.html:93 templates/profile.html:14
-msgid "Profile"
-msgstr ""
 
 #: templates/base.html:120
 msgid "Search"
@@ -122,60 +181,133 @@ msgstr "新建会议"
 msgid "I have already owned an account"
 msgstr ""
 
-#: templates/invite.html:18 templates/invite.html.py:20
-#: templates/invite.html:48 templates/invite.html.py:50
-#: templates/login.html:14 templates/login.html.py:16
+#: templates/invite.html:18 templates/invite.html.py:53
+#: templates/login.html:14
 #, fuzzy
 msgid "Account name"
 msgstr "分组名称"
 
+#: templates/invite.html:20 templates/invite.html.py:55
+#: templates/login.html:16 templates/profile.html:121
+#, fuzzy
+msgid "Account Name"
+msgstr "分组名称"
+
 #: templates/invite.html:24 templates/invite.html.py:26
-#: templates/invite.html:54 templates/invite.html.py:56
+#: templates/invite.html:68 templates/invite.html.py:70
 #: templates/login.html:20 templates/login.html.py:22
 msgid "Password"
 msgstr ""
 
-#: templates/invite.html:34 templates/login.html:30
+#: templates/invite.html:39 templates/login.html:30
 msgid "Remember me"
 msgstr ""
 
-#: templates/invite.html:37 templates/login.html:33
+#: templates/invite.html:42 templates/login.html:33
 msgid "Sign In"
 msgstr ""
 
-#: templates/invite.html:45
+#: templates/invite.html:50
 msgid "This is my first time to be here"
 msgstr ""
 
-#: templates/invite.html:60 templates/invite.html.py:62
+#: templates/invite.html:62
+msgid "Should begin with a character, and cannot contain punctuations."
+msgstr ""
+
+#: templates/invite.html:72 templates/profile.html:135
+#: templates/profile.html.py:144 templates/resetPassword.html:18
+#, fuzzy
+msgid "Password cannot be blank."
+msgstr "地点不能为空"
+
+#: templates/invite.html:77 templates/invite.html.py:79
+#: templates/profile.html:149 templates/profile.html.py:151
+#: templates/resetPassword.html:23 templates/resetPassword.html.py:25
 msgid "Repeat Password"
 msgstr ""
 
-#: templates/invite.html:64
+#: templates/invite.html:81 templates/profile.html:153
+#: templates/resetPassword.html:27
 msgid "Two passwords don't match."
 msgstr ""
 
-#: templates/invite.html:70 templates/invite.html.py:72
+#: templates/invite.html:86
+msgid "The following content is for identity verification."
+msgstr ""
+
+#: templates/invite.html:90 templates/invite.html.py:92
 #, fuzzy
 msgid "True Name"
 msgstr "姓名"
 
-#: templates/invite.html:78 templates/invite.html.py:80
+#: templates/invite.html:99
+#, fuzzy
+msgid "True Name cannot be blank."
+msgstr "地点不能为空"
+
+#: templates/invite.html:107 templates/invite.html.py:109
 #: templates/members.html:300 templates/members.html.py:302
 #: templates/members.html:364 templates/members.html.py:460
-#: templates/members.html:462 templates/profile.html:30
-#: templates/profile.html.py:78 templates/profile.html:80
+#: templates/members.html:462 templates/profile.html:33
+#: templates/profile.html.py:81 templates/profile.html:83
 msgid "ID Card Number"
 msgstr "身份证号"
 
-#: templates/invite.html:88 templates/members.html:388
+#: templates/invite.html:116
+#, fuzzy
+msgid "ID Card Number cannot be blank."
+msgstr "地点不能为空"
+
+#: templates/invite.html:126 templates/members.html:388
 #: templates/members.html.py:390
 msgid "Answer"
 msgstr "答案"
 
-#: templates/invite.html:94
+#: templates/invite.html:133 templates/members.html:392
+#, fuzzy
+msgid "Answer cannot be blank."
+msgstr "地点不能为空"
+
+#: templates/invite.html:141
 msgid "Register"
 msgstr ""
+
+#: templates/login.html:36 templates/login.html.py:49
+msgid "Forget Password"
+msgstr ""
+
+#: templates/login.html:54 templates/login.html.py:56
+#: templates/members.html:139 templates/members.html.py:318
+#: templates/members.html:320 templates/members.html.py:478
+#: templates/members.html:480 templates/profile.html:37
+#: templates/profile.html.py:99 templates/profile.html:101
+msgid "Email"
+msgstr "邮箱"
+
+#: templates/login.html:58
+msgid ""
+"Input your email in your account. An email with a special link will be "
+"sended to you soon."
+msgstr ""
+
+#: templates/login.html:61 templates/members.html:322
+#: templates/members.html.py:482 templates/newMeeting.html:99
+#: templates/profile.html:103
+msgid "Should be an email address."
+msgstr "应填一个邮箱地址"
+
+#: templates/login.html:70
+msgid "Send"
+msgstr ""
+
+#: templates/login.html:71 templates/meetingList.html:175
+#: templates/members.html:249 templates/members.html.py:269
+#: templates/members.html:402 templates/members.html.py:561
+#: templates/newMeeting.html:224 templates/newMeeting.html.py:319
+#: templates/profile.html:110 templates/profile.html.py:163
+msgid "Cancel"
+msgstr "取消"
 
 #: templates/meeting.html:31 templates/newMeeting.html:36
 msgid "Basic Info"
@@ -348,13 +480,6 @@ msgstr ""
 msgid "OK"
 msgstr "确定"
 
-#: templates/meetingList.html:175 templates/members.html:249
-#: templates/members.html.py:269 templates/members.html:402
-#: templates/members.html.py:561 templates/newMeeting.html:224
-#: templates/newMeeting.html.py:319 templates/profile.html:107
-msgid "Cancel"
-msgstr "取消"
-
 #: templates/members.html:16
 msgid "Members"
 msgstr "成员"
@@ -380,7 +505,7 @@ msgstr "分组名称"
 msgid "Tags"
 msgstr "标签"
 
-#: templates/members.html:100 templates/profile.html:16
+#: templates/members.html:100 templates/profile.html:19
 msgid "Edit"
 msgstr "编辑"
 
@@ -391,13 +516,13 @@ msgstr "限10个字，空格隔开"
 #: templates/members.html:135 templates/members.html.py:291
 #: templates/members.html:293 templates/members.html.py:356
 #: templates/members.html:422 templates/members.html.py:424
-#: templates/profile.html:18 templates/profile.html.py:40
-#: templates/profile.html:42
+#: templates/profile.html:21 templates/profile.html.py:43
+#: templates/profile.html:45
 msgid "Name"
 msgstr "姓名"
 
 #: templates/members.html:136 templates/members.html.py:431
-#: templates/profile.html:20 templates/profile.html.py:49
+#: templates/profile.html:23 templates/profile.html.py:52
 msgid "Gender"
 msgstr "性别"
 
@@ -407,30 +532,23 @@ msgstr "身份证"
 
 #: templates/members.html:138 templates/members.html.py:309
 #: templates/members.html:311 templates/members.html.py:469
-#: templates/members.html:471 templates/profile.html:32
-#: templates/profile.html.py:87 templates/profile.html:89
+#: templates/members.html:471 templates/profile.html:35
+#: templates/profile.html.py:90 templates/profile.html:92
 msgid "Phone"
 msgstr "电话"
 
-#: templates/members.html:139 templates/members.html.py:318
-#: templates/members.html:320 templates/members.html.py:478
-#: templates/members.html:480 templates/profile.html:34
-#: templates/profile.html.py:96 templates/profile.html:98
-msgid "Email"
-msgstr "邮箱"
-
 #: templates/members.html:150 templates/members.html.py:439
-#: templates/profile.html:23 templates/profile.html.py:57
+#: templates/profile.html:26 templates/profile.html.py:60
 msgid "Male"
 msgstr "男"
 
 #: templates/members.html:152 templates/members.html.py:447
-#: templates/profile.html:25 templates/profile.html.py:65
+#: templates/profile.html:28 templates/profile.html.py:68
 msgid "Female"
 msgstr "女"
 
 #: templates/members.html:154 templates/members.html.py:455
-#: templates/profile.html:27 templates/profile.html.py:73
+#: templates/profile.html:30 templates/profile.html.py:76
 msgid "Secret"
 msgstr ""
 
@@ -463,26 +581,21 @@ msgid " from your company?"
 msgstr "用户吗?"
 
 #: templates/members.html:295 templates/members.html.py:426
-#: templates/profile.html:44
+#: templates/profile.html:47
 #, fuzzy
 msgid "Name cannot be blank."
 msgstr "地点不能为空"
 
 #: templates/members.html:304 templates/members.html.py:464
-#: templates/profile.html:82
+#: templates/profile.html:85
 #, fuzzy
 msgid "Should be an ID card number."
 msgstr "应填一个电话号码"
 
 #: templates/members.html:313 templates/members.html.py:473
-#: templates/newMeeting.html:90 templates/profile.html:91
+#: templates/newMeeting.html:90 templates/profile.html:94
 msgid "Should be a phone number."
 msgstr "应填一个电话号码"
-
-#: templates/members.html:322 templates/members.html.py:482
-#: templates/newMeeting.html:99 templates/profile.html:100
-msgid "Should be an email address."
-msgstr "应填一个邮箱地址"
 
 #: templates/members.html:327
 msgid "Authority"
@@ -509,11 +622,6 @@ msgstr "问题"
 #, fuzzy
 msgid "Question cannot be blank."
 msgstr "详细信息不能为空"
-
-#: templates/members.html:392
-#, fuzzy
-msgid "Answer cannot be blank."
-msgstr "地点不能为空"
 
 #: templates/members.html:401
 msgid "Send invitation"
@@ -610,9 +718,41 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: templates/newMeeting.html:223 templates/profile.html:106
+#: templates/newMeeting.html:223 templates/profile.html:109
+#: templates/profile.html.py:162
 msgid "Save"
 msgstr "保存"
+
+#: templates/profile.html:117
+#, fuzzy
+msgid "Account"
+msgstr "分组名称"
+
+#: templates/profile.html:119
+msgid "Change password"
+msgstr ""
+
+#: templates/profile.html:123
+#, fuzzy
+msgid "Create Time"
+msgstr "创建者"
+
+#: templates/profile.html:125
+msgid "Last Login"
+msgstr ""
+
+#: templates/profile.html:131 templates/profile.html.py:133
+msgid "Old Password"
+msgstr ""
+
+#: templates/profile.html:140 templates/profile.html.py:142
+#: templates/resetPassword.html:14 templates/resetPassword.html.py:16
+msgid "New Password"
+msgstr ""
+
+#: templates/resetPassword.html:33
+msgid "Submit"
+msgstr ""
 
 #~ msgid "Chinese"
 #~ msgstr "中文"
