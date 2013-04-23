@@ -42,3 +42,13 @@ class Account(models.Model):
       
     class Meta:  
         db_table = "Account"  
+        
+class TempAccountPwd(models.Model):
+    #store temp account code to find password
+    tapid=models.AutoField(primary_key=True,db_column="tmp_accountpwd_id")
+    tapCode=models.CharField(max_length=50,db_column="tmp_accountpwd_code")
+    tapAid=models.ForeignKey(Account,db_column="tmp_accountpwd_account")
+    tapDate=models.DateTimeField(db_column="tmp_accountpwd_time")
+    
+    class Meta:
+        db_table="TempAccountPwd"
