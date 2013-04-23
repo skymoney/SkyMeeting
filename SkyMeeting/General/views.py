@@ -22,10 +22,16 @@ def dashboard(request):
 
 @login_required
 def profile(request):
+    #暂且矬比
+    request.user.last_login = request.user.last_login.strftime("%Y/%m/%d %H:%M")
+    request.user.date_joined = request.user.date_joined.strftime("%Y/%m/%d %H:%M")
+    ########
     params = dict()
     params["rid"] = request.session["rid"]
     
-    result = GeneralHelper.getProfile(params)
+    result = dict()
+    result["profile"] = GeneralHelper.getProfile(params)
+    result["account"] = request.user
     result["langPack"] = RequestUtil.getLangPack(request)
     result["rolePack"] = RequestUtil.getRolePack(request)
     result["authPack"] = RequestUtil.getAuthPack(request)
@@ -42,6 +48,16 @@ def editProfile(request):
     params["email"] = request.POST["email"]
     
     GeneralHelper.editProfile(params)
+    return HttpResponseRedirect('/profile')
+
+@login_required
+def editAccount(request):
+    params = dict()
+    params["aid"] = request.user.aid
+    params["newPassword"] = request.POST["newPassword"]
+    
+    print str(request.user.aid) + " " + str(params["newPassword"])
+#    GeneralHelper.editProfile(params)
     return HttpResponseRedirect('/profile')
 
 

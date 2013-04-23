@@ -11,103 +11,150 @@
 
 {%block content%}
 <div class="container">
-	<h3>{% trans "Profile" %}</h3>
-	<div id="profileDiv">
-		<a href="javascript:void(0);" id="editProfileLink">{% trans "Edit" %}</a>
-		<dl class="dl-horizontal">
-			<dt>{% trans "Name" %}</dt>
-			<dd>{{ name }}</dd>
-			<dt>{% trans "Gender" %}</dt>
-			<dd>
-				{% if sex == 1 %}
-				{% trans "Male" %}
-				{% elif sex == 0 %}
-				{% trans "Female" %}
-				{% else %}
-				{% trans "Secret" %}
-				{% endif %}
-			</dd>
-			<dt>{% trans "ID Card Number" %}</dt>
-			<dd>{{ idcard }}</dd>
-			<dt>{% trans "Phone" %}</dt>
-			<dd>{{ phone }}</dd>
-			<dt>{% trans "Email" %}</dt>
-			<dd>{{ email }}</dd>
-		</dl>
+	<div class="container-fluid" style="padding-left:0px;">
+		<div class="row-fluid">
+			<div class="span7">
+				<h3>{% trans "Profile" %}</h3>
+				<div id="profileDiv">
+					<a href="javascript:void(0);" id="editProfileLink">{% trans "Edit" %}</a>
+					<dl class="dl-horizontal">
+						<dt>{% trans "Name" %}</dt>
+						<dd>{{ profile.name }}</dd>
+						<dt>{% trans "Gender" %}</dt>
+						<dd>
+							{% if profile.sex == 1 %}
+							{% trans "Male" %}
+							{% elif profile.sex == 0 %}
+							{% trans "Female" %}
+							{% else %}
+							{% trans "Secret" %}
+							{% endif %}
+						</dd>
+						<dt>{% trans "ID Card Number" %}</dt>
+						<dd>{{ profile.idcard }}</dd>
+						<dt>{% trans "Phone" %}</dt>
+						<dd>{{ profile.phone }}</dd>
+						<dt>{% trans "Email" %}</dt>
+						<dd>{{ profile.email }}</dd>
+					</dl>
+				</div>
+				<form class="form-horizontal hide" id="profileForm" action="/editprofile/" method="post">
+					<div class="control-group">
+						<label class="control-label" for="editName">{% trans "Name" %}</label>
+						<div class="controls">
+							<input type="text" id="editName" placeholder="{% trans 'Name' %}" data-validate-presence="true" data-validate-error="#editNameError" name="name" value="{{ profile.name }}" />
+							<span class="alert alert-error hide" id="editNameError">
+								{% trans "Name cannot be blank." %}
+							</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">{% trans "Gender" %}</label>
+						<div class="controls">
+							<label class="radio inline">
+								<div class="radio">
+									<span {% if profile.sex == 1 %}class="checked"{% endif %}>
+										<input type="radio" name="sex" value="1" {% if profile.sex == 1 %}checked="checked"{% endif %} />
+									</span>
+								</div>
+								{% trans "Male" %}
+							</label>
+							<label class="radio inline">
+								<div class="radio">
+									<span {% if profile.sex == 0 %}class="checked"{% endif %}>
+										<input type="radio" name="sex" value="0" {% if profile.sex == 0 %}checked="checked"{% endif %} />
+									</span>
+								</div>
+								{% trans "Female" %}
+							</label>
+							<label class="radio inline">
+								<div class="radio">
+									<span {% if profile.sex != 1 and profile.sex != 0 %}class="checked"{% endif %}>
+										<input type="radio" name="sex" value="-1" {% if profile.sex != 1 and profile.sex != 0 %}checked="checked"{% endif %} />
+									</span>
+								</div>
+								{% trans "Secret" %}
+							</label>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="editIDno">{% trans "ID Card Number" %}</label>
+						<div class="controls">
+							<input type="text" id="editIDno" placeholder="{% trans 'ID Card Number' %}" data-validate-presence="true" data-validate-format="/^[0-9]+$/" data-validate-error="#editIDnoError" name="idcard" value="{{ profile.idcard }}" />
+							<span class="alert alert-error hide" id="editIDnoError">
+								{% trans "Should be an ID card number." %}
+							</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="editPhone">{% trans "Phone" %}</label>
+						<div class="controls">
+							<input type="text" id="editPhone" placeholder="{% trans 'Phone' %}" data-validate-presence="true" data-validate-format="/^[0-9]+$/" data-validate-error="#editPhoneError" name="phone" value="{{ profile.phone }}" />
+							<span class="alert alert-error hide" id="editPhoneError">
+								{% trans "Should be a phone number." %}
+							</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="editEmail">{% trans "Email" %}</label>
+						<div class="controls">
+							<input type="text" id="editEmail" placeholder="{% trans 'Email' %}" data-validate-email="true" data-validate-error="#editEmailError" name="email" value="{{ profile.email }}" />
+							<span class="alert alert-error hide" id="editEmailError">
+								{% trans "Should be an email address." %}
+							</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls">
+							<input type="button" class="btn btn-primary" id="profileFormOk" value="{% trans 'Save' %}" data-validate="#profileForm" />
+			        		<input type="button" class="btn" id="profileFormCancel" value="{% trans 'Cancel' %}" />
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<div class="span5">
+				<h3>{% trans "Account" %}</h3>
+				<div id="accountDiv">
+					<a href="javascript:void(0);" id="changePasswordLink">{% trans "Change password" %}</a>
+					<dl class="dl-horizontal">
+						<dt>{% trans "Account Name" %}</dt>
+						<dd>{{ account.aname }}</dd>
+						<dt>{% trans "Create Time" %}</dt>
+						<dd>{{ account.date_joined }}</dd>
+						<dt>{% trans "Last Login" %}</dt>
+						<dd>{{ account.last_login }}</dd>
+					</dl>
+				</div>
+				<form class="form-horizontal hide" id="passwordForm" action="/editaccount/" method="post">
+					<div class="control-group">
+						<label class="control-label" for="newPassword">{% trans "New Password" %}</label>
+						<div class="controls">
+							<input type="password" id="newPassword" placeholder="{% trans 'New Password' %}" data-validate-presence="true" data-validate-error="#newPasswordError" name="newPassword" />
+							<div class="alert-msg hide" id="newPasswordError">
+								{% trans "Password cannot be blank." %}
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="repeatPassword">{% trans "Repeat Password" %}</label>
+						<div class="controls">
+							<input type="password" id="repeatPassword" placeholder="{% trans 'Repeat Password' %}" data-validate-presence="true" data-validate-error="#repeatPasswordError" />
+							<div class="alert-msg hide" id="repeatPasswordError">
+								{% trans "Two passwords don't match." %}
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls">
+							<input type="button" class="btn btn-primary" id="passwordFormOk" value="{% trans 'Save' %}" data-validate="#passwordForm" />
+			        		<input type="button" class="btn" id="passwordFormCancel" value="{% trans 'Cancel' %}" />
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
-	<form class="form-horizontal hide" id="profileForm" action="/editprofile/" method="post">
-		<div class="control-group">
-			<label class="control-label" for="editName">{% trans "Name" %}</label>
-			<div class="controls">
-				<input type="text" id="editName" placeholder="{% trans 'Name' %}" data-validate-presence="true" data-validate-error="#editNameError" name="name" value="{{ name }}" />
-				<span class="alert alert-error hide" id="editNameError">
-					{% trans "Name cannot be blank." %}
-				</span>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">{% trans "Gender" %}</label>
-			<div class="controls">
-				<label class="radio inline">
-					<div class="radio">
-						<span {% if sex == 1 %}class="checked"{% endif %}>
-							<input type="radio" name="sex" value="1" {% if sex == 1 %}checked="checked"{% endif %} />
-						</span>
-					</div>
-					{% trans "Male" %}
-				</label>
-				<label class="radio inline">
-					<div class="radio">
-						<span {% if sex == 0 %}class="checked"{% endif %}>
-							<input type="radio" name="sex" value="0" {% if sex == 0 %}checked="checked"{% endif %} />
-						</span>
-					</div>
-					{% trans "Female" %}
-				</label>
-				<label class="radio inline">
-					<div class="radio">
-						<span {% if sex != 1 and sex != 0 %}class="checked"{% endif %}>
-							<input type="radio" name="sex" value="-1" {% if sex != 1 and sex != 0 %}checked="checked"{% endif %} />
-						</span>
-					</div>
-					{% trans "Secret" %}
-				</label>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label" for="editIDno">{% trans "ID Card Number" %}</label>
-			<div class="controls">
-				<input type="text" id="editIDno" placeholder="{% trans 'ID Card Number' %}" data-validate-presence="true" data-validate-format="/^[0-9]+$/" data-validate-error="#editIDnoError" name="idcard" value="{{ idcard }}" />
-				<span class="alert alert-error hide" id="editIDnoError">
-					{% trans "Should be a ID card number." %}
-				</span>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label" for="editPhone">{% trans "Phone" %}</label>
-			<div class="controls">
-				<input type="text" id="editPhone" placeholder="{% trans 'Phone' %}" data-validate-presence="true" data-validate-format="/^[0-9]+$/" data-validate-error="#editPhoneError" name="phone" value="{{ phone }}" />
-				<span class="alert alert-error hide" id="editPhoneError">
-					{% trans "Should be a phone number." %}
-				</span>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label" for="editEmail">{% trans "Email" %}</label>
-			<div class="controls">
-				<input type="text" id="editEmail" placeholder="{% trans 'Email' %}" data-validate-email="true" data-validate-error="#editEmailError" name="email" value="{{ email }}" />
-				<span class="alert alert-error hide" id="editEmailError">
-					{% trans "Should be an email address." %}
-				</span>
-			</div>
-		</div>
-		<div class="control-group">
-			<div class="controls">
-				<input type="submit" class="btn btn-primary" id="profileFormOk" value="{% trans 'Save' %}" data-validate="#profileForm" />
-        		<input type="button" class="btn" id="profileFormCancel" value="{% trans 'Cancel' %}" />
-			</div>
-		</div>
-	</form>
 </div>
 {%endblock%}
 

@@ -471,7 +471,7 @@ msgstr "地点不能为空"
 #: templates/members.html:304 templates/members.html.py:464
 #: templates/profile.html:82
 #, fuzzy
-msgid "Should be a ID card number."
+msgid "Should be an ID card number."
 msgstr "应填一个电话号码"
 
 #: templates/members.html:313 templates/members.html.py:473
