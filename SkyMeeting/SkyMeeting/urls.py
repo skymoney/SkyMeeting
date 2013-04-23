@@ -12,7 +12,6 @@ urlpatterns = patterns('Login.views',
     url(r'^invite/$','invite'),
     url(r'^register/$','register'),
     url(r'^registernewaccount/$','registerNewAccount'),
-    url(r'^resetpassword/$','resetPassword'),
 )
 
 urlpatterns += patterns('General.views',
@@ -22,6 +21,8 @@ urlpatterns += patterns('General.views',
     url(r'^editprofile/$','editProfile'),
     url(r'^editaccount/$','editAccount'),
     url(r'^forgetpassword/$','forgetPassword'),
+    url(r'^resetpassword/$','resetPassword'),
+    url(r'^setpassword/$','setPassword'),
     url(r'^documents/$','documents'),
     url(r'^error/$','error'),
 )
