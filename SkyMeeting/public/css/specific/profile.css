@@ -1,9 +1,9 @@
 ﻿#profileDiv{
-	width: 40%;
+	width: 60%;
 }
-#profileDiv .dl-horizontal dd{
+#profileDiv .dl-horizontal dd, #accountDiv .dl-horizontal dd{
 	margin-bottom: 30px;
 }
-#editProfileLink{
+#editProfileLink, #changePasswordLink{
 	float: right;
 }
