@@ -27,6 +27,8 @@ def login(request):
     if user is not None:
         # Redirect to a success page.
         auth_login(request,user)
+        from datetime import datetime
+        Account.objects.filter(aid=user.aid).update(date_joined=datetime.now())
         role=user.role_set.all()[0]
         request.session["rid"]=role.rid
         request.session["cid"]=role.company_id
