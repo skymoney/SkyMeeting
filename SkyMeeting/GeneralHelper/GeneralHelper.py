@@ -168,7 +168,7 @@ def changePwdEdit(params):
     result=dict()
     try:
         Account.objects.filter(aid=params["aid"]).update(apassword=params["pwd"])
-        TempAccountPwd.objects.filter(aid=params["aid"]).delete()   #delete temp account table data
+        TempAccountPwd.objects.filter(tapAid=params["aid"]).delete()   #delete temp account table data
         result["success"]="true"
     except:
         result["success"]="false"

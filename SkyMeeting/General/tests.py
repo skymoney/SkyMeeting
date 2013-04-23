@@ -36,3 +36,7 @@ class GeneralTest(TestCase):
         
         from GeneralHelper import GeneralHelper
         print GeneralHelper.changePwdInner(params)
+    
+    def testEditPwdEmail(self):
+        params=dict()
+        
