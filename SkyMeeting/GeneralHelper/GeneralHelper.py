@@ -90,14 +90,19 @@ def changePwdViaEmail(params):
     from django.conf import settings
     email=params["email"]
     result=dict()
-    if checkEmail(email):
+    flag,rid=checkEmail(email)
+    if flag:
         #add more ops here
-        pass
+        newParams=dict()
+        newParams["email"]=email
+        newParams["rid"]=rid
+        return changePwdSendEmail(newParams)
     else:
         result["success"]="false"
         result["errors"]="Email Does Not Exist"
+        return result
 
-def askChangePwd(params):
+def changePwdSendEmail(params):
     '''
     change password via admin
     @param email: email of target user
@@ -133,6 +138,39 @@ def askChangePwd(params):
         result["errors"]="save fail"
     return result
 
+
+def changePwdVerify(params):
+    '''
+    verify whether has proper code on changing pwd
+    @param code: code of changing pwd
+    '''
+    code=params["code"]
+    from Login.models import TempAccountPwd
+    tempAccount=TempAccountPwd.objects.filter(tapCode=code)
+    result=dict()
+    if len(tempAccount)>0:
+        result["success"]="true"
+        result["aid"]=tempAccount[0].aid
+        result["aname"]=tempAccount[0].aname
+    else:
+        result["success"]="false"
+    return result
+
+def changePwdEdit(params):
+    '''
+    finally edit pwd of target account
+    @param pwd: new password to be stored
+    @param aid: id of target account
+    '''
+    from Login.models import Account
+    result=dict()
+    try:
+        Account.objects.filter(aid=params["aid"]).update(apassword=params["pwd"])
+        result["success"]="true"
+    except:
+        result["success"]="false"
+        result["errors"]="edit fail"
+
 def checkEmail(email):
     '''
     check email exist in db
@@ -141,6 +179,7 @@ def checkEmail(email):
     r_set=Role.objects.filter(email=email)
     if len(r_set)>0:
         flag=True
+        rid=r_set[0].rid
     
     #add validation here
-    return flag
+    return flag,rid
