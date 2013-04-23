@@ -6,6 +6,7 @@ Created on 2013-4-17
 '''
 from Meeting.models import *
 from MemManage.models import *
+from django.utils.translation import ugettext as _
 
 def getDashboard(account):
     '''
@@ -99,7 +100,7 @@ def changePwdViaEmail(params):
         return changePwdSendEmail(newParams)
     else:
         result["success"]="false"
-        result["errors"]="Email Does Not Exist"
+        result["errors"]=_("Email Does Not Exist")
         return result
 
 def changePwdSendEmail(params):
@@ -132,10 +133,10 @@ def changePwdSendEmail(params):
             result["success"]="true"
         else:
             result["success"]="false"
-            result["errors"]="send fail"
+            result["errors"]=_("Send email fail")
     except:
         result["success"]="false"
-        result["errors"]="save fail"
+        result["errors"]=_("Operation fail")
     return result
 
 
@@ -154,6 +155,7 @@ def changePwdVerify(params):
         result["aname"]=tempAccount[0].aname
     else:
         result["success"]="false"
+        result["errors"]=_("Code Does Not Exist")
     return result
 
 def changePwdEdit(params):
@@ -169,7 +171,7 @@ def changePwdEdit(params):
         result["success"]="true"
     except:
         result["success"]="false"
-        result["errors"]="edit fail"
+        result["errors"]=_("Edit fail")
 
 def changePwdInner(params):
     '''
@@ -188,10 +190,10 @@ def changePwdInner(params):
             result["success"]="true"
         except:
             result["success"]="false"
-            result["errors"]="Cannot change password."
+            result["errors"]=_("Cannot change password.")
     else:
         result["success"]="false"
-        result["errors"]="Old password is not correct."
+        result["errors"]=_("Old password is not correct.")
     return result
 
 def checkEmail(email):
@@ -199,6 +201,7 @@ def checkEmail(email):
     check email exist in db
     '''
     flag=False
+    rid=-1      #default is -1 none
     r_set=Role.objects.filter(email=email)
     if len(r_set)>0:
         flag=True
