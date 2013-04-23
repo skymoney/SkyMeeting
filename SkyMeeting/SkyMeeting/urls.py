@@ -21,6 +21,7 @@ urlpatterns += patterns('General.views',
     url(r'^editprofile/$','editProfile'),
     url(r'^editaccount/$','editAccount'),
     url(r'^documents/$','documents'),
+    url(r'^error/$','error'),
 )
 
 urlpatterns += patterns('MemManage.views',

@@ -1,4 +1,4 @@
-/* Reset */
+﻿/* Reset */
 * {
 	margin: 0 auto;
 	padding: 0;
@@ -6,7 +6,7 @@
 
 /* Body */
 body {
-	background: url(../../img/404_background.jpg) no-repeat top #465364;
+	background: url(../../img/error_background.jpg) no-repeat top #465364;
 	text-align: center;
 }
 
@@ -26,14 +26,14 @@ img {
 
 /* Header */
 #header_top {
-	background: url(../../img/404_top.png) no-repeat;
+	background: url(../../img/error_top.png) no-repeat;
 	width: 985px;
 	height: 30px;
 }
 
 /* Header content */
 #header {
-	background: url(../../img/404_box_bg.png) repeat-y;
+	background: url(../../img/error_box_bg.png) repeat-y;
 	width: 985px;
 	text-align: center;
 }
@@ -53,7 +53,7 @@ img {
 
 /* Content div */
 #content {
-	background: url(../../img/404_content_bg.png) repeat-y;
+	background: url(../../img/error_content_bg.png) repeat-y;
 	width: 985px;
 }
 
@@ -112,13 +112,13 @@ img {
 
 /* Footer */
 #footer {
-	background: url(../../img/404_box_bg.png) repeat-y;
+	background: url(../../img/error_box_bg.png) repeat-y;
 	width: 985px;
 }
 
 /* Footer bottom */
 #footer_bottom {
-	background: url(../../img/404_bottom.png) no-repeat;
+	background: url(../../img/error_bottom.png) no-repeat;
 	width: 985px;
 	height: 28px;
 }

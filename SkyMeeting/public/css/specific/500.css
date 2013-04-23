@@ -1,0 +1,19 @@
+/* Reset */
+* {
+	margin: 0 auto;
+	padding: 0;
+}
+
+/* Body */
+body {
+	background: url(../../img/error_background.jpg) no-repeat top #465364;
+	text-align: center;
+}
+
+#content{
+	margin-top: 150px;
+}
+#content a{
+	color: #ccc;
+	text-decoration: none;
+}

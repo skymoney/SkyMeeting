@@ -61,9 +61,6 @@ def editAccount(request):
     return HttpResponseRedirect('/profile')
 
 
-@login_required
-def documents(request):
-    return render_to_response('404.html')
 
 @login_required
 def changeCurRid(request):
@@ -76,3 +73,12 @@ def changeCurRid(request):
         from MemManage.models import Role
         request.session["rlevel"] = Role.objects.get(rid=newRid).permission
         return HttpResponseRedirect('/meetings')
+
+
+
+@login_required
+def documents(request):
+    return render_to_response('404.html')
+
+def error(request):
+    return render_to_response('500.html')
