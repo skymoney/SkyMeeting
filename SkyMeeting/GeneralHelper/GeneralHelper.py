@@ -164,10 +164,11 @@ def changePwdEdit(params):
     @param pwd: new password to be stored
     @param aid: id of target account
     '''
-    from Login.models import Account
+    from Login.models import *
     result=dict()
     try:
         Account.objects.filter(aid=params["aid"]).update(apassword=params["pwd"])
+        TempAccountPwd.objects.filter(aid=params["aid"]).delete()   #delete temp account table data
         result["success"]="true"
     except:
         result["success"]="false"
