@@ -298,10 +298,12 @@ def queryPerson(params):
 
 def sendInviteEmail(email,code):
     from django.core.mail import send_mail
+    from django.conf import settings
     subject="Invite You to Join US"
     content="http://192.168.100.21/invite/?code="+code
+    
     try:
-        return_code=send_mail(subject,content,"notice_noreply@126.com",[email],fail_silently=False)
+        return_code=send_mail(subject,content,settings.EMAIL_HOST_USER,[email],fail_silently=False)
         
         return return_code
     except:
