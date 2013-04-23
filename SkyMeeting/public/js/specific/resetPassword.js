@@ -27,7 +27,37 @@ $(function(){
         {
             return false;
         }
-        $("#passwordForm").submit();
+        
+        // ajax flag!!! disable button
+        disableButton($("#passwordFormOk"));
+
+        $.post(
+            "/setpassword/",
+            {
+                "newPassword": $("#newPassword").val()
+            },
+            function(data)
+            {
+                var result = eval("(" + data + ")");
+                if(result.success == "true")
+                {
+                    // success message
+                    $("#resetPasswordHint").show();
+                    // redirect to login page
+                    setTimeout(function(){
+                        location.href = "/";
+                    }, 2000);
+                }
+                else
+                {
+                    // error message
+                    $("#resetPasswordError").text(result.errors).show();
+
+                    // reset ajax flag!!! enable button
+                    enableButton($("#passwordFormOk"));
+                }
+            }
+        );
     });
 
 });

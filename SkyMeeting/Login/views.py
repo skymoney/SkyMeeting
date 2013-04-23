@@ -180,10 +180,3 @@ def regedit(request):
 def memlist(request):
     return render_to_response('meetingList.html')
 
-
-
-def resetPassword(request):
-    
-    return render_to_response('resetPassword.html')
-
-
