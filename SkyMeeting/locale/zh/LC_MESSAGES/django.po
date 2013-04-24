@@ -51,12 +51,10 @@ msgid "Verify Name Incorrect"
 msgstr "验证姓名不一致"
 
 #: LoginHelper/LoginHelper.py:56
-#, fuzzy
 msgid "Verify ID Card Number Incorrect"
 msgstr "验证身份证号不一致"
 
 #: LoginHelper/LoginHelper.py:62
-#, fuzzy
 msgid "Verify Answer Incorrect"
 msgstr "验证自定义问题答案不一致"
 
@@ -65,28 +63,27 @@ msgid "Account Login Error"
 msgstr "账户登陆错误"
 
 #: LoginHelper/LoginHelper.py:148
-#, fuzzy
 msgid "Account Name has been already registered"
 msgstr "账户名已被注册"
 
 #: templates/404.html:12
 msgid "Oops, page not found"
-msgstr ""
+msgstr "抱歉！页面没找到"
 
 #: templates/404.html:13
 msgid "Somebody really liked this page, or maybe your mis-typed the URL."
-msgstr ""
+msgstr "有人也许喜欢这个页面，或许你输错了URL。"
 
 #: templates/404.html:17
 msgid ""
 "Sorry, Evidently the document you were looking for has either been moved or "
 "no longer exists. Please use the navigational links to the right to locate "
 "additional resources and information."
-msgstr ""
+msgstr "对不起，您正在访问的页面被移动位置了或者已经不存在了。请用以下导航链接进入正确位置。"
 
 #: templates/404.html:19
 msgid "Lost? We suggest"
-msgstr ""
+msgstr "找不到了？我们建议"
 
 #: templates/404.html:22 templates/base.html:60
 msgid "Home"
@@ -98,15 +95,15 @@ msgstr "会议"
 
 #: templates/404.html:24 templates/base.html:93 templates/profile.html:17
 msgid "Profile"
-msgstr ""
+msgstr "个人资料"
 
 #: templates/500.html:11
 msgid "Oops! Server Error"
-msgstr ""
+msgstr "抱歉！服务器错误"
 
 #: templates/500.html:12
 msgid "Go Back"
-msgstr ""
+msgstr "返回上一页"
 
 #: templates/base.html:20
 msgid "Welcome"
@@ -117,12 +114,10 @@ msgid "Logout"
 msgstr "注销"
 
 #: templates/base.html:70
-#, fuzzy
 msgid "I attended"
 msgstr "我参加的会议"
 
 #: templates/base.html:73
-#, fuzzy
 msgid "I created"
 msgstr "我创建的会议"
 
@@ -140,21 +135,19 @@ msgstr "搜索"
 
 #: templates/home.html:18
 msgid "Board Summary"
-msgstr ""
+msgstr "董事会摘要"
 
 #: templates/home.html:22
 msgid "Board owner"
-msgstr ""
+msgstr "董事会管理员"
 
 #: templates/home.html:24
-#, fuzzy
 msgid "Active members"
-msgstr "编辑成员"
+msgstr "活跃成员数目"
 
 #: templates/home.html:31
-#, fuzzy
 msgid "Meeting Summary"
-msgstr "会议类型"
+msgstr "会议摘要"
 
 #: templates/home.html:35 templates/meetingList.html:17
 #: templates/members.html:29 templates/newMeeting.html:250
@@ -170,22 +163,20 @@ msgstr "活跃"
 #: templates/home.html:39 templates/meetingList.html:85
 #: templates/meetingList.html.py:101 templates/meetingList.html:113
 msgid "Closed"
-msgstr ""
+msgstr "关闭"
 
 #: templates/home.html:41
-#, fuzzy
 msgid "Latest meeting"
-msgstr "新建会议"
+msgstr "最新会议"
 
 #: templates/invite.html:15
 msgid "I have already owned an account"
-msgstr ""
+msgstr "我已经有一个帐号了"
 
 #: templates/invite.html:18 templates/invite.html.py:53
 #: templates/login.html:14
-#, fuzzy
 msgid "Account name"
-msgstr "分组名称"
+msgstr "帐号名"
 
 #: templates/invite.html:20 templates/invite.html.py:55
 #: templates/login.html:16 templates/profile.html:121
@@ -197,54 +188,51 @@ msgstr "分组名称"
 #: templates/invite.html:68 templates/invite.html.py:70
 #: templates/login.html:20 templates/login.html.py:22
 msgid "Password"
-msgstr ""
+msgstr "密码"
 
 #: templates/invite.html:39 templates/login.html:30
 msgid "Remember me"
-msgstr ""
+msgstr "记住我"
 
 #: templates/invite.html:42 templates/login.html:33
 msgid "Sign In"
-msgstr ""
+msgstr "登录"
 
 #: templates/invite.html:50
 msgid "This is my first time to be here"
-msgstr ""
+msgstr "我第一次来这儿"
 
 #: templates/invite.html:62
 msgid "Should begin with a character, and cannot contain punctuations."
-msgstr ""
+msgstr "应该以字符开头，并且不能包含标点符号。"
 
 #: templates/invite.html:72 templates/profile.html:135
 #: templates/profile.html.py:144 templates/resetPassword.html:18
-#, fuzzy
 msgid "Password cannot be blank."
-msgstr "地点不能为空"
+msgstr "密码不能为空"
 
 #: templates/invite.html:77 templates/invite.html.py:79
 #: templates/profile.html:149 templates/profile.html.py:151
 #: templates/resetPassword.html:23 templates/resetPassword.html.py:25
 msgid "Repeat Password"
-msgstr ""
+msgstr "重复密码"
 
 #: templates/invite.html:81 templates/profile.html:153
 #: templates/resetPassword.html:27
 msgid "Two passwords don't match."
-msgstr ""
+msgstr "两次密码输入不一致。"
 
 #: templates/invite.html:86
 msgid "The following content is for identity verification."
-msgstr ""
+msgstr "以下内容为身份验证"
 
 #: templates/invite.html:90 templates/invite.html.py:92
-#, fuzzy
 msgid "True Name"
 msgstr "姓名"
 
 #: templates/invite.html:99
-#, fuzzy
 msgid "True Name cannot be blank."
-msgstr "地点不能为空"
+msgstr "姓名不能为空"
 
 #: templates/invite.html:107 templates/invite.html.py:109
 #: templates/members.html:300 templates/members.html.py:302
@@ -255,9 +243,8 @@ msgid "ID Card Number"
 msgstr "身份证号"
 
 #: templates/invite.html:116
-#, fuzzy
 msgid "ID Card Number cannot be blank."
-msgstr "地点不能为空"
+msgstr "身份证号不能为空"
 
 #: templates/invite.html:126 templates/members.html:388
 #: templates/members.html.py:390
@@ -265,17 +252,16 @@ msgid "Answer"
 msgstr "答案"
 
 #: templates/invite.html:133 templates/members.html:392
-#, fuzzy
 msgid "Answer cannot be blank."
-msgstr "地点不能为空"
+msgstr "答案不能为空"
 
 #: templates/invite.html:141
 msgid "Register"
-msgstr ""
+msgstr "注册"
 
 #: templates/login.html:36 templates/login.html.py:49
 msgid "Forget Password"
-msgstr ""
+msgstr "忘记密码"
 
 #: templates/login.html:54 templates/login.html.py:56
 #: templates/members.html:139 templates/members.html.py:318
@@ -289,7 +275,7 @@ msgstr "邮箱"
 msgid ""
 "Input your email in your account. An email with a special link will be "
 "sended to you soon."
-msgstr ""
+msgstr "输入您帐号中的邮箱，一封重置密码的邮件将会发送给您。"
 
 #: templates/login.html:61 templates/members.html:322
 #: templates/members.html.py:482 templates/newMeeting.html:99
@@ -299,7 +285,7 @@ msgstr "应填一个邮箱地址"
 
 #: templates/login.html:70
 msgid "Send"
-msgstr ""
+msgstr "发送"
 
 #: templates/login.html:71 templates/meetingList.html:175
 #: templates/members.html:249 templates/members.html.py:269
@@ -341,7 +327,7 @@ msgstr "自定义问题"
 #: templates/meeting.html:49 templates/meetingList.html:64
 #: templates/meetingList.html.py:90 templates/meetingList.html:116
 msgid "Undefined"
-msgstr ""
+msgstr "未定义"
 
 #: templates/meeting.html:52 templates/newMeeting.html:86
 #: templates/newMeeting.html.py:88
@@ -374,9 +360,8 @@ msgid "Reply"
 msgstr "回复"
 
 #: templates/meeting.html:187
-#, fuzzy
 msgid "Add comment"
-msgstr "评论"
+msgstr "添加评论"
 
 #: templates/meeting.html:192
 msgid "Comment cannot be blank."
@@ -441,17 +426,15 @@ msgstr "操作"
 #: templates/meetingList.html:80 templates/meetingList.html.py:98
 #: templates/meetingList.html:111
 msgid "End"
-msgstr ""
+msgstr "结束"
 
 #: templates/meetingList.html:125
-#, fuzzy
 msgid "Edit meeting"
-msgstr "编辑成员"
+msgstr "编辑会议"
 
 #: templates/meetingList.html:128
-#, fuzzy
 msgid "Delete meeting"
-msgstr "新建会议"
+msgstr "删除会议"
 
 #: templates/meetingList.html:143
 msgid "Create new meeting"
@@ -466,13 +449,12 @@ msgid "Next"
 msgstr "下一页"
 
 #: templates/meetingList.html:168
-#, fuzzy
 msgid "Are you sure to delete meeting"
-msgstr "确定要从你的公司中删除"
+msgstr "确定要删除会议"
 
 #: templates/meetingList.html:170
 msgid "?"
-msgstr ""
+msgstr "吗？"
 
 #: templates/meetingList.html:174 templates/members.html:71
 #: templates/members.html.py:101 templates/members.html:225
@@ -550,7 +532,7 @@ msgstr "女"
 #: templates/members.html:154 templates/members.html.py:455
 #: templates/profile.html:30 templates/profile.html.py:76
 msgid "Secret"
-msgstr ""
+msgstr "保密"
 
 #: templates/members.html:174 templates/members.html.py:416
 msgid "Edit member"
@@ -582,15 +564,13 @@ msgstr "用户吗?"
 
 #: templates/members.html:295 templates/members.html.py:426
 #: templates/profile.html:47
-#, fuzzy
 msgid "Name cannot be blank."
-msgstr "地点不能为空"
+msgstr "姓名不能为空"
 
 #: templates/members.html:304 templates/members.html.py:464
 #: templates/profile.html:85
-#, fuzzy
 msgid "Should be an ID card number."
-msgstr "应填一个电话号码"
+msgstr "应填一个身份证号"
 
 #: templates/members.html:313 templates/members.html.py:473
 #: templates/newMeeting.html:90 templates/profile.html:94
@@ -599,12 +579,11 @@ msgstr "应填一个电话号码"
 
 #: templates/members.html:327
 msgid "Authority"
-msgstr ""
+msgstr "权限"
 
 #: templates/members.html:335
-#, fuzzy
 msgid "Participant"
-msgstr "参加者"
+msgstr "会议参加者"
 
 #: templates/members.html:348
 msgid "Verification mode"
@@ -619,9 +598,8 @@ msgid "Question"
 msgstr "问题"
 
 #: templates/members.html:383
-#, fuzzy
 msgid "Question cannot be blank."
-msgstr "详细信息不能为空"
+msgstr "问题不能为空"
 
 #: templates/members.html:401
 msgid "Send invitation"
@@ -649,7 +627,7 @@ msgstr "新建会议"
 
 #: templates/newMeeting.html:42
 msgid "Title"
-msgstr ""
+msgstr "标题"
 
 #: templates/newMeeting.html:44
 msgid "Meeting title cannot be blank."
@@ -708,15 +686,15 @@ msgid ""
 "You can only upload files end with '.jpeg', '.jpg', '.gif', '.png', '.pdf', "
 "'.docx', '.doc', '.pptx', '.ppt', '.xlsx', '.xls', '.txt'. File size is "
 "limited to 10 MB."
-msgstr ""
+msgstr "您只能上传格式为'.jpeg', '.jpg', '.gif', '.png', '.pdf', '.docx', '.doc', '.pptx', '.ppt', '.xlsx', '.xls', '.txt'的文件。文件大小限制为10 MB。"
 
 #: templates/newMeeting.html:189
 msgid "Successfully saved"
-msgstr ""
+msgstr "成功保存"
 
 #: templates/newMeeting.html:190
 msgid "Remove"
-msgstr ""
+msgstr "移除"
 
 #: templates/newMeeting.html:223 templates/profile.html:109
 #: templates/profile.html.py:162
@@ -724,35 +702,33 @@ msgid "Save"
 msgstr "保存"
 
 #: templates/profile.html:117
-#, fuzzy
 msgid "Account"
-msgstr "分组名称"
+msgstr "帐号"
 
 #: templates/profile.html:119
 msgid "Change password"
-msgstr ""
+msgstr "修改密码"
 
 #: templates/profile.html:123
-#, fuzzy
 msgid "Create Time"
-msgstr "创建者"
+msgstr "创建时间"
 
 #: templates/profile.html:125
 msgid "Last Login"
-msgstr ""
+msgstr "最近登录"
 
 #: templates/profile.html:131 templates/profile.html.py:133
 msgid "Old Password"
-msgstr ""
+msgstr "旧密码"
 
 #: templates/profile.html:140 templates/profile.html.py:142
 #: templates/resetPassword.html:14 templates/resetPassword.html.py:16
 msgid "New Password"
-msgstr ""
+msgstr "新密码"
 
 #: templates/resetPassword.html:33
 msgid "Submit"
-msgstr ""
+msgstr "提交"
 
 #~ msgid "Chinese"
 #~ msgstr "中文"
