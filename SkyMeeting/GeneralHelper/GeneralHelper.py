@@ -6,7 +6,9 @@ Created on 2013-4-17
 '''
 from Meeting.models import *
 from MemManage.models import *
+from Login.models import *
 from django.utils.translation import ugettext as _
+from GlobalUtil.DataUtil import encrypt
 
 def getDashboard(account):
     '''
@@ -87,8 +89,6 @@ def changePwdViaEmail(params):
     user change pwd via email
     @param email: email to be sended 
     '''
-    from hashlib import md5
-    from django.conf import settings
     email=params["email"]
     result=dict()
     flag,rid=checkEmail(email)
@@ -163,11 +163,10 @@ def changePwdEdit(params):
     finally edit pwd of target account
     @param pwd: new password to be stored
     @param aid: id of target account
-    '''
-    from Login.models import *
+    '''    
     result=dict()
     try:
-        Account.objects.filter(aid=params["aid"]).update(apassword=params["pwd"])
+        Account.objects.filter(aid=params["aid"]).update(apassword=encrypt(params["pwd"]))
         TempAccountPwd.objects.filter(tapAid=params["aid"]).delete()   #delete temp account table data
         result["success"]="true"
     except:
@@ -182,11 +181,10 @@ def changePwdInner(params):
     @param oldPwd: old password
     @param newPwd: new password
     '''
-    from Login.models import Account
     result=dict()
     account=Account.objects.get(aid=params["aid"])
-    if account.apassword==params["oldPwd"]:
-        account.apassword=params["newPwd"]
+    if account.apassword==encrypt(params["oldPwd"]):
+        account.apassword=encrypt(params["newPwd"])
         try:
             account.save()
             result["success"]="true"

@@ -29,6 +29,9 @@ def getGroupList(g_list):
 
 def encrypt(data):
     '''
-    encrypt date 
+    encrypt data using md5
     '''
-    pass
+    from hashlib import md5
+    md5obj=md5(str(data))
+    #return a md5 40-char string
+    return md5obj.hexdigest()
