@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-23 07:19-0500\n"
+"POT-Creation-Date: 2013-04-24 10:06+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,38 +33,38 @@ msgstr "操作失败"
 msgid "Code Does Not Exist"
 msgstr "验证码不存在"
 
-#: GeneralHelper/GeneralHelper.py:175
+#: GeneralHelper/GeneralHelper.py:174
 #, fuzzy
 msgid "Edit fail"
 msgstr "修改密码失败"
 
-#: GeneralHelper/GeneralHelper.py:195
+#: GeneralHelper/GeneralHelper.py:193
 msgid "Cannot change password."
 msgstr "无法修改密码"
 
-#: GeneralHelper/GeneralHelper.py:198
+#: GeneralHelper/GeneralHelper.py:196
 msgid "Old password is not correct."
 msgstr "旧密码不正确"
 
-#: LoginHelper/LoginHelper.py:50
+#: LoginHelper/LoginHelper.py:51
 msgid "Verify Name Incorrect"
 msgstr "验证姓名不一致"
 
-#: LoginHelper/LoginHelper.py:56
+#: LoginHelper/LoginHelper.py:57
 #, fuzzy
 msgid "Verify ID Card Number Incorrect"
 msgstr "验证身份证号不一致"
 
-#: LoginHelper/LoginHelper.py:62
+#: LoginHelper/LoginHelper.py:63
 #, fuzzy
 msgid "Verify Answer Incorrect"
 msgstr "验证自定义问题答案不一致"
 
-#: LoginHelper/LoginHelper.py:92
+#: LoginHelper/LoginHelper.py:93
 msgid "Account Login Error"
 msgstr "账户登陆错误"
 
-#: LoginHelper/LoginHelper.py:148
+#: LoginHelper/LoginHelper.py:149
 #, fuzzy
 msgid "Account Name has been already registered"
 msgstr "账户名已被注册"
@@ -750,8 +750,14 @@ msgstr ""
 msgid "New Password"
 msgstr ""
 
-#: templates/resetPassword.html:33
+#: templates/resetPassword.html:36
 msgid "Submit"
+msgstr ""
+
+#: templates/resetPassword.html:40
+msgid ""
+"Reset password successfully! This page will redirect to Login page in 3 "
+"seconds."
 msgstr ""
 
 #~ msgid "Chinese"
