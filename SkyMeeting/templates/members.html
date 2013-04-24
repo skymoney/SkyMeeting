@@ -85,7 +85,7 @@
   				<!--Body content-->
   				<!-- tags -->
   				<div class="row-fluid" id="tagsDiv">
-  					<span id="tagsDivLabel">{% trans "Tags" %}:</span>
+  					<span id="tagsDivLabel">{% trans "Tags Library" %}:</span>
   					<ul class="inline" id="tagList">
   						{% for tag in tagAll %}
   							{% if tag.tid in conf.current_tid %}
@@ -114,7 +114,7 @@
   							<a href="javascript:void(0);" class="delete-tag" data-tid="{{ tag.tid }}">x</a>
   						</div>
   						{% endfor %}
-  						<span>
+  						<span id="tagInputSpan">
   							<input type="text" id="editNewTag" maxlength="10" />
   							<!-- max length??? error hint??? -->
   						</span>
@@ -174,7 +174,7 @@
 								<a href="javascript:void(0);" class="image-link edit-member" title="{% trans 'Edit member' %}">
 									<i class="icon-edit icon-green"></i>
 								</a>
-								<a href="javascript:void(0);" class="image-link delete-member" title="trans 'Delete member' %}">
+								<a href="javascript:void(0);" class="image-link delete-member" title="{% trans 'Delete member' %}">
 									<i class="icon-trash icon-red"></i>
 								</a>
 							</td>
@@ -398,7 +398,7 @@
 			<div class="form-end"></div>
 		</div>
 		<div class="modal-footer">
-			<input type="button" class="btn btn-primary" id="inviteModalOk" value="{% trans 'Send invitation' %}" data-validate="#inviteForm" />
+			<input type="button" class="btn btn-primary" id="inviteModalOk" value="{% trans 'Send Invitation' %}" data-validate="#inviteForm" />
 			<input type="button" class="btn" data-dismiss="modal" aria-hidden="true" value="{% trans 'Cancel' %}" />
 		</div>
 	</form>

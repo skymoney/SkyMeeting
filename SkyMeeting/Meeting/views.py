@@ -131,6 +131,14 @@ def meeting(request):
     result["langPack"] = RequestUtil.getLangPack(request)
     result["rolePack"] = RequestUtil.getRolePack(request)
     result["authPack"] = RequestUtil.getAuthPack(request)
+    
+    #creator check
+    if result["meetingData"]["muser"].rid == request.session["rid"]:
+        result["isCreator"] = "true"
+    else:
+        result["isCreator"] = "false"
+    
+    #status closed check???
     return render_to_response('meeting.html', Context(result))
 
 @login_required
