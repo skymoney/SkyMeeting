@@ -115,7 +115,7 @@ def resetPassword(request):
     
     #put pwd code to session temporally
     request.session['pwdcode'] = pwdCode
-    return render_to_response('resetPassword.html')
+    return render_to_response('resetPassword.html', {"aname": checkResult["aname"]})
 
 def setPassword(request):
     '''
