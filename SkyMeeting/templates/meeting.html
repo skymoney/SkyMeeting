@@ -20,6 +20,9 @@
 			<span class="place">{{ meetingData.mplace }}</span>
 		</div>
 	</div>
+	{% if isCreator == "true" %}
+	<a href="/editmeeting/?mid={{ meetingData.mid }}" class="pull-right">{% trans "Edit" %}</a>
+	{% endif %}
 
 
 
@@ -49,9 +52,21 @@
 						{% trans "Undefined" %}
 					{% endif %}
 			  	</dd>
+			  	<dt>{% trans "Meeting status" %}</dt>
+			  	<dd>
+			  		{% if meetingData.mstatus == 1 or meetingData.mstatus == 5 %}
+			  			{% trans "Active" %}
+			  		{% elif meetingData.mstatus == 11 %}
+			  			{% trans "End" %}
+			  		{% elif meetingData.mstatus == 15 %}
+			  			{% trans "Closed" %}
+			  		{% else %}
+			  			{% trans "Undefined" %}
+			  		{% endif %}
+			  	</dd>
 			  	<dt>{% trans "Contact tel" %}</dt>
 			  	<dd>{{ meetingData.mtel }}</dd>
-			  	<dt>{% trans "Contact mail" %}</dt>
+			  	<dt>{% trans "Contact email" %}</dt>
 			  	<dd>{{ meetingData.memail }}</dd>
 			</dl>
 		</div>

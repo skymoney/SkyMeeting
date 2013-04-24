@@ -328,10 +328,6 @@ msgstr "未定义"
 msgid "Contact tel"
 msgstr "联系电话"
 
-#: templates/meeting.html:54
-msgid "Contact mail"
-msgstr "联系邮箱"
-
 #: templates/meeting.html:67 templates/newMeeting.html:114
 msgid "Detail Info"
 msgstr "详细信息"
@@ -596,7 +592,7 @@ msgid "Question cannot be blank."
 msgstr "问题不能为空"
 
 #: templates/members.html:401
-msgid "Send invitation"
+msgid "Send Invitation"
 msgstr "发送邀请"
 
 #: templates/members.html:490
@@ -655,7 +651,8 @@ msgstr "地点不能为空"
 msgid "Should be less than 50 characters."
 msgstr "应少于50字"
 
-#: templates/newMeeting.html:95 templates/newMeeting.html.py:97
+#: templates/meeting.html:54 templates/newMeeting.html:95
+#: templates/newMeeting.html.py:97
 msgid "Contact email"
 msgstr "联系邮箱"
 

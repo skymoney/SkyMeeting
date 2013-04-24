@@ -543,7 +543,7 @@ $(function() {
 
 	// update tagsArea function
 	var appendTagsArea = function(newTagId, newTagName){
-		$("#tagsArea").children(".tag").last().after("<div class=\"tag\"><span>" + newTagName + "&nbsp;</span><a href=\"javascript:void(0);\" class=\"delete-tag\" data-tid=\"" + newTagId + "\">x</a></div>");
+		$("#tagsArea").find("#tagInputSpan").before("<div class=\"tag\"><span>" + newTagName + "&nbsp;</span><a href=\"javascript:void(0);\" class=\"delete-tag\" data-tid=\"" + newTagId + "\">x</a></div>");
 		// bind delete tag click event
 		$("#tagsArea").children(".tag").last().find("a.delete-tag").click(deleteTagFunc);
 	};
@@ -753,6 +753,9 @@ $(function() {
 		{
 			// set ajax flag
 			ajaxInviteMemberFlag = AJAX_BUSY;
+			// disable button
+			disableButton($("#inviteModalOk"));
+			$("#inviteModalOk").val(gettext("Sending..."));
 
 			// ajax submit
 			$.post(
@@ -796,6 +799,9 @@ $(function() {
 
 					// reset ajax flag
 					ajaxInviteMemberFlag = AJAX_IDLE;
+					// enable button
+					enableButton($("#inviteModalOk"));
+					$("#inviteModalOk").val(gettext("Send Invitation"));
 				}
 			);
 		}
