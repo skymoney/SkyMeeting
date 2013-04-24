@@ -216,7 +216,7 @@ def inviteUser(params):
                     if mode==1:
                         tr.verifyByName=1
                     if mode==2:
-                        tr.verifyByPhone=1
+                        tr.verifyByIdCard=1
                     if mode==9:
                         tr.verifyByQuest=1
                         tr.verifyQuest=params["verifyQuestion"]

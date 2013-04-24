@@ -148,6 +148,7 @@ def saveMeeting(params):
         meeting=Meeting()
         meeting.create_user=Role.objects.get(rid=params["createUser"])
         meeting.create_time=datetime.now()      #default current time
+        meeting.meeting_status=1        #meeting_status 1 or 0 or more..
     result=dict()
     meeting.meeting_title=params["title"]
     meeting.meeting_type=int(params["type"])
@@ -158,7 +159,6 @@ def saveMeeting(params):
     meeting.contact_tel=params["tel"]
     meeting.contact_email=params["email"]
     meeting.detail=params["detail"]    
-    meeting.meeting_status=1        #meeting_status 1 or 0 or more..
     
     try:
         meeting.save()      #save meeting info
