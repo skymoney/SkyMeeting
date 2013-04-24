@@ -67,7 +67,7 @@ USE_TZ = False
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = '/home/cheng/Workspace/uploadfile/'
+MEDIA_ROOT = '/var/upfile/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
