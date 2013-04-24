@@ -173,7 +173,7 @@ def saveMeeting(params):
         
         Meeting_File.objects.filter(meeting_id=meeting).delete()
         
-        if "files" in params:
+        if "files" in params and len(params["files"])>0:
             #store file info
             #currently not done...
             fileIdSet=params["files"].split('+')
