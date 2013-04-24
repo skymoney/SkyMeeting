@@ -126,7 +126,7 @@ def changePwdSendEmail(params):
     
     try:
         tmp.save()
-        content="点击以下链接修改您的密码 \n"+"http://192.168.100.21/"      #here needs to be conf to proper url
+        content="点击以下链接修改您的密码 \n"+"http://192.168.100.21/resetpassword?pwdcode="+code      #here needs to be conf to proper url
         resultCode=send_mail("修改您的账户密码",content,settings.EMAIL_HOST_USER,[email],fail_silently=False)
         
         if resultCode==1:
