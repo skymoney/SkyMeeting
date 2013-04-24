@@ -9,6 +9,7 @@ from LoginHelper import LoginHelper
 from MemManage.models import TempRole,Role  
 from Login.models import Account 
 import simplejson
+from GlobalUtil.DataUtil import encrypt
 
 
 #just for simple page show
@@ -23,12 +24,12 @@ def welcome(request):
         return HttpResponseRedirect('/dashboard')
 
 def login(request):
-    user = authenticate(username=request.POST['accountname'], password=request.POST['password']);
+    user = authenticate(username=request.POST['accountname'], password=encrypt(request.POST['password']));
     if user is not None:
         # Redirect to a success page.
         auth_login(request,user)
         from datetime import datetime
-        Account.objects.filter(aid=user.aid).update(date_joined=datetime.now())
+        Account.objects.filter(aid=user.aid).update(date_joined=datetime.now()) #update last_login time
         role=user.role_set.all()[0]
         request.session["rid"]=role.rid
         request.session["cid"]=role.company_id
@@ -87,7 +88,7 @@ def register(request):
     if confirmResult["success"] == "true":
         del request.session["code"]
         #以下代码同login
-        user = authenticate(username=params["aname"], password=params["apass"]);
+        user = authenticate(username=params["aname"], password=encrypt(params["apass"]));
         if user is not None:
             auth_login(request,user)
             request.session["rid"]=confirmResult["rid"]
@@ -123,7 +124,7 @@ def registerNewAccount(request):
         print "confirm success"
         del request.session["code"]
         #以下代码同login
-        user = authenticate(username=params["aname"], password=params["apass"]);
+        user = authenticate(username=params["aname"], password=encrypt(params["apass"]));
         if user is not None:
             auth_login(request,user)
             request.session["rid"]=confirmResult["rid"]
@@ -163,7 +164,7 @@ def regedit(request):
         #todo
         
         
-        user = Account.objects.create_user(username = username, password = password)  
+        user = Account.objects.create_user(username = username, password = encrypt(password))  
         if user is not None:
             #Validation success
             user.save()

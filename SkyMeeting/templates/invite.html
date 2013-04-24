@@ -15,7 +15,7 @@
 				<h3 class="text-center">{% trans "I have already owned an account" %}</h3>
 				<form class="form-horizontal form-signin" id="signinForm" action="/register/" method="post">
 					<div class="control-group">
-						<label class="control-label" for="accountName">{% trans "Account name" %}</label>
+						<label class="control-label" for="accountName">{% trans "Account Name" %}</label>
 						<div class="controls">
 							<input type="text" id="accountName" name="accountname" placeholder="{% trans 'Account Name' %}" />
 						</div>
@@ -50,7 +50,7 @@
 				<h3 class="text-center">{% trans "This is my first time to be here" %}</h3>
 				<form class="form-horizontal form-register" id="newAccountForm" action="/registernewaccount/" method="post">
 					<div class="control-group">
-						<label class="control-label" for="inputAccount">{% trans "Account name" %}</label>
+						<label class="control-label" for="inputAccount">{% trans "Account Name" %}</label>
 						<div class="controls">
 							<input type="text" id="inputAccount" name="accountname" placeholder="{% trans 'Account Name' %}" data-validate-presence="true" data-validate-format="/^[a-z]([a-z]|[0-9])*$/" data-validate-error="#inputAccountError" {% if lastInput %}value="{{ lastInput.newAccountName }}"{% endif %} />
 							{% if errors.verifyAccount %}

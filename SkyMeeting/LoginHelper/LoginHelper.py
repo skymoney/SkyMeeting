@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate
 from Login.models import Account
 from MemManage.models import TempRole,Role,HeadPhoto
 from django.utils.translation import ugettext as _
+from GlobalUtil.DataUtil import encrypt
 
 def fetcheVerifyInfo(params):
     '''
@@ -84,7 +85,7 @@ def confirmRole(params):
         aname=params["aname"]
         apass=params["apass"]        
         #authentication
-        account=authenticate(username=aname,password=apass)
+        account=authenticate(username=aname,password=encrypt(apass))
         if account is None:
             accountNoneResult=dict()
             accountNone=dict()
@@ -102,7 +103,7 @@ def confirmRole(params):
                 result["success"]="false"
                 result["errors"]=accountResult
                 return result    
-            account=Account.objects.create_user(username=params["aname"], password=params["apass"])
+            account=Account.objects.create_user(username=params["aname"], password=encrypt(params["apass"]))
         else:
             if accountFlag:
                 errors["verifyAccount"]=accountResult["verifyAccount"]

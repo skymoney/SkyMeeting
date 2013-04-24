@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-23 07:19-0500\n"
+"POT-Creation-Date: 2013-04-24 10:06+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,36 +33,35 @@ msgstr "操作失败"
 msgid "Code Does Not Exist"
 msgstr "验证码不存在"
 
-#: GeneralHelper/GeneralHelper.py:175
-#, fuzzy
-msgid "Edit fail"
+#: GeneralHelper/GeneralHelper.py:174
+msgid "Edit password fail"
 msgstr "修改密码失败"
 
-#: GeneralHelper/GeneralHelper.py:195
+#: GeneralHelper/GeneralHelper.py:193
 msgid "Cannot change password."
 msgstr "无法修改密码"
 
-#: GeneralHelper/GeneralHelper.py:198
+#: GeneralHelper/GeneralHelper.py:196
 msgid "Old password is not correct."
 msgstr "旧密码不正确"
 
-#: LoginHelper/LoginHelper.py:50
+#: LoginHelper/LoginHelper.py:51
 msgid "Verify Name Incorrect"
 msgstr "验证姓名不一致"
 
-#: LoginHelper/LoginHelper.py:56
+#: LoginHelper/LoginHelper.py:57
 msgid "Verify ID Card Number Incorrect"
 msgstr "验证身份证号不一致"
 
-#: LoginHelper/LoginHelper.py:62
+#: LoginHelper/LoginHelper.py:63
 msgid "Verify Answer Incorrect"
 msgstr "验证自定义问题答案不一致"
 
-#: LoginHelper/LoginHelper.py:92
+#: LoginHelper/LoginHelper.py:93
 msgid "Account Login Error"
 msgstr "账户登陆错误"
 
-#: LoginHelper/LoginHelper.py:148
+#: LoginHelper/LoginHelper.py:149
 msgid "Account Name has been already registered"
 msgstr "账户名已被注册"
 
@@ -173,16 +172,12 @@ msgstr "最新会议"
 msgid "I have already owned an account"
 msgstr "我已经有一个帐号了"
 
-#: templates/invite.html:18 templates/invite.html.py:53
-#: templates/login.html:14
-msgid "Account name"
-msgstr "帐号名"
-
-#: templates/invite.html:20 templates/invite.html.py:55
-#: templates/login.html:16 templates/profile.html:121
-#, fuzzy
+#: templates/invite.html:18 templates/invite.html:20
+#: templates/invite.html.py:53 templates/invite.html.py:55
+#: templates/login.html:16 templates/login.html:14
+#: templates/profile.html:121
 msgid "Account Name"
-msgstr "分组名称"
+msgstr "帐号名"
 
 #: templates/invite.html:24 templates/invite.html.py:26
 #: templates/invite.html:68 templates/invite.html.py:70
@@ -301,7 +296,7 @@ msgstr "基本信息"
 
 #: templates/meeting.html:35 templates/members.html:343
 msgid "Organizer"
-msgstr "发起者"
+msgstr "会议发起者"
 
 #: templates/meeting.html:40 templates/meetingList.html:41
 #: templates/newMeeting.html:51
@@ -320,9 +315,8 @@ msgstr "非正式会议"
 
 #: templates/meeting.html:47 templates/meetingList.html:20
 #: templates/meetingList.html.py:62 templates/newMeeting.html:57
-#, fuzzy
 msgid "Others"
-msgstr "自定义问题"
+msgstr "其他"
 
 #: templates/meeting.html:49 templates/meetingList.html:64
 #: templates/meetingList.html.py:90 templates/meetingList.html:116
@@ -726,9 +720,15 @@ msgstr "旧密码"
 msgid "New Password"
 msgstr "新密码"
 
-#: templates/resetPassword.html:33
+#: templates/resetPassword.html:36
 msgid "Submit"
 msgstr "提交"
+
+#: templates/resetPassword.html:40
+msgid ""
+"Reset password successfully! This page will redirect to Login page in 3 "
+"seconds."
+msgstr "重置密码成功！页面将在3秒后自动跳转到登录页面。"
 
 #~ msgid "Chinese"
 #~ msgstr "中文"
