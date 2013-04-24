@@ -139,15 +139,14 @@ def deleteTag(request):
 
 @login_required
 def queryPerson(request):
-    if RequestUtil.checkManagePermission(request):
-        params = dict()
-        params["pn"] = RequestUtil.getPageParam(request)
-        params["cid"] = request.session["cid"]
-        params["gid"] = request.GET["gid"]
-        params["tid"] = request.GET["tid"]
-        
-        return HttpResponse(json.dumps(DAOHelper.queryPerson(params)))
-    else:
-        return HttpResponseRedirect('/home')
+    '''
+    query person as a normal user, no permission check needed
+    '''
+    params = dict()
+    params["pn"] = RequestUtil.getPageParam(request)
+    params["cid"] = request.session["cid"]
+    params["gid"] = request.GET["gid"]
+    params["tid"] = request.GET["tid"]
+    return HttpResponse(json.dumps(DAOHelper.queryPerson(params)))
 
 
