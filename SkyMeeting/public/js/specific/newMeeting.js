@@ -200,6 +200,8 @@ $(function() {
 					// bind checkbox event
 					personsTarget.find("div.checker input").bind("click", checkerClickFunc);
 					personsTarget.find("div.checker input").bind("click", notAllClickFunc);
+					// clear checkAll
+					checkboxCancel($("#selectAllPerson"));
 
 
 
@@ -360,13 +362,6 @@ $(function() {
 		// back to default page
 		// NOTE: extra query!!!
 		$("#groupList").children("li").first().find("a.group").click();
-
-		// clear checkAll
-		if(isCheckboxChecked($("#selectAllPerson")))
-		{
-			$("#selectAllPerson").click();
-		}
-
 		$("#participantModal").modal("show");
 	});
 
