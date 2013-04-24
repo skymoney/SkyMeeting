@@ -428,10 +428,10 @@ $(function() {
 		request: {
      		endpoint: '/upfile/'
       	},
-      	/*validation: {
-      		allowedExtensions: ['jpeg', 'jpg', 'gif', 'png', 'pdf', 'docx', 'doc', 'pptx', 'ppt', 'xlsx', 'xls', 'txt', 'rar'],
-        	sizeLimit: 104857600 // 100 MB = 100 * 1024 * 1024 bytes
-      	},*/
+      	validation: {
+      		allowedExtensions: ['jpeg', 'jpg', 'gif', 'png', 'pdf', 'docx', 'doc', 'pptx', 'ppt', 'xlsx', 'xls', 'txt'],
+        	sizeLimit: 10485760 // 10 MB = 10 * 1024 * 1024 bytes
+      	},
         /*deleteFile: {
             enabled: true,
             endpoint: '/upfile/',
