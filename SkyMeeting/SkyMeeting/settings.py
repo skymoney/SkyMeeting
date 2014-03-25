@@ -9,6 +9,9 @@ ADMINS = (
     #('Your Name', 'your_email@example.com'),
 )
 
+CACHE_BACKEND = 'memcached://127.0.0.1:13031'
+
+
 MANAGERS = ADMINS
 
 DATABASES = {
@@ -18,7 +21,7 @@ DATABASES = {
         # The following settings are not used with sqlite3:
         'USER': 'root',
         'PASSWORD': '',
-        'HOST': '192.168.100.21',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'HOST': '192.168.100.42',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                    # Set to empty string for default.
     }
 }

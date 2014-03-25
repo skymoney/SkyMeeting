@@ -37,7 +37,7 @@
 			</div>
 			<div class="form-block-content">
 				<div class="control-group">
-					<label class="control-label" for="inputTitle">Title</label>
+					<label class="control-label" for="inputTitle">会议名</label>
 					<div class="controls">
 						<input type="text" id="inputTitle" placeholder="{% trans 'Title' %}" data-validate-presence="true" data-validate-error="#inputTitleError" {% if meetingData %}value="{{ meetingData.mtitle }}"{% endif %} />
 						<span class="alert alert-error hide" id="inputTitleError">

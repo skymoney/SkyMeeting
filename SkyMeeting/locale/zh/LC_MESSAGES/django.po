@@ -494,7 +494,7 @@ msgstr "分组名称"
 
 #: templates/members.html:88
 msgid "Tags Library"
-msgstr ""
+msgstr "标签组"
 
 #: templates/members.html:126
 msgid "10 characters limited, separated by space"

@@ -1,0 +1,12 @@
+eclipse.preferences.version=1
+encoding//FileUtil/BasicUtil.py=utf-8
+encoding//General/views.py=utf-8
+encoding//GeneralHelper/GeneralHelper.py=utf-8
+encoding//GlobalUtil/RequestUtil.py=utf-8
+encoding//Login/views.py=utf-8
+encoding//LoginHelper/LoginHelper.py=utf-8
+encoding//Meeting/views.py=utf-8
+encoding//MemManage/views.py=utf-8
+encoding//MemManageHelper/BasicUtil.py=utf-8
+encoding//MemManageHelper/DAOHelper.py=utf-8
+encoding//SkyMeeting/settings.py=utf-8

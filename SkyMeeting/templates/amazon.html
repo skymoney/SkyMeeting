@@ -1,0 +1,47 @@
+{% extends 'baseWithoutNav.html'%}
+{% load i18n %}
+
+{%block title%}SkyMeeting{%endblock%}
+
+{%block cssfile%}
+<link rel="stylesheet" type="text/css" href="../public/css/specific/invite.css">
+<script type="text/javascript" src="../public/js/d3.v3.min.js"></script>
+<script type="text/javascript">
+	function generate(){
+		$.get('/generate/',
+		function(data){
+			var svgWidth=800
+			var svgHeight=600
+			var result=eval(data)
+			var svg=d3.select("#to_show").append('svg')
+			svg.attr('width',svgWidth).attr('height',svgHeight)
+			
+			svg.selectAll('text')
+				.data(result)
+				.enter()
+				.append('text')
+				.text(function(d){
+					return d['name']
+				})
+				.attr('font-size',function(d,i){
+					return d['weight']*100
+				})
+				.attr('x',function(d,i){
+					return Math.random()*(svgWidth-60)
+				})
+				.attr('y',function(d,i){
+					return Math.random()*svgHeight
+				})
+				.attr('fill',function(d){
+					return 'rgba('+Math.round(Math.random()*255)+','+Math.round(Math.random()*255)+','+d['weight']*10+',0.8)'
+				})
+		})
+	}
+</script>
+{%endblock%}
+
+{%block content%}
+<button class="btn" onclick="javascript:generate()">Generate Graph</button>
+<div id="to_show">
+</div>
+{%endblock%}
