@@ -334,9 +334,8 @@ msgid "Undefined"
 msgstr "未定义"
 
 #: templates/meeting.html:55
-#, fuzzy
 msgid "Meeting status"
-msgstr "会议"
+msgstr "活动状态"
 
 #: templates/meeting.html:60 templates/meetingList.html:86
 #: templates/meetingList.html.py:104 templates/meetingList.html:117
@@ -494,7 +493,7 @@ msgstr "分组名称"
 
 #: templates/members.html:88
 msgid "Tags Library"
-msgstr ""
+msgstr "标签库"
 
 #: templates/members.html:126
 msgid "10 characters limited, separated by space"
@@ -549,9 +548,8 @@ msgid "Edit member"
 msgstr "编辑成员"
 
 #: templates/members.html:177
-#, fuzzy
 msgid "Delete member"
-msgstr "删除会议"
+msgstr "删除成员"
 
 #: templates/members.html:190 templates/members.html.py:286
 msgid "Invite new member"
