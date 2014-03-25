@@ -92,7 +92,7 @@ msgstr "主页"
 
 #: templates/404.html:23 templates/base.html:65 templates/base.html.py:79
 msgid "Meetings"
-msgstr "会议"
+msgstr "活动"
 
 #: templates/404.html:24 templates/base.html:93 templates/profile.html:17
 msgid "Profile"
@@ -116,11 +116,11 @@ msgstr "注销"
 
 #: templates/base.html:70
 msgid "I attended"
-msgstr "我参加的会议"
+msgstr "我参加的活动"
 
 #: templates/base.html:73
 msgid "I created"
-msgstr "我创建的会议"
+msgstr "我创建的活动"
 
 #: templates/base.html:84
 msgid "Documents"
@@ -148,7 +148,7 @@ msgstr "活跃成员数目"
 
 #: templates/home.html:31
 msgid "Meeting Summary"
-msgstr "会议摘要"
+msgstr "活动摘要"
 
 #: templates/home.html:35 templates/meetingList.html:17
 #: templates/members.html:29 templates/newMeeting.html:250
@@ -170,7 +170,7 @@ msgstr "关闭"
 
 #: templates/home.html:41
 msgid "Latest meeting"
-msgstr "最新会议"
+msgstr "最新活动"
 
 #: templates/invite.html:15
 msgid "I have already owned an account"
@@ -305,22 +305,22 @@ msgstr "基本信息"
 
 #: templates/meeting.html:38 templates/members.html:343
 msgid "Organizer"
-msgstr "会议发起者"
+msgstr "活动发起者"
 
 #: templates/meeting.html:43 templates/meetingList.html:41
 #: templates/newMeeting.html:51
 msgid "Meeting type"
-msgstr "会议类型"
+msgstr "活动类型"
 
 #: templates/meeting.html:46 templates/meetingList.html:18
 #: templates/meetingList.html.py:64 templates/newMeeting.html:55
 msgid "Formal meeting"
-msgstr "正式会议"
+msgstr "正式活动"
 
 #: templates/meeting.html:48 templates/meetingList.html:19
 #: templates/meetingList.html.py:66 templates/newMeeting.html:56
 msgid "Informal meeting"
-msgstr "非正式会议"
+msgstr "非正式活动"
 
 #: templates/meeting.html:50 templates/meetingList.html:20
 #: templates/meetingList.html.py:68 templates/newMeeting.html:57
@@ -334,9 +334,8 @@ msgid "Undefined"
 msgstr "未定义"
 
 #: templates/meeting.html:55
-#, fuzzy
 msgid "Meeting status"
-msgstr "会议"
+msgstr "活动状态"
 
 #: templates/meeting.html:60 templates/meetingList.html:86
 #: templates/meetingList.html.py:104 templates/meetingList.html:117
@@ -388,11 +387,11 @@ msgstr "提交"
 
 #: templates/meetingList.html:12
 msgid "My Meetings"
-msgstr "我的会议"
+msgstr "我的活动"
 
 #: templates/meetingList.html:15
 msgid "Choose your meeting type"
-msgstr "选择会议类型"
+msgstr "选择活动类型"
 
 #: templates/meetingList.html:26
 msgid "Choose"
@@ -400,15 +399,15 @@ msgstr "选择"
 
 #: templates/meetingList.html:28
 msgid "Meetings I attended"
-msgstr "我参加的会议"
+msgstr "我参加的活动"
 
 #: templates/meetingList.html:29
 msgid "Meetings I created"
-msgstr "我创建的会议"
+msgstr "我创建的活动"
 
 #: templates/meetingList.html:40
 msgid "Meeting name"
-msgstr "会议名称"
+msgstr "活动名称"
 
 #: templates/meetingList.html:42 templates/newMeeting.html:67
 msgid "Start time"
@@ -440,15 +439,15 @@ msgstr "操作"
 
 #: templates/meetingList.html:131
 msgid "Edit meeting"
-msgstr "编辑会议"
+msgstr "编辑活动"
 
 #: templates/meetingList.html:134
 msgid "Delete meeting"
-msgstr "删除会议"
+msgstr "删除活动"
 
 #: templates/meetingList.html:149
 msgid "Create new meeting"
-msgstr "新建会议"
+msgstr "新建活动"
 
 #: templates/meetingList.html:155 templates/members.html:195
 msgid "Previous"
@@ -460,7 +459,7 @@ msgstr "下一页"
 
 #: templates/meetingList.html:174
 msgid "Are you sure to delete meeting"
-msgstr "确定要删除会议"
+msgstr "确定要删除活动"
 
 #: templates/meetingList.html:176
 msgid "?"
@@ -549,9 +548,8 @@ msgid "Edit member"
 msgstr "编辑成员"
 
 #: templates/members.html:177
-#, fuzzy
 msgid "Delete member"
-msgstr "删除会议"
+msgstr "删除成员"
 
 #: templates/members.html:190 templates/members.html.py:286
 msgid "Invite new member"
@@ -598,7 +596,7 @@ msgstr "权限"
 
 #: templates/members.html:335
 msgid "Participant"
-msgstr "会议参加者"
+msgstr "活动参加者"
 
 #: templates/members.html:348
 msgid "Verification mode"
@@ -638,7 +636,7 @@ msgstr "保存更改"
 
 #: templates/newMeeting.html:19
 msgid "New Meeting"
-msgstr "新建会议"
+msgstr "新建活动"
 
 #: templates/newMeeting.html:42
 msgid "Title"
@@ -646,7 +644,7 @@ msgstr "标题"
 
 #: templates/newMeeting.html:44
 msgid "Meeting title cannot be blank."
-msgstr "会议标题不能为空"
+msgstr "活动标题不能为空"
 
 #: templates/newMeeting.html:46
 msgid "Should be less than 100 characters."
@@ -658,7 +656,7 @@ msgstr "请选择"
 
 #: templates/newMeeting.html:61
 msgid "Please select meeting type."
-msgstr "请选择会议类型"
+msgstr "请选择活动类型"
 
 #: templates/newMeeting.html:71
 msgid "Start time cannot be blank."
