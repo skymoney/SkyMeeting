@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-24 17:04+0800\n"
+"POT-Creation-Date: 2013-04-26 14:43+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: public/js/specific/login.js:11
+#: public/js/specific/login.js:11 public/js/specific/members.js:758
 msgid "Sending..."
 msgstr "发送中..."
 
@@ -50,17 +50,17 @@ msgid "Delete group"
 msgstr "删除分组"
 
 #: public/js/specific/members.js:207 public/js/specific/members.js.c:306
-#: public/js/specific/members.js:969 public/js/specific/members.js.c:1086
+#: public/js/specific/members.js:975 public/js/specific/members.js.c:1092
 msgid "Cannot contain punctuation"
 msgstr "不能包含标点符号"
 
 #: public/js/specific/members.js:213 public/js/specific/members.js.c:312
-#: public/js/specific/members.js:975 public/js/specific/members.js.c:1092
+#: public/js/specific/members.js:981 public/js/specific/members.js.c:1098
 msgid "Length should be between 1 to 20"
 msgstr "应在1到20个字之间"
 
-#: public/js/specific/members.js:249 public/js/specific/members.js.c:1026
-#: public/js/specific/members.js:1149
+#: public/js/specific/members.js:249 public/js/specific/members.js.c:1032
+#: public/js/specific/members.js:1155
 msgid "Failed because of server problem."
 msgstr "服务器错误"
 
@@ -68,54 +68,58 @@ msgstr "服务器错误"
 msgid "Illegal characters detected"
 msgstr "含有非法字符"
 
-#: public/js/specific/newMeeting.js:222
+#: public/js/specific/members.js:804
+msgid "Send Invitation"
+msgstr "发送邀请"
+
+#: public/js/specific/newMeeting.js:224
 msgid "Previous"
 msgstr "上一页"
 
-#: public/js/specific/newMeeting.js:253
+#: public/js/specific/newMeeting.js:255
 msgid "Next"
 msgstr "下一页"
 
-#: public/js/specific/newMeeting.js:453
+#: public/js/specific/newMeeting.js:448
 msgid "Initializing. Please hold."
 msgstr "初始化，请等待"
 
-#: public/js/specific/newMeeting.js:453
+#: public/js/specific/newMeeting.js:448
 msgid "Initializing"
 msgstr "初始化"
 
-#: public/js/specific/newMeeting.js:459
+#: public/js/specific/newMeeting.js:454
 msgid "In progress. Please hold."
 msgstr "进行中，请等待"
 
-#: public/js/specific/newMeeting.js:459
+#: public/js/specific/newMeeting.js:454
 msgid "Uploading"
 msgstr "上传中"
 
-#: public/js/specific/newMeeting.js:462
+#: public/js/specific/newMeeting.js:457
 msgid "Saving. Please hold."
 msgstr "保存中，请等待"
 
-#: public/js/specific/newMeeting.js:462
+#: public/js/specific/newMeeting.js:457
 msgid "Saving"
 msgstr "保存中"
 
-#: public/js/specific/newMeeting.js:471
+#: public/js/specific/newMeeting.js:466
 msgid "Successfully saved"
 msgstr "成功保存"
 
-#: public/js/specific/newMeeting.js:472
+#: public/js/specific/newMeeting.js:467
 msgid "Remove"
 msgstr "移除"
 
-#: public/js/specific/newMeeting.js:483
+#: public/js/specific/newMeeting.js:478
 msgid "Error with"
 msgstr "出现错误"
 
-#: public/js/specific/newMeeting.js:588
+#: public/js/specific/newMeeting.js:583
 msgid "Saving..."
 msgstr "保存中..."
 
-#: public/js/specific/newMeeting.js:629
+#: public/js/specific/newMeeting.js:624
 msgid "Save"
 msgstr "保存"
