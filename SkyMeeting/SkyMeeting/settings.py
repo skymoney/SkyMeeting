@@ -32,7 +32,7 @@ ALLOWED_HOSTS = '*'
 
 #Email settings
 EMAIL_HOST='smtp.126.com'
-EMAIL_HOST_USER='notice_noreply@126.com'
+EMAIL_HOST_USER='SkyBussiness@126.com'
 EMAIL_HOST_PASSWORD='skymeeting'
 EMAIL_USE_TLS=True
 

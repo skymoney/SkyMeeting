@@ -299,7 +299,7 @@ def queryPerson(params):
 def sendInviteEmail(email,code):
     from django.core.mail import send_mail
     from django.conf import settings
-    subject="Invite You to Join US"
+    subject="欢迎加入SkyBussiness"
     content="http://192.168.100.21/invite/?code="+code
     
     try:
