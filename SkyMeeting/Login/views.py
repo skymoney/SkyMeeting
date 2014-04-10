@@ -24,7 +24,8 @@ def welcome(request):
         return HttpResponseRedirect('/dashboard')
 
 def login(request):
-    user = authenticate(username=request.POST['accountname'], password=encrypt(request.POST['password']));
+    print request.POST
+    user = authenticate(username=request.POST.get('accountname', ''), password=encrypt(request.POST['password']));
     if user is not None:
         # Redirect to a success page.
         auth_login(request,user)
@@ -34,10 +35,13 @@ def login(request):
         request.session["rid"]=role.rid
         request.session["cid"]=role.company_id
         request.session["rlevel"]=role.permission
-        return HttpResponseRedirect(request.POST['redirectUrl'])
+        return HttpResponseRedirect('/dashboard')
     else:
         # Return an error message.
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/loginErr')
+    
+def loginErr(request):
+    return render_to_response('login.html',{"error":'error'})
 
 def logout(request):
     '''

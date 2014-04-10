@@ -37,7 +37,7 @@
 			</div>
 			<div class="form-block-content">
 				<div class="control-group">
-					<label class="control-label" for="inputTitle">活动名</label>
+					<label class="control-label required-label" for="inputTitle">活动名</label>
 					<div class="controls">
 						<input type="text" id="inputTitle" placeholder="{% trans 'Title' %}" data-validate-presence="true" data-validate-error="#inputTitleError" {% if meetingData %}value="{{ meetingData.mtitle }}"{% endif %} />
 						<span class="alert alert-error hide" id="inputTitleError">
@@ -48,7 +48,7 @@
 				</div>
 
 				<div class="control-group">
-					<label class="control-label" for="typeSct">{% trans "Meeting type" %}</label>
+					<label class="control-label required-label" for="typeSct">{% trans "Meeting type" %}</label>
 					<div class="controls">
 						<select id="typeSct">
 							<option value="-1">---- {% trans "Please select" %} ----</option>
@@ -64,7 +64,7 @@
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="startDatetime">{% trans "Start time" %}</label>
+					<label class="control-label required-label" for="startDatetime">{% trans "Start time" %}</label>
 					<div class="controls">
 						<input type="text" class="date-input" id="startDatetime" readonly="readonly" data-validate-presence="true" data-validate-error="#startDatetimeError" {% if meetingData %}value="{{ meetingData.mstart }}"{% endif %} />
 						<span class="alert alert-error hide" id="startDatetimeError">
@@ -73,7 +73,7 @@
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="inputPlace">{% trans "Place" %}</label>
+					<label class="control-label required-label" for="inputPlace">{% trans "Place" %}</label>
 					<div class="controls">
 						<input type="text" id="inputPlace" placeholder="{% trans 'Place' %}" data-validate-presence="true" data-validate-error="#inputPlaceError" {% if meetingData %}value="{{ meetingData.mplace }}"{% endif %} />
 						<span class="alert alert-error hide" id="inputPlaceError">
@@ -83,7 +83,7 @@
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="inputTel">{% trans "Contact tel" %}</label>
+					<label class="control-label required-label" for="inputTel">{% trans "Contact tel" %}</label>
 					<div class="controls">
 						<input type="text" id="inputTel" placeholder="{% trans 'Contact tel' %}" data-validate-presence="true" data-validate-format="/^[0-9]+$/" data-validate-error="#inputTelError" {% if meetingData %}value="{{ meetingData.mtel }}"{% endif %} />
 						<span class="alert alert-error hide" id="inputTelError">
@@ -92,7 +92,7 @@
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="inputEmail">{% trans "Contact email" %}</label>
+					<label class="control-label required-label" for="inputEmail">{% trans "Contact email" %}</label>
 					<div class="controls">
 						<input type="text" id="inputEmail" placeholder="{% trans 'Contact email' %}" data-validate-email="true" data-validate-error="#inputEmailError" {% if meetingData %}value="{{ meetingData.memail }}"{% endif %} />
 						<span class="alert alert-error hide" id="inputEmailError">

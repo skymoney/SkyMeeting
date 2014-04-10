@@ -6,7 +6,8 @@ from django.conf import settings
 
 urlpatterns = patterns('Login.views',
     url(r'^$','welcome'),
-    url(r'^login/$','login'),  
+    url(r'^login/$','login'),
+    url(r'^loginErr/$','loginErr'),
     url(r'^logout/$','logout'),
     url(r'^home/$','home'),
     url(r'^invite/$','invite'),

@@ -288,7 +288,7 @@
 	<form class="form-horizontal" id="inviteForm">
 		<div class="modal-body">
 			<div class="control-group">
-				<label class="control-label" for="inputName">{% trans "Name" %}</label>
+				<label class="control-label required-label" for="inputName">{% trans "Name" %}</label>
 				<div class="controls">
 					<input type="text" id="inputName" placeholder="{% trans 'Name' %}" data-validate-presence="true" data-validate-error="#inputNameError" />
 					<div class="alert-msg hide" id="inputNameError">
@@ -297,7 +297,7 @@
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="inputIDno">{% trans "ID Card Number" %}</label>
+				<label class="control-label required-label" for="inputIDno">{% trans "ID Card Number" %}</label>
 				<div class="controls">
 					<input type="text" id="inputIDno" placeholder="{% trans 'ID Card Number' %}" data-validate-presence="true" data-validate-format="/^[0-9]+$/" data-validate-error="#inputIDnoError" />
 					<div class="alert-msg hide" id="inputIDnoError">
@@ -306,7 +306,7 @@
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="inputPhone">{% trans "Phone" %}</label>
+				<label class="control-label required-label" for="inputPhone">{% trans "Phone" %}</label>
 				<div class="controls">
 					<input type="text" id="inputPhone" placeholder="{% trans 'Phone' %}" data-validate-presence="true" data-validate-format="/^[0-9]+$/" data-validate-error="#inputPhoneError" />
 					<div class="alert-msg hide" id="inputPhoneError">
@@ -315,7 +315,7 @@
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="inputEmail">{% trans "Email" %}</label>
+				<label class="control-label required-label" for="inputEmail">{% trans "Email" %}</label>
 				<div class="controls">
 					<input type="text" id="inputEmail" placeholder="{% trans 'Email' %}" data-validate-email="true" data-validate-error="#inputEmailError" />
 					<div class="alert-msg hide" id="inputEmailError">
